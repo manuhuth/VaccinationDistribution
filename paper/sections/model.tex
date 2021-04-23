@@ -1,0 +1,85 @@
+\section{Rule-based modeling}
+
+In the proposed model the compartments are Susceptible ($S$), Infectious with baseline virus variant ($I_b$), Infectious with virus mutant ($I_m$), Recovered from baseline ($R_b$), Recovered from mutant ($R_m$), Dead through baseline ($D_b$), Dead through mutant ($D_m$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). \\ 
+
+The Transitions are defined using rules whereby the notation follows \cite{Waites.2021}. The whole population of individuals is divided into subgroups via the rule-based notation. $P()$ means all individuals. $P(x_u)$ denotes all individuals from a specific compartment $u$, such that 
+\begin{align}
+    P(x_u), \text{ for } u \in \{S, I_b, I_m, R_b, R_m, D_b, D_m \}
+\end{align}
+denotes the respective individuals from compartment $u$.
+Dividing the population into subgroups regarding vaccination status and the area of an individual requires to add the vaccination status $v_s$ for $s \in \{0,1,2 \}$ and the area of living $a_l$ for $l \in \{1,2\}$.
+\begin{align}
+    P(x_u, a_l, v_s), \text{ for } u \in \{S, I_b, I_m, R_b, R_m, D_b, D_m \}, l \in \{1,2\}, s \in \{0,1,2 \} 
+\end{align}
+In more specific cases it might be more comprehensive to replace the index numbers by meaningful abbreviations. \textit{Especially base virus and vaccine types.}
+
+\subsection{Model}
+
+The following list gives a brief description of the parameters used to describe the model. 
+\vspace{0.5cm}
+\textbf{Parameter}
+\begin{itemize}
+    \item $\nu_j \in (0,1)$ for $j=1,2$: vaccination rate of vaccine $j$
+    \item $\alpha_i \in (0,1)$ for $i=b,m$: infection rate of virus $i$
+    \item $\delta_i \in (0,1)$  for $i=b,m$: death rate of unvaccinated individuals that are infected with virus i
+    \item $\beta_i \in (0,1)$ for $i=b,m$: recover rate of unvaccinated individuals that are infected with virus i
+    \item $\omega_{i,j} \in (0,1)$ for $i=b,m$ and $j=1,2$: how much percent of the people that are vaccinated with vaccine $i$ die less due to virus $j$. 
+    \item $f_{i,j} \in (0,\infty)$ for $i,j=1,2$: average number of people meeting between area $a_i$ and area $a_j$. It should hold that $f_{i,j} = f_{j,i}$ and $f_{i,i} > f_{i,j}$ for all $i \neq j$.
+    \item $\gamma \in (0,1)$: inverse proportion of immunity that remains after vaccination ($\gamma =0$ means vaccine makes $100\%$ immune)
+\end{itemize}
+\vspace{0.5cm}
+
+
+\textbf{Assumptions so far:} 
+\begin{itemize}
+    \item no distinction between symptomatic and asymptomatic infected cases
+    \item no vaccination during infection \href{https://www.cdc.gov/vaccines/covid-19/info-by-product/clinical-considerations.html}{see here} (US Center for Disease Control)
+    \item no births and other deaths
+    \item no reinfection
+    \item vaccination decreases infection rate by $\gamma \in (0,1)$ and is the same for both vaccines across both viruses
+\end{itemize}
+\vspace{0.5cm}
+
+\subsection{Rules}
+The rules are written down using the $P$-notation. For the transition from non-vaccinated individuals to recovered or dead individuals, we need two rules that are dependent on the virus type. For $i = b,m$
+\begin{align}
+    P(x_{I_i},  v_0) &\xrightarrow{\delta_i} P(x_{D_i}, v_0) \\
+    P(x_{I_i},  v_0) &\xrightarrow{\beta_i} P(x_{R_i},  v_0).\notag
+\end{align}
+
+The vaccination can be described by two rules. \textit{For the purpose of the analysis we should think of making} $\nu_1$ \textit{and} $\nu_2$ \textit{time-dependent.}
+\begin{align}
+    P(S, v_0) &\xrightarrow{\nu_1} P(S, v_1) \\
+    P(S, v_0) &\xrightarrow{\nu_2} P(S, v_2).\notag
+\end{align}
+
+For the transition from vaccinated individuals to recovered or dead individuals, we need two rules that are dependent on the virus type and the type of vaccination. For $i = b,m$ For $i = b,m$ and $s = 1,2$. \textit{Using} $(2-\omega_{i,1})$ \textit{has the advantage that we need to define less parameters. However, I would program it as single parameter and then change it accordingly during the parameter specification.}
+\begin{align}
+    P(x_{I_i},  v_s) &\xrightarrow{\omega_{i,s} \delta_i} P(x_{D_i}, v_s) \\
+    P(x_{I_i}, v_s) &\xrightarrow{(2-\omega_{i,s})\beta_i} P(x_{R_i}, v_s)\notag
+\end{align}
+
+For the transitions from susceptible to infectious we need to distinguish in between meetings of individuals from the same area and in between vaccination types. We write down the rules for Susceptible individuals from area one. The same logic with slightly different indices applies for area two. 
+For $l = 1,2$ and $i = b,m$ the infection of unvaccinated individuals can be described by
+\begin{align}
+    P(x_{I_i}, a_l, v_0), P(x_{S}, a_1, v_0) &\xrightarrow{\alpha_i f_{l,1}} P(x_{I_i}, a_l, v_0), P(x_{I_i}, a_1, v_0) \\
+    P(x_{I_i}, a_l, v_1), P(x_{S}, a_1, v_0) &\xrightarrow{\gamma \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_1), P(x_{I_i}, a_1, v_0)\notag\\
+    P(x_{I_i}, a_l, v_2), P(x_{S}, a_1, v_0) &\xrightarrow{\gamma \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_2), P(x_{I_i}, a_1, v_0).\notag
+\end{align}
+We need similar rules for the infection of individuals vaccinated with vaccine one. Their average number of infection is lowered by $\sigma_{i,1}$, yielding for $l = 1,2$ and $i = b,m$ the rules 
+\begin{align}
+  P(x_{I_i}, a_l, v_0), P(x_{S}, a_1, v_1) &\xrightarrow{\sigma_{i,1} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_0), P(x_{I_i}, a_1, v_1) \\
+    P(x_{I_i}, a_l, v_1), P(x_{S}, a_1, v_1) &\xrightarrow{\gamma \sigma_{i,1} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_1), P(x_{I_i}, a_1, v_1) \notag\\
+    P(x_{I_i}, a_l, v_2), P(x_{S}, a_1, v_1) &\xrightarrow{\gamma \sigma_{i,1} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_2), P(x_{I_i}, a_1, v_1) \notag
+\end{align}
+Analogously, we can define the infection of individuals vaccinated with vaccine two using $\sigma_{i,2}$. The rules are for $l = 1,2$ and $i = b,m$. 
+\begin{align}
+    P(x_{I_i}, a_l, v_0), P(x_{S}, a_1, v_2) &\xrightarrow{\sigma_{i,2} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_0), P(x_{I_i}, a_1, v_2) \\
+    P(x_{I_i}, a_l, v_1), P(x_{S}, a_1, v_2) &\xrightarrow{\gamma \sigma_{i,2} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_1), P(x_{I_i}, a_1, v_2)\notag\\
+    P(x_{I_i}, a_l, v_2), P(x_{S}, a_1, v_2) &\xrightarrow{\gamma \sigma_{i,2} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_2), P(x_{I_i}, a_1, v_2)\notag
+\end{align}
+
+\subsection{Graphical model description}
+On the next page you find a graphical representation of the model using tikz. I have omitted the second region and cross-border infections from the graph to increase readability.  
+
+\input{tikz/model_area_one}

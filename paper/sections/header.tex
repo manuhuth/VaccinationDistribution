@@ -1,0 +1,118 @@
+\documentclass[12pt, american]{article}%
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amsmath}
+\mathcode`*=\string"8000
+\begingroup %makes * prettier
+\catcode`*=\active
+\xdef*{\noexpand\textup{\string*}}
+\endgroup
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage[nohead]{geometry}
+\usepackage[doublespacing]{setspace}
+\usepackage[bottom]{footmisc}
+\usepackage{booktabs} % optisch bessere Tabellen
+\usepackage{endnotes}
+\usepackage{natbib}
+\usepackage{comment}
+\usepackage{graphicx,caption}% ,subfigure} use subcaption instead, see below
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage{hyperref}
+\usepackage[latin1]{inputenc} % Zeichencodierung
+\usepackage[T1]{fontenc} % Zeichencodierung
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage{dsfont}
+\usepackage{dcolumn}% An Tabellen sollten die Spalten am Dezimalpunkt ausgerichtet sein! Dafür statt 'c' etc. einfach einen Punkt '.' setzen! Dies wird % durch nachstehenden Befehl definiert.
+\newcolumntype{.}{D{.}{.}{4}}
+\usepackage{%
+  babel,     % Babel fuer diverse Sprachanpassungen
+  fixltx2e,  % Verbessert einige Kernkompetenzen von LaTeX2e
+}
+\setcounter{MaxMatrixCols}{30}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\makeatletter
+\def\@biblabel#1{\hspace*{-\labelsep}}
+\makeatother
+\geometry{left=2.6cm,right=2.6cm,top=2.6cm,bottom=2.6cm}
+\hypersetup{colorlinks, linkcolor=blue, citecolor=blue, urlcolor=blue}
+%\usepackage{cite} % ohne eckige Klammer in Text
+%\usepackage[noadjust]{cite} % ohne eckige Klammer in Text
+% \renewcommand\citeleft{}%
+% \renewcommand\citeright{}%
+% % %
+\renewcommand*{\sectionautorefname}{Section}
+\renewcommand*{\subsectionautorefname}{Subsection}
+%\renewcommand*{\equationautorefname}{}  % eliminate equation in autoref
+
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\thin}{\thinspace}
+\newcommand{\thick}{\thickspace}
+\newcommand{\N}{\mathcal{N}}	%Normal Distribution
+\newcommand{\U}{\mathrm{U}}	%Uniform Distribution
+\newcommand{\D}{\mathrm{D}}	%Dirichlet Distribution
+\newcommand{\W}{\mathrm{W}}	%Wishart Distribution
+\newcommand{\E}{\mathbb{E}}	%Expectation
+\newcommand{\prob}{\mathbb{P}} %probability
+\newcommand{\R}{\mathbb{R}} %real numbers
+\newcommand{\Z}{\mathbb{Z}} %integers
+\newcommand{\Ind}{\mathbb{I}\,}	%Indicator Function
+\newcommand{\F}{\mathcal{F}} %history
+\newcommand{\ic}{\text{i}} %complex number
+\newcommand{\e}{\text{e}} %eularian number
+\newcommand{\diag}{\text{diag}} %eularian number
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\x}{\mathbf{x}}
+\newcommand{\X}{\mathbf{X}}
+
+%exclusive block for hiditS
+\newcommand{\fup}{\pmb{\hat{f}_{t|t}}}
+\newcommand{\fpr}{\pmb{\hat{f}_{t|t-1}}}
+\newcommand{\xpr}{\hat{x}_{t|t-1}}
+\newcommand{\ppr}{\pmb{\hat{\Sigma}_{f_t|t-1}}}
+\newcommand{\pup}{\pmb{\hat{\Sigma}_{f_t|t}}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\vpr}{\hat{\Sigma}_{x_t|t-1}}
+
+%----------------------------------------------------
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newcommand{\TR}{\mathrm{TR}\,}
+\newcommand{\OV}{\mathrm{OV}\,}
+
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\var}{\mathbb{V}\thin}
+\newcommand{\vecf}{\mathrm{vec}\thin}
+\newcommand{\plim}{\overset{p}{\to}}
+\newcommand{\cov}{\mathrm{Cov}\thin}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern5mu{#1#2}}}
+\usepackage{bbm}
+%\usepackage{endfloat}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\DeclareMathOperator{\tr}{tr}
+
+\let\proof\relax
+\let\endproof\relax
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{assumption}{Assumption}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{proofof}{Proof of Theorem}
+\theoremstyle{plain}
+\newtheorem{algorithm}{Algorithm}
+
+\interfootnotelinepenalty=10000
+
+
+\definecolor{pyBlue}{RGB}{31, 119, 180}
+\definecolor{pyOrange}{RGB}{255, 127, 14}
+\definecolor{pyGreen}{RGB}{44, 160, 44}

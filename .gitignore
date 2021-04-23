@@ -75,10 +75,11 @@ docs/_build/
 target/
 
 # Tex
-.aux
-.bbl
-.blg
-.out
+*.aux
+*.bbl
+*.blg
+*.out
+*.log
 main.pdf
 
 # Jupyter Notebook

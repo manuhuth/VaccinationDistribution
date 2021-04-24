@@ -1,4 +1,4 @@
-[submodule "bibliography"]
-	path = bibliography
-	url = https://github.com/manuhuth/bibliography
+[submodule "submodules/bibliography"]
+	path = submodules/bibliography
+	url = https://github.com/manuhuth/bibliography.git
 	branch = main

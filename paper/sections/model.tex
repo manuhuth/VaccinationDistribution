@@ -1,17 +1,10 @@
 \section{Rule-based modeling}
 
-In the proposed model the compartments are Susceptible ($S$), Infectious with baseline virus variant ($I_b$), Infectious with virus mutant ($I_m$), Recovered from baseline ($R_b$), Recovered from mutant ($R_m$), Dead through baseline ($D_b$), Dead through mutant ($D_m$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). \\ 
+In the proposed model the compartments are Susceptible ($S$), Infectious ($I$), Recovered and Dead ($D$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). Since we are dealing with two virus variants, the wild type $w$ and the mutant $m$, we account for this by introducing the feature $c_j$ with $j \in \{w,m\}$ that indicates the type of virus we are refering to. 
+ 
+We use the set notation of \cite{Waites.2021} to address certain subsets of the population. $\set()$ means all individuals. $\set(x_u)$ denotes all individuals from compartment $u \in \{S, I, R, D \}$, $\set(a_l)$ denotes all individuals from area $l \in \{1,2\}$, $\set(v_i)$ are all individuals with vaccination status $i \in \{0,1,2\}$, where zero indicates non-vaccinated, and $\set(c_j)$ are all individuals that currently have or had an infection with virus $j \in \{w,m\}$. With this notation we can pick desired subsets of the population by combining the appropriate features. All individuals from area one that are infected with the wild type are addressed by $\set(x_I, c_m)$. If we only want the unvaccinated individuals of them we use $\set(x_I, c_m, v_0)$. The usual set operators, like $\cup$. Using these operators allows us to address even more specific subsets like the set of all vaccinated individuals $\set(v_1) \cup \set(v_2)$. The set $\set()$ is defined as the whole population. The cardinalty $|\cdot|$ is used to addres the respective number of individuals in a set, e.g. $|\set(x_S, a_1)|$ equals the number of all susceptible individuals in area one.\\
 
-The Transitions are defined using rules whereby the notation follows \cite{Waites.2021}. The whole population of individuals is divided into subgroups via the rule-based notation. $P()$ means all individuals. $P(x_u)$ denotes all individuals from a specific compartment $u$, such that 
-\begin{align}
-    P(x_u), \text{ for } u \in \{S, I_b, I_m, R_b, R_m, D_b, D_m \}
-\end{align}
-denotes the respective individuals from compartment $u$.
-Dividing the population into subgroups regarding vaccination status and the area of an individual requires to add the vaccination status $v_s$ for $s \in \{0,1,2 \}$ and the area of living $a_l$ for $l \in \{1,2\}$.
-\begin{align}
-    P(x_u, a_l, v_s), \text{ for } u \in \{S, I_b, I_m, R_b, R_m, D_b, D_m \}, l \in \{1,2\}, s \in \{0,1,2 \} 
-\end{align}
-In more specific cases it might be more comprehensive to replace the index numbers by meaningful abbreviations. \textit{Especially base virus and vaccine types.}
+In more specific cases it might be more comprehensive to replace the index numbers by meaningful abbreviations.
 
 \subsection{Model}
 
@@ -39,6 +32,52 @@ The following list gives a brief description of the parameters used to describe 
     \item vaccination decreases infection rate by $\gamma \in (0,1)$ and is the same for both vaccines across both viruses
 \end{itemize}
 \vspace{0.5cm}
+\subsection{Transition Rates}
+
+\subsubsection*{Vaccination}
+For $j \in \{1,2\}$
+\begin{align*}
+\set(x_S, v_0, a_1) &\xrightarrow{\nu_j(t-k)} \set(x_S, v_j, a_1) \notag \\
+\set(x_R, v_0, c_w, a_1) &\xrightarrow{\nu_j(t-k)} \set(x_R, v_j, c_w, a_1)
+\end{align*}
+
+\subsubsection*{Susceptible to Infectious}
+We define $N_l(t) = |\set(x_S, a_l) \cup \set(x_I, a_l) \cup \set(x_R, a_l)|$ as the number of living individuals in area $l$.
+
+From $\set(x_S, v_0, a_1)$ to $\set(x_I, v_0, c_w, a_1)$ (\textit{do not forget to multiply by} $|\set(x_S, v_0, a_1)|$)
+\begin{align*}
+rate(v_0) = \alpha b \left[ \frac{p_m}{N_1(t) + N_2(t)} \left(|\set(x_I, v_0, c_w, a_1)| + \gamma |\set(x_I, v_1, c_w, a_1) \cup \set(x_I, v_2, c_w, a_1)|\right) \right. \notag \\
+\left. + \frac{(1-p_m)N_1(t) + N_2(t)}{N_1(t) + N_2(t))N_2(t)}  \left(|\set(x_I, v_0, c_w, a_2)| + \gamma |\set(x_I, v_1, c_w, a_2) \cup \set(x_I, v_2, c_w, a_2)|\right) \right]
+\end{align*}
+The rule is defined by 
+\begin{align*}
+\set(x_S, v_0, a_1) \xrightarrow{rate(v_0)} \set(x_I, v_0, c_w, a_1)
+\end{align*}
+
+From $\set(x_S, v_i, a_1)$ to $\set(x_I, v_i, c_w, a_1)$ for $i \in \{1,2\}$. (\textit{do not forget to multiply by} $|\set(x_S, v_i, a_1)|$)
+\begin{align*}
+\set(x_S, v_0, a_1) \xrightarrow{\rho_{i,w} \cdot rate(v_0, c_1) } \set(x_I, v_0, c_w, a_1)
+\end{align*}
+
+\subsubsection*{Infectious to Recovered/Death}
+non-vaccinated
+\begin{align}
+    P(x_I,  v_0, c_w, a_1) &\xrightarrow{p \lambda} P(x_D,  v_0, c_w, a_1) \notag \\
+P(x_I,  v_0, c_w, a_1) &\xrightarrow{q(1-p) \lambda} P(x_R,  v_0, c_w, a_1, S_y) \notag \\
+P(x_I,  v_0, c_w, a_1) &\xrightarrow{(1-q)(1-p) \lambda} P(x_R,  v_0, c_w, a_1, S_n) \notag
+\end{align}
+
+vaccinated. for $i \in \{1,2\}$
+\begin{align}
+    P(x_I,  v_i, c_w, a_1) &\xrightarrow{\omega_{i,w} p \lambda} P(x_D,  v_i, c_w, a_1) \notag \\
+P(x_I,  v_i, c_w, a_1) &\xrightarrow{q(1-\omega_{i,w}p) \lambda} P(x_R,  v_i, c_w, a_1, S_y) \notag \\
+P(x_I,  v_i, c_w, a_1) &\xrightarrow{(1-q)(1-\omega_{i,w}p) \lambda} P(x_R,  v_i, c_w, a_1, S_n) \notag
+\end{align}
+
+
+To-do: write mutant and write that everything applies for area 2 as well
+
+
 
 \subsection{Rules}
 The rules are written down using the $P$-notation. For the transition from non-vaccinated individuals to recovered or dead individuals, we need two rules that are dependent on the virus type. For $i = b,m$

@@ -2,7 +2,7 @@
 
 In the proposed model the compartments are Susceptible ($S$), Infectious ($I$), Recovered and Dead ($D$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). Since we are dealing with two virus variants, the wild type $w$ and the mutant $m$, we account for this by introducing the feature $c_j$ with $j \in \{w,m\}$ that indicates the type of virus we are refering to. 
  
-We use the set notation of \cite{Waites.2021} to address certain subsets of the population. $\set()$ means all individuals. $\set(x_u)$ denotes all individuals from compartment $u \in \{S, I, R, D \}$, $\set(a_l)$ denotes all individuals from area $l \in \{1,2\}$, $\set(v_i)$ are all individuals with vaccination status $i \in \{0,1,2\}$, where zero indicates non-vaccinated, and $\set(c_j)$ are all individuals that currently have or had an infection with virus $j \in \{w,m\}$. With this notation we can pick desired subsets of the population by combining the appropriate features. All individuals from area one that are infected with the wild type are addressed by $\set(x_I, c_m)$. If we only want the unvaccinated individuals of them we use $\set(x_I, c_m, v_0)$. The usual set operators, like $\cup$. Using these operators allows us to address even more specific subsets like the set of all vaccinated individuals $\set(v_1) \cup \set(v_2)$. The set $\set()$ is defined as the whole population. The cardinalty $|\cdot|$ is used to addres the respective number of individuals in a set, e.g. $|\set(x_S, a_1)|$ equals the number of all susceptible individuals in area one.\\
+We use the set notation of \cite{Waites.2021} to address certain subsets of the population. $\set()$ means all individuals. $\set(x_u)$ denotes all individuals from compartment $u \in \{S, I, R, D \}$, $\set(a_l)$ denotes all individuals from area $l \in \{1,2\}$, $\set(v_i)$ are all individuals with vaccination status $i \in \{0,1,2\}$, where zero indicates non-vaccinated, and $\set(c_j)$ are all individuals that currently have or had an infection with virus $j \in \{w,m\}$. With this notation we can pick desired subsets of the population by combining the appropriate features. All individuals from area one that are infected with the wild type are addressed by $\set(x_I, c_m)$. If we only want the unvaccinated individuals of them we use $\set(x_I, c_m, v_0)$. The usual set operators, like $\cup$. Using these operators allows us to address even more specific subsets like the set of all vaccinated individuals $\set(v_1) \cup \set(v_2)$. The set $\set()$ is defined as the whole population. The cardinalty $|\cdot|$ is used to addres the respective number of individuals in a set, e.g. $|\set(x_S, a_1)|$ equals the number of all susceptible individuals in area one. \textit{include symptomatic}\\
 
 In more specific cases it might be more comprehensive to replace the index numbers by meaningful abbreviations.
 
@@ -42,40 +42,64 @@ For $j \in \{1,2\}$
 \end{align*}
 
 \subsubsection*{Susceptible to Infectious}
-We define $N_l(t) = |\set(x_S, a_l) \cup \set(x_I, a_l) \cup \set(x_R, a_l)|$ as the number of living individuals in area $l$.
+To facilitate notation, we distinguish between individuals that are alive and those that are dead. We exclude all dead individuals by using prime notation to only address all living individuals, e.g. $\set'(a_l) =  \set(x_S, a_l) \cup \set(x_I, a_l) \cup \set(x_R, a_l)$. We define $N_l(t) = |\set'(a_l) |$ as the number of living individuals in area $l$ at time $t$. For specifying the transition rates we need to specify the probabilities that two individuals of a certain type meet. We do so by using the relative frequencies and adjust for cross-area meetings. The probability of an individual $i \in \set()$ to be in a particular subset is approximated by the relative frequencies. For example, the (time dependent) probability that a randomly drawn living individual is from area $l$ is $\prob\left(i \in \set'(a_l) \right) = \frac{N_l(t)}{N_1(t) + N_2(t)}$. To compute the probability that an individual is susceptible, conditioned that it is from area $l$, we can use Bayes' formula 
+\begin{align}
+\prob\left( i \in \set(x_S) |  i \in \set'(a_l) \right)= \frac{\prob\left(i \in  \set(x_S, a_l) \right)}{\prob\left(i \in \set'(a_l)\right)} = \frac{|\set(x_S, a_l)|}{|\set'(a_l)|} = \frac{|\set(x_S, a_l)|}{N_l(t)}.
+\end{align}
+We are interested in how many individuals are on average infected by an infected individual. To facilitate notation we assume that the infected individual lives in area one and is infected with the wild type $w$. The average number of infected individuals is a composition of the infection rate that is dependent on the virus type, the average number of contacts per infected individual and unit of time and the share of susceptible individuals that can be infected. We start with the baseline case of two unvaccinated individuals and first define the transition for susceptible individuals from area two.\\ 
+Let $i_1 \in \set(x_I, v_0, c_w, a_1)$ and $i_2 \in \set()$.  We fix the location, vaccination status and compartment of individual one and allow individual two to potentially be from both areas and every compartment. We need to define $\prob(i_2 \in \set(x_S, v_0 ,a_2)|i_1 \in \set(x_I, v_0,c_w, a_1))$, the probability that the individual that can be infected is susceptible, unvaccinated and from area two given that individual one is infected with the wild type, unvaccinated and from area one. We assume that only the area has an influence on the probability of meeting an individual. The problem facilitates to finding $\prob(i_2 \in \set(x_S, v_0 ,a_2)|i_1 \in \set(a_1))$ or equivalently $\prob(i_2 \in \set(x_S, v_0) \wedge i_2 \in \set(a_2) | i_1 \in \set(a_1))$. Using Bayes' formula we can rewrite this as
+\begin{align*}
+\prob(i_2 \in \set(x_S, v_0) \wedge i_2 \in \set(a_2) | i_1 \in \set(a_1)) &= \prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) )  \notag \\
+& \quad \cdot \prob(i_2 \in \set(x_S, v_0) | i_1 \in \set(a_1), i_2 \in \set(a_2) ) \notag \\
+&= \prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) )  \notag \\
+& \quad \cdot \prob(i_2 \in \set(x_S, v_0))
+\end{align*} 
+We first specify the probability $\prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) )$, which is to say, the probability that $i_2$ is from area two. We cannot use the relative frequency of the number of individuals $\frac{N_{2}(t)}{N_1(t) + N_2(t)}$ as probability since this would not take into account that individuals meet more often within one region. We therefore add a penalty term $b\left(\text{d}(a_1, a_2) \right)$ that accounts for the distance between the areas
+\begin{align*}
+\prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) ) = \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right).
+\end{align*}
+$b(y) \in [0,1], b\left(0\right) = 1$ and $\lim\limits_{y \to \infty} b\left(y\right) = 0$. \textit{idea for} $b(y)= \frac{1}{1 + b y}$.
+The probability of individual two to be unvaccinated and susceptible, conditioned that it is from area two, is taken to be the relative frequency of unvaccinated, susceptible individuals from area two
+\begin{align*}
+\prob(i_2 \in \set(x_S, v_0)) = \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}
+\end{align*}
+Combining both results yields
+\begin{align*}
+\prob(i_2 \in \set(x_S, v_0 ,a_2)|i_1 \in \set(x_I, v_0,c_w, a_1)) = \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}
+\end{align*}
+Hence, $i_1$ meets on average $c \cdot \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}$ unvaccinated susceptible individuals from area two. At this meetings, $\alpha$ individuals become infected. This probability changes if we condition on the mutant. $i_1$ infects on average $\alpha \cdot c \cdot \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)} $ individuals. This is done by $|\set(x_I, v_0, a_1)|$ individuals from area one and therefore we get the transitions 
+\begin{align*}
+\alpha \cdot c \cdot \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)} |\set(x_I, v_0, a_1)|
+\end{align*}
+Using rule-based notation we write this as 
+\begin{align*}
+P(x_{I},  v_0, c_w,a_1), P(x_{S}, v_0, a_2) &\xrightarrow{ \frac{\alpha \cdot c \cdot b\left(\text{d}(a_1, a_2) \right)}{N_1(t) + N_2(t)} } P(x_{I},v_0, c_w,a_1), P(x_{I}, v_0, c_w, a_2)
+\end{align*}
+Same but for unvaccinated from same area (\textit{we ignore minus one})
+\begin{align*}
+P(x_{I},  v_0, c_w,a_1), P(x_{S}, v_0, a_1) &\xrightarrow{\frac{\alpha \cdot c}{N_1(t)} \cdot \left[1 - \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \right]} P(x_{I},  v_0, c_w,a_1), P(x_{I},  v_0, c_w,a_1)
+\end{align*}
+define $m_{k,l}$ \textit{as meeting probs and shorten notation with that}.
+\textit{Write down for other cases (vaccines)}
 
-From $\set(x_S, v_0, a_1)$ to $\set(x_I, v_0, c_w, a_1)$ (\textit{do not forget to multiply by} $|\set(x_S, v_0, a_1)|$)
-\begin{align*}
-rate(v_0) = \alpha b \left[ \frac{p_m}{N_1(t) + N_2(t)} \left(|\set(x_I, v_0, c_w, a_1)| + \gamma |\set(x_I, v_1, c_w, a_1) \cup \set(x_I, v_2, c_w, a_1)|\right) \right. \notag \\
-\left. + \frac{(1-p_m)N_1(t) + N_2(t)}{N_1(t) + N_2(t))N_2(t)}  \left(|\set(x_I, v_0, c_w, a_2)| + \gamma |\set(x_I, v_1, c_w, a_2) \cup \set(x_I, v_2, c_w, a_2)|\right) \right]
-\end{align*}
-The rule is defined by 
-\begin{align*}
-\set(x_S, v_0, a_1) \xrightarrow{rate(v_0)} \set(x_I, v_0, c_w, a_1)
-\end{align*}
-
-From $\set(x_S, v_i, a_1)$ to $\set(x_I, v_i, c_w, a_1)$ for $i \in \{1,2\}$. (\textit{do not forget to multiply by} $|\set(x_S, v_i, a_1)|$)
-\begin{align*}
-\set(x_S, v_0, a_1) \xrightarrow{\rho_{i,w} \cdot rate(v_0, c_1) } \set(x_I, v_0, c_w, a_1)
-\end{align*}
 
 \subsubsection*{Infectious to Recovered/Death}
 non-vaccinated
 \begin{align}
-    P(x_I,  v_0, c_w, a_1) &\xrightarrow{p \lambda} P(x_D,  v_0, c_w, a_1) \notag \\
-P(x_I,  v_0, c_w, a_1) &\xrightarrow{q(1-p) \lambda} P(x_R,  v_0, c_w, a_1, S_y) \notag \\
-P(x_I,  v_0, c_w, a_1) &\xrightarrow{(1-q)(1-p) \lambda} P(x_R,  v_0, c_w, a_1, S_n) \notag
+    \set(x_I,  v_0, c_w, a_1) &\xrightarrow{p \lambda} \set(x_D,  v_0, c_w, a_1) \notag \\
+\set(x_I,  v_0, c_w, a_1) &\xrightarrow{q(1-p) \lambda} \set(x_R,  v_0, c_w, a_1, S_y) \notag \\
+\set(x_I,  v_0, c_w, a_1) &\xrightarrow{(1-q)(1-p) \lambda} \set(x_R,  v_0, c_w, a_1, S_n) \notag
 \end{align}
 
 vaccinated. for $i \in \{1,2\}$
 \begin{align}
-    P(x_I,  v_i, c_w, a_1) &\xrightarrow{\omega_{i,w} p \lambda} P(x_D,  v_i, c_w, a_1) \notag \\
-P(x_I,  v_i, c_w, a_1) &\xrightarrow{q(1-\omega_{i,w}p) \lambda} P(x_R,  v_i, c_w, a_1, S_y) \notag \\
-P(x_I,  v_i, c_w, a_1) &\xrightarrow{(1-q)(1-\omega_{i,w}p) \lambda} P(x_R,  v_i, c_w, a_1, S_n) \notag
+    \set(x_I,  v_i, c_w, a_1) &\xrightarrow{\omega_{i,w} p \lambda} \set(x_D,  v_i, c_w, a_1) \notag \\
+\set(x_I,  v_i, c_w, a_1) &\xrightarrow{q(1-\omega_{i,w}p) \lambda} \set(x_R,  v_i, c_w, a_1, S_y) \notag \\
+\set(x_I,  v_i, c_w, a_1) &\xrightarrow{(1-q)(1-\omega_{i,w}p) \lambda} \set(x_R,  v_i, c_w, a_1, S_n) \notag
 \end{align}
 
 
-To-do: write mutant and write that everything applies for area 2 as well, graph, explai everything (what do q,p, etc. do)
+To-do: write mutant and write that everything applies for area 2 as well, graph, explain everything (what do q,p, etc. do)
 
 
 

@@ -18,101 +18,113 @@ main node/.style={circle, draw, font=\sffamily\Large\bfseries}
 
 
 
+
+
 %--------------------Middle Part (Susceptible)---------------------------------------------------------
-\node (Sl1v1) [startstop, xshift = 0cm, yshift = 5.0cm] {\scriptsize $P\left(x_S, a_1, v_1\right)$};
-\node (Sl1vn) [startstop, xshift = 0cm] {\scriptsize $P\left(x_S, a_1, v_0\right)$};  
-\node (Sl1v2) [startstop, xshift = 0cm, yshift = -5.0cm] {\scriptsize $P\left(x_S, a_1, v_2\right)$}; 
+\node (Sl1v1) [startstop, xshift = 0cm, yshift = 5.0cm] {\scriptsize $\set\left(x_S, a_1, v_1\right)$};
+\node (Sl1vn) [startstop, xshift = 0cm] {\scriptsize $\set\left(x_S, a_1, v_0\right)$};  
+\node (Sl1v2) [startstop, xshift = 0cm, yshift = -5.0cm] {\scriptsize $\set\left(x_S, a_1, v_2\right)$}; 
 
 \draw [arrow] (Sl1vn) -- node[anchor=south east] {\scriptsize $\nu_1$} (Sl1v1) ;
 \draw [arrow] (Sl1vn) -- node[anchor=south east] {\scriptsize $\nu_2$} (Sl1v2) ;
 
 %--------------------Right Part (Virus Two)---------------------------------------------------------
-\node (Ic2l1v1) [startstop, xshift = 6.0cm, yshift = 5.0cm] {\scriptsize $P\left(x_{I_m}, a_1, v_1\right)$}; 
-\node (Ic2l1vn) [startstop, xshift = 6.0cm, yshift = 0cm] {\scriptsize $P\left(x_{I_m}, a_1, v_0\right)$}; 
-\node (Ic2l1v2) [startstop, xshift = 6.0cm, yshift = -5.0cm] {\scriptsize $P\left(x_{I_m}, a_1, v_2\right)$}; 
-\draw [arrow] (Sl1v1) -- node[anchor=south east] {\scriptsize $\sigma_{m,1}\alpha_m f_{1,1}$} (Ic2l1v1) coordinate[midway] (Sl1v1Ic2l1v1);
-\draw [arrow] (Sl1vn) -- node[anchor=south east] {\scriptsize $\alpha_m f_{1,1}$} (Ic2l1vn) coordinate[midway] (Sl1vnIc2l1vn);
-\draw [arrow] (Sl1v2) -- node[anchor=south east] {\scriptsize $\sigma_{m,2}\alpha_m f_{1,1}$} (Ic2l1v2) coordinate[midway] (Sl1v2Ic2l1v2);
-\draw [dashed, arrow, pyGreen] (Ic2l1v1) to [out=170,in=90] node[anchor=south] {\scriptsize $\gamma$} (Sl1v1Ic2l1v1) ;
-\draw [dashed, arrow, pyGreen] (Ic2l1v1) to [out=210,in=110] node[anchor=south east] {\scriptsize $\gamma$} (Sl1vnIc2l1vn) ;
-\draw [dashed, arrow, pyGreen] (Ic2l1v1) to [out=200,in=120] node[anchor=south east] {\scriptsize $\gamma$} (Sl1v2Ic2l1v2) ;
-\draw [dashed, arrow, pyOrange] (Ic2l1v2) to [out=170,in=230] node[anchor=south east] {\scriptsize $\gamma$} (Sl1v1Ic2l1v1) ;
-\draw [dashed, arrow, pyOrange] (Ic2l1v2) to [out=160,in=270] node[anchor=south east] {\scriptsize $\gamma$} (Sl1vnIc2l1vn) ;
-\draw [dashed, arrow, pyOrange] (Ic2l1v2) to [out=200,in=270] node[anchor=north] {\scriptsize $\gamma$} (Sl1v2Ic2l1v2) ;
-\draw [dashed, arrow, pyBlue] (Ic2l1vn) to [out=160,in=310] node[anchor=south west] {1} (Sl1v1Ic2l1v1) ;
-\draw [dashed, arrow, pyBlue] (Ic2l1vn) to [out=170,in=30] node[anchor=south] {1} (Sl1vnIc2l1vn) ;
-\draw [dashed, arrow, pyBlue] (Ic2l1vn) to [out=190,in=30] node[anchor=south west] {1} (Sl1v2Ic2l1v2) ;
+\node (Ic2l1v1) [startstop, xshift = 6.0cm, yshift = 5.0cm] {\scriptsize $\set\left(x_{I}, a_1, c_m, v_1\right)$}; 
+\node (Ic2l1vn) [startstop, xshift = 6.0cm, yshift = 0cm] {\scriptsize $\set\left(x_{I}, a_1, c_m, v_0\right)$}; 
+\node (Ic2l1v2) [startstop, xshift = 6.0cm, yshift = -5.0cm] {\scriptsize $\set\left(x_{I}, a_1, c_m, v_2\right)$}; 
+\draw [arrow] (Sl1v1) -- node[anchor=south east] {\scriptsize $\frac{(1-\delta_{m,1}) \eta \alpha}{N_1(t)}$} (Ic2l1v1) coordinate[midway] (Sl1v1Ic2l1v1);
+\draw [arrow] (Sl1vn) -- node[anchor=south east] {\scriptsize $\frac{\eta \alpha}{N_1(t)}$} (Ic2l1vn) coordinate[midway] (Sl1vnIc2l1vn);
+\draw [arrow] (Sl1v2) -- node[anchor=south east] {\scriptsize $\frac{(1-\delta_{m,2}) \eta \alpha}{N_1(t)}$} (Ic2l1v2) coordinate[midway] (Sl1v2Ic2l1v2);
+\draw [dashed, arrow, pyGreen] (Ic2l1v1) to [out=170,in=90] node[anchor=south] {\scriptsize $\gamma m_{1,1}c$} (Sl1v1Ic2l1v1) ;
+\draw [dashed, arrow, pyGreen] (Ic2l1v1) to [out=210,in=110] node[anchor=south east] {\scriptsize $\gamma m_{1,1}c$} (Sl1vnIc2l1vn) ;
+\draw [dashed, arrow, pyGreen] (Ic2l1v1) to [out=200,in=120] node[anchor=south east] {\scriptsize $\gamma m_{1,1}c$} (Sl1v2Ic2l1v2) ;
+\draw [dashed, arrow, pyOrange] (Ic2l1v2) to [out=170,in=230] node[anchor=south east] {\scriptsize $\gamma m_{1,1}c$} (Sl1v1Ic2l1v1) ;
+\draw [dashed, arrow, pyOrange] (Ic2l1v2) to [out=160,in=270] node[anchor=south east] {\scriptsize $\gamma m_{1,1}c$} (Sl1vnIc2l1vn) ;
+\draw [dashed, arrow, pyOrange] (Ic2l1v2) to [out=200,in=270] node[anchor=north] {\scriptsize $\gamma m_{1,1}c$} (Sl1v2Ic2l1v2) ;
+\draw [dashed, arrow, pyBlue] (Ic2l1vn) to [out=160,in=310] node[anchor=south west] {\scriptsize{$m_{1,1}c$}} (Sl1v1Ic2l1v1) ;
+\draw [dashed, arrow, pyBlue] (Ic2l1vn) to [out=170,in=30] node[anchor=south] {\scriptsize{$m_{1,1}c$}} (Sl1vnIc2l1vn) ;
+\draw [dashed, arrow, pyBlue] (Ic2l1vn) to [out=190,in=30] node[anchor=south west] {\scriptsize{$m_{1,1}c$}} (Sl1v2Ic2l1v2) ;
 
 
 
 
-\node (Dc2l1v1) [startstop, xshift = 10.3cm, yshift = 6.0cm] {\scriptsize $P\left(x_{D_m}, a_1, v_1\right)$};
-\node (Rc2l1v1) [startstop, xshift = 10.3cm, yshift = 4.0cm] {\scriptsize $P\left(x_{R_m}, a_1, v_1\right)$};
+\node (Dc2l1v1) [startstop, xshift = 10.3cm, yshift = 6.0cm] {\scriptsize $\set\left(x_{D}, a_1,c_m, v_1\right)$};
+\node (Rc2l1v1) [startstop, xshift = 10.3cm, yshift = 4.0cm] {\scriptsize $\set\left(x_{R}, a_1,c_m, v_1\right)$};
 
-\draw [arrow] (Ic2l1v1) -- node[anchor=south] {\scriptsize $\omega_{m,1}\delta_m$} (Dc2l1v1) ;
-\draw [arrow] (Ic2l1v1) -- node[anchor=south] {\scriptsize $(2-\omega_{m,1})\beta_m$} (Rc2l1v1) ;
+\draw [arrow] (Ic2l1v1) -- node[anchor=south] {\scriptsize $\omega_{1,m}p \lambda$} (Dc2l1v1) ;
+\draw [arrow] (Ic2l1v1) -- node[anchor=south] {\scriptsize $(1-\omega_{1,m})p \lambda$} (Rc2l1v1) ;
 %\draw [arrow] (Rc2l1v1)  to [out=190,in=270] node[anchor=south] {} (Ic2l1v1);
 
-\node (Dc2l1vn) [startstop, xshift = 10.3cm, yshift = 1.0cm] {\scriptsize $P\left(x_{D_m}, a_1, v_0\right)$};
-\node (Rc2l1vn) [startstop, xshift = 10.3cm, yshift = -1.0cm] {\scriptsize $P\left(x_{R_m}, a_1, v_0\right)$};
+\node (Dc2l1vn) [startstop, xshift = 10.3cm, yshift = 1.5cm] {\scriptsize $\set\left(x_{D}, a_1,c_m, v_0\right)$};
+\node (Rc2l1vnsy) [startstop, xshift = 10.3cm, yshift = 0cm] {\scriptsize $\set\left(x_{R}, a_1, c_m, v_0, s_y\right)$};
+\node (Rc2l1vnsn) [startstop, xshift = 10.3cm, yshift = -1.5cm] {\scriptsize $\set\left(x_{R}, a_1, c_m, v_0, s_n\right)$};
 
-\draw [arrow] (Ic2l1vn) -- node[anchor=south] {\scriptsize $\delta_m$} (Dc2l1vn) ;
-\draw [arrow] (Ic2l1vn) -- node[anchor=south] {\scriptsize $\beta_m$} (Rc2l1vn) ;
+\draw [arrow] (Ic2l1vn) -- node[anchor=south] {\scriptsize $\set \lambda$} (Dc2l1vn) ;
+\draw [arrow] (Ic2l1vn) -- node[anchor=south] {\scriptsize $q(1-p)\lambda$} (Rc2l1vnsy) ;
+\draw [arrow] (Ic2l1vn) -- node[anchor=south] {\scriptsize $(1-q)(1-p)\lambda$} (Rc2l1vnsn) ;
 %\draw [arrow] (Rc2l1vn)  to [out=190,in=270] node[anchor=south] {} (Ic2l1vn);
 %\draw [arrow] (Rc2l1vn)  to [out=0,in=0] node[anchor=south] {} (Rc2l1v1);
 
 
-\node (Dc2l1v2) [startstop, xshift = 10.3cm, yshift = -4.0cm] {\scriptsize $P\left(x_{D_m}, a_1, v_2\right)$};
-\node (Rc2l1v2) [startstop, xshift = 10.3cm, yshift = -6.0cm] {\scriptsize $P\left(x_{R_m}, a_1, v_2\right)$};
+\node (Dc2l1v2) [startstop, xshift = 10.3cm, yshift = -4.0cm] {\scriptsize $\set\left(x_{D}, a_1, c_m, v_2\right)$};
+\node (Rc2l1v2) [startstop, xshift = 10.3cm, yshift = -6.0cm] {\scriptsize $\set\left(x_{R}, a_1, c_m, v_2\right)$};
 
-\draw [arrow] (Ic2l1v2) -- node[anchor=south] {\scriptsize $\omega_{m,2}\delta_m$} (Dc2l1v2) ;
-\draw [arrow] (Ic2l1v2) -- node[anchor=south] {\scriptsize $(2-\omega_{m,2})\beta_m$} (Rc2l1v2) ;
+\draw [arrow] (Rc2l1vnsn) to [out=25,in=310] node[anchor=north east] {\scriptsize $\nu_1$} (Rc2l1v1) ;
+\draw [arrow] (Rc2l1vnsn) to [out=310,in=20] node[anchor=south] {\scriptsize $\nu_2$} (Rc2l1v2) ;
+\draw [arrow] (Ic2l1v2) -- node[anchor=south] {\scriptsize $\omega_{2,m}p \lambda$} (Dc2l1v2) ;
+\draw [arrow] (Ic2l1v2) -- node[anchor=south] {\scriptsize $(1-\omega_{2,m}p) \lambda$} (Rc2l1v2) ;
 %\draw [arrow] (Rc2l1v2)  to [out=190,in=270] node[anchor=south] {} (Ic2l1v2);
 %\draw [arrow] (Rc2l1vn)  to [out=0,in=0] node[anchor=south] {} (Rc2l1v2);
 
 
 %--------------------Left Part (Virus One)---------------------------------------------------------
 
-\node (Ic1l1v1) [startstop, xshift = -6.0cm, yshift = 5.0cm] {\scriptsize $P\left(x_{I_b}, a_1, v_1\right)$}; 
-\node (Ic1l1vn) [startstop, xshift = -6.0cm, yshift = 0cm] {\scriptsize $P\left(x_{I_b}, a_1, v_0\right)$}; 
-\node (Ic1l1v2) [startstop, xshift = -6.0cm, yshift = -5.0cm] {\scriptsize $P\left(x_{I_b}, a_1, v_2\right)$}; 
-\draw [arrow] (Sl1v1) -- node[anchor=south west] {\scriptsize  $\sigma_{b,1}\alpha_b f_{1,1}$} (Ic1l1v1) coordinate[midway] (Sl1v1Ic1l1v1);
-\draw [arrow] (Sl1vn) -- node[anchor=south west] {\scriptsize  $\alpha_b f_{1,1}$} (Ic1l1vn) coordinate[midway] (Sl1vnIc1l1vn);
-\draw [arrow] (Sl1v2) -- node[anchor=south west] {\scriptsize $\sigma_{b,2}\alpha_b f_{1,1}$} (Ic1l1v2) coordinate[midway] (Sl1v2Ic1l1v2);
-\draw [dashed, arrow, pyGreen] (Ic1l1v1) to [out=10,in=90] node[anchor=south] {\scriptsize $\gamma$} (Sl1v1Ic1l1v1) ;
-\draw [dashed, arrow, pyGreen] (Ic1l1v1) to [out=330,in=70] node[anchor=north west] {\scriptsize $\gamma$} (Sl1vnIc1l1vn) ;
-\draw [dashed, arrow, pyGreen] (Ic1l1v1) to [out=340,in=60] node[anchor=south west] {\scriptsize $\gamma$} (Sl1v2Ic1l1v2) ;
-\draw [dashed, arrow, pyOrange] (Ic1l1v2) to [out=10,in=310] node[anchor=south west] {\scriptsize $\gamma$} (Sl1v1Ic1l1v1) ;
-\draw [dashed, arrow, pyOrange] (Ic1l1v2) to [out=20,in=270] node[anchor=south west] {\scriptsize $\gamma$} (Sl1vnIc1l1vn) ;
-\draw [dashed, arrow, pyOrange] (Ic1l1v2) to [out=340,in=270] node[anchor=north] {\scriptsize $\gamma$} (Sl1v2Ic1l1v2) ;
+\node (Ic1l1v1) [startstop, xshift = -6.0cm, yshift = 5.0cm] {\scriptsize $\set\left(x_{I}, a_1, c_w, v_1\right)$}; 
+\node (Ic1l1vn) [startstop, xshift = -6.0cm, yshift = 0cm] {\scriptsize $\set\left(x_{I}, a_1, c_w, v_0\right)$}; 
+\node (Ic1l1v2) [startstop, xshift = -6.0cm, yshift = -5.0cm] {\scriptsize $\set\left(x_{I}, a_1, c_w, v_2\right)$}; 
+\draw [arrow] (Sl1v1) -- node[anchor=south west] {\scriptsize  $\frac{(1-\delta_{w,1})\alpha}{N_1(t)}$} (Ic1l1v1) coordinate[midway] (Sl1v1Ic1l1v1);
+\draw [arrow] (Sl1vn) -- node[anchor=south west] {\scriptsize  $\frac{\alpha}{N_1(t)}$} (Ic1l1vn) coordinate[midway] (Sl1vnIc1l1vn);
+\draw [arrow] (Sl1v2) -- node[anchor=south west] {\scriptsize $\frac{(1-\delta_{w,2})\alpha}{N_1(t)}$} (Ic1l1v2) coordinate[midway] (Sl1v2Ic1l1v2);
+\draw [dashed, arrow, pyGreen] (Ic1l1v1) to [out=10,in=90] node[anchor=south] {\scriptsize $\gamma m_{1,1} c$} (Sl1v1Ic1l1v1) ;
+\draw [dashed, arrow, pyGreen] (Ic1l1v1) to [out=330,in=70] node[anchor=north west] {\scriptsize $\gamma m_{1,1} c$} (Sl1vnIc1l1vn) ;
+\draw [dashed, arrow, pyGreen] (Ic1l1v1) to [out=340,in=60] node[anchor=south west] {\scriptsize $\gamma m_{1,1} c$} (Sl1v2Ic1l1v2) ;
+\draw [dashed, arrow, pyOrange] (Ic1l1v2) to [out=10,in=310] node[anchor=south west] {\scriptsize $\gamma m_{1,1} c$} (Sl1v1Ic1l1v1) ;
+\draw [dashed, arrow, pyOrange] (Ic1l1v2) to [out=20,in=270] node[anchor=south west] {\scriptsize $\gamma m_{1,1} c$} (Sl1vnIc1l1vn) ;
+\draw [dashed, arrow, pyOrange] (Ic1l1v2) to [out=340,in=270] node[anchor=north] {\scriptsize $\gamma m_{1,1} c$} (Sl1v2Ic1l1v2) ;
 
-\draw [dashed, arrow, pyBlue] (Ic1l1vn) to [out=20,in=230] node[anchor=north east] {\scriptsize $1$} (Sl1v1Ic1l1v1) ;
-\draw [dashed, arrow, pyBlue] (Ic1l1vn) to [out=10,in=150] node[anchor=south] {\scriptsize 1} (Sl1vnIc1l1vn) ;
-\draw [dashed, arrow, pyBlue] (Ic1l1vn) to [out=340,in=150] node[anchor=south east] {\scriptsize $1$} (Sl1v2Ic1l1v2) ;
+\draw [dashed, arrow, pyBlue] (Ic1l1vn) to [out=20,in=230] node[anchor=north east] {\scriptsize $m_{1,1} c$} (Sl1v1Ic1l1v1) ;
+\draw [dashed, arrow, pyBlue] (Ic1l1vn) to [out=10,in=150] node[anchor=south] {\scriptsize $m_{1,1} c$} (Sl1vnIc1l1vn) ;
+\draw [dashed, arrow, pyBlue] (Ic1l1vn) to [out=340,in=150] node[anchor=south east] {\scriptsize $m_{1,1} c$} (Sl1v2Ic1l1v2) ;
 
 
 
-\node (Dc1l1v1) [startstop, xshift = -10.3cm, yshift = 6.0cm] {\scriptsize $P\left(x_{D_b}, a_1, v_1\right)$};
-\node (Rc1l1v1) [startstop, xshift = -10.3cm, yshift = 4.0cm] {\scriptsize $P\left(x_{R_b}, a_1, v_1\right)$};
+\node (Dc1l1v1) [startstop, xshift = -10.3cm, yshift = 6.0cm] {\scriptsize $\set\left(x_{D}, a_1, c_w, v_1\right)$};
+\node (Rc1l1v1) [startstop, xshift = -10.3cm, yshift = 4.0cm] {\scriptsize $\set\left(x_{R}, a_1,c_w, v_1\right)$};
 
-\draw [arrow] (Ic1l1v1) -- node[anchor=south] {\scriptsize $\omega_{b,1} \delta_b$} (Dc1l1v1) ;
-\draw [arrow] (Ic1l1v1) -- node[anchor=south] {\scriptsize $(2-\omega_{b,1}) \beta_b$} (Rc1l1v1) ;
+\draw [arrow] (Ic1l1v1) -- node[anchor=south] {\scriptsize $\omega_{1,w} p \lambda$} (Dc1l1v1) ;
+\draw [arrow] (Ic1l1v1) -- node[anchor=south] {\scriptsize $(1-\omega_{1,w} p) \lambda$} (Rc1l1v1) ;
 %\draw [arrow] (Rc1l1v1)  to [out=350,in=270] node[anchor=south] {} (Ic1l1v1);
 
-\node (Dc1l1vn) [startstop, xshift = -10.3cm, yshift = 1.0cm] {\scriptsize $P\left(x_{D_b}, a_1, v_0\right)$};
-\node (Rc1l1vn) [startstop, xshift = -10.3cm, yshift = -1.0cm] {\scriptsize $P\left(x_{R_b}, a_1, v_0\right)$};
+\node (Dc1l1vn) [startstop, xshift = -10.3cm, yshift = 1.5cm] {\scriptsize $\set\left(x_{D}, a_1,c_w, v_0\right)$};
+\node (Rc1l1vnsy) [startstop, xshift = -10.3cm, yshift = 0cm] {\scriptsize $\set\left(x_{R}, a_1, c_w, v_0, s_y\right)$};
+\node (Rc1l1vnsn) [startstop, xshift = -10.3cm, yshift = -1.5cm] {\scriptsize $\set\left(x_{R}, a_1, c_w, v_0, s_n\right)$};
 
-\draw [arrow] (Ic1l1vn) -- node[anchor=south] {\scriptsize $\delta_b$} (Dc1l1vn) ;
-\draw [arrow] (Ic1l1vn) -- node[anchor=south] {\scriptsize $\beta_b$} (Rc1l1vn) ;
+\draw [arrow] (Ic1l1vn) -- node[anchor=south] {\scriptsize $p \lambda$} (Dc1l1vn) ;
+\draw [arrow] (Ic1l1vn) -- node[anchor=south] {\scriptsize $q(1-p)\lambda$} (Rc1l1vnsy) ;
+\draw [arrow] (Ic1l1vn) -- node[anchor=south] {\scriptsize $(1-q)(1-p)\lambda$} (Rc1l1vnsn) ;
 %\draw [arrow] (Rc1l1vn)  to [out=350,in=270] node[anchor=south] {} (Ic1l1vn);
 %\draw [arrow] (Rc1l1vn)  to [out=180,in=180] node[anchor=south east] {\scriptsize $\nu_1$} (Rc1l1v1);
 
 
-\node (Dc1l1v2) [startstop, xshift = -10.3cm, yshift = -4.0cm] {\scriptsize $P\left(x_{D_b}, a_1, v_2\right)$};
-\node (Rc1l1v2) [startstop, xshift = -10.3cm, yshift = -6.0cm] {\scriptsize $P\left(x_{R_b}, a_1, v_2\right)$};
 
-\draw [arrow] (Ic1l1v2) -- node[anchor=south] {\scriptsize $\omega_{b,2} \delta_b$} (Dc1l1v2) ;
-\draw [arrow] (Ic1l1v2) -- node[anchor=south] {\scriptsize $(2-\omega_{b,2}) \beta_b$} (Rc1l1v2) ;
+\node (Dc1l1v2) [startstop, xshift = -10.3cm, yshift = -4.0cm] {\scriptsize $\set\left(x_{D}, a_1, c_w, v_2\right)$};
+\node (Rc1l1v2) [startstop, xshift = -10.3cm, yshift = -6.0cm] {\scriptsize $\set\left(x_{R}, a_1, c_w, v_2\right)$};
+
+\draw [arrow] (Rc1l1vnsn) to [out=155,in=220] node[anchor=north west] {\scriptsize $\nu_1$} (Rc1l1v1) ;
+\draw [arrow] (Rc1l1vnsn) to [out=210,in=150] node[anchor=south east] {\scriptsize $\nu_2$} (Rc1l1v2) ;
+
+\draw [arrow] (Ic1l1v2) -- node[anchor=south] {\scriptsize $\omega_{2,w} p \lambda$} (Dc1l1v2) ;
+\draw [arrow] (Ic1l1v2) -- node[anchor=south] {\scriptsize $(1-\omega_{2,w} p) \lambda$} (Rc1l1v2) ;
 
 
 %--------------------After Recovered---------------------------------------------------------
@@ -129,15 +141,15 @@ main node/.style={circle, draw, font=\sffamily\Large\bfseries}
 %\draw [arrow] (Rc1l1v2)  to [out=270,in=190] node[anchor=south] {} (Ic2l1v2);
 
 %--------------------Horizontal Headline---------------------------------------------------------
-\node (Susceptible) [startstop, draw=none, xshift = 0cm, yshift = 7cm, align=center] {Susceptible\\ $P(x_S, a_1)$};
+\node (Susceptible) [startstop, draw=none, xshift = 0cm, yshift = 7cm, align=center] {Susceptible\\ $\set(x_S, a_1)$};
 \node (Susceptible) [startstop, draw=none, xshift = 0cm, yshift = 8.5cm] {\Large\textbf{Area one ($a_1$)}};
-\node (VirusOne) [startstop, draw=none, xshift = -6cm, yshift = 7cm, align=center] {Base virus \\ $P(x_{I_b}, a_1)$};
-\node (VirusTwo) [startstop, draw=none, xshift = 6cm, yshift = 7cm, align=center] {Mutant virus \\ $P(x_{I_m}, a_1)$};
+\node (VirusOne) [startstop, draw=none, xshift = -6cm, yshift = 7cm, align=center] {Wild type \\ $\set(x_{I_b}, a_1)$};
+\node (VirusTwo) [startstop, draw=none, xshift = 6cm, yshift = 7cm, align=center] {Mutant type \\ $\set(x_{I_m}, a_1)$};
 
 %--------------------Vertical Headline---------------------------------------------------------
-\node (Vac1) [startstop, draw=none, xshift = -12.7cm, yshift = 5.0cm, rotate=90,  align=center] {Vaccine Type 1 \\ $P(a_1, v_1)$}; 
-\node (NoVac) [startstop, draw=none, xshift = -12.7cm, yshift = 0cm, rotate=90,  align=center] {Non-Vaccinated\\ $P(a_1, v_0)$}; 
-\node (Vac2) [startstop, draw=none, xshift = -12.7cm, yshift = -5.0cm, rotate=90,  align=center] {Vaccine Type 2\\ $P(a_1, v_2)$}; 
+\node (Vac1) [startstop, draw=none, xshift = -12.7cm, yshift = 5.0cm, rotate=90,  align=center] {Vaccine Type 1 \\ $\set(a_1, v_1)$}; 
+\node (NoVac) [startstop, draw=none, xshift = -12.7cm, yshift = 0cm, rotate=90,  align=center] {Non-Vaccinated\\ $\set(a_1, v_0)$}; 
+\node (Vac2) [startstop, draw=none, xshift = -12.7cm, yshift = -5.0cm, rotate=90,  align=center] {Vaccine Type 2\\ $\set(a_1, v_2)$}; 
 
 
 \end{tikzpicture}

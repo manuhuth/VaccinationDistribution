@@ -1,44 +1,37 @@
 \section{Rule-based modeling}
 
-In the proposed model the compartments are Susceptible ($S$), Infectious ($I$), Recovered and Dead ($D$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). Since we are dealing with two virus variants, the wild type $w$ and the mutant $m$, we account for this by introducing the feature $c_j$ with $j \in \{w,m\}$ that indicates the type of virus we are refering to. 
+In the proposed model the compartments are Susceptible ($S$), Infectious ($I$), Recovered and Dead ($D$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). Since we are dealing with two virus variants, the wild type $w$ and the mutant $m$, we account for this by introducing the feature $c_j$ with $j \in \{w,m\}$ that indicates the type of virus we are referring to. For infectious individuals we can distinguish between symptomatic $s_y$ and asymptomatic cases $s_n$.
  
-We use the set notation of \cite{Waites.2021} to address certain subsets of the population. $\set()$ means all individuals. $\set(x_u)$ denotes all individuals from compartment $u \in \{S, I, R, D \}$, $\set(a_l)$ denotes all individuals from area $l \in \{1,2\}$, $\set(v_i)$ are all individuals with vaccination status $i \in \{0,1,2\}$, where zero indicates non-vaccinated, and $\set(c_j)$ are all individuals that currently have or had an infection with virus $j \in \{w,m\}$. With this notation we can pick desired subsets of the population by combining the appropriate features. All individuals from area one that are infected with the wild type are addressed by $\set(x_I, c_m)$. If we only want the unvaccinated individuals of them we use $\set(x_I, c_m, v_0)$. The usual set operators, like $\cup$. Using these operators allows us to address even more specific subsets like the set of all vaccinated individuals $\set(v_1) \cup \set(v_2)$. The set $\set()$ is defined as the whole population. The cardinalty $|\cdot|$ is used to addres the respective number of individuals in a set, e.g. $|\set(x_S, a_1)|$ equals the number of all susceptible individuals in area one. \textit{include symptomatic}\\
+We use the set notation of \cite{Waites.2021} to address certain subsets of the population. $\set()$ means all individuals. $\set(x_u)$ denotes all individuals from compartment $u \in \{S, I, R, D \}$, $\set(a_l)$ denotes all individuals from area $l \in \{1,2\}$, $\set(v_i)$ are all individuals with vaccination status $k \in \{0,1,2\}$, where zero indicates non-vaccinated, and $\set(c_j)$ are all individuals that currently have or had an infection with virus $j \in \{w,m\}$. With this notation we can pick desired subsets of the population by combining the appropriate features. All individuals from area one that are infected with the wild type are addressed by $\set(x_I, c_m)$. If we only want the unvaccinated individuals of them we use $\set(x_I, c_m, v_0)$. The usual set operators, like $\cup$. Using these operators allows us to address even more specific subsets like the set of all vaccinated individuals $\set(v_1) \cup \set(v_2)$. The set $\set()$ is defined as the whole population. The cardinalty $|\cdot|$ is used to addres the respective number of individuals in a set, e.g. $|\set(x_S, a_1)|$ equals the number of all susceptible individuals in area one. \textit{include symptomatic}\\
 
 In more specific cases it might be more comprehensive to replace the index numbers by meaningful abbreviations.
 
 \subsection{Model}
 
-The following list gives a brief description of the parameters used to describe the model. 
-\vspace{0.5cm}
-\textbf{Parameter}
-\begin{itemize}
-    \item $\nu_j \in (0,1)$ for $j=1,2$: vaccination rate of vaccine $j$
-    \item $\alpha_i \in (0,1)$ for $i=b,m$: infection rate of virus $i$
-    \item $\delta_i \in (0,1)$  for $i=b,m$: death rate of unvaccinated individuals that are infected with virus i
-    \item $\beta_i \in (0,1)$ for $i=b,m$: recover rate of unvaccinated individuals that are infected with virus i
-    \item $\omega_{i,j} \in (0,1)$ for $i=b,m$ and $j=1,2$: how much percent of the people that are vaccinated with vaccine $i$ die less due to virus $j$. 
-    \item $f_{i,j} \in (0,\infty)$ for $i,j=1,2$: average number of people meeting between area $a_i$ and area $a_j$. It should hold that $f_{i,j} = f_{j,i}$ and $f_{i,i} > f_{i,j}$ for all $i \neq j$.
-    \item $\gamma \in (0,1)$: inverse proportion of immunity that remains after vaccination ($\gamma =0$ means vaccine makes $100\%$ immune)
-\end{itemize}
-\vspace{0.5cm}
-
-
 \textbf{Assumptions so far:} 
 \begin{itemize}
-    \item no distinction between symptomatic and asymptomatic infected cases
+    \item distinction between symptomatic and asymptomatic infected cases only at recovered
+    \item mutant can be more infectious but has same mortality. Additional parameter?
     \item no vaccination during infection \href{https://www.cdc.gov/vaccines/covid-19/info-by-product/clinical-considerations.html}{see here} (US Center for Disease Control)
     \item no births and other deaths
     \item no reinfection
-    \item vaccination decreases infection rate by $\gamma \in (0,1)$ and is the same for both vaccines across both viruses
 \end{itemize}
 \vspace{0.5cm}
+
+\begin{itemize}
+\item time dependence of parameters
+\item cross-border with individuals being in the other country
+\item rate of going somewhere must not be the same as people coming in (modify b function)
+\item minimize over dead people or integrate of infected
+\end{itemize}
+
 \subsection{Transition Rates}
 
 \subsubsection*{Vaccination}
-For $j \in \{1,2\}$
+For $j \in \{1,2\}$ $l \in \{1,2\}$
 \begin{align*}
-\set(x_S, v_0, a_1) &\xrightarrow{\nu_j(t-k)} \set(x_S, v_j, a_1) \notag \\
-\set(x_R, v_0, c_w, a_1) &\xrightarrow{\nu_j(t-k)} \set(x_R, v_j, c_w, a_1)
+\set(x_S, v_0, a_l) &\xrightarrow{\nu_j(t-k)} \set(x_S, v_j, a_l) \notag \\
+\set(x_R, v_0, c_w, a_l) &\xrightarrow{\nu_j(t-k)} \set(x_R, v_j, c_w, a_l)
 \end{align*}
 
 \subsubsection*{Susceptible to Infectious}
@@ -58,89 +51,71 @@ We first specify the probability $\prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) )$
 \begin{align*}
 \prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) ) = \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right).
 \end{align*}
-$b(y) \in [0,1], b\left(0\right) = 1$ and $\lim\limits_{y \to \infty} b\left(y\right) = 0$. \textit{idea for} $b(y)= \frac{1}{1 + b y}$.
+$b(y) \in [0,1], b\left(0\right) = 1$ and $\lim\limits_{y \to \infty} b\left(y\right) = 0$. \textit{idea for} $b(y)= \frac{1}{1 + b y}$. Analogously we define the probabilities of $\prob(i_1 \in \set(a_1) | i_2 \in \set(a_2) )$. Subsequently, we use short-hand notation to address the conditional location probabilities. Let $m_{u,v}$ be the $u$-th row and $v$-th column of the Matrix $\vect{M} \in \R^{2 \times 2}$.
+\begin{align*}
+\vect{M} &= \begin{pmatrix} 
+\prob(i_1 \in \set(a_1) | i_1 \in \set(a_1) ) & \prob(i_1 \in \set(a_1) | i_2 \in \set(a_2) ) \\
+\prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) ) & \prob(i_2 \in \set(a_2) | i_2 \in \set(a_2) )
+\end{pmatrix} \notag \\
+&= \begin{pmatrix} 
+1 - \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) & \frac{N_{1}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \\
+\frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) & 1 - \frac{N_{1}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right)
+\end{pmatrix}
+\end{align*}
+
 The probability of individual two to be unvaccinated and susceptible, conditioned that it is from area two, is taken to be the relative frequency of unvaccinated, susceptible individuals from area two
 \begin{align*}
 \prob(i_2 \in \set(x_S, v_0)) = \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}
 \end{align*}
 Combining both results yields
 \begin{align*}
-\prob(i_2 \in \set(x_S, v_0 ,a_2)|i_1 \in \set(x_I, v_0,c_w, a_1)) = \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}
+\prob(i_2 \in \set(x_S, v_0 ,a_2)|i_1 \in \set(x_I, v_0,c_w, a_1)) = m_{2,1} \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}
 \end{align*}
-Hence, $i_1$ meets on average $c \cdot \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}$ unvaccinated susceptible individuals from area two. At this meetings, $\alpha$ individuals become infected. This probability changes if we condition on the mutant. $i_1$ infects on average $\alpha \cdot c \cdot \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)} $ individuals. This is done by $|\set(x_I, v_0, a_1)|$ individuals from area one and therefore we get the transitions 
-\begin{align*}
-\alpha \cdot c \cdot \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)} |\set(x_I, v_0, a_1)|
-\end{align*}
+Hence, $i_1$ meets on average $m_{2,1} c \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}$ unvaccinated susceptible individuals from area two. At this meetings, $\alpha$ individuals become infected. This probability changes if we condition on the mutant. $i_1$ infects on average $\alpha m_{2,1} c \frac{|\set(x_S, v_0, a_2)|}{N_2(t)} $ individuals. This is done by $|\set(x_I, v_0, a_1)|$ individuals from area one and therefore we get the transitions $\alpha  m_{2,1} c \frac{|\set(x_S, v_0, a_2)|}{N_2(t)} |\set(x_I, v_0, a_1)|$
 Using rule-based notation we write this as 
 \begin{align*}
-P(x_{I},  v_0, c_w,a_1), P(x_{S}, v_0, a_2) &\xrightarrow{ \frac{\alpha \cdot c \cdot b\left(\text{d}(a_1, a_2) \right)}{N_1(t) + N_2(t)} } P(x_{I},v_0, c_w,a_1), P(x_{I}, v_0, c_w, a_2)
+\set(x_{I},  v_0, c_w,a_1), \set(x_{S}, v_0, a_2) &\xrightarrow{ \frac{\alpha  m_{2,1} c}{N_2(t)} } \set(x_{I},v_0, c_w,a_1), \set(x_{I}, v_0, c_w, a_2)
 \end{align*}
 Same but for unvaccinated from same area (\textit{we ignore minus one})
 \begin{align*}
-P(x_{I},  v_0, c_w,a_1), P(x_{S}, v_0, a_1) &\xrightarrow{\frac{\alpha \cdot c}{N_1(t)} \cdot \left[1 - \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \right]} P(x_{I},  v_0, c_w,a_1), P(x_{I},  v_0, c_w,a_1)
+\set(x_{I},  v_0, c_w,a_1), \set(x_{S}, v_0, a_1) &\xrightarrow{\frac{\alpha  m_{1,1} c}{N_1(t)}} \set(x_{I},  v_0, c_w,a_1), \set(x_{I},  v_0, c_w,a_1)
 \end{align*}
-define $m_{k,l}$ \textit{as meeting probs and shorten notation with that}.
-\textit{Write down for other cases (vaccines)}
+The extension to the mutant and vaccinated individuals is straightforward by multiplying the probability that a meeting of an individual with the base virus type and a susceptible individual results in an infection. We assume that if the infected individual is vaccinated, this reduces the infection probability by the factor $1 -\gamma$ for $\gamma \in [0,1]$. For $k \in \{1,2\}$ and $l \in \{1,2\}$
+\begin{align*}
+\set(x_{I},  v_k, c_w, a_1), \set(x_{S}, v_0, a_l) &\xrightarrow{\frac{(1-\gamma) \alpha  m_{1,l} c}{N_l(t)}} \set(x_{I},  v_k, c_w,a_1), \set(x_{I},  v_0, c_w,a_l).
+\end{align*}
+We interpret $\gamma$ as degree of protection against spreading the virus after being vaccinated.
 
+If the susceptible individual is vaccinated with vaccine $k \in \{1,2\}$ we assume that this reduces the infection probability for virus type $j \in \{w,m\}$ by the factor $1 - \delta_{j,k}$ for $\delta_{j,k} \in [0,1]$. For $k \in \{1,2 \}$ and $l \in \{1,2\}$
+\begin{align*}
+\set(x_{I},  v_0, c_w, a_1), \set(x_{S}, v_k, a_l) &\xrightarrow{\frac{(1-\delta_{w,k}) \alpha  m_{1,l} c}{N_l(t)}} \set(x_{I},  v_0, c_w, a_1), \set(x_{I},  v_k, c_w, a_l).
+\end{align*}
+We can interpret $\delta_{j,k}$ as degree of protection against virus type $j$ we gain from being vaccinated with vaccine $k$. In the extreme case where $\delta_{j,k} = 1$ vaccine $k$ gives a full protection against virus $j$ and no infections with virus $j$ are possible for individuals vaccinated with $k$. Analogously, $\delta_{j,k} = 0$ means that there is no additional protection at all.
+
+We allow the mutant to be more or less infectious than the wild type by introducing the additional parameter $\eta \in \left(0, \frac{1}{\alpha}\right]$. $\eta > 1$ means that the mutant is more infectious than the wild type. \textit{maybe restrict to this case?} 
+For $l \in \{1,2\}$
+\begin{align*}
+\set(x_{I},  v_0, c_m, a_1), \set(x_{S}, v_0, a_l) &\xrightarrow{\frac{ \eta \alpha  m_{1,l} c}{N_l(t)}} \set(x_{I},  v_0, c_m, a_1), \set(x_{I},  v_0, c_m, a_l).
+\end{align*}
+We can combine the factors for different infection probabilities. For example the transition from the infectious individuals from area one, infected with the mutant, and vaccinated with vaccine one and the susceptible individuals vaccinated with vaccine two is for $l \in \{1,2\}$
+\begin{align*}
+\set(x_{I},  v_1, c_m, a_1), \set(x_{S}, v_2, a_l) &\xrightarrow{\frac{ \eta \alpha (1-\delta_{m,2}) (1-\gamma)  m_{1,l} c}{N_l(t)}} \set(x_{I},  v_1, c_m, a_1), \set(x_{I},  v_2, c_m, a_l).
+\end{align*}
 
 \subsubsection*{Infectious to Recovered/Death}
-non-vaccinated
+non-vaccinated. For $l \in \{1,2\}$
 \begin{align}
-    \set(x_I,  v_0, c_w, a_1) &\xrightarrow{p \lambda} \set(x_D,  v_0, c_w, a_1) \notag \\
-\set(x_I,  v_0, c_w, a_1) &\xrightarrow{q(1-p) \lambda} \set(x_R,  v_0, c_w, a_1, S_y) \notag \\
-\set(x_I,  v_0, c_w, a_1) &\xrightarrow{(1-q)(1-p) \lambda} \set(x_R,  v_0, c_w, a_1, S_n) \notag
+    \set(x_I,  v_0, c_w, a_l) &\xrightarrow{p \lambda} \set(x_D,  v_0, c_w, a_l) \notag \\
+\set(x_I,  v_0, c_w, a_l) &\xrightarrow{q(1-p) \lambda} \set(x_R,  v_0, c_w, a_l, s_y) \notag \\
+\set(x_I,  v_0, c_w, a_l) &\xrightarrow{(1-q)(1-p) \lambda} \set(x_R,  v_0, c_w, a_l, s_n) \notag
 \end{align}
 
-vaccinated. for $i \in \{1,2\}$
+vaccinated. For $k \in \{1,2\}$ and $l \in \{1,2\}$
 \begin{align}
-    \set(x_I,  v_i, c_w, a_1) &\xrightarrow{\omega_{i,w} p \lambda} \set(x_D,  v_i, c_w, a_1) \notag \\
-\set(x_I,  v_i, c_w, a_1) &\xrightarrow{q(1-\omega_{i,w}p) \lambda} \set(x_R,  v_i, c_w, a_1, S_y) \notag \\
-\set(x_I,  v_i, c_w, a_1) &\xrightarrow{(1-q)(1-\omega_{i,w}p) \lambda} \set(x_R,  v_i, c_w, a_1, S_n) \notag
+    \set(x_I,  v_k, c_w, a_l) &\xrightarrow{\omega_{k,w} p \lambda} \set(x_D,  v_k, c_w, a_l) \notag \\
+\set(x_I,  v_k, c_w, a_l) &\xrightarrow{(1-\omega_{k,w}p) \lambda} \set(x_R,  v_k, c_w, a_l) \notag 
 \end{align}
 
-
-To-do: write mutant and write that everything applies for area 2 as well, graph, explain everything (what do q,p, etc. do)
-
-
-
-\subsection{Rules}
-The rules are written down using the $P$-notation. For the transition from non-vaccinated individuals to recovered or dead individuals, we need two rules that are dependent on the virus type. For $i = b,m$
-\begin{align}
-    P(x_{I_i},  v_0) &\xrightarrow{\delta_i} P(x_{D_i}, v_0) \\
-    P(x_{I_i},  v_0) &\xrightarrow{\beta_i} P(x_{R_i},  v_0).\notag
-\end{align}
-
-The vaccination can be described by two rules. \textit{For the purpose of the analysis we should think of making} $\nu_1$ \textit{and} $\nu_2$ \textit{time-dependent.}
-\begin{align}
-    P(S, v_0) &\xrightarrow{\nu_1} P(S, v_1) \\
-    P(S, v_0) &\xrightarrow{\nu_2} P(S, v_2).\notag
-\end{align}
-
-For the transition from vaccinated individuals to recovered or dead individuals, we need two rules that are dependent on the virus type and the type of vaccination. For $i = b,m$ For $i = b,m$ and $s = 1,2$. \textit{Using} $(2-\omega_{i,1})$ \textit{has the advantage that we need to define less parameters. However, I would program it as single parameter and then change it accordingly during the parameter specification.}
-\begin{align}
-    P(x_{I_i},  v_s) &\xrightarrow{\omega_{i,s} \delta_i} P(x_{D_i}, v_s) \\
-    P(x_{I_i}, v_s) &\xrightarrow{(2-\omega_{i,s})\beta_i} P(x_{R_i}, v_s)\notag
-\end{align}
-
-For the transitions from susceptible to infectious we need to distinguish in between meetings of individuals from the same area and in between vaccination types. We write down the rules for Susceptible individuals from area one. The same logic with slightly different indices applies for area two. 
-For $l = 1,2$ and $i = b,m$ the infection of unvaccinated individuals can be described by
-\begin{align}
-    P(x_{I_i}, a_l, v_0), P(x_{S}, a_1, v_0) &\xrightarrow{\alpha_i f_{l,1}} P(x_{I_i}, a_l, v_0), P(x_{I_i}, a_1, v_0) \\
-    P(x_{I_i}, a_l, v_1), P(x_{S}, a_1, v_0) &\xrightarrow{\gamma \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_1), P(x_{I_i}, a_1, v_0)\notag\\
-    P(x_{I_i}, a_l, v_2), P(x_{S}, a_1, v_0) &\xrightarrow{\gamma \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_2), P(x_{I_i}, a_1, v_0).\notag
-\end{align}
-We need similar rules for the infection of individuals vaccinated with vaccine one. Their average number of infection is lowered by $\sigma_{i,1}$, yielding for $l = 1,2$ and $i = b,m$ the rules 
-\begin{align}
-  P(x_{I_i}, a_l, v_0), P(x_{S}, a_1, v_1) &\xrightarrow{\sigma_{i,1} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_0), P(x_{I_i}, a_1, v_1) \\
-    P(x_{I_i}, a_l, v_1), P(x_{S}, a_1, v_1) &\xrightarrow{\gamma \sigma_{i,1} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_1), P(x_{I_i}, a_1, v_1) \notag\\
-    P(x_{I_i}, a_l, v_2), P(x_{S}, a_1, v_1) &\xrightarrow{\gamma \sigma_{i,1} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_2), P(x_{I_i}, a_1, v_1) \notag
-\end{align}
-Analogously, we can define the infection of individuals vaccinated with vaccine two using $\sigma_{i,2}$. The rules are for $l = 1,2$ and $i = b,m$. 
-\begin{align}
-    P(x_{I_i}, a_l, v_0), P(x_{S}, a_1, v_2) &\xrightarrow{\sigma_{i,2} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_0), P(x_{I_i}, a_1, v_2) \\
-    P(x_{I_i}, a_l, v_1), P(x_{S}, a_1, v_2) &\xrightarrow{\gamma \sigma_{i,2} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_1), P(x_{I_i}, a_1, v_2)\notag\\
-    P(x_{I_i}, a_l, v_2), P(x_{S}, a_1, v_2) &\xrightarrow{\gamma \sigma_{i,2} \alpha_i f_{l,1}} P(x_{I_i}, a_l, v_2), P(x_{I_i}, a_1, v_2)\notag
-\end{align}
 
 \subsection{Graphical model description}
 On the next page you find a graphical representation of the model using tikz. I have omitted the second region and cross-border infections from the graph to increase readability.  

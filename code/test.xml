@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level3/version2/core" level="3" version="2">
+  <model>
+    <listOfCompartments>
+      <compartment id="A" name="A" size="1" units="dimensionless" constant="true"/>
+      <compartment id="B" name="B" size="1" units="dimensionless" constant="true"/>
+    </listOfCompartments>
+    <listOfSpecies>
+      <species id="susceptible" name="susceptible" compartment="A" initialAmount="0" substanceUnits="nanoMole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="infectious" name="infectious" compartment="A" initialAmount="0" substanceUnits="nanoMole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="recovered" name="recovered" compartment="A" initialAmount="0" substanceUnits="nanoMole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+    </listOfSpecies>
+    <listOfParameters>
+      <parameter id="beta" name="beta" value="1" units="dimensionless" constant="true"/>
+      <parameter id="gamma" name="gamma" value="0.13" units="dimensionless" constant="true"/>
+    </listOfParameters>
+    <listOfReactions>
+      <reaction id="infection" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> susceptible </ci>
+                <ci> infectious </ci>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible </ci>
+                <ci> infectious </ci>
+                <ci> recovered </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="recover" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="recovered" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> gamma </ci>
+              <ci> infectious </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+    </listOfReactions>
+  </model>
+</sbml>

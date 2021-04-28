@@ -1,12 +1,13 @@
-name: VaccinationDistribution
+name: Vacc
 
 channels:
   - defaults
   - opensourceeconomics
   - conda-forge
+  - bioconda
 
 dependencies:
-  - python=3.8
+  - python=3.9
   - respy
   - pandas
   - numpy
@@ -15,6 +16,8 @@ dependencies:
   - jupyter
   - pip
   - pytest-flake8
+  - libsbml
+  
   - pip:
     - black
     - pdbpp

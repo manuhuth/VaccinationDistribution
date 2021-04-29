@@ -1,11 +1,51 @@
 import libsbml
-from typing import List, Tuple
 from libsbml import parseL3Formula
+from libsbml import SBMLDocument
+from libsbml import writeSBMLToFile
+
+
+def create_sbml_file(compartments, species, parameters, reactions, assignments = None):
+    
+
+    ## Create new SBML
+    document = SBMLDocument()
+    model = document.createModel()
+    
+    
+    compartment_identifier = compartments.keys()
+    for keys in compartment_identifier:
+        create_compartment(model = model, compartment_id = keys, **compartments[keys])
+    
+    
+    species_identifier = species.keys()
+    for keys in species_identifier:
+        create_species(model=model, species_id=keys, **species[keys])
+    
+    parameters_identifier = parameters.keys()
+    for keys in parameters_identifier:
+        create_parameter(model=model, parameter_id=keys, **parameters[keys])
+
+    if assignments is not None:
+        assignments_identifier = assignments.keys()
+        for keys in assignments_identifier:
+            create_initial_assignment(model=model, assignment_id=keys, **assignments[keys])
+        
+    reactions_identifier = reactions.keys()
+    for keys in reactions_identifier:
+        create_reaction(model=model, reaction_id=keys, **reactions[keys])
+    
+    return document
+
+        
+def check_model_for_errors(document):
+    for i in range(document.getNumErrors()):
+        print(document.getError(i).getMessage())
+
 
 
 def create_species(model: libsbml.Model, species_id, compartment,
                    constant = False, initial_amount = 0.0,
-                   substance_units = 'nanoMole',
+                   substance_units = 'Mole',
                    boundary_condition = False,
                    has_only_substance_units = False):
     """
@@ -56,8 +96,8 @@ def create_parameter(model: libsbml.Model, parameter_id, value,
 def create_reaction(model: libsbml.Model, reaction_id: str,
                     reactants,
                     products,
-                    formula: str, modifiers: List[str] = None,
-                    reversible: bool = False, fast: bool = False) -> None:
+                    formula: str, modifiers = None,
+                    reversible: bool = False, fast: bool = False):
     """
     Creates new reaction for libsbml.Model
     :param model: libsbml.Model to which new reaction will be added
@@ -112,3 +152,55 @@ def create_compartment(model: libsbml.Model, compartment_id, units="dimensionles
     compartment.setVolume(volume)
     
     return
+
+def create_initial_assignment(model: libsbml.Model,
+                             species_id,
+                             formula,
+                             assignment_id,
+                             assignment_name = None):
+    """Create SBML InitialAssignment
+    Arguments:
+        sbml_model: Model to add output to
+        species_id: Target of assignment
+        formula: Formula string for model output
+        rule_id: SBML id for created rule
+        rule_name: SBML name for created rule
+    Returns:
+        The created ``InitialAssignment``
+    """
+
+    if assignment_name is None:
+        assignment_name = assignment_id
+
+    assignment = model.createInitialAssignment()
+    assignment.setId(assignment_id)
+    assignment.setName(assignment_name)
+    assignment.setSymbol(species_id)
+    math_ast = libsbml.parseL3Formula(formula)
+    assignment.setMath(math_ast)
+
+    return assignment
+
+def write_entities_to_dict(compartments, species, parameters,
+                           reactions, assignments=None):
+    if assignments is None:
+        output = {'compartments' : compartments,
+                  'species' : species,
+                  'parameters' : parameters,
+                  'reactions' : reactions}
+    else:
+        output = {'compartments' : compartments,
+                  'species' : species,
+                  'parameters' : parameters,
+                  'reactions' : reactions,
+                  'assignments' : assignments}
+        
+    return output
+
+
+def write_dict_to_sbml_file(dictionary, path):
+    
+    doc = create_sbml_file(**dictionary)    
+    
+    output_path = path + '.xml'
+    writeSBMLToFile(doc, output_path)

@@ -3,12 +3,11 @@
   <model>
     <listOfCompartments>
       <compartment id="A" name="A" size="1" units="dimensionless" constant="true"/>
-      <compartment id="B" name="B" size="1" units="dimensionless" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="susceptible" name="susceptible" compartment="A" initialAmount="0" substanceUnits="nanoMole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="infectious" name="infectious" compartment="A" initialAmount="0" substanceUnits="nanoMole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="recovered" name="recovered" compartment="A" initialAmount="0" substanceUnits="nanoMole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="susceptible" name="susceptible" compartment="A" initialAmount="100" substanceUnits="Mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="infectious" name="infectious" compartment="A" initialAmount="0.0001" substanceUnits="Mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="recovered" name="recovered" compartment="A" initialAmount="0" substanceUnits="Mole" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
       <parameter id="beta" name="beta" value="1" units="dimensionless" constant="true"/>
@@ -23,6 +22,9 @@
         <listOfProducts>
           <speciesReference species="infectious" stoichiometry="2" constant="true"/>
         </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="recovered"/>
+        </listOfModifiers>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>

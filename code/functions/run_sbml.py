@@ -7,8 +7,7 @@ def get_model_and_solver_from_sbml(path_sbml, model_name, model_directory):
     filename = path_sbml + '.xml'
     sbml_importer = amici.SbmlImporter(filename)
 
-    model_dir = 'model_dir'
-    sbml_importer.sbml2amici(model_name, model_dir)
+    sbml_importer.sbml2amici(model_name, model_directory)
     
     # load the model module
     model_module = amici.import_model_module(model_name, model_directory)

@@ -1,5 +1,5 @@
-from creat_sbml import write_entities_to_dict
-from creat_sbml import write_dict_to_sbml_file
+from functions.create_sbml import write_entities_to_dict
+from functions.create_sbml import write_dict_to_sbml_file
 
 
 def model_basic_sir_create_sbml(path, S_0, I_0, R_0=0):

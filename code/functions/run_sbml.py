@@ -1,10 +1,12 @@
 import amici
 
 def get_model_and_solver_from_sbml(path_sbml, model_name, model_directory):
+#TODO incorporate optimizer options
     #path = 'test.xml'
     #name = 'test'
     #directory = 'model_dir'
     filename = path_sbml + '.xml'
+
     sbml_importer = amici.SbmlImporter(filename)
 
     sbml_importer.sbml2amici(model_name, model_directory)

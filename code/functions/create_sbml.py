@@ -45,7 +45,7 @@ def check_model_for_errors(document):
 
 def create_species(model: libsbml.Model, species_id, compartment,
                    constant = False, initial_amount = 0.0,
-                   substance_units = 'Mole',
+                   substance_units = 'dimensionless',
                    boundary_condition = False,
                    has_only_substance_units = False):
     """

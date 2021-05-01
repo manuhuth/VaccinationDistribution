@@ -3,6 +3,8 @@ import pandas as pd
 from functions.create_sbml import write_entities_to_dict
 from functions.create_sbml import write_dict_to_sbml_file
 
+def b_distance_function(x):
+    return 1 / (1 + x)
 
 def model_one_country_create_sbml(path, S_0, I_0, R_0=0):
     compartments = { 'countryA' : {"units" : 'dimensionless', 'constant' : True, 'volume' : 1}
@@ -54,6 +56,12 @@ vaccination_states_removed = [x for x in vaccination_states if x != 'vac0']
 omega_df = pd.DataFrame(omega_matrix, columns=vaccination_states_removed, index=virus_states)
 delta_df = pd.DataFrame(delta_matrix, columns=vaccination_states_removed, index=virus_states)
 eta_df = pd.DataFrame(eta_vector, columns=virus_states)    
+
+#needed to define reactions
+distances = np.array([[0]])
+distances_df = pd.DataFrame(distances, columns=areas, index=areas)
+b_distance_matrix = b_distance_function(distances_df)
+#M_matrix = 
 
 #create species
 species = {}

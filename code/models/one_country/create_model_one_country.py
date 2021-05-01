@@ -61,6 +61,7 @@ eta_df = pd.DataFrame(eta_vector, columns=virus_states)
 distances = np.array([[0]])
 distances_df = pd.DataFrame(distances, columns=areas, index=areas)
 b_distance_matrix = b_distance_function(distances_df)
+#TODO first for two countries and the for n
 #M_matrix = 
 
 #create species
@@ -166,7 +167,7 @@ for index_areas_infected in areas:
                     else:
                         gamma_term = '0'
 
-#TODO: give key proper name, define mll (define b matrix first and with that the M matrix) and define modifiers (list of all used) 
+#TODO: give key proper name, define mll (define b matrix first and with that the M matrix) and define modifiers (list of all used) , see other TODO above
                     infection_reaction[key] =  {'reactants' : {f'{numb_susceptible}' : 1, '{numb_infectious}' : 1},
                                                 'products'  : {'{numb_infectious}' : 2},
                                                 'modifiers' : {'recovered'},

@@ -221,6 +221,6 @@ def write_dict_to_sbml_file(dictionary, path, error_check=False):
     doc = create_sbml_file(**dictionary)
     if error_check is True:
         check_model_for_errors(doc)
-    
+
     output_path = path + ".xml"
     writeSBMLToFile(doc, output_path)

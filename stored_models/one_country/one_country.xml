@@ -5,11 +5,11 @@
       <compartment id="countryA" name="countryA" size="1" units="dimensionless" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="susceptible_countryA_vac0" name="susceptible_countryA_vac0" compartment="countryA" initialAmount="100000" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="susceptible_countryA_vac0" name="susceptible_countryA_vac0" compartment="countryA" initialAmount="10000" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="susceptible_countryA_vac1" name="susceptible_countryA_vac1" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="susceptible_countryA_vac2" name="susceptible_countryA_vac2" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="infectious_countryA_vac0_virW" name="infectious_countryA_vac0_virW" compartment="countryA" initialAmount="1e-13" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="infectious_countryA_vac0_virM" name="infectious_countryA_vac0_virM" compartment="countryA" initialAmount="1e-13" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="infectious_countryA_vac0_virW" name="infectious_countryA_vac0_virW" compartment="countryA" initialAmount="1" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="infectious_countryA_vac0_virM" name="infectious_countryA_vac0_virM" compartment="countryA" initialAmount="1" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="infectious_countryA_vac1_virW" name="infectious_countryA_vac1_virW" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="infectious_countryA_vac1_virM" name="infectious_countryA_vac1_virM" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="infectious_countryA_vac2_virW" name="infectious_countryA_vac2_virW" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
@@ -28,8 +28,8 @@
       <species id="dead_countryA_vac2_virM" name="dead_countryA_vac2_virM" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="lambda" name="lambda" value="0.01" units="dimensionless" constant="true"/>
-      <parameter id="p_lambda" name="p_lambda" value="0.01" units="dimensionless" constant="true"/>
+      <parameter id="lambda1" name="lambda1" value="0.01" units="dimensionless" constant="true"/>
+      <parameter id="p" name="p" value="0.01" units="dimensionless" constant="true"/>
       <parameter id="gamma" name="gamma" value="0.5" units="dimensionless" constant="true"/>
       <parameter id="beta" name="beta" value="2" units="dimensionless" constant="true"/>
       <parameter id="nu_vac1" name="nu_vac1" value="0.01" units="dimensionless" constant="true"/>
@@ -56,21 +56,24 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
+              <plus/>
               <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
+                <times/>
                 <apply>
-                  <times/>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
                   <apply>
-                    <minus/>
-                    <cn type="integer"> 1 </cn>
-                    <ci> omega_vac0_virW </ci>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <cn type="integer"> 0 </cn>
+                    </apply>
+                    <ci> p </ci>
                   </apply>
-                  <ci> p </ci>
                 </apply>
+                <ci> lambda1 </ci>
               </apply>
-              <ci> lambda </ci>
               <ci> infectious_countryA_vac0_virW </ci>
             </apply>
           </math>
@@ -90,10 +93,10 @@
               <apply>
                 <minus/>
                 <cn type="integer"> 1 </cn>
-                <ci> omega_vac0_virW </ci>
+                <cn type="integer"> 0 </cn>
               </apply>
               <ci> p </ci>
-              <ci> lambda </ci>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
             </apply>
           </math>
@@ -109,21 +112,24 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
+              <plus/>
               <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
+                <times/>
                 <apply>
-                  <times/>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
                   <apply>
-                    <minus/>
-                    <cn type="integer"> 1 </cn>
-                    <ci> omega_vac0_virM </ci>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <cn type="integer"> 0 </cn>
+                    </apply>
+                    <ci> p </ci>
                   </apply>
-                  <ci> p </ci>
                 </apply>
+                <ci> lambda1 </ci>
               </apply>
-              <ci> lambda </ci>
               <ci> infectious_countryA_vac0_virM </ci>
             </apply>
           </math>
@@ -143,10 +149,10 @@
               <apply>
                 <minus/>
                 <cn type="integer"> 1 </cn>
-                <ci> omega_vac0_virM </ci>
+                <cn type="integer"> 0 </cn>
               </apply>
               <ci> p </ci>
-              <ci> lambda </ci>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac0_virM </ci>
             </apply>
           </math>
@@ -162,21 +168,24 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
+              <plus/>
               <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
+                <times/>
                 <apply>
-                  <times/>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
                   <apply>
-                    <minus/>
-                    <cn type="integer"> 1 </cn>
-                    <ci> omega_vac1_virW </ci>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> omega_vac1_virW </ci>
+                    </apply>
+                    <ci> p </ci>
                   </apply>
-                  <ci> p </ci>
                 </apply>
+                <ci> lambda1 </ci>
               </apply>
-              <ci> lambda </ci>
               <ci> infectious_countryA_vac1_virW </ci>
             </apply>
           </math>
@@ -199,7 +208,7 @@
                 <ci> omega_vac1_virW </ci>
               </apply>
               <ci> p </ci>
-              <ci> lambda </ci>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac1_virW </ci>
             </apply>
           </math>
@@ -215,21 +224,24 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
+              <plus/>
               <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
+                <times/>
                 <apply>
-                  <times/>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
                   <apply>
-                    <minus/>
-                    <cn type="integer"> 1 </cn>
-                    <ci> omega_vac1_virM </ci>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> omega_vac1_virM </ci>
+                    </apply>
+                    <ci> p </ci>
                   </apply>
-                  <ci> p </ci>
                 </apply>
+                <ci> lambda1 </ci>
               </apply>
-              <ci> lambda </ci>
               <ci> infectious_countryA_vac1_virM </ci>
             </apply>
           </math>
@@ -252,7 +264,7 @@
                 <ci> omega_vac1_virM </ci>
               </apply>
               <ci> p </ci>
-              <ci> lambda </ci>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac1_virM </ci>
             </apply>
           </math>
@@ -268,21 +280,24 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
+              <plus/>
               <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
+                <times/>
                 <apply>
-                  <times/>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
                   <apply>
-                    <minus/>
-                    <cn type="integer"> 1 </cn>
-                    <ci> omega_vac2_virW </ci>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> omega_vac2_virW </ci>
+                    </apply>
+                    <ci> p </ci>
                   </apply>
-                  <ci> p </ci>
                 </apply>
+                <ci> lambda1 </ci>
               </apply>
-              <ci> lambda </ci>
               <ci> infectious_countryA_vac2_virW </ci>
             </apply>
           </math>
@@ -305,7 +320,7 @@
                 <ci> omega_vac2_virW </ci>
               </apply>
               <ci> p </ci>
-              <ci> lambda </ci>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac2_virW </ci>
             </apply>
           </math>
@@ -321,21 +336,24 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
+              <plus/>
               <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
+                <times/>
                 <apply>
-                  <times/>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
                   <apply>
-                    <minus/>
-                    <cn type="integer"> 1 </cn>
-                    <ci> omega_vac2_virM </ci>
+                    <times/>
+                    <apply>
+                      <minus/>
+                      <cn type="integer"> 1 </cn>
+                      <ci> omega_vac2_virM </ci>
+                    </apply>
+                    <ci> p </ci>
                   </apply>
-                  <ci> p </ci>
                 </apply>
+                <ci> lambda1 </ci>
               </apply>
-              <ci> lambda </ci>
               <ci> infectious_countryA_vac2_virM </ci>
             </apply>
           </math>
@@ -358,361 +376,1392 @@
                 <ci> omega_vac2_virM </ci>
               </apply>
               <ci> p </ci>
-              <ci> lambda </ci>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac2_virM </ci>
             </apply>
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="susceptible__countryA_vac0_to_infectious_countryA_vac0_virW" reversible="false">
+      <reaction id="susceptible_countryA_vac0_to_infectious_countryA_vac0_virW" reversible="false">
         <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac0" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
+          <speciesReference species="susceptible_countryA_vac0" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac0_virW" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
+          <speciesReference species="infectious_countryA_vac0_virW" stoichiometry="2" constant="true"/>
         </listOfProducts>
         <listOfModifiers>
-          <modifierSpeciesReference/>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
         </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac1_to_infectious_countryA_vac0_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac1" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac2_to_infectious_countryA_vac0_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac2" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac0_to_infectious_countryA_vac0_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac0" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac1_to_infectious_countryA_vac0_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac1" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac2_to_infectious_countryA_vac0_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac2" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac0_to_infectious_countryA_vac1_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac0" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac1_to_infectious_countryA_vac1_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac1" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac2_to_infectious_countryA_vac1_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac2" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac0_to_infectious_countryA_vac1_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac0" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac1_to_infectious_countryA_vac1_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac1" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac2_to_infectious_countryA_vac1_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac2" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac0_to_infectious_countryA_vac2_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac0" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac1_to_infectious_countryA_vac2_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac1" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac2_to_infectious_countryA_vac2_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac2" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac0_to_infectious_countryA_vac2_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac0" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac1_to_infectious_countryA_vac2_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac1" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible__countryA_vac2_to_infectious_countryA_vac2_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible__countryA_vac2" stoichiometry="1" constant="true"/>
-          <speciesReference stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference stoichiometry="2" constant="true"/>
-        </listOfProducts>
-        <listOfModifiers>
-          <modifierSpeciesReference/>
-        </listOfModifiers>
-        <kineticLaw/>
-      </reaction>
-      <reaction id="susceptible_countryA_vac0_virW_to_susceptible_countryA_vac0_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible_countryA_vac0_virW" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="susceptible_countryA_vac0_virW" stoichiometry="1" constant="true"/>
-        </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <times/>
-              <ci> nu_vac0 </ci>
-              <ci> susceptible_countryA_vac0_virW </ci>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
             </apply>
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="susceptible_countryA_vac0_virW_to_susceptible_countryA_vac1_virW" reversible="false">
+      <reaction id="susceptible_countryA_vac1_to_infectious_countryA_vac0_virW" reversible="false">
         <listOfReactants>
-          <speciesReference species="susceptible_countryA_vac0_virW" stoichiometry="1" constant="true"/>
+          <speciesReference species="susceptible_countryA_vac1" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac0_virW" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="susceptible_countryA_vac1_virW" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac0_virW" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac1_virW </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac2_to_infectious_countryA_vac0_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac2" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac0_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac0_virW" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac2_virW </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac0_to_infectious_countryA_vac0_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac0" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac0_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac0_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac1_to_infectious_countryA_vac0_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac1" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac0_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac0_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac1_virM </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac2_to_infectious_countryA_vac0_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac2" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac0_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac0_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac2_virM </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac0_to_infectious_countryA_vac1_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac0" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac1_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac1_virW" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac1_to_infectious_countryA_vac1_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac1" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac1_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac1_virW" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac1_virW </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac2_to_infectious_countryA_vac1_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac2" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac1_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac1_virW" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac2_virW </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac0_to_infectious_countryA_vac1_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac0" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac1_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac1_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac1_to_infectious_countryA_vac1_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac1" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac1_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac1_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac1_virM </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac2_to_infectious_countryA_vac1_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac2" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac1_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac1_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac2_virM </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac0_to_infectious_countryA_vac2_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac0" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac2_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac2_virW" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac1_to_infectious_countryA_vac2_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac1" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac2_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac2_virW" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac1_virW </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac2_to_infectious_countryA_vac2_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac2" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac2_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac2_virW" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virW </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac2_virW </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac0_to_infectious_countryA_vac2_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac0" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac2_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac2_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac1_to_infectious_countryA_vac2_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac1" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac2_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac2_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac1_virM </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac2_to_infectious_countryA_vac2_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac2" stoichiometry="1" constant="true"/>
+          <speciesReference species="infectious_countryA_vac2_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac2_virM" stoichiometry="2" constant="true"/>
+        </listOfProducts>
+        <listOfModifiers>
+          <modifierSpeciesReference species="susceptible_countryA_vac0"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac1"/>
+          <modifierSpeciesReference species="susceptible_countryA_vac2"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="infectious_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="recovered_countryA_vac2_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac0_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac1_virM"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virW"/>
+          <modifierSpeciesReference species="dead_countryA_vac2_virM"/>
+        </listOfModifiers>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <divide/>
+              <apply>
+                <times/>
+                <ci> beta </ci>
+                <ci> eta_virM </ci>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> delta_vac2_virM </ci>
+                </apply>
+                <apply>
+                  <minus/>
+                  <cn type="integer"> 1 </cn>
+                  <ci> gamma </ci>
+                </apply>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <cn type="integer"> 1 </cn>
+              </apply>
+              <apply>
+                <plus/>
+                <ci> susceptible_countryA_vac0 </ci>
+                <ci> susceptible_countryA_vac1 </ci>
+                <ci> susceptible_countryA_vac2 </ci>
+                <ci> infectious_countryA_vac0_virW </ci>
+                <ci> infectious_countryA_vac0_virM </ci>
+                <ci> infectious_countryA_vac1_virW </ci>
+                <ci> infectious_countryA_vac1_virM </ci>
+                <ci> infectious_countryA_vac2_virW </ci>
+                <ci> infectious_countryA_vac2_virM </ci>
+                <ci> recovered_countryA_vac0_virW </ci>
+                <ci> recovered_countryA_vac0_virM </ci>
+                <ci> recovered_countryA_vac1_virW </ci>
+                <ci> recovered_countryA_vac1_virM </ci>
+                <ci> recovered_countryA_vac2_virW </ci>
+                <ci> recovered_countryA_vac2_virM </ci>
+              </apply>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="susceptible_countryA_vac0_to_susceptible_countryA_vac1" reversible="false">
+        <listOfReactants>
+          <speciesReference species="susceptible_countryA_vac0" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="susceptible_countryA_vac1" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
               <ci> nu_vac1 </ci>
-              <ci> susceptible_countryA_vac0_virW </ci>
+              <ci> susceptible_countryA_vac0 </ci>
             </apply>
           </math>
         </kineticLaw>
       </reaction>
-      <reaction id="susceptible_countryA_vac0_virW_to_susceptible_countryA_vac2_virW" reversible="false">
+      <reaction id="susceptible_countryA_vac0_to_susceptible_countryA_vac2" reversible="false">
         <listOfReactants>
-          <speciesReference species="susceptible_countryA_vac0_virW" stoichiometry="1" constant="true"/>
+          <speciesReference species="susceptible_countryA_vac0" stoichiometry="1" constant="true"/>
         </listOfReactants>
         <listOfProducts>
-          <speciesReference species="susceptible_countryA_vac2_virW" stoichiometry="1" constant="true"/>
+          <speciesReference species="susceptible_countryA_vac2" stoichiometry="1" constant="true"/>
         </listOfProducts>
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
               <ci> nu_vac2 </ci>
-              <ci> susceptible_countryA_vac0_virW </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="susceptible_countryA_vac0_virM_to_susceptible_countryA_vac0_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible_countryA_vac0_virM" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="susceptible_countryA_vac0_virM" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> nu_vac0 </ci>
-              <ci> susceptible_countryA_vac0_virM </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="susceptible_countryA_vac0_virM_to_susceptible_countryA_vac1_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible_countryA_vac0_virM" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="susceptible_countryA_vac1_virM" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> nu_vac1 </ci>
-              <ci> susceptible_countryA_vac0_virM </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="susceptible_countryA_vac0_virM_to_susceptible_countryA_vac2_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="susceptible_countryA_vac0_virM" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="susceptible_countryA_vac2_virM" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> nu_vac2 </ci>
-              <ci> susceptible_countryA_vac0_virM </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="recovered_countryA_vac0_virW_to_recovered_countryA_vac0_virW" reversible="false">
-        <listOfReactants>
-          <speciesReference species="recovered_countryA_vac0_virW" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="recovered_countryA_vac0_virW" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> nu_vac0 </ci>
-              <ci> recovered_countryA_vac0_virW </ci>
+              <ci> susceptible_countryA_vac0 </ci>
             </apply>
           </math>
         </kineticLaw>
@@ -747,23 +1796,6 @@
               <times/>
               <ci> nu_vac2 </ci>
               <ci> recovered_countryA_vac0_virW </ci>
-            </apply>
-          </math>
-        </kineticLaw>
-      </reaction>
-      <reaction id="recovered_countryA_vac0_virM_to_recovered_countryA_vac0_virM" reversible="false">
-        <listOfReactants>
-          <speciesReference species="recovered_countryA_vac0_virM" stoichiometry="1" constant="true"/>
-        </listOfReactants>
-        <listOfProducts>
-          <speciesReference species="recovered_countryA_vac0_virM" stoichiometry="1" constant="true"/>
-        </listOfProducts>
-        <kineticLaw>
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <apply>
-              <times/>
-              <ci> nu_vac0 </ci>
-              <ci> recovered_countryA_vac0_virM </ci>
             </apply>
           </math>
         </kineticLaw>

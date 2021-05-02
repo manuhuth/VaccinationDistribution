@@ -7,16 +7,21 @@ from functions.create_sbml import write_dict_to_sbml_file
 def model_one_country_create_sbml(
     path,
     vaccination_states=["vac0", "vac1", "vac2"],
+    non_vaccination_state = 'vac0',
     virus_states=["virW", "virM"],
     areas=["countryA"],
     species_comp=["susceptible", "infectious", "recovered", "dead"],
+    vaccinated_compartments = ["susceptible", "recovered"],
     omega_matrix=np.array([[0.9, 0.6], [0.7, 0.9]]),
     delta_matrix=np.array([[0.9, 0.6], [0.6, 0.9]]),
     eta_vector=np.array([[1, 1.3]]),
+    t0_susceptible = 10000,
+    t0_infectious = 1,
+    distances =  np.array([[0]]),
     check_error=False,
 ):
 
-    vaccination_states_removed = [x for x in vaccination_states if x != "vac0"]
+    vaccination_states_removed = [x for x in vaccination_states if x != non_vaccination_state]
     omega_df = pd.DataFrame(
         omega_matrix, columns=vaccination_states_removed, index=virus_states
     )
@@ -25,9 +30,6 @@ def model_one_country_create_sbml(
     )
     eta_df = pd.DataFrame(eta_vector, columns=virus_states)
 
-    # needed to define reactions
-    distances = np.array([[0]])
-
     # create compartments
     compartments = create_comaprtments_model(areas)
 
@@ -35,8 +37,8 @@ def model_one_country_create_sbml(
     species = create_species_model(
         species_comp=species_comp,
         areas=areas,
-        vaccination_states=vaccination_states,
-        virus_states=virus_states,
+        vaccination_states=vaccination_states, non_vaccination_state=non_vaccination_state,
+        virus_states=virus_states, t0_susceptible=t0_susceptible, t0_infectious=t0_infectious,
     )
 
     # create parameters
@@ -52,10 +54,11 @@ def model_one_country_create_sbml(
     reactions = create_reactions_model(
         areas=areas,
         vaccination_states=vaccination_states,
+        vaccination_states_removed=vaccination_states_removed,
         virus_states=virus_states,
         species=species,
         distances=distances,
-        vaccinated_compartments=["susceptible", "recovered"],
+        vaccinated_compartments=vaccinated_compartments, non_vaccination_state=non_vaccination_state,
     )
 
     model_input_dictionary = write_entities_to_dict(
@@ -120,7 +123,8 @@ def create_comaprtments_model(areas):
     return compartments
 
 
-def create_species_model(species_comp, areas, vaccination_states, virus_states):
+def create_species_model(species_comp, areas, vaccination_states, virus_states, t0_susceptible,
+                         t0_infectious, non_vaccination_state):
     species = {}
     for index_compartments in species_comp:
         for index_areas in areas:
@@ -130,15 +134,15 @@ def create_species_model(species_comp, areas, vaccination_states, virus_states):
                         species_combined = (
                             f"{index_compartments}_{index_areas}_{index_vaccination}"
                         )
-                        amount_t0 = 100000
+                        amount_t0 = t0_susceptible
                     else:
                         species_combined = f"{index_compartments}_{index_areas}_{index_vaccination}_{index_virus}"
 
                         if index_compartments in ["recovered", "dead"]:
                             amount_t0 = 0
                         elif index_compartments == "infectious":
-                            amount_t0 = 10 ** (-13)
-                    if index_vaccination != "vac0":
+                            amount_t0 = t0_infectious
+                    if index_vaccination != non_vaccination_state:
                         amount_t0 = 0
                     species[species_combined] = {
                         "compartment": index_areas,
@@ -168,8 +172,8 @@ def create_parameters_model(
         eta_dict[key_eta] = {"value": eta_df[index_virus][0]}
 
     parameters_fixed = {
-        "lambda": {"value": 0.01},
-        "p_lambda": {"value": 0.01},
+        "lambda1": {"value": 0.01},
+        "p": {"value": 0.01},
         "gamma": {"value": 0.5},
         "beta": {"value": 2},
         "nu_vac1": {"value": 0.01},
@@ -195,7 +199,7 @@ def create_dead_recover_reactions_model(areas, vaccination_states, virus_states)
                 key_recover = f"{numb_infected}_to_{numb_recovered}"
                 key_death = f"{numb_infected}_to_{numb_dead}"
 
-                if vaccination_states == "vac0":
+                if index_vaccination == "vac0":
                     omega_term = "0"
                 else:
                     omega_term = f"omega_{index_vaccination}_{index_virus}"
@@ -203,12 +207,12 @@ def create_dead_recover_reactions_model(areas, vaccination_states, virus_states)
                 dead_recover_reactions[key_recover] = {
                     "reactants": {f"{numb_infected}": 1},
                     "products": {f"{numb_recovered}": 1},
-                    "formula": f"(1 - (1 - {omega_term}) * p) * lambda * {numb_infected}",
+                    "formula": f" (1 - (1 - {omega_term}) * p) * lambda1 + {numb_infected}",
                 }
                 dead_recover_reactions[key_death] = {
                     "reactants": {f"{numb_infected}": 1},
                     "products": {f"{numb_dead}": 1},
-                    "formula": f" (1 - {omega_term}) * p * lambda * {numb_infected}",
+                    "formula": f"(1 - {omega_term}) * p * lambda1 * {numb_infected}",
                 }
     return dead_recover_reactions
 
@@ -223,7 +227,7 @@ def create_infection_reactions_model(
                 for index_areas_susceptible in areas:
                     for index_vaccination_susceptible in vaccination_states:
 
-                        numb_susceptible = f"susceptible__{index_areas_susceptible}_{index_vaccination_susceptible}"
+                        numb_susceptible = f"susceptible_{index_areas_susceptible}_{index_vaccination_susceptible}"
                         numb_infectious = f"infectious_{index_areas_infected}_{index_vaccination_infected}_{index_virus_infected}"
                         numb_susceptible_area_population_alive = (
                             get_all_species_alive_area(
@@ -241,32 +245,40 @@ def create_infection_reactions_model(
                             gamma_term = "gamma"
                         else:
                             gamma_term = "0"
-                        modifier = ",".join(species.keys())
+                        modifier = list(species.keys()) #",".join(species.keys())
                         keys = f"{numb_susceptible}_to_{numb_infectious}"
                         infection_reactions[keys] = {
                             "reactants": {
                                 f"{numb_susceptible}": 1,
-                                "{numb_infectious}": 1,
+                                f"{numb_infectious}": 1,
                             },
-                            "products": {"{numb_infectious}": 2},
-                            "modifiers": {modifier},
-                            "formula": f"beta * {eta_term} * (1-{delta_term}) * (1-{gamma_term})*{numb_susceptible}*{numb_infectious}*({distance_M.loc[index_areas_susceptible, index_areas_infected]})*/({numb_susceptible_area_population_alive})",
+                            "products": {f"{numb_infectious}": 2},
+                            "modifiers": modifier,
+                            "formula": f"beta * {eta_term} * (1-{delta_term}) * (1-{gamma_term})*{numb_susceptible}*{numb_infectious}*({distance_M.loc[index_areas_susceptible, index_areas_infected]})/({numb_susceptible_area_population_alive})",
                         }
     return infection_reactions
 
 
 def create_vaccination_reactions_model(
-    species_comp, areas, virus_states, vaccination_states
+    species_comp, areas, virus_states, vaccination_states, vaccination_states_removed, non_vaccination_state
 ):
     vaccination_reactions = {}
     for index_compartments in species_comp:
         for index_areas in areas:
             for index_virus in virus_states:
-                numb_to_be_vaccinated = (
-                    f"{index_compartments}_{index_areas}_vac0_{index_virus}"
-                )
-                for index_vaccination in vaccination_states:
-                    numb_vaccinated = f"{index_compartments}_{index_areas}_{index_vaccination}_{index_virus}"
+                if index_compartments == 'susceptible':
+                    numb_to_be_vaccinated = (
+                        f"{index_compartments}_{index_areas}_{non_vaccination_state}"
+                    )
+                else:
+                    numb_to_be_vaccinated = (
+                        f"{index_compartments}_{index_areas}_{non_vaccination_state}_{index_virus}"
+                    )                    
+                for index_vaccination in vaccination_states_removed:
+                    if index_compartments == 'susceptible':
+                        numb_vaccinated = f"{index_compartments}_{index_areas}_{index_vaccination}"
+                    else:
+                        numb_vaccinated = f"{index_compartments}_{index_areas}_{index_vaccination}_{index_virus}"
                     vaccination_reactions[
                         f"{numb_to_be_vaccinated}_to_{numb_vaccinated}"
                     ] = {
@@ -280,10 +292,12 @@ def create_vaccination_reactions_model(
 def create_reactions_model(
     areas,
     vaccination_states,
+    vaccination_states_removed,
     virus_states,
     species,
     distances,
-    vaccinated_compartments=["susceptible", "recovered"],
+    vaccinated_compartments,
+    non_vaccination_state,
 ):
     # Dead/Recovery
     dead_recover_reactions = create_dead_recover_reactions_model(
@@ -305,7 +319,7 @@ def create_reactions_model(
         species_comp=vaccinated_compartments,
         vaccination_states=vaccination_states,
         areas=areas,
-        virus_states=virus_states,
+        virus_states=virus_states, vaccination_states_removed=vaccination_states_removed, non_vaccination_state=non_vaccination_state,
     )
 
     # concatenate reactions

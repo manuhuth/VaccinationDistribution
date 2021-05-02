@@ -3,16 +3,6 @@ import pandas as pd
 from functions.create_sbml import write_entities_to_dict
 from functions.create_sbml import write_dict_to_sbml_file
 
-{
-    "lambda1": {"value": 0.01},
-    "p": {"value": 0.01},
-    "gamma": {"value": 0.5},
-    "beta": {"value": 2},
-    "nu_vac1": {"value": 0.01},
-    "nu_vac2": {"value": 0.01},
-}
-
-
 def model_one_country_create_sbml(
     path,
     vaccination_states=["vac0", "vac1", "vac2"],

@@ -1,6 +1,6 @@
 import numpy as np
-from amici.plotting import plotStateTrajectories
 from models.one_country.create_model_one_country import model_one_country_create_sbml
+from visualization.model_results import plot_states
 from functions.run_sbml import get_model_and_solver_from_sbml
 from functions.run_sbml import model_run
 
@@ -21,4 +21,6 @@ model_result = model_run(
     model=model, solver=solver, timepoints=timepoints, set_parameter=None
 )
 
-plotStateTrajectories(model_result, model=model)
+
+fig, ax = plot_states(results=model_result, model=model)
+

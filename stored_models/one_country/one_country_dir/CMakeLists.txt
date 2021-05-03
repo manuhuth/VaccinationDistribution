@@ -55,6 +55,7 @@ one_country_dwdx_colptrs.cpp
 one_country_dwdp_rowvals.cpp 
 one_country.cpp 
 one_country_dydx.cpp 
+one_country_sx0.cpp 
 one_country_dJydsigma.cpp 
 ${MODEL_DIR}/wrapfunctions.cpp
 )

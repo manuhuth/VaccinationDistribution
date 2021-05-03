@@ -5,7 +5,7 @@ namespace amici {
 
 namespace model_one_country {
 
-std::array<const char*, 16> parameterNames = {
+std::array<const char*, 37> parameterNames = {
     "lambda1", // p[0]
 "p", // p[1]
 "gamma", // p[2]
@@ -22,6 +22,27 @@ std::array<const char*, 16> parameterNames = {
 "delta_vac2_virM", // p[13]
 "eta_virW", // p[14]
 "eta_virM", // p[15]
+"susceptible_countryA_vac0_t0", // p[16]
+"susceptible_countryA_vac1_t0", // p[17]
+"susceptible_countryA_vac2_t0", // p[18]
+"infectious_countryA_vac0_virW_t0", // p[19]
+"infectious_countryA_vac0_virM_t0", // p[20]
+"infectious_countryA_vac1_virW_t0", // p[21]
+"infectious_countryA_vac1_virM_t0", // p[22]
+"infectious_countryA_vac2_virW_t0", // p[23]
+"infectious_countryA_vac2_virM_t0", // p[24]
+"recovered_countryA_vac0_virW_t0", // p[25]
+"recovered_countryA_vac0_virM_t0", // p[26]
+"recovered_countryA_vac1_virW_t0", // p[27]
+"recovered_countryA_vac1_virM_t0", // p[28]
+"recovered_countryA_vac2_virW_t0", // p[29]
+"recovered_countryA_vac2_virM_t0", // p[30]
+"dead_countryA_vac0_virW_t0", // p[31]
+"dead_countryA_vac0_virM_t0", // p[32]
+"dead_countryA_vac1_virW_t0", // p[33]
+"dead_countryA_vac1_virM_t0", // p[34]
+"dead_countryA_vac2_virW_t0", // p[35]
+"dead_countryA_vac2_virM_t0", // p[36]
 };
 
 std::array<const char*, 0> fixedParameterNames = {
@@ -116,7 +137,7 @@ std::array<const char*, 36> expressionNames = {
 "flux_r35", // w[35]
 };
 
-std::array<const char*, 16> parameterIds = {
+std::array<const char*, 37> parameterIds = {
     "lambda1", // p[0]
 "amici_p", // p[1]
 "gamma", // p[2]
@@ -133,6 +154,27 @@ std::array<const char*, 16> parameterIds = {
 "delta_vac2_virM", // p[13]
 "eta_virW", // p[14]
 "eta_virM", // p[15]
+"susceptible_countryA_vac0_t0", // p[16]
+"susceptible_countryA_vac1_t0", // p[17]
+"susceptible_countryA_vac2_t0", // p[18]
+"infectious_countryA_vac0_virW_t0", // p[19]
+"infectious_countryA_vac0_virM_t0", // p[20]
+"infectious_countryA_vac1_virW_t0", // p[21]
+"infectious_countryA_vac1_virM_t0", // p[22]
+"infectious_countryA_vac2_virW_t0", // p[23]
+"infectious_countryA_vac2_virM_t0", // p[24]
+"recovered_countryA_vac0_virW_t0", // p[25]
+"recovered_countryA_vac0_virM_t0", // p[26]
+"recovered_countryA_vac1_virW_t0", // p[27]
+"recovered_countryA_vac1_virM_t0", // p[28]
+"recovered_countryA_vac2_virW_t0", // p[29]
+"recovered_countryA_vac2_virM_t0", // p[30]
+"dead_countryA_vac0_virW_t0", // p[31]
+"dead_countryA_vac0_virM_t0", // p[32]
+"dead_countryA_vac1_virW_t0", // p[33]
+"dead_countryA_vac1_virM_t0", // p[34]
+"dead_countryA_vac2_virW_t0", // p[35]
+"dead_countryA_vac2_virM_t0", // p[36]
 };
 
 std::array<const char*, 0> fixedParameterIds = {

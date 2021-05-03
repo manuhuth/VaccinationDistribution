@@ -15,12 +15,12 @@ class Solver;
 
 namespace model_one_country {
 
-extern std::array<const char*, 16> parameterNames;
+extern std::array<const char*, 37> parameterNames;
 extern std::array<const char*, 0> fixedParameterNames;
 extern std::array<const char*, 21> stateNames;
 extern std::array<const char*, 22> observableNames;
 extern std::array<const char*, 36> expressionNames;
-extern std::array<const char*, 16> parameterIds;
+extern std::array<const char*, 37> parameterIds;
 extern std::array<const char*, 0> fixedParameterIds;
 extern std::array<const char*, 21> stateIds;
 extern std::array<const char*, 22> observableIds;
@@ -57,7 +57,7 @@ extern void sigmay_one_country(realtype *sigmay, const realtype t, const realtyp
 extern void w_one_country(realtype *w, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *tcl);
 extern void x0_one_country(realtype *x0, const realtype t, const realtype *p, const realtype *k);
 
-
+extern void sx0_one_country(realtype *sx0, const realtype t,const realtype *x, const realtype *p, const realtype *k, const int ip);
 
 extern void xdot_one_country(realtype *xdot, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w);
 extern void y_one_country(realtype *y, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w);
@@ -84,7 +84,7 @@ class Model_one_country : public amici::Model_ODE {
                   21,                           // nx_solver
                   21,                       // nxtrue_solver
                   0,                    // nx_solver_reinit
-                  16,                                  // np
+                  37,                                  // np
                   0,                                  // nk
                   22,                                  // ny
                   22,                              // nytrue
@@ -104,7 +104,7 @@ class Model_one_country : public amici::Model_ODE {
               ),
               amici::SimulationParameters(
                   std::vector<realtype>{}, // fixedParameters
-                  std::vector<realtype>{0.01, 0.01, 0.5, 2.0, 0.01, 0.01, 0.90000000000000002, 0.90000000000000002, 0.59999999999999998, 0.59999999999999998, 0.69999999999999996, 0.59999999999999998, 0.90000000000000002, 0.90000000000000002, 1.0, 1.3}        // dynamic parameters
+                  std::vector<realtype>{0.01, 0.10000000000000001, 0.5, 2.0, 0.01, 0.01, 0.90000000000000002, 0.90000000000000002, 0.59999999999999998, 0.59999999999999998, 0.69999999999999996, 0.59999999999999998, 0.90000000000000002, 0.90000000000000002, 1.0, 1.3, 30000.0, 0.0, 0.0, 1000.0, 1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}        // dynamic parameters
               ),
               amici::SecondOrderMode::none,                                  // o2mode
               std::vector<realtype>(21, 0.0),   // idlist
@@ -451,7 +451,9 @@ class Model_one_country : public amici::Model_ODE {
 
     virtual void fstau(realtype *stau, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *sx, const int ip, const int ie) override {}
 
-    virtual void fsx0(realtype *sx0, const realtype t,const realtype *x, const realtype *p, const realtype *k, const int ip) override {}
+    virtual void fsx0(realtype *sx0, const realtype t,const realtype *x, const realtype *p, const realtype *k, const int ip) override {
+        sx0_one_country(sx0, t,x, p, k, ip);
+    }
 
     virtual void fsx0_fixedParameters(realtype *sx0_fixedParameters, const realtype t, const realtype *x0, const realtype *p, const realtype *k, const int ip, gsl::span<const int> reinitialization_state_idxs) override {}
 

@@ -5,11 +5,11 @@
       <compartment id="countryA" name="countryA" size="1" units="dimensionless" constant="true"/>
     </listOfCompartments>
     <listOfSpecies>
-      <species id="susceptible_countryA_vac0" name="susceptible_countryA_vac0" compartment="countryA" initialAmount="10000" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="susceptible_countryA_vac0" name="susceptible_countryA_vac0" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="susceptible_countryA_vac1" name="susceptible_countryA_vac1" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="susceptible_countryA_vac2" name="susceptible_countryA_vac2" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="infectious_countryA_vac0_virW" name="infectious_countryA_vac0_virW" compartment="countryA" initialAmount="1" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
-      <species id="infectious_countryA_vac0_virM" name="infectious_countryA_vac0_virM" compartment="countryA" initialAmount="1" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="infectious_countryA_vac0_virW" name="infectious_countryA_vac0_virW" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
+      <species id="infectious_countryA_vac0_virM" name="infectious_countryA_vac0_virM" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="infectious_countryA_vac1_virW" name="infectious_countryA_vac1_virW" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="infectious_countryA_vac1_virM" name="infectious_countryA_vac1_virM" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
       <species id="infectious_countryA_vac2_virW" name="infectious_countryA_vac2_virW" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
@@ -29,7 +29,7 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="lambda1" name="lambda1" value="0.01" units="dimensionless" constant="true"/>
-      <parameter id="p" name="p" value="0.01" units="dimensionless" constant="true"/>
+      <parameter id="p" name="p" value="0.1" units="dimensionless" constant="true"/>
       <parameter id="gamma" name="gamma" value="0.5" units="dimensionless" constant="true"/>
       <parameter id="beta" name="beta" value="2" units="dimensionless" constant="true"/>
       <parameter id="nu_vac1" name="nu_vac1" value="0.01" units="dimensionless" constant="true"/>
@@ -44,7 +44,135 @@
       <parameter id="delta_vac2_virM" name="delta_vac2_virM" value="0.9" units="dimensionless" constant="true"/>
       <parameter id="eta_virW" name="eta_virW" value="1" units="dimensionless" constant="true"/>
       <parameter id="eta_virM" name="eta_virM" value="1.3" units="dimensionless" constant="true"/>
+      <parameter id="susceptible_countryA_vac0_t0" name="susceptible_countryA_vac0_t0" value="30000" units="dimensionless" constant="true"/>
+      <parameter id="susceptible_countryA_vac1_t0" name="susceptible_countryA_vac1_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="susceptible_countryA_vac2_t0" name="susceptible_countryA_vac2_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryA_vac0_virW_t0" name="infectious_countryA_vac0_virW_t0" value="1000" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryA_vac0_virM_t0" name="infectious_countryA_vac0_virM_t0" value="1000" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryA_vac1_virW_t0" name="infectious_countryA_vac1_virW_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryA_vac1_virM_t0" name="infectious_countryA_vac1_virM_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryA_vac2_virW_t0" name="infectious_countryA_vac2_virW_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryA_vac2_virM_t0" name="infectious_countryA_vac2_virM_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="recovered_countryA_vac0_virW_t0" name="recovered_countryA_vac0_virW_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="recovered_countryA_vac0_virM_t0" name="recovered_countryA_vac0_virM_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="recovered_countryA_vac1_virW_t0" name="recovered_countryA_vac1_virW_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="recovered_countryA_vac1_virM_t0" name="recovered_countryA_vac1_virM_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="recovered_countryA_vac2_virW_t0" name="recovered_countryA_vac2_virW_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="recovered_countryA_vac2_virM_t0" name="recovered_countryA_vac2_virM_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="dead_countryA_vac0_virW_t0" name="dead_countryA_vac0_virW_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="dead_countryA_vac0_virM_t0" name="dead_countryA_vac0_virM_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="dead_countryA_vac1_virW_t0" name="dead_countryA_vac1_virW_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="dead_countryA_vac1_virM_t0" name="dead_countryA_vac1_virM_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="dead_countryA_vac2_virW_t0" name="dead_countryA_vac2_virW_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="dead_countryA_vac2_virM_t0" name="dead_countryA_vac2_virM_t0" value="0" units="dimensionless" constant="true"/>
     </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment name="assignment_susceptible_countryA_vac0" symbol="susceptible_countryA_vac0">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> susceptible_countryA_vac0_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_susceptible_countryA_vac1" symbol="susceptible_countryA_vac1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> susceptible_countryA_vac1_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_susceptible_countryA_vac2" symbol="susceptible_countryA_vac2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> susceptible_countryA_vac2_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_infectious_countryA_vac0_virW" symbol="infectious_countryA_vac0_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> infectious_countryA_vac0_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_infectious_countryA_vac0_virM" symbol="infectious_countryA_vac0_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> infectious_countryA_vac0_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_infectious_countryA_vac1_virW" symbol="infectious_countryA_vac1_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> infectious_countryA_vac1_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_infectious_countryA_vac1_virM" symbol="infectious_countryA_vac1_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> infectious_countryA_vac1_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_infectious_countryA_vac2_virW" symbol="infectious_countryA_vac2_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> infectious_countryA_vac2_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_infectious_countryA_vac2_virM" symbol="infectious_countryA_vac2_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> infectious_countryA_vac2_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_recovered_countryA_vac0_virW" symbol="recovered_countryA_vac0_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> recovered_countryA_vac0_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_recovered_countryA_vac0_virM" symbol="recovered_countryA_vac0_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> recovered_countryA_vac0_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_recovered_countryA_vac1_virW" symbol="recovered_countryA_vac1_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> recovered_countryA_vac1_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_recovered_countryA_vac1_virM" symbol="recovered_countryA_vac1_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> recovered_countryA_vac1_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_recovered_countryA_vac2_virW" symbol="recovered_countryA_vac2_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> recovered_countryA_vac2_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_recovered_countryA_vac2_virM" symbol="recovered_countryA_vac2_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> recovered_countryA_vac2_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_dead_countryA_vac0_virW" symbol="dead_countryA_vac0_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> dead_countryA_vac0_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_dead_countryA_vac0_virM" symbol="dead_countryA_vac0_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> dead_countryA_vac0_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_dead_countryA_vac1_virW" symbol="dead_countryA_vac1_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> dead_countryA_vac1_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_dead_countryA_vac1_virM" symbol="dead_countryA_vac1_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> dead_countryA_vac1_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_dead_countryA_vac2_virW" symbol="dead_countryA_vac2_virW">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> dead_countryA_vac2_virW_t0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment name="assignment_dead_countryA_vac2_virM" symbol="dead_countryA_vac2_virM">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> dead_countryA_vac2_virM_t0 </ci>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
     <listOfReactions>
       <reaction id="infectious_countryA_vac0_virW_to_recovered_countryA_vac0_virW" reversible="false">
         <listOfReactants>

@@ -154,7 +154,7 @@ def create_compartment(
     compartment_id,
     units="dimensionless",
     constant=False,
-    volume=1,
+    volume=10 ** 10,
 ):
 
     compartment = model.createCompartment()

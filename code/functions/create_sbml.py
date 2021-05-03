@@ -4,7 +4,7 @@ from libsbml import SBMLDocument
 from libsbml import writeSBMLToFile
 
 
-def create_sbml_file(compartments, species, parameters, reactions, assignments=None):
+def create_sbml_file(compartments, species, parameters, reactions, assignments=None, parameter_rules=None):
 
     ## Create new SBML
     document = SBMLDocument()
@@ -32,6 +32,13 @@ def create_sbml_file(compartments, species, parameters, reactions, assignments=N
     reactions_identifier = reactions.keys()
     for keys in reactions_identifier:
         create_reaction(model=model, reaction_id=keys, **reactions[keys])
+    
+    if parameter_rules is not None:
+        parameter_rule_identifier = parameter_rules.keys()
+        for keys in parameter_rule_identifier:     
+            create_parameter_rule(
+                model=model, parameter_id=keys, **parameter_rules[keys]
+            )
 
     return document
 
@@ -192,6 +199,21 @@ def create_initial_assignment(
     assignment.setMath(math_ast)
 
     return assignment
+
+
+def create_parameter_rule(
+    model: libsbml.Model, parameter_id, formula, rule_id, rule_name=None
+):
+    if rule_name is None:
+        rule_name = rule_id
+    parameter_rule = model.createAssignmentRule()
+    parameter_rule.setId(rule_id)
+    parameter_rule.setName(rule_name)
+    parameter_rule.variable(parameter_id)
+    math_ast = libsbml.parseL3Formula(formula)
+    parameter_rule.setMath(math_ast)
+    
+    return parameter_rule
 
 
 def write_entities_to_dict(

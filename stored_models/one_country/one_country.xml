@@ -32,8 +32,6 @@
       <parameter id="p" name="p" value="0.1" units="dimensionless" constant="true"/>
       <parameter id="gamma" name="gamma" value="0.5" units="dimensionless" constant="true"/>
       <parameter id="beta" name="beta" value="2" units="dimensionless" constant="true"/>
-      <parameter id="nu_vac1" name="nu_vac1" value="0.01" units="dimensionless" constant="true"/>
-      <parameter id="nu_vac2" name="nu_vac2" value="0.01" units="dimensionless" constant="true"/>
       <parameter id="omega_vac1_virW" name="omega_vac1_virW" value="0.9" units="dimensionless" constant="true"/>
       <parameter id="delta_vac1_virW" name="delta_vac1_virW" value="0.9" units="dimensionless" constant="true"/>
       <parameter id="omega_vac2_virW" name="omega_vac2_virW" value="0.6" units="dimensionless" constant="true"/>
@@ -65,6 +63,8 @@
       <parameter id="dead_countryA_vac1_virM_t0" name="dead_countryA_vac1_virM_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="dead_countryA_vac2_virW_t0" name="dead_countryA_vac2_virW_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="dead_countryA_vac2_virM_t0" name="dead_countryA_vac2_virM_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="nu_countryA_vac1" name="nu_countryA_vac1" value="0" units="dimensionless" constant="true"/>
+      <parameter id="nu_countryA_vac2" name="nu_countryA_vac2" value="0" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment name="assignment_susceptible_countryA_vac0" symbol="susceptible_countryA_vac0">
@@ -1871,7 +1871,7 @@
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> nu_vac1 </ci>
+              <ci> nu_countryA_vac1 </ci>
               <ci> susceptible_countryA_vac0 </ci>
             </apply>
           </math>
@@ -1888,7 +1888,7 @@
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> nu_vac2 </ci>
+              <ci> nu_countryA_vac2 </ci>
               <ci> susceptible_countryA_vac0 </ci>
             </apply>
           </math>
@@ -1905,7 +1905,7 @@
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> nu_vac1 </ci>
+              <ci> nu_countryA_vac1 </ci>
               <ci> recovered_countryA_vac0_virW </ci>
             </apply>
           </math>
@@ -1922,7 +1922,7 @@
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> nu_vac2 </ci>
+              <ci> nu_countryA_vac2 </ci>
               <ci> recovered_countryA_vac0_virW </ci>
             </apply>
           </math>
@@ -1939,7 +1939,7 @@
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> nu_vac1 </ci>
+              <ci> nu_countryA_vac1 </ci>
               <ci> recovered_countryA_vac0_virM </ci>
             </apply>
           </math>
@@ -1956,7 +1956,7 @@
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
               <times/>
-              <ci> nu_vac2 </ci>
+              <ci> nu_countryA_vac2 </ci>
               <ci> recovered_countryA_vac0_virM </ci>
             </apply>
           </math>

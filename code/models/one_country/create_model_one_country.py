@@ -20,8 +20,6 @@ def model_one_country_create_sbml(
         "p": 0.1,
         "gamma": 0.5,
         "beta": 2,
-        "nu_vac1": 0.01,
-        "nu_vac2": 0.01,
     },
     t0_susceptible=200000,
     t0_infectious=100,
@@ -55,6 +53,7 @@ def model_one_country_create_sbml(
     # create parameters
     parameters = create_parameters_model(
         species=species,
+        areas=areas,
         virus_states=virus_states,
         vaccination_states_removed=vaccination_states_removed,
         non_vaccination_state=non_vaccination_state,
@@ -174,6 +173,7 @@ def create_species_model(
 
 def create_parameters_model(
     species,
+    areas,
     virus_states,
     vaccination_states_removed,
     non_vaccination_state,
@@ -206,9 +206,13 @@ def create_parameters_model(
         "p": {"value": single_parameter["p"]},
         "gamma": {"value": single_parameter["gamma"]},
         "beta": {"value": single_parameter["beta"]},
-        "nu_vac1": {"value": single_parameter["nu_vac1"]},
-        "nu_vac2": {"value": single_parameter["nu_vac2"]},
     }
+    
+    vaccination_parameters = {}
+    for index_vaccination in vaccination_states_removed:
+        for index_areas in areas:
+            keys = f'nu_{index_areas}_{index_vaccination}'
+            vaccination_parameters[keys] = {"value" : 0}
 
     all_species = species.keys()
     initial_amount = {}
@@ -227,7 +231,7 @@ def create_parameters_model(
             amount_t0 = 0
         initial_amount[keys] = {"value": amount_t0}
 
-    parameters = {**parameters_fixed, **omega_delta_dict, **eta_dict, **initial_amount}
+    parameters = {**parameters_fixed, **omega_delta_dict, **eta_dict, **initial_amount, **vaccination_parameters}
     return parameters
 
 
@@ -338,7 +342,7 @@ def create_vaccination_reactions_model(
                     ] = {
                         "reactants": {f"{numb_to_be_vaccinated}": 1},
                         "products": {f"{numb_vaccinated}": 1},
-                        "formula": f" nu_{index_vaccination}* {numb_to_be_vaccinated}",
+                        "formula": f" nu_{index_areas}_{index_vaccination}* {numb_to_be_vaccinated}",
                     }
     return vaccination_reactions
 
@@ -402,3 +406,12 @@ def create_initial_assignments_model(species):
             "formula": f"{index_species}_t0",
         }
     return assignments
+
+
+#TODO create parameter rules -> specify formulas outside of function, allow to specify additional parameters outside
+#def create_parameter_rule_model():
+    
+    
+    
+    
+    

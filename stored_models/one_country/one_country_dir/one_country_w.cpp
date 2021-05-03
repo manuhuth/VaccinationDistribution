@@ -43,12 +43,12 @@ void w_one_country(realtype *w, const realtype t, const realtype *x, const realt
     flux_r27 = beta*eta_virM*infectious_countryA_vac2_virM*susceptible_countryA_vac0*(1 - gamma)/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + infectious_countryA_vac1_virM + infectious_countryA_vac1_virW + infectious_countryA_vac2_virM + infectious_countryA_vac2_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + recovered_countryA_vac1_virM + recovered_countryA_vac1_virW + recovered_countryA_vac2_virM + recovered_countryA_vac2_virW + susceptible_countryA_vac0 + susceptible_countryA_vac1 + susceptible_countryA_vac2);  // w[27]
     flux_r28 = beta*eta_virM*infectious_countryA_vac2_virM*susceptible_countryA_vac1*(1 - delta_vac1_virM)*(1 - gamma)/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + infectious_countryA_vac1_virM + infectious_countryA_vac1_virW + infectious_countryA_vac2_virM + infectious_countryA_vac2_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + recovered_countryA_vac1_virM + recovered_countryA_vac1_virW + recovered_countryA_vac2_virM + recovered_countryA_vac2_virW + susceptible_countryA_vac0 + susceptible_countryA_vac1 + susceptible_countryA_vac2);  // w[28]
     flux_r29 = beta*eta_virM*infectious_countryA_vac2_virM*susceptible_countryA_vac2*(1 - delta_vac2_virM)*(1 - gamma)/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + infectious_countryA_vac1_virM + infectious_countryA_vac1_virW + infectious_countryA_vac2_virM + infectious_countryA_vac2_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + recovered_countryA_vac1_virM + recovered_countryA_vac1_virW + recovered_countryA_vac2_virM + recovered_countryA_vac2_virW + susceptible_countryA_vac0 + susceptible_countryA_vac1 + susceptible_countryA_vac2);  // w[29]
-    flux_r30 = nu_vac1*susceptible_countryA_vac0;  // w[30]
-    flux_r31 = nu_vac2*susceptible_countryA_vac0;  // w[31]
-    flux_r32 = nu_vac1*recovered_countryA_vac0_virW;  // w[32]
-    flux_r33 = nu_vac2*recovered_countryA_vac0_virW;  // w[33]
-    flux_r34 = nu_vac1*recovered_countryA_vac0_virM;  // w[34]
-    flux_r35 = nu_vac2*recovered_countryA_vac0_virM;  // w[35]
+    flux_r30 = nu_countryA_vac1*susceptible_countryA_vac0;  // w[30]
+    flux_r31 = nu_countryA_vac2*susceptible_countryA_vac0;  // w[31]
+    flux_r32 = nu_countryA_vac1*recovered_countryA_vac0_virW;  // w[32]
+    flux_r33 = nu_countryA_vac2*recovered_countryA_vac0_virW;  // w[33]
+    flux_r34 = nu_countryA_vac1*recovered_countryA_vac0_virM;  // w[34]
+    flux_r35 = nu_countryA_vac2*recovered_countryA_vac0_virM;  // w[35]
 }
 
 } // namespace model_one_country

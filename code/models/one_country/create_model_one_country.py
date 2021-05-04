@@ -29,7 +29,94 @@ def model_one_country_create_sbml(
     distances=np.array([[0]]),
     check_error=False,
 ):
+    """Create model specified by the input parameters. Parameters can
+    subsequently be modified. 
+    
+    Parameters
+    ----------
+    path : str
+        Path where sbml file should be stored.
 
+    vaccination_states : list of strings
+        List containing the names of the vaccinations containing a state for
+        non-vaccinated individuals.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    species_comp : list of strings
+        List containing the names of the compartments. Should not be changed.
+    
+    vaccinated_compartments : list of strings
+        List of compartments from which individuals are vaccinated.
+
+    omega_matrix : numpy.array
+        Array indicating the omega coefficients regarding the combinations
+        of vaccines and virus types. Each cell indicates that an
+        infected individual has a lower probability of :math:`1-\omega` to die. 
+        Rows indicate the vaccinations and columns the virus types. Number of 
+        rows must equal number of vaccination states (without non-vaccination
+        state) and the number of columns must equal the number of virus types.
+    
+    delta_matrix : numpy.array
+        Array indicating the delta coefficients regarding the combinations
+        of vaccines and virus types. Each cell indicates that a
+        vaccinated individual has a lower probability of :math:`1-\delta` to
+        become infected while meeting an infectious person. 
+        Rows indicate the vaccinations and columns the virus types. Number of 
+        rows must equal number of vaccination states (without non-vaccination
+        state) and the number of columns must equal the number of virus types.
+
+    eta_vector : np.array
+        Array indicating the degree of infectiouness of the virus types relative
+        to the wild type. Number of elements must be the same as the number
+        of virus types. The first entry must be the degree of the wild type and
+        should be set to one.
+    
+    single_parameter : dict
+        Dictionary containing the values for :math:`\lambda, p, \gamma, \beta`.
+        the keys are the respective names and the values are the values that
+        are desired.
+        
+    parameters_constant : {True, False}
+        If True, all parameters are constant. If False, they are allowed to be
+        non-constant. Rules can eb set by the `parameter_rules' argument.
+
+    parameter_rules : dict, None
+        Dictionary that defines parameter rules. Keys must be valid inputs for
+        :func:`functions.create_sbml.create_parameter_rule`.
+
+    additional_parameters : dict, None
+        Allows to specify new additional parameters in a dict. The keys must be
+        the names and the values the respective magnitudes. Can be used to
+        define parameters that are used for `parameter_rules`.
+    
+    t0_susceptible : float
+        Number of initial assignment for susceptible states.
+    t0_infectious : float
+        Number of initial assignment for infectious states.
+
+    distances : numpy.array
+        arry indicating the distances between countries. Does not have to be
+        symmetric and can therefore be used to model seasonal behavior or the
+        like.
+
+    check_error : {True, False}
+        If True, the SBML model is checked for errors.
+
+    Returns
+    -------
+    float
+        Function value evaluated at :math:`x`
+
+    """
+    
     vaccination_states_removed = [
         x for x in vaccination_states if x != non_vaccination_state
     ]
@@ -99,16 +186,61 @@ def model_one_country_create_sbml(
 
 
 def b_distance_function(x):
+    """Returns the function :math:`f(x)= \frac{1}{1+x}`. The function is used
+    to transform the distance between two countries to a measure between zero
+    and one that is used to regulate the probability of meeting an individual
+    from a certain country.
+
+    Parameters
+    ----------
+    x : float
+        Distance between two countries. 
+
+    Returns
+    -------
+    float
+        Function value evaluated at :math:`x`
+
+    """
     return 1 / (1 + x)
 
 
 def get_all_species_alive(species_list):
+    """Get all names of species that are alive.
+
+    Parameters
+    ----------
+    species_list : list of strings
+        List of all species.
+
+    Returns
+    -------
+    numb_total_population_alive : list of strings
+        List of all species excluding dead species.
+    """
+
     total_population_alive = [x for x in species_list.keys() if ("dead" not in x)]
     numb_total_population_alive = "+".join(total_population_alive)
     return numb_total_population_alive
 
 
 def get_all_species_alive_area(species_list, area):
+    """Get all names of species that are alive from a certain area.
+
+    Parameters
+    ----------
+    species_list : list of strings
+        List of all species.
+    
+    area : str
+        name of area for which the species should be returned.
+
+    Returns
+    -------
+    numb_total_population_alive : list of strings
+        List of all species excluding dead species from the specified area.
+    """
+
     total_population_alive = [
         x for x in species_list.keys() if ("dead" not in x) and (area in x)
     ]

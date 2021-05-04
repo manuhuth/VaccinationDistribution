@@ -7,8 +7,49 @@ from libsbml import writeSBMLToFile
 def create_sbml_file(
     compartments, species, parameters, reactions, assignments=None, parameter_rules=None
 ):
+    """Create SBML object for given inputs. Function does not save the file.
+    Saving is done by :func:`write_dict_to_sbml_file`.
 
-    ## Create new SBML
+    Parameters
+    ----------
+    compartment : dict
+        Dictionary containing the information for the compartments. Keys are
+        names of compartments. Values can be dictionaries as well specifying
+        all other arguments passed for the compartment.
+
+    species : dict
+        Dictionary containing the information for the species. Keys are
+        names of species. Values can be dictionaries as well specifying
+        all other arguments passed for the species.
+
+    parameters : dict
+        Dictionary containing the information for the parameters. Keys are
+        names of parameters. Values can be dictionaries as well specifying
+        all other arguments passed for the parameters.
+
+    reactions : dict
+        Dictionary containing the information for the reactions. Keys are
+        names ofreactions. Values can be dictionaries as well specifying
+        all other arguments passed for the reactions.
+
+    assignments : dict
+        Dictionary containing the information for the assignments. Keys are
+        names of assignments. Values can be dictionaries as well specifying
+        all other arguments passed for the assignments.
+
+    parameter_rules : dict
+        Dictionary containing the information for the parameter rules. Keys are
+        names of rules. Values can be dictionaries as well specifying
+        all other arguments passed for the rules.
+
+    Returns
+    -------
+    output : dict
+        Dictionary containing all information for compartments, species,
+        parameters, reactions, assignments and parameter rules that can be
+        passed to :func:`write_dict_to_sbml_file`.
+    """
+
     document = SBMLDocument()
     model = document.createModel()
 
@@ -43,13 +84,121 @@ def create_sbml_file(
     return document
 
 
+def write_dict_to_sbml_file(dictionary, path, error_check=False):
+    """
+    Creates SBML document from input dictionary and saves it on the path.
+
+    Parameters
+    ----------
+    dictionary: dict
+        Dictionary containing all information for compartments, species,
+        parameters, reactions, assignments and parameter rules.
+
+    path : str
+        Path at which SBML model should be stored.
+
+    error_check : {True, False}
+        If True the function :func:`check_model_for_errors` is run within the
+        function execution.
+
+    """
+
+    doc = create_sbml_file(**dictionary)
+    if error_check is True:
+        check_model_for_errors(doc)
+
+    output_path = path + ".xml"
+    writeSBMLToFile(doc, output_path)
+
+
+def write_entities_to_dict(
+    compartments,
+    species,
+    parameters,
+    reactions,
+    assignments=None,
+    parameter_rules=None,
+):
+    """
+    Transforms inputs to dictionaries with the entities as keys and the
+    objects as containing all the information as values.
+
+    Parameters
+    ----------
+    compartment : dict
+        Dictionary containing the information for the compartments. Keys are
+        names of compartments. Values can be dictionaries as well specifying
+        all other arguments passed for the compartment.
+
+    species : dict
+        Dictionary containing the information for the species. Keys are
+        names of species. Values can be dictionaries as well specifying
+        all other arguments passed for the species.
+
+    parameters : dict
+        Dictionary containing the information for the parameters. Keys are
+        names of parameters. Values can be dictionaries as well specifying
+        all other arguments passed for the parameters.
+
+    reactions : dict
+        Dictionary containing the information for the reactions. Keys are
+        names ofreactions. Values can be dictionaries as well specifying
+        all other arguments passed for the reactions.
+
+    assignments : dict
+        Dictionary containing the information for the assignments. Keys are
+        names of assignments. Values can be dictionaries as well specifying
+        all other arguments passed for the assignments.
+
+    parameter_rules : dict
+        Dictionary containing the information for the parameter rules. Keys are
+        names of rules. Values can be dictionaries as well specifying
+        all other arguments passed for the rules.
+
+    Returns
+    -------
+    output : dict
+        Dictionary containing all information for compartments, species,
+        parameters, reactions, assignments and parameter rules that can be
+        passed to :func:`write_dict_to_sbml_file`.
+    """
+
+    output = {
+        "compartments": compartments,
+        "species": species,
+        "parameters": parameters,
+        "reactions": reactions,
+    }
+
+    if assignments is not None:
+        output["assignments"] = assignments
+
+    if parameter_rules is not None:
+        output["parameter_rules"] = parameter_rules
+
+    return output
+
+
 def check_model_for_errors(document):
+    """Checks SBML model for errors.
+
+    Parameters
+    ----------
+    document : sbml.Document
+       Document for which potential errors should be checked.
+
+    Returns
+    -------
+    None.
+
+    """
+
     for i in range(document.getNumErrors()):
         print(document.getError(i).getMessage())
 
 
 def create_species(
-    model: libsbml.Model,
+    model,
     species_id,
     compartment,
     constant=False,
@@ -59,16 +208,45 @@ def create_species(
     has_only_substance_units=False,
 ):
     """
-    Creates new species for libsbml.Model
-    :param model: libsbml.Model for which species will be created
-    :param s_id: species id for the new species
-    :param compartment: compartment to which new species will be assigned
-    :param constant: True if the new species should be constant
-    :param initial_amount: start value for species
-    :param substance_units: substance unit for species
-    :param boundary_condition: True if there is a boundary condition
-    :param has_only_substance_units: True if species has only substance units
+    Creates new species for libsbml.Model. It is not necessary to assign the
+    function to a value. The species is automatically added to the input model
+    outside of the function.
+
+    Parameters
+    ----------
+    model : libsbml.Model
+        Model for which species will be created.
+
+    species_id : str
+        Species id for the new species.
+
+    compartment : str
+        Compartment to which new species will be assigned.
+
+    constant: {True, False}
+        True if the new parameter can only be constant. And False if not.
+        False does not mean that the parameter has to change but rather that
+        it is allowed to.
+
+    initial_amount : float
+        Initial value of the species at time :math:`t=0`.
+
+    substance_units : str
+        Substance unit for the species.
+
+    boundary_condition : {True, False}
+        True if there is a boundary condition.
+
+    has_only_substance_units : {True, False}
+        If True species is only allwoed to have substance units.
+
+    Returns
+    -------
+    species : libsbml.Species
+        Species defined for the model.
+
     """
+
     species = model.createSpecies()
     species.setId(species_id)
     species.setName(species_id)
@@ -82,29 +260,49 @@ def create_species(
     return species
 
 
-def create_parameter(
-    model: libsbml.Model, parameter_id, value, constant=True, units="dimensionless"
-):
+def create_parameter(model, parameter_id, value, constant=True, units="dimensionless"):
     """
-    Creates new parameter for libsbml.Model
-    :param model: libsbml.Model to which new parameter will be added
-    :param p_id: Id for the new parameter
-    :param constant: True if the new parameter should be constant
-    :param value: Initial value of the parameter
-    :param units: Units for the parameter
-    """
-    k = model.createParameter()
-    k.setId(parameter_id)
-    k.setName(parameter_id)
-    k.setConstant(constant)
-    k.setValue(value)
-    k.setUnits(units)
+    Creates new parameter for libsbml.Model. It is not necessary to assign the
+    function to a value. The parameter is automatically added to the input model
+    outside of the function.
 
-    return k
+    Parameters
+    ----------
+    model : libsbml.Model
+        Model for which species will be created.
+
+    parameter_id : str
+        Id for the new parameter.
+
+    constant : {True, False}
+        True if the new parameter can only be constant. And False if not.
+        False does not mean that the parameter has to change but rather that
+        it is allowed to.
+
+    value : float
+        Value of the parameter.
+
+    units : str
+        Units of the parameter.
+
+    Returns
+    -------
+    parameter : libsbml.Parameter
+        Parameter defined for the model.
+    """
+
+    parameter = model.createParameter()
+    parameter.setId(parameter_id)
+    parameter.setName(parameter_id)
+    parameter.setConstant(constant)
+    parameter.setValue(value)
+    parameter.setUnits(units)
+
+    return parameter
 
 
 def create_reaction(
-    model: libsbml.Model,
+    model,
     reaction_id: str,
     reactants,
     products,
@@ -113,18 +311,48 @@ def create_reaction(
     reversible: bool = False,
     fast: bool = False,
 ):
+
     """
-    Creates new reaction for libsbml.Model
-    :param model: libsbml.Model to which new reaction will be added
-    :param m_id: Id for the new reaction
-    :param reactants: List or reactants of the reaction
-    :param products: List of products of the reaction
-    :param formula: Formula for the rate of the reaction
-    :param modifiers: List of modifiers of the reaction. Used but no reactant
-                        or product
-    :param reversible: True if the reaction should be reversible
-    :param fast: True if the reaction should be fast
+    Creates new reaction for libsbml.Model. It is not necessary to assign the
+    function to a value. The reaction is automatically added to the input model
+    outside of the function.
+
+    Parameters
+    ----------
+    model : libsbml.Model
+        Model for which species will be created.
+
+    reaction_id : str
+        Reaction id for the new species.
+
+    reactants : dict
+        Dictionary of reactants with name of reactants as keys and stoichometric
+        coefficients as values.
+
+    products : dict
+        Dictionary of products with name of products as keys and stoichometric
+        coefficients as values.
+
+    formula: str
+        Formula for the rate of the reaction.
+
+    modifiers : list of strings
+        List of modifiers of the reaction. Modifiers are not explicitly
+        reactants or products but appear in the formula.
+
+    param_reversible : {True, False}
+        True if the reaction is reversible.
+
+    fast: {True, False}
+        True if the reaction is fast.
+
+    Returns
+    -------
+    reaction: libsbml.Reaction
+        Reaction defined for the model.
+
     """
+
     if modifiers is None:
         modifiers = []
     reaction = model.createReaction()
@@ -156,12 +384,43 @@ def create_reaction(
 
 
 def create_compartment(
-    model: libsbml.Model,
+    model,
     compartment_id,
     units="dimensionless",
     constant=False,
-    volume=10 ** 10,
+    volume=1,
 ):
+    """
+    Creates new comaprtment for libsbml.Model. It is not necessary to assign the
+    function to a value. The compartment is automatically added to the input model
+    outside of the function. Note that a compartment in the language of sbml
+    is an area in our model.
+
+    Parameters
+    ----------
+    model : libsbml.Model
+        Model for which species will be created.
+
+    compartment_id : str
+        Compartment id for the new species.
+
+    units : str
+        Units of the entities inside the compartment.
+
+    constant : {True, False}
+        True if the new compartment can only be constant. And False if not.
+        False does not mean that the compartment has to change but rather that
+        it is allowed to.
+
+
+    volume : {1,2,3}
+        Integer describing the type of compartment volume.
+
+    Returns
+    -------
+    reaction: libsbml.Compartment
+        Compartment defined for the model.
+    """
 
     compartment = model.createCompartment()
     compartment.setName(compartment_id)
@@ -174,17 +433,38 @@ def create_compartment(
 
 
 def create_initial_assignment(
-    model: libsbml.Model, species_id, formula, assignment_id, assignment_name=None
+    model, species_id, formula, assignment_id, assignment_name=None
 ):
-    """Create SBML InitialAssignment
-    Arguments:
-        sbml_model: Model to add output to
-        species_id: Target of assignment
-        formula: Formula string for model output
-        rule_id: SBML id for created rule
-        rule_name: SBML name for created rule
-    Returns:
-        The created ``InitialAssignment``
+    """
+    Creates new initial assignment for libsbml.Model. It is not necessary
+    to assign the function to a value. The uinitial assignment is
+    automatically added to the input model outside of the function.
+    Initial assignments overwrite initial amounts of species but can be
+    changed after the model has been created by
+    :func:`get_model_and_solver_from_sbml` and should thus be prefered
+    over initial amounts.
+
+    Parameters
+    ----------
+    model : libsbml.Model
+        Model for which species will be created.
+
+    species_id : str
+        Species for which the initial assignment is created.
+
+    formula : str
+        Formula that describes the type of initial assignment.
+
+    assignment_id: str
+        Assignment id for created initial asignment.
+
+    assignment_name: str
+        SBML name for created initial asignment.
+
+    Returns
+    -------
+    assignment: libsbml.InitialAssignment
+        Initial assignment defined for the species.
     """
 
     if assignment_name is None:
@@ -200,9 +480,35 @@ def create_initial_assignment(
     return assignment
 
 
-def create_parameter_rule(
-    model: libsbml.Model, parameter_id, formula, rule_id, rule_name=None
-):
+def create_parameter_rule(model, parameter_id, formula, rule_id, rule_name=None):
+    """
+    Creates new rule for libsbml.Model. It is not necessary
+    to assign the function to a value. The rule is automatically
+    added to the input model outside of the function.
+
+    Parameters
+    ----------
+    model : libsbml.Model
+        Model for which species will be created.
+
+    parameter_id : str
+        Parameter for which the rule is created.
+
+    formula : str
+        Formula that describes the type of rule.
+
+    rule_id: str
+        Rule id for created rule.
+
+    rule_name: str
+        SBML name for created rule.
+
+    Returns
+    -------
+    parameter_rule : libsbml.AssignmentRule
+        Rule defined for the parameter.
+    """
+
     if rule_name is None:
         rule_name = rule_id
     parameter_rule = model.createAssignmentRule()
@@ -213,37 +519,3 @@ def create_parameter_rule(
     parameter_rule.setMath(math_ast)
 
     return parameter_rule
-
-
-def write_entities_to_dict(
-    compartments,
-    species,
-    parameters,
-    reactions,
-    assignments=None,
-    parameter_rules=None,
-):
-    output = {
-        "compartments": compartments,
-        "species": species,
-        "parameters": parameters,
-        "reactions": reactions,
-    }
-
-    if assignments is not None:
-        output["assignments"] = assignments
-
-    if parameter_rules is not None:
-        output["parameter_rules"] = parameter_rules
-
-    return output
-
-
-def write_dict_to_sbml_file(dictionary, path, error_check=False):
-
-    doc = create_sbml_file(**dictionary)
-    if error_check is True:
-        check_model_for_errors(doc)
-
-    output_path = path + ".xml"
-    writeSBMLToFile(doc, output_path)

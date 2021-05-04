@@ -31,5 +31,5 @@ model_result = model_run(
 fig, ax = plot_states(results=model_result, model=model)
 
 #
-substates = get_substates(model=model, substrings=["vac0"])
+substates = get_substates(model=model, substrings=["dead"])
 fig, ax = plot_states(results=model_result, model=model, state_ids=substates)

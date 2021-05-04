@@ -21,6 +21,8 @@ def model_one_country_create_sbml(
         "gamma": 0.5,
         "beta": 2,
     },
+    parameters_constant=False,
+    parameter_rules=None, 
     t0_susceptible=200000,
     t0_infectious=100,
     distances=np.array([[0]]),
@@ -61,6 +63,7 @@ def model_one_country_create_sbml(
         delta_df=delta_df,
         eta_df=eta_df,
         single_parameter=single_parameter,
+        parameters_constant=parameters_constant,
         t0_susceptible=t0_susceptible,
         t0_infectious=t0_infectious,
     )
@@ -78,13 +81,14 @@ def model_one_country_create_sbml(
     )
 
     assignments = create_initial_assignments_model(species=species)
-
+    
     model_input_dictionary = write_entities_to_dict(
         compartments=compartments,
         species=species,
         parameters=parameters,
         reactions=reactions,
         assignments=assignments,
+        parameter_rules=parameter_rules,
     )
 
     write_dict_to_sbml_file(
@@ -181,6 +185,7 @@ def create_parameters_model(
     delta_df,
     eta_df,
     single_parameter,
+    parameters_constant,
     t0_susceptible,
     t0_infectious,
 ):
@@ -192,27 +197,27 @@ def create_parameters_model(
             key_omega = f"omega_{index_vaccination}_{index_virus}"
             key_delta = f"delta_{index_vaccination}_{index_virus}"
             omega_delta_dict[key_omega] = {
-                "value": omega_df[index_vaccination][index_virus]
+                "value": omega_df[index_vaccination][index_virus], "constant" : parameters_constant
             }
             omega_delta_dict[key_delta] = {
-                "value": delta_df[index_vaccination][index_virus]
+                "value": delta_df[index_vaccination][index_virus], "constant" : parameters_constant
             }
 
         key_eta = f"eta_{index_virus}"
         eta_dict[key_eta] = {"value": eta_df[index_virus][0]}
 
     parameters_fixed = {
-        "lambda1": {"value": single_parameter["lambda"]},
-        "p": {"value": single_parameter["p"]},
-        "gamma": {"value": single_parameter["gamma"]},
-        "beta": {"value": single_parameter["beta"]},
+        "lambda1": {"value": single_parameter["lambda"], "constant" : parameters_constant},
+        "p": {"value": single_parameter["p"], "constant" : parameters_constant},
+        "gamma": {"value": single_parameter["gamma"], "constant" : parameters_constant},
+        "beta": {"value": single_parameter["beta"], "constant" : parameters_constant},
     }
     
     vaccination_parameters = {}
     for index_vaccination in vaccination_states_removed:
         for index_areas in areas:
             keys = f'nu_{index_areas}_{index_vaccination}'
-            vaccination_parameters[keys] = {"value" : 0}
+            vaccination_parameters[keys] = {"value" : 0, "constant" : parameters_constant}
 
     all_species = species.keys()
     initial_amount = {}

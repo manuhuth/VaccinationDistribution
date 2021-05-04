@@ -37,7 +37,7 @@ def create_sbml_file(compartments, species, parameters, reactions, assignments=N
         parameter_rule_identifier = parameter_rules.keys()
         for keys in parameter_rule_identifier:     
             create_parameter_rule(
-                model=model, parameter_id=keys, **parameter_rules[keys]
+                model=model, rule_id=keys, **parameter_rules[keys]
             )
 
     return document
@@ -217,23 +217,20 @@ def create_parameter_rule(
 
 
 def write_entities_to_dict(
-    compartments, species, parameters, reactions, assignments=None
+    compartments, species, parameters, reactions, assignments=None, parameter_rules=None,
 ):
-    if assignments is None:
-        output = {
+    output = {
             "compartments": compartments,
             "species": species,
             "parameters": parameters,
             "reactions": reactions,
-        }
-    else:
-        output = {
-            "compartments": compartments,
-            "species": species,
-            "parameters": parameters,
-            "reactions": reactions,
-            "assignments": assignments,
-        }
+            }
+    
+    if assignments is not None:
+        output["assignments"] = assignments
+        
+    if parameter_rules is not None:
+        output["parameter_rules"] = parameter_rules
 
     return output
 

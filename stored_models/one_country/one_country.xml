@@ -28,18 +28,18 @@
       <species id="dead_countryA_vac2_virM" name="dead_countryA_vac2_virM" compartment="countryA" initialAmount="0" substanceUnits="dimensionless" hasOnlySubstanceUnits="false" boundaryCondition="false" constant="false"/>
     </listOfSpecies>
     <listOfParameters>
-      <parameter id="lambda1" name="lambda1" value="0.01" units="dimensionless" constant="true"/>
-      <parameter id="p" name="p" value="0.1" units="dimensionless" constant="true"/>
-      <parameter id="gamma" name="gamma" value="0.5" units="dimensionless" constant="true"/>
-      <parameter id="beta" name="beta" value="2" units="dimensionless" constant="true"/>
-      <parameter id="omega_vac1_virW" name="omega_vac1_virW" value="0.9" units="dimensionless" constant="true"/>
-      <parameter id="delta_vac1_virW" name="delta_vac1_virW" value="0.9" units="dimensionless" constant="true"/>
-      <parameter id="omega_vac2_virW" name="omega_vac2_virW" value="0.6" units="dimensionless" constant="true"/>
-      <parameter id="delta_vac2_virW" name="delta_vac2_virW" value="0.6" units="dimensionless" constant="true"/>
-      <parameter id="omega_vac1_virM" name="omega_vac1_virM" value="0.7" units="dimensionless" constant="true"/>
-      <parameter id="delta_vac1_virM" name="delta_vac1_virM" value="0.6" units="dimensionless" constant="true"/>
-      <parameter id="omega_vac2_virM" name="omega_vac2_virM" value="0.9" units="dimensionless" constant="true"/>
-      <parameter id="delta_vac2_virM" name="delta_vac2_virM" value="0.9" units="dimensionless" constant="true"/>
+      <parameter id="lambda1" name="lambda1" value="0.01" units="dimensionless" constant="false"/>
+      <parameter id="p" name="p" value="0.1" units="dimensionless" constant="false"/>
+      <parameter id="gamma" name="gamma" value="0.5" units="dimensionless" constant="false"/>
+      <parameter id="beta" name="beta" value="2" units="dimensionless" constant="false"/>
+      <parameter id="omega_vac1_virW" name="omega_vac1_virW" value="0.9" units="dimensionless" constant="false"/>
+      <parameter id="delta_vac1_virW" name="delta_vac1_virW" value="0.9" units="dimensionless" constant="false"/>
+      <parameter id="omega_vac2_virW" name="omega_vac2_virW" value="0.6" units="dimensionless" constant="false"/>
+      <parameter id="delta_vac2_virW" name="delta_vac2_virW" value="0.6" units="dimensionless" constant="false"/>
+      <parameter id="omega_vac1_virM" name="omega_vac1_virM" value="0.7" units="dimensionless" constant="false"/>
+      <parameter id="delta_vac1_virM" name="delta_vac1_virM" value="0.6" units="dimensionless" constant="false"/>
+      <parameter id="omega_vac2_virM" name="omega_vac2_virM" value="0.9" units="dimensionless" constant="false"/>
+      <parameter id="delta_vac2_virM" name="delta_vac2_virM" value="0.9" units="dimensionless" constant="false"/>
       <parameter id="eta_virW" name="eta_virW" value="1" units="dimensionless" constant="true"/>
       <parameter id="eta_virM" name="eta_virM" value="1.3" units="dimensionless" constant="true"/>
       <parameter id="susceptible_countryA_vac0_t0" name="susceptible_countryA_vac0_t0" value="30000" units="dimensionless" constant="true"/>
@@ -63,8 +63,8 @@
       <parameter id="dead_countryA_vac1_virM_t0" name="dead_countryA_vac1_virM_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="dead_countryA_vac2_virW_t0" name="dead_countryA_vac2_virW_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="dead_countryA_vac2_virM_t0" name="dead_countryA_vac2_virM_t0" value="0" units="dimensionless" constant="true"/>
-      <parameter id="nu_countryA_vac1" name="nu_countryA_vac1" value="0" units="dimensionless" constant="true"/>
-      <parameter id="nu_countryA_vac2" name="nu_countryA_vac2" value="0" units="dimensionless" constant="true"/>
+      <parameter id="nu_countryA_vac1" name="nu_countryA_vac1" value="0" units="dimensionless" constant="false"/>
+      <parameter id="nu_countryA_vac2" name="nu_countryA_vac2" value="0" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment name="assignment_susceptible_countryA_vac0" symbol="susceptible_countryA_vac0">

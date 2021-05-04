@@ -4,7 +4,9 @@ from libsbml import SBMLDocument
 from libsbml import writeSBMLToFile
 
 
-def create_sbml_file(compartments, species, parameters, reactions, assignments=None, parameter_rules=None):
+def create_sbml_file(
+    compartments, species, parameters, reactions, assignments=None, parameter_rules=None
+):
 
     ## Create new SBML
     document = SBMLDocument()
@@ -32,13 +34,11 @@ def create_sbml_file(compartments, species, parameters, reactions, assignments=N
     reactions_identifier = reactions.keys()
     for keys in reactions_identifier:
         create_reaction(model=model, reaction_id=keys, **reactions[keys])
-    
+
     if parameter_rules is not None:
         parameter_rule_identifier = parameter_rules.keys()
-        for keys in parameter_rule_identifier:     
-            create_parameter_rule(
-                model=model, rule_id=keys, **parameter_rules[keys]
-            )
+        for keys in parameter_rule_identifier:
+            create_parameter_rule(model=model, rule_id=keys, **parameter_rules[keys])
 
     return document
 
@@ -135,19 +135,18 @@ def create_reaction(
     for keys in reactants.keys():
         species_ref = reaction.createReactant()
         species_ref.setSpecies(keys)
-        species_ref.setConstant(True)  # TODO ?
+        species_ref.setConstant(True)
         species_ref.setStoichiometry(reactants[keys])
 
     for keys in products.keys():
         species_ref = reaction.createProduct()
         species_ref.setSpecies(keys)
-        species_ref.setConstant(True)  # TODO ?
+        species_ref.setConstant(True)
         species_ref.setStoichiometry(products[keys])
 
     for name in modifiers:
         species_ref = reaction.createModifier()
         species_ref.setSpecies(name)
-        # species_ref.setConstant(True)  # TODO ?
 
     math_ast = parseL3Formula(formula)
     kinetic_law = reaction.createKineticLaw()
@@ -212,23 +211,28 @@ def create_parameter_rule(
     parameter_rule.variable(parameter_id)
     math_ast = libsbml.parseL3Formula(formula)
     parameter_rule.setMath(math_ast)
-    
+
     return parameter_rule
 
 
 def write_entities_to_dict(
-    compartments, species, parameters, reactions, assignments=None, parameter_rules=None,
+    compartments,
+    species,
+    parameters,
+    reactions,
+    assignments=None,
+    parameter_rules=None,
 ):
     output = {
-            "compartments": compartments,
-            "species": species,
-            "parameters": parameters,
-            "reactions": reactions,
-            }
-    
+        "compartments": compartments,
+        "species": species,
+        "parameters": parameters,
+        "reactions": reactions,
+    }
+
     if assignments is not None:
         output["assignments"] = assignments
-        
+
     if parameter_rules is not None:
         output["parameter_rules"] = parameter_rules
 

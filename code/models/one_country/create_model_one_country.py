@@ -83,7 +83,7 @@ def model_one_country_create_sbml(
     )
 
     assignments = create_initial_assignments_model(species=species)
-    
+
     model_input_dictionary = write_entities_to_dict(
         compartments=compartments,
         species=species,
@@ -200,27 +200,32 @@ def create_parameters_model(
             key_omega = f"omega_{index_vaccination}_{index_virus}"
             key_delta = f"delta_{index_vaccination}_{index_virus}"
             omega_delta_dict[key_omega] = {
-                "value": omega_df[index_vaccination][index_virus], "constant" : parameters_constant
+                "value": omega_df[index_vaccination][index_virus],
+                "constant": parameters_constant,
             }
             omega_delta_dict[key_delta] = {
-                "value": delta_df[index_vaccination][index_virus], "constant" : parameters_constant
+                "value": delta_df[index_vaccination][index_virus],
+                "constant": parameters_constant,
             }
 
         key_eta = f"eta_{index_virus}"
         eta_dict[key_eta] = {"value": eta_df[index_virus][0]}
 
     parameters_fixed = {
-        "lambda1": {"value": single_parameter["lambda"], "constant" : parameters_constant},
-        "p": {"value": single_parameter["p"], "constant" : parameters_constant},
-        "gamma": {"value": single_parameter["gamma"], "constant" : parameters_constant},
-        "beta": {"value": single_parameter["beta"], "constant" : parameters_constant},
+        "lambda1": {
+            "value": single_parameter["lambda"],
+            "constant": parameters_constant,
+        },
+        "p": {"value": single_parameter["p"], "constant": parameters_constant},
+        "gamma": {"value": single_parameter["gamma"], "constant": parameters_constant},
+        "beta": {"value": single_parameter["beta"], "constant": parameters_constant},
     }
-    
+
     vaccination_parameters = {}
     for index_vaccination in vaccination_states_removed:
         for index_areas in areas:
-            keys = f'nu_{index_areas}_{index_vaccination}'
-            vaccination_parameters[keys] = {"value" : 0, "constant" : parameters_constant}
+            keys = f"nu_{index_areas}_{index_vaccination}"
+            vaccination_parameters[keys] = {"value": 0, "constant": parameters_constant}
 
     all_species = species.keys()
     initial_amount = {}
@@ -238,13 +243,26 @@ def create_parameters_model(
         if non_vaccination_state not in index_species:
             amount_t0 = 0
         initial_amount[keys] = {"value": amount_t0}
-    
+
     if additional_parameters is not None:
-        parameters = {**parameters_fixed, **omega_delta_dict, **eta_dict, **initial_amount, **vaccination_parameters, **additional_parameters}
-    
+        parameters = {
+            **parameters_fixed,
+            **omega_delta_dict,
+            **eta_dict,
+            **initial_amount,
+            **vaccination_parameters,
+            **additional_parameters,
+        }
+
     else:
-        parameters = {**parameters_fixed, **omega_delta_dict, **eta_dict, **initial_amount, **vaccination_parameters}
-        
+        parameters = {
+            **parameters_fixed,
+            **omega_delta_dict,
+            **eta_dict,
+            **initial_amount,
+            **vaccination_parameters,
+        }
+
     return parameters
 
 
@@ -418,5 +436,4 @@ def create_initial_assignments_model(species):
             "species_id": index_species,
             "formula": f"{index_species}_t0",
         }
-    return assignments   
-    
+    return assignments

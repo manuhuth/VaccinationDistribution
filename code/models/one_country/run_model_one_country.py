@@ -8,7 +8,7 @@ from functions.run_sbml import model_run
 path_sbml = "stored_models/one_country/one_country"
 
 model_one_country_create_sbml(
-    path=path_sbml, check_error=False, t0_susceptible=30000, t0_infectious=1000
+    path=path_sbml, t0_susceptible=30000, t0_infectious=1000
 )
 model_and_solver = get_model_and_solver_from_sbml(
     path_sbml=path_sbml,
@@ -18,7 +18,7 @@ model_and_solver = get_model_and_solver_from_sbml(
 
 model = model_and_solver["model"]
 solver = model_and_solver["solver"]
-timepoints = np.linspace(0, 100, 100)
+timepoints = np.linspace(0, 20, 20)
 
 model_result = model_run(
     model=model,
@@ -30,6 +30,9 @@ model_result = model_run(
 
 fig, ax = plot_states(results=model_result, model=model)
 
-#
+#dir(model)
+#model.getParameters()
+#model.getParameterNames()
+
 substates = get_substates(model=model, substrings=["dead"])
 fig, ax = plot_states(results=model_result, model=model, state_ids=substates)

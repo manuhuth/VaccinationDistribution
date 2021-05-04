@@ -22,7 +22,8 @@ def model_one_country_create_sbml(
         "beta": 2,
     },
     parameters_constant=False,
-    parameter_rules=None, 
+    parameter_rules=None,
+    additional_parameters=None,
     t0_susceptible=200000,
     t0_infectious=100,
     distances=np.array([[0]]),
@@ -64,6 +65,7 @@ def model_one_country_create_sbml(
         eta_df=eta_df,
         single_parameter=single_parameter,
         parameters_constant=parameters_constant,
+        additional_parameters=additional_parameters,
         t0_susceptible=t0_susceptible,
         t0_infectious=t0_infectious,
     )
@@ -186,6 +188,7 @@ def create_parameters_model(
     eta_df,
     single_parameter,
     parameters_constant,
+    additional_parameters,
     t0_susceptible,
     t0_infectious,
 ):
@@ -235,8 +238,13 @@ def create_parameters_model(
         if non_vaccination_state not in index_species:
             amount_t0 = 0
         initial_amount[keys] = {"value": amount_t0}
-
-    parameters = {**parameters_fixed, **omega_delta_dict, **eta_dict, **initial_amount, **vaccination_parameters}
+    
+    if additional_parameters is not None:
+        parameters = {**parameters_fixed, **omega_delta_dict, **eta_dict, **initial_amount, **vaccination_parameters, **additional_parameters}
+    
+    else:
+        parameters = {**parameters_fixed, **omega_delta_dict, **eta_dict, **initial_amount, **vaccination_parameters}
+        
     return parameters
 
 

@@ -8,7 +8,7 @@ from functions.run_sbml import model_run
 path_sbml = "stored_models/one_country/one_country"
 
 model_one_country_create_sbml(
-    path=path_sbml, areas=["countryA", "countryB"], distances=np.array([[0, 3], [3,0]]),  t0_susceptible=30000, t0_infectious=1000
+    path=path_sbml, areas=["countryA"], distances=np.array([[0]]),  t0_susceptible=30000, t0_infectious=1000
 )
 model_and_solver = get_model_and_solver_from_sbml(
     path_sbml=path_sbml,

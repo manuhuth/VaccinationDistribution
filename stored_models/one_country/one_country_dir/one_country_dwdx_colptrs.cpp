@@ -7,8 +7,8 @@
 namespace amici {
 namespace model_one_country {
 
-static constexpr std::array<sunindextype, 43> dwdx_colptrs_one_country_ = {
-    0, 74, 146, 218, 292, 364, 436, 510, 584, 658, 732, 806, 880, 954, 1028, 1102, 1176, 1250, 1324, 1398, 1472, 1544, 1616, 1688, 1760, 1834, 1908, 1980, 2052, 2124, 2196, 2196, 2196, 2196, 2196, 2196, 2196, 2196, 2196, 2196, 2196, 2196, 2196
+static constexpr std::array<sunindextype, 22> dwdx_colptrs_one_country_ = {
+    0, 20, 38, 56, 76, 96, 116, 136, 156, 176, 196, 216, 234, 252, 270, 288, 288, 288, 288, 288, 288, 288
 };
 
 void dwdx_colptrs_one_country(SUNMatrixWrapper &dwdx){

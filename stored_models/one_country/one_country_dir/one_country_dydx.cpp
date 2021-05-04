@@ -15,47 +15,26 @@ namespace model_one_country {
 
 void dydx_one_country(realtype *dydx, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w, const realtype *dwdx){
     dydx[0] = 1;
-    dydx[45] = 1;
-    dydx[90] = 1;
-    dydx[135] = 1;
-    dydx[180] = 1;
-    dydx[225] = 1;
-    dydx[270] = 1;
-    dydx[315] = 1;
-    dydx[360] = 1;
-    dydx[405] = 1;
-    dydx[450] = 1;
-    dydx[495] = 1;
-    dydx[540] = 1;
-    dydx[585] = 1;
-    dydx[630] = 1;
-    dydx[675] = 1;
-    dydx[720] = 1;
-    dydx[765] = 1;
-    dydx[810] = 1;
-    dydx[855] = 1;
-    dydx[900] = 1;
-    dydx[945] = 1;
-    dydx[990] = 1;
-    dydx[1035] = 1;
-    dydx[1080] = 1;
-    dydx[1125] = 1;
-    dydx[1170] = 1;
-    dydx[1215] = 1;
-    dydx[1260] = 1;
-    dydx[1305] = 1;
-    dydx[1350] = 1;
-    dydx[1395] = 1;
-    dydx[1440] = 1;
-    dydx[1485] = 1;
-    dydx[1530] = 1;
-    dydx[1575] = 1;
-    dydx[1620] = 1;
-    dydx[1665] = 1;
-    dydx[1710] = 1;
-    dydx[1755] = 1;
-    dydx[1800] = 1;
-    dydx[1845] = 1;
+    dydx[23] = 1;
+    dydx[46] = 1;
+    dydx[69] = 1;
+    dydx[92] = 1;
+    dydx[115] = 1;
+    dydx[138] = 1;
+    dydx[161] = 1;
+    dydx[184] = 1;
+    dydx[207] = 1;
+    dydx[230] = 1;
+    dydx[253] = 1;
+    dydx[276] = 1;
+    dydx[299] = 1;
+    dydx[322] = 1;
+    dydx[345] = 1;
+    dydx[368] = 1;
+    dydx[391] = 1;
+    dydx[414] = 1;
+    dydx[437] = 1;
+    dydx[460] = 1;
 }
 
 } // namespace model_one_country

@@ -7,7 +7,29 @@
 namespace amici {
 namespace model_one_country {
 
-static constexpr std::array<std::array<sunindextype, 1>, 22> dJydy_rowvals_one_country_ = {{
+static constexpr std::array<std::array<sunindextype, 1>, 44> dJydy_rowvals_one_country_ = {{
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
     {0}, 
     {0}, 
     {0}, 

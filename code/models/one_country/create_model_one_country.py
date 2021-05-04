@@ -418,13 +418,5 @@ def create_initial_assignments_model(species):
             "species_id": index_species,
             "formula": f"{index_species}_t0",
         }
-    return assignments
-
-
-#TODO create parameter rules -> specify formulas outside of function, allow to specify additional parameters outside
-#def create_parameter_rule_model():
-    
-    
-    
-    
+    return assignments   
     

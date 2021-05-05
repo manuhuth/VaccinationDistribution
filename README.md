@@ -4,6 +4,7 @@
 ## To-Do:
 - Write model graph in sbgn
 - rewrite description
+- create continuous integration
 - Create time varying rules that determine vaccination rates (Find appropriate Vaccination strategies)
 - Functional form of inter-spatial infections 
 - Add noise

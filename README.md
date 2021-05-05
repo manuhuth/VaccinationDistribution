@@ -2,11 +2,9 @@
 
 
 ## To-Do:
-
-- Create time varying rules that determine vaccination rates
-- Write proper docstrings (add Sphinx)
-- Write model in sbgn
-- Find appropriate Vaccination strategies
+- Write model graph in sbgn
+- rewrite description
+- Create time varying rules that determine vaccination rates (Find appropriate Vaccination strategies)
 - Functional form of inter-spatial infections 
 - Add noise
 - Write function to optimize over

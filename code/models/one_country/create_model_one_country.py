@@ -103,7 +103,7 @@ def model_one_country_create_sbml(
         Number of initial assignment for infectious states.
 
     distances : numpy.array
-        arry indicating the distances between countries. Does not have to be
+        array indicating the distances between countries. Does not have to be
         symmetric and can therefore be used to model seasonal behavior or the
         like.
 
@@ -248,7 +248,29 @@ def get_all_species_alive_area(species_list, area):
     return numb_total_population_alive
 
 
-def get_M_matrix(areas, species, distance_matrix):
+def get_M_matrix(areas, species, distance_matrix):  
+    """Computes strings of formulas for the matrix that defines the probability
+    of meeting another individual.
+    
+    Parameters
+    ----------
+    areas : list of strings
+        List containing the names of the areas.
+
+    species : list of strings
+        List containing the names of all species.
+    
+    distance_matrix : np.array
+        Matrix indicating the distances between countries. Does not have to be
+        symmetric and can therefore be used to model seasonal behavior or the
+        like.
+    
+    Returns
+    -------
+    M : pd.DataFrame
+        Matrix containing the formulas for the M matrix as strings.
+
+    """
     distances_df = pd.DataFrame(distance_matrix, columns=areas, index=areas)
     b_distance_matrix = b_distance_function(distances_df)
     numb_total_population_alive = get_all_species_alive(species_list=species)
@@ -272,6 +294,22 @@ def get_M_matrix(areas, species, distance_matrix):
 
 
 def create_comaprtments_model(areas):
+    """Creates compartments of the model
+    
+    Parameters
+    ----------
+    areas : list of strings
+        List containing the names of the areas.
+
+    
+    Returns
+    -------
+    compartments : dict
+        Dictionary that contains the compartment names as keys and dicitonaries,
+        that specify all parameters for the compartments, as values.
+
+    """
+
     compartments = {}
     for index_area in areas:
         compartments[index_area] = {
@@ -283,12 +321,41 @@ def create_comaprtments_model(areas):
 
 
 def create_species_model(
-    species_comp,
-    areas,
     vaccination_states,
-    virus_states,
     non_vaccination_state,
+    virus_states,
+    areas,
+    species_comp,
 ):
+    """Create species of the model.
+    
+    Parameters
+    ----------
+
+    vaccination_states : list of strings
+        List containing the names of the vaccinations containing a state for
+        non-vaccinated individuals.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    species_comp : list of strings
+        List containing the names of the compartments. Should not be changed.
+    
+
+    Returns
+    -------
+    species : dict
+        Dictionary that contains the species names as keys and dicitonaries,
+        that specify all parameters for the species, as values.
+    """
+
     species = {}
     for index_compartments in species_comp:
         for index_areas in areas:
@@ -311,10 +378,10 @@ def create_species_model(
 
 def create_parameters_model(
     species,
-    areas,
-    virus_states,
     vaccination_states_removed,
     non_vaccination_state,
+    virus_states,
+    areas,
     omega_df,
     delta_df,
     eta_df,
@@ -324,6 +391,75 @@ def create_parameters_model(
     t0_susceptible,
     t0_infectious,
 ):
+    """Create parameters for the model.
+    
+    Parameters
+    ----------
+    species : list of strings
+        List containing the names of all species.
+
+    vaccination_states_removed : list of strings
+        List containing the names of the vaccinations not containing a state for
+        non-vaccinated individuals.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    omega_df : pandas.DataFrame
+        Data frame indicating the omega coefficients regarding the combinations
+        of vaccines and virus types. Each cell indicates that an
+        infected individual has a lower probability of :math:`1-\omega` to die. 
+        Rows indicate the vaccinations and columns the virus types. Number of 
+        rows must equal number of vaccination states (without non-vaccination
+        state) and the number of columns must equal the number of virus types.
+    
+    delta_df : pandas.DataFrame
+        data frame indicating the delta coefficients regarding the combinations
+        of vaccines and virus types. Each cell indicates that a
+        vaccinated individual has a lower probability of :math:`1-\delta` to
+        become infected while meeting an infectious person. 
+        Rows indicate the vaccinations and columns the virus types. Number of 
+        rows must equal number of vaccination states (without non-vaccination
+        state) and the number of columns must equal the number of virus types.
+
+    eta_df : pandas.DataFrame
+        Data frame indicating the degree of infectiouness of the virus types
+        relative to the wild type. Number of elements must be the same as the
+        number of virus types. The first entry must be the degree of the wild
+        type and should be set to one.
+    
+    single_parameter : dict
+        Dictionary containing the values for :math:`\lambda, p, \gamma, \beta`.
+        the keys are the respective names and the values are the values that
+        are desired.
+        
+    parameters_constant : {True, False}
+        If True, all parameters are constant. If False, they are allowed to be
+        non-constant. Rules can eb set by the `parameter_rules' argument.
+
+    additional_parameters : dict, None
+        Allows to specify new additional parameters in a dict. The keys must be
+        the names and the values the respective magnitudes. Can be used to
+        define parameters that are used for `parameter_rules`.
+    
+    t0_susceptible : float
+        Number of initial assignment for susceptible states.
+
+    t0_infectious : float
+        Number of initial assignment for infectious states.
+
+    Returns
+    -------
+    parameters : dict
+        Dictionary that contains the parameter names as keys and dicitonaries,
+        that specify all parameters for the parameters, as values.
+    """
     omega_delta_dict = {}
     eta_dict = {}
     for index_virus in virus_states:
@@ -399,8 +535,35 @@ def create_parameters_model(
 
 
 def create_dead_recover_reactions_model(
-    areas, vaccination_states, virus_states, non_vaccination_state
+    vaccination_states, non_vaccination_state, virus_states, areas, 
 ):
+    """Create death and recover reactions for the model.
+    
+    Parameters
+    ----------
+    species : list of strings
+        List containing the names of all species.
+
+    vaccination_states : list of strings
+        List containing the names of the vaccinations containing a state for
+        non-vaccinated individuals.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    Returns
+    -------
+    dead_recover_reactions: dict
+        Dictionary that contains the dead/recover reaction names as keys
+        and dicitonaries that contain the reactants, products and formulas
+        as values.
+    """
     dead_recover_reactions = {}
     for index_areas in areas:
         for index_vaccination in vaccination_states:
@@ -434,8 +597,38 @@ def create_dead_recover_reactions_model(
 
 
 def create_infection_reactions_model(
-    species, areas, vaccination_states, non_vaccination_state, virus_states, distance_M
+    species, vaccination_states, non_vaccination_state, virus_states, areas, distance_M
 ):
+    """Create infection reactions for the model.
+    
+    Parameters
+    ----------
+    species : list of strings
+        List containing the names of all species.
+
+    vaccination_states: list of strings
+        List containing the names of the vaccinations containing a state for
+        non-vaccinated individuals.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+    
+    distance_M : pd.DataFrame
+        Data frame containing the formulas for the M matrix as strings.
+
+    Returns
+    -------
+    infection_reactions : dict
+        Dictionary that contains the infection reaction names as keys
+        and dicitonaries that contain the reactants, products and formulas
+        as values.
+    """
     infection_reactions = {}
     for index_areas_infected in areas:
         for index_vaccination_infected in vaccination_states:
@@ -477,12 +670,43 @@ def create_infection_reactions_model(
 
 def create_vaccination_reactions_model(
     species_comp,
-    areas,
-    virus_states,
     vaccination_states,
     vaccination_states_removed,
     non_vaccination_state,
+    virus_states,
+    areas,
 ):
+    """Create vaccination reactions for the model.
+    
+    Parameters
+    ----------
+    species_comp : list of strings
+        List containing the names of the compartments.
+
+    vaccination_states : list of strings
+        List containing the names of the vaccinations containing a state for
+        non-vaccinated individuals.
+
+    vaccination_states_removed : list of strings
+        List containing the names of the vaccinations not containing a state for
+        non-vaccinated individuals.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    Returns
+    -------
+    vaccination_reactions : dict
+        Dictionary that contains the vaccination reaction names as keys
+        and dicitonaries that contain the reactants, products and formulas
+        as values.
+    """
     vaccination_reactions = {}
     for index_compartments in species_comp:
         for index_areas in areas:
@@ -507,19 +731,60 @@ def create_vaccination_reactions_model(
                         "products": {f"{numb_vaccinated}": 1},
                         "formula": f" nu_{index_areas}_{index_vaccination}* {numb_to_be_vaccinated}",
                     }
+
     return vaccination_reactions
 
 
 def create_reactions_model(
-    areas,
     vaccination_states,
     vaccination_states_removed,
+    non_vaccination_state,
     virus_states,
+    areas,
     species,
     distances,
     vaccinated_compartments,
-    non_vaccination_state,
+
 ):
+    """Create reactions for the model.
+    
+    Parameters
+    ----------
+    vaccination_states : list of strings
+        List containing the names of the vaccinations containing a state for
+        non-vaccinated individuals.
+
+    vaccination_states_removed : list of strings
+        List containing the names of the vaccinations not containing a state for
+        non-vaccinated individuals.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    species : list of strings
+        List containing the names of all species.
+
+    distances : np.array
+        Matrix indicating the distances between countries. Does not have to be
+        symmetric and can therefore be used to model seasonal behavior or the
+        like.
+        
+    vaccinated_compartments : list of strings
+        List of compartments from which individuals are vaccinated.
+
+    Returns
+    -------
+    reactions : dict
+        Dictionary that contains the reaction names as keys
+        and dicitonaries that contain the reactants, products and formulas
+        as values.
+    """
     # Dead/Recovery
     dead_recover_reactions = create_dead_recover_reactions_model(
         areas=areas,
@@ -559,6 +824,22 @@ def create_reactions_model(
 
 
 def create_initial_assignments_model(species):
+    """Create initial assignments for the model. Here only the formal type
+    is defined. Assigning values to the parameters is done by
+    :func:`create_parameters_model`.
+    
+    Parameters
+    ----------
+    species : list of strings
+        List containing the names of all species.
+
+    Returns
+    -------
+    assignments: dict
+        Dictionary that contains the assignment names as keys
+        and dicitonaries that contain the species' ids, and formulas
+        as values.
+    """
 
     all_species = species.keys()
     assignments = {}

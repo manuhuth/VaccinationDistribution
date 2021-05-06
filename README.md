@@ -2,8 +2,7 @@
 
 
 ## To-Do:
-- Write model graph in sbgn
-- rewrite description
+- rewrite pdf model description
 - create continuous integration
 - Create time varying rules that determine vaccination rates (Find appropriate Vaccination strategies)
 - Functional form of inter-spatial infections 

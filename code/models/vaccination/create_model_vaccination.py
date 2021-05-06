@@ -99,6 +99,7 @@ def model_vaccination_create_sbml(
     
     t0_susceptible : float
         Number of initial assignment for susceptible states.
+
     t0_infectious : float
         Number of initial assignment for infectious states.
 
@@ -109,11 +110,6 @@ def model_vaccination_create_sbml(
 
     check_error : {True, False}
         If True, the SBML model is checked for errors.
-
-    Returns
-    -------
-    float
-        Function value evaluated at :math:`x`
 
     """
     

@@ -32,5 +32,5 @@ jobs:
         pytest
 
         # We can run a subset of figures as they do not rely on the actual results
-        #cd figures; python create_illustrations.py;  python create_observed_figures.py; cd ../
+        cd code/visualization; python model_results.py; cd ../
 

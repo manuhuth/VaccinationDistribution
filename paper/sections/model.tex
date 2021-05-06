@@ -2,7 +2,7 @@
 
 In the proposed model the compartments are Susceptible ($S$), Infectious ($I$), Recovered and Dead ($D$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). Since we are dealing with two virus variants, the wild type $w$ and the mutant $m$, we account for this by introducing the feature $c_j$ with $j \in \{w,m\}$ that indicates the type of virus we are referring to. For infectious individuals we can distinguish between symptomatic $s_y$ and asymptomatic cases $s_n$.
  
-We use the set notation of \cite{Waites.2021} to address certain subsets of the population. $\set()$ means all individuals. $\set(x_u)$ denotes all individuals from compartment $u \in \{S, I, R, D \}$, $\set(a_l)$ denotes all individuals from area $l \in \{1,2\}$, $\set(v_i)$ are all individuals with vaccination status $k \in \{0,1,2\}$, where zero indicates non-vaccinated, and $\set(c_j)$ are all individuals that currently have or had an infection with virus $j \in \{w,m\}$. With this notation we can pick desired subsets of the population by combining the appropriate features. All individuals from area one that are infected with the wild type are addressed by $\set(x_I, c_m)$. If we only want the unvaccinated individuals of them we use $\set(x_I, c_m, v_0)$. The usual set operators, like $\cup$. Using these operators allows us to address even more specific subsets like the set of all vaccinated individuals $\set(v_1) \cup \set(v_2)$. The set $\set()$ is defined as the whole population. The cardinalty $|\cdot|$ is used to addres the respective number of individuals in a set, e.g. $|\set(x_S, a_1)|$ equals the number of all susceptible individuals in area one. \textit{include symptomatic}\\
+We use the set notation of \cite{Waites.2021} to address certain subsets of the population. $\set()$ means all individuals. $\set(x_u)$ denotes all individuals from compartment $u \in \{S, I, R, D \}$, $\set(a_l)$ denotes all individuals from area $l \in \{1,2\}$, $\set(v_i)$ are all individuals with vaccination status $k \in \{0,1,2\}$, where zero indicates non-vaccinated, and $\set(c_j)$ are all individuals that currently have or had an infection with virus $j \in \{w,m\}$. With this notation we can pick desired subsets of the population by combining the appropriate features. All individuals from area one that are infected with the wild type are addressed by $\set(x_I, c_m)$. If we only want the unvaccinated individuals of them we use $\set(x_I, c_m, v_0)$. The usual set operators, like $\cup$. Using these operators allows us to address even more specific subsets like the set of all vaccinated individuals $\set(v_1) \cup \set(v_2)$. The set $\set()$ is defined as the whole population. The cardinalty $|\cdot|$ is used to addres the respective number of individuals in a set, e.g. $|\set(x_S, a_1)|$ equals the number of all susceptible individuals in area one.\\
 
 In more specific cases it might be more comprehensive to replace the index numbers by meaningful abbreviations.
 
@@ -106,8 +106,7 @@ We can combine the factors for different infection probabilities. For example th
 non-vaccinated. For $l \in \{1,2\}$
 \begin{align}
     \set(x_I,  v_0, c_w, a_l) &\xrightarrow{p \lambda} \set(x_D,  v_0, c_w, a_l) \notag \\
-\set(x_I,  v_0, c_w, a_l) &\xrightarrow{q(1-p) \lambda} \set(x_R,  v_0, c_w, a_l, s_y) \notag \\
-\set(x_I,  v_0, c_w, a_l) &\xrightarrow{(1-q)(1-p) \lambda} \set(x_R,  v_0, c_w, a_l, s_n) \notag
+\set(x_I,  v_0, c_w, a_l) &\xrightarrow{(1-p) \lambda} \set(x_R,  v_0, c_w, a_l) \notag \\
 \end{align}
 
 vaccinated. For $k \in \{1,2\}$ and $l \in \{1,2\}$
@@ -120,4 +119,4 @@ vaccinated. For $k \in \{1,2\}$ and $l \in \{1,2\}$
 \subsection{Graphical model description}
 On the next page you find a graphical representation of the model using tikz. I have omitted the second region and cross-border infections from the graph to increase readability.  
 
-\input{tikz/model_area_one}
+\includegraphics[scale=0.15]{images/vaccination.png}

@@ -28,7 +28,7 @@ jobs:
         source .envrc
         git submodule init
         git submodule update
-        run-content -s -p
+        run-content -p
         pytest
 
         # We can run a subset of figures as they do not rely on the actual results

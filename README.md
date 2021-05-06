@@ -2,7 +2,6 @@
 
 
 ## To-Do:
-- create continuous integration
 - Create time varying rules that determine vaccination rates (Find appropriate Vaccination strategies)
 - Functional form of inter-spatial infections 
 - Write function to optimize over

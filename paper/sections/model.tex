@@ -28,12 +28,28 @@ In more specific cases it might be more comprehensive to replace the index numbe
 \subsection{Transition Rates}
 
 \subsubsection*{Vaccination}
-For $j \in \{1,2\}$ $l \in \{1,2\}$
+For $j \in \{1,2\}$, $l \in \{1,2\}$
 \begin{align*}
-\set(x_S, v_0, a_l) &\xrightarrow{\nu_j(t-k)} \set(x_S, v_j, a_l) \notag \\
-\set(x_R, v_0, c_w, a_l) &\xrightarrow{\nu_j(t-k)} \set(x_R, v_j, c_w, a_l)
+\set(x_S, v_0, a_l) &\xrightarrow{\nu_{j,l}(\cdot)} \set(x_S, v_j, a_l) \notag \\
+\set(x_R, v_0, c_w, a_l) &\xrightarrow{\nu_{j,l}(\cdot)} \set(x_R, v_j, c_w, a_l)
 \end{align*}
+How to determine the vaccination rate? We denote the number of vaccinations of type $v_j$ available at time $t$ in country $l$ by $W_{j,l}(t)$ and the total number number of vaccine $j$ by $W_j(t) = W_{j,A}(t) + W_{j,B}(t)$. We assume that all doses of vaccines are immediately vaccinated. Thus, it must hold that 
+\begin{align*}
+W_{j,A}(t) &= \nu_{j, A} \cdot \left( |\set(x_S, v_0, a_A)| + |\set(x_R, v_0, a_A, c_w)| + |\set(x_R, v_0, a_A, c_m)| \right) \notag \\
+W_{j,B}(t) &= \nu_{j, B} \cdot \left( |\set(x_S, v_0, a_B)| + |\set(x_R, v_0, a_B, c_w)| + |\set(x_R, v_0, a_B, c_m)| \right). 
+\end{align*}
+Which is to say that the total number of vaccines $j$ at $t$ must equal the number of individuals vaccinated with $j$ at $t$. Let $f_{j,A}(t)$ be the fraction of vaccine $j$ that is allocated to country $A$. We can write $W_{j,A}(t) = f_{j,A}(t) W_j(t)$ and $W_{j,B}(t) = \left[1 - f_{j,A}(t)\right] W_j(t)$. Combining both yields for country $A$ and $B$
+\begin{align*}
+\nu_{j,A} &= \frac{ f_{j,A}(t) W_{j}(t)}{|\set(x_S, v_0, a_A)| + |\set(x_R, v_0, a_A, c_w)| + |\set(x_R, v_0, a_A, c_m)|} \notag \\
+\nu_{j,B} &= \frac{\left[1 - f_{j,A}(t)\right]  W_{j}(t)}{|\set(x_S, v_0, a_B)| + |\set(x_R, v_0, a_B, c_w)| + |\set(x_R, v_0, a_B, c_m)|}.
+\end{align*}
+To decide on the vaccination rates we therefore need to specify the trajectory of the fraction $f_{j,A}(t)$. Find appropriate function $g: \R^ \to [0,1]$. Let $y \in \R^b_+$ be the vector containing the number of individuals of the relevant compartments to consider and $z \in \R^b$ be parameters.  
+\begin{itemize}
+	\item logistic function $g(x \cdot z) = \frac{1}{1 + \exp(-y \cdot z)}$
 
+\end{itemize}
+
+  
 \subsubsection*{Susceptible to Infectious}
 To facilitate notation, we distinguish between individuals that are alive and those that are dead. We exclude all dead individuals by using prime notation to only address all living individuals, e.g. $\set'(a_l) =  \set(x_S, a_l) \cup \set(x_I, a_l) \cup \set(x_R, a_l)$. We define $N_l(t) = |\set'(a_l) |$ as the number of living individuals in area $l$ at time $t$. For specifying the transition rates we need to specify the probabilities that two individuals of a certain type meet. We do so by using the relative frequencies and adjust for cross-area meetings. The probability of an individual $i \in \set()$ to be in a particular subset is approximated by the relative frequencies. For example, the (time dependent) probability that a randomly drawn living individual is from area $l$ is $\prob\left(i \in \set'(a_l) \right) = \frac{N_l(t)}{N_1(t) + N_2(t)}$. To compute the probability that an individual is susceptible, conditioned that it is from area $l$, we can use Bayes' formula 
 \begin{align}

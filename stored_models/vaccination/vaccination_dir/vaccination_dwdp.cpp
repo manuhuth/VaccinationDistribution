@@ -106,12 +106,10 @@ void dwdp_vaccination(realtype *dwdp, const realtype t, const realtype *x, const
     dflux_r27_deta_virM = beta*infectious_countryA_vac2_virM*susceptible_countryA_vac0*(1 - gamma)/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + infectious_countryA_vac1_virM + infectious_countryA_vac1_virW + infectious_countryA_vac2_virM + infectious_countryA_vac2_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + recovered_countryA_vac1_virM + recovered_countryA_vac1_virW + recovered_countryA_vac2_virM + recovered_countryA_vac2_virW + susceptible_countryA_vac0 + susceptible_countryA_vac1 + susceptible_countryA_vac2);  // dwdp[89]
     dflux_r28_deta_virM = beta*infectious_countryA_vac2_virM*susceptible_countryA_vac1*(1 - delta_vac1_virM)*(1 - gamma)/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + infectious_countryA_vac1_virM + infectious_countryA_vac1_virW + infectious_countryA_vac2_virM + infectious_countryA_vac2_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + recovered_countryA_vac1_virM + recovered_countryA_vac1_virW + recovered_countryA_vac2_virM + recovered_countryA_vac2_virW + susceptible_countryA_vac0 + susceptible_countryA_vac1 + susceptible_countryA_vac2);  // dwdp[90]
     dflux_r29_deta_virM = beta*infectious_countryA_vac2_virM*susceptible_countryA_vac2*(1 - delta_vac2_virM)*(1 - gamma)/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + infectious_countryA_vac1_virM + infectious_countryA_vac1_virW + infectious_countryA_vac2_virM + infectious_countryA_vac2_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + recovered_countryA_vac1_virM + recovered_countryA_vac1_virW + recovered_countryA_vac2_virM + recovered_countryA_vac2_virW + susceptible_countryA_vac0 + susceptible_countryA_vac1 + susceptible_countryA_vac2);  // dwdp[91]
-    dflux_r30_dnu_countryA_vac1 = susceptible_countryA_vac0;  // dwdp[92]
-    dflux_r32_dnu_countryA_vac1 = recovered_countryA_vac0_virW;  // dwdp[93]
-    dflux_r34_dnu_countryA_vac1 = recovered_countryA_vac0_virM;  // dwdp[94]
-    dflux_r31_dnu_countryA_vac2 = susceptible_countryA_vac0;  // dwdp[95]
-    dflux_r33_dnu_countryA_vac2 = recovered_countryA_vac0_virW;  // dwdp[96]
-    dflux_r35_dnu_countryA_vac2 = recovered_countryA_vac0_virM;  // dwdp[97]
+    dnu_countryA_vac1_dnumber_vac1 = proportion_countryA_vac1/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // dwdp[92]
+    dnu_countryA_vac2_dnumber_vac2 = proportion_countryA_vac2/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // dwdp[93]
+    dnu_countryA_vac1_dproportion_countryA_vac1 = number_vac1/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // dwdp[94]
+    dnu_countryA_vac2_dproportion_countryA_vac2 = number_vac2/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // dwdp[95]
 }
 
 } // namespace model_vaccination

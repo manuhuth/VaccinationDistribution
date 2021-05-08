@@ -46,7 +46,7 @@ def plot_states(
         SBML model to retrieve the names of the species.
 
     xlabel : str
-        Label for the x-axis. 
+        Label for the x-axis.
 
     ylabel : str
         Label for the y-axis.
@@ -55,7 +55,7 @@ def plot_states(
         Label of title.
 
     state_ids : list of strings
-        List of substrings for which the model should be printed. Every 
+        List of substrings for which the model should be printed. Every
         trajectory of a species is printed if one of the substrings occur in
         their name.
 
@@ -109,7 +109,7 @@ def get_substates(model, substrings):
 
 def get_states_by_substrings(states, substrings):
     """Get state names that contain substrings.
-    
+
     Parameters
     ----------
     states : list of strings

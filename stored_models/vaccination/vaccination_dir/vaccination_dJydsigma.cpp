@@ -79,7 +79,13 @@ void dJydsigma_vaccination(realtype *dJydsigma, const int iy, const realtype *p,
             dJydsigma[20] = 1.0/sigma_ydead_countryA_vac2_virM - 1.0*std::pow(-mydead_countryA_vac2_virM + ydead_countryA_vac2_virM, 2)/std::pow(sigma_ydead_countryA_vac2_virM, 3);
             break;
         case 21:
-            dJydsigma[21] = 1.0/sigma_ycountryA - 1.0*std::pow(-mycountryA + ycountryA, 2)/std::pow(sigma_ycountryA, 3);
+            dJydsigma[21] = 1.0/sigma_ynu_countryA_vac1 - 1.0*std::pow(-mynu_countryA_vac1 + ynu_countryA_vac1, 2)/std::pow(sigma_ynu_countryA_vac1, 3);
+            break;
+        case 22:
+            dJydsigma[22] = 1.0/sigma_ynu_countryA_vac2 - 1.0*std::pow(-mynu_countryA_vac2 + ynu_countryA_vac2, 2)/std::pow(sigma_ynu_countryA_vac2, 3);
+            break;
+        case 23:
+            dJydsigma[23] = 1.0/sigma_ycountryA - 1.0*std::pow(-mycountryA + ycountryA, 2)/std::pow(sigma_ycountryA, 3);
             break;
     }
 }

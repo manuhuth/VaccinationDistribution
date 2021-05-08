@@ -19,4 +19,6 @@
 #define sigma_ydead_countryA_vac1_virM sigmay[18]
 #define sigma_ydead_countryA_vac2_virW sigmay[19]
 #define sigma_ydead_countryA_vac2_virM sigmay[20]
-#define sigma_ycountryA sigmay[21]
+#define sigma_ynu_countryA_vac1 sigmay[21]
+#define sigma_ynu_countryA_vac2 sigmay[22]
+#define sigma_ycountryA sigmay[23]

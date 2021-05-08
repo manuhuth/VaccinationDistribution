@@ -65,6 +65,10 @@
       <parameter id="dead_countryA_vac2_virM_t0" name="dead_countryA_vac2_virM_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="nu_countryA_vac1" name="nu_countryA_vac1" value="0" units="dimensionless" constant="false"/>
       <parameter id="nu_countryA_vac2" name="nu_countryA_vac2" value="0" units="dimensionless" constant="false"/>
+      <parameter id="number_vac1" name="number_vac1" value="0" units="dimensionless" constant="false"/>
+      <parameter id="number_vac2" name="number_vac2" value="0" units="dimensionless" constant="false"/>
+      <parameter id="proportion_countryA_vac1" name="proportion_countryA_vac1" value="0" units="dimensionless" constant="false"/>
+      <parameter id="proportion_countryA_vac2" name="proportion_countryA_vac2" value="0" units="dimensionless" constant="false"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment name="assignment_susceptible_countryA_vac0" symbol="susceptible_countryA_vac0">
@@ -173,6 +177,46 @@
         </math>
       </initialAssignment>
     </listOfInitialAssignments>
+    <listOfRules>
+      <assignmentRule name="rule_nu_countryA_vac1" variable="nu_countryA_vac1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> proportion_countryA_vac1 </ci>
+              <ci> number_vac1 </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> susceptible_countryA_vac0 </ci>
+              <ci> susceptible_countryA_vac0 </ci>
+              <ci> recovered_countryA_vac0_virW </ci>
+              <ci> recovered_countryA_vac0_virM </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule name="rule_nu_countryA_vac2" variable="nu_countryA_vac2">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <divide/>
+            <apply>
+              <times/>
+              <ci> proportion_countryA_vac2 </ci>
+              <ci> number_vac2 </ci>
+            </apply>
+            <apply>
+              <plus/>
+              <ci> susceptible_countryA_vac0 </ci>
+              <ci> susceptible_countryA_vac0 </ci>
+              <ci> recovered_countryA_vac0_virW </ci>
+              <ci> recovered_countryA_vac0_virM </ci>
+            </apply>
+          </apply>
+        </math>
+      </assignmentRule>
+    </listOfRules>
     <listOfReactions>
       <reaction id="infectious_countryA_vac0_virW_to_recovered_countryA_vac0_virW" reversible="false">
         <listOfReactants>

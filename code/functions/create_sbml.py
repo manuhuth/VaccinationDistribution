@@ -514,7 +514,7 @@ def create_parameter_rule(model, parameter_id, formula, rule_id, rule_name=None)
     parameter_rule = model.createAssignmentRule()
     parameter_rule.setId(rule_id)
     parameter_rule.setName(rule_name)
-    parameter_rule.variable(parameter_id)
+    parameter_rule.setVariable(parameter_id)
     math_ast = libsbml.parseL3Formula(formula)
     parameter_rule.setMath(math_ast)
 

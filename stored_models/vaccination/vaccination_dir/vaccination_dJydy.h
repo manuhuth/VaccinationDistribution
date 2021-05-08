@@ -19,4 +19,6 @@
 #define dJy0_dydead_countryA_vac1_virM_18 dJydy[18]
 #define dJy0_dydead_countryA_vac2_virW_19 dJydy[19]
 #define dJy0_dydead_countryA_vac2_virM_20 dJydy[20]
-#define dJy0_dycountryA_21 dJydy[21]
+#define dJy0_dynu_countryA_vac1_21 dJydy[21]
+#define dJy0_dynu_countryA_vac2_22 dJydy[22]
+#define dJy0_dycountryA_23 dJydy[23]

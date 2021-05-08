@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-p", "--paper", action="store_true", help="compile paper")
 
-#    parser.add_argument("-s", "--slides", action="store_true", help="compile slides")
+    #    parser.add_argument("-s", "--slides", action="store_true", help="compile slides")
 
     args = parser.parse_args()
 

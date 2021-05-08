@@ -80,6 +80,12 @@ void dJydy_vaccination(realtype *dJydy, const int iy, const realtype *p, const r
             dJydy[0] = (-1.0*mydead_countryA_vac2_virM + 1.0*ydead_countryA_vac2_virM)/std::pow(sigma_ydead_countryA_vac2_virM, 2);
             break;
         case 21:
+            dJydy[0] = (-1.0*mynu_countryA_vac1 + 1.0*ynu_countryA_vac1)/std::pow(sigma_ynu_countryA_vac1, 2);
+            break;
+        case 22:
+            dJydy[0] = (-1.0*mynu_countryA_vac2 + 1.0*ynu_countryA_vac2)/std::pow(sigma_ynu_countryA_vac2, 2);
+            break;
+        case 23:
             dJydy[0] = (-1.0*mycountryA + 1.0*ycountryA)/std::pow(sigma_ycountryA, 2);
             break;
     }

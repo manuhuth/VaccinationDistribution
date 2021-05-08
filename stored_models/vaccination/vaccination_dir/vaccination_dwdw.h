@@ -1,0 +1,6 @@
+#define dflux_r30_dnu_countryA_vac1 dwdw[0]
+#define dflux_r32_dnu_countryA_vac1 dwdw[1]
+#define dflux_r34_dnu_countryA_vac1 dwdw[2]
+#define dflux_r31_dnu_countryA_vac2 dwdw[3]
+#define dflux_r33_dnu_countryA_vac2 dwdw[4]
+#define dflux_r35_dnu_countryA_vac2 dwdw[5]

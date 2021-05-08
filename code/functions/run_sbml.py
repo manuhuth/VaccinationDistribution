@@ -3,23 +3,23 @@ import amici
 
 def get_model_and_solver_from_sbml(path_sbml, model_name, model_directory):
     """Get model and solver objects from a SBML file.
-    
-    Parameters
-    ----------
-    path_sbml : str
-        Path to sbml file that contains the model.
 
-    model_name : str
-        Name of the model.
+     Parameters
+     ----------
+     path_sbml : str
+         Path to sbml file that contains the model.
 
-    model_directory : str
-        Path and name of where model directory should be stored.
+     model_name : str
+         Name of the model.
 
-    Returns
-    -------
-   model_solver : dict
-       Dictionary containing model and solver as keys and as values
-       the respective objects from the sbml file.
+     model_directory : str
+         Path and name of where model directory should be stored.
+
+     Returns
+     -------
+    model_solver : dict
+        Dictionary containing model and solver as keys and as values
+        the respective objects from the sbml file.
 
     """
 
@@ -33,7 +33,7 @@ def get_model_and_solver_from_sbml(path_sbml, model_name, model_directory):
 
     model_solver = {"model": model, "solver": solver}
 
-    return  model_solver
+    return model_solver
 
 
 def model_run(model, solver, timepoints, set_parameter=None):

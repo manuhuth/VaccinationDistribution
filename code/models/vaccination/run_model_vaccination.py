@@ -28,17 +28,27 @@ model_result = model_run(
     model=model,
     solver=solver,
     timepoints=timepoints,
-    set_parameter={"beta": 4, "susceptible_countryA_vac0_t0": 40000, 'lambda1' : 0.4, 'p' : 0.8 },
+    set_parameter={
+        "beta": 4,
+        "susceptible_countryA_vac0_t0": 400000,
+        "lambda1": 0.4,
+        "p": 0.8,
+        "number_vac1": 100,
+        "number_vac2": 200,
+        'proportion_countryA_vac1' : 0,
+        'proportion_countryA_vac2' : 1,
+    },
 )
 
 
 fig, ax = plot_states(results=model_result, model=model)
 
 # dir(model)
-# model.getParameters()
-# model.getParameterNames()
+par_values = model.getParameters()
+par_names = model.getParameterNames()
+model.getFixedParameterNames()
 
-substates = get_substates(model=model, substrings=["dead"])
+substates = get_substates(model=model, substrings=["vac2"])
 fig, ax = plot_states(results=model_result, model=model, state_ids=substates)
 
-# TODO Find out how to code time dependent rules
+

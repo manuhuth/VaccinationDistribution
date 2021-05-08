@@ -79,6 +79,12 @@ void Jy_vaccination(realtype *Jy, const int iy, const realtype *p, const realtyp
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ydead_countryA_vac2_virM, 2)) + 0.5*std::pow(-mydead_countryA_vac2_virM + ydead_countryA_vac2_virM, 2)/std::pow(sigma_ydead_countryA_vac2_virM, 2);
             break;
         case 21:
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryA_vac1, 2)) + 0.5*std::pow(-mynu_countryA_vac1 + ynu_countryA_vac1, 2)/std::pow(sigma_ynu_countryA_vac1, 2);
+            break;
+        case 22:
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryA_vac2, 2)) + 0.5*std::pow(-mynu_countryA_vac2 + ynu_countryA_vac2, 2)/std::pow(sigma_ynu_countryA_vac2, 2);
+            break;
+        case 23:
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ycountryA, 2)) + 0.5*std::pow(-mycountryA + ycountryA, 2)/std::pow(sigma_ycountryA, 2);
             break;
     }

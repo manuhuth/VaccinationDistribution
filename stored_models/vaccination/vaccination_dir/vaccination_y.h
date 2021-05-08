@@ -19,4 +19,6 @@
 #define ydead_countryA_vac1_virM y[18]
 #define ydead_countryA_vac2_virW y[19]
 #define ydead_countryA_vac2_virM y[20]
-#define ycountryA y[21]
+#define ynu_countryA_vac1 y[21]
+#define ynu_countryA_vac2 y[22]
+#define ycountryA y[23]

@@ -33,7 +33,9 @@ void sigmay_vaccination(realtype *sigmay, const realtype t, const realtype *p, c
     sigma_ydead_countryA_vac1_virM = 1.0;  // sigmay[18]
     sigma_ydead_countryA_vac2_virW = 1.0;  // sigmay[19]
     sigma_ydead_countryA_vac2_virM = 1.0;  // sigmay[20]
-    sigma_ycountryA = 1.0;  // sigmay[21]
+    sigma_ynu_countryA_vac1 = 1.0;  // sigmay[21]
+    sigma_ynu_countryA_vac2 = 1.0;  // sigmay[22]
+    sigma_ycountryA = 1.0;  // sigmay[23]
 }
 
 } // namespace model_vaccination

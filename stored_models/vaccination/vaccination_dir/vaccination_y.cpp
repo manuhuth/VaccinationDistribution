@@ -34,7 +34,9 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
     y[18] = dead_countryA_vac1_virM;
     y[19] = dead_countryA_vac2_virW;
     y[20] = dead_countryA_vac2_virM;
-    y[21] = 1.0;
+    y[21] = number_vac1*proportion_countryA_vac1/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
+    y[22] = number_vac2*proportion_countryA_vac2/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
+    y[23] = 1.0;
 }
 
 } // namespace model_vaccination

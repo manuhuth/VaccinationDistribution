@@ -19,4 +19,6 @@
 #define mydead_countryA_vac1_virM my[18]
 #define mydead_countryA_vac2_virW my[19]
 #define mydead_countryA_vac2_virM my[20]
-#define mycountryA my[21]
+#define mynu_countryA_vac1 my[21]
+#define mynu_countryA_vac2 my[22]
+#define mycountryA my[23]

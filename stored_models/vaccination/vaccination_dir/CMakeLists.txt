@@ -32,7 +32,8 @@ message(STATUS "Found AMICI ${Amici_DIR}")
 
 set(MODEL_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-set(SRC_LIST_LIB vaccination_dxdotdw_rowvals.cpp 
+set(SRC_LIST_LIB vaccination_dwdw.cpp 
+vaccination_dxdotdw_rowvals.cpp 
 vaccination_dwdp_rowvals.cpp 
 vaccination_dwdx_colptrs.cpp 
 vaccination_w.cpp 
@@ -40,6 +41,7 @@ vaccination_xdot.cpp
 vaccination_dwdp.cpp 
 vaccination_dJydsigma.cpp 
 vaccination_dJydy_rowvals.cpp 
+vaccination_dydp.cpp 
 vaccination_y.cpp 
 vaccination_dxdotdw.cpp 
 vaccination_dJydy_colptrs.cpp 
@@ -54,7 +56,9 @@ wrapfunctions.cpp
 vaccination_dxdotdw_colptrs.cpp 
 vaccination_dydx.cpp 
 vaccination_x_rdata.cpp 
+vaccination_dwdw_rowvals.cpp 
 vaccination_dwdp_colptrs.cpp 
+vaccination_dwdw_colptrs.cpp 
 vaccination_Jy.cpp 
 vaccination.cpp 
 ${MODEL_DIR}/wrapfunctions.cpp

@@ -30,8 +30,8 @@ def model_vaccination_create_sbml(
     check_error=False,
 ):
     """Create model specified by the input parameters. Parameters can
-    subsequently be modified. 
-    
+    subsequently be modified.
+
     Parameters
     ----------
     path : str
@@ -52,24 +52,24 @@ def model_vaccination_create_sbml(
 
     species_comp : list of strings
         List containing the names of the compartments. Should not be changed.
-    
+
     vaccinated_compartments : list of strings
         List of compartments from which individuals are vaccinated.
 
     omega_matrix : numpy.array
         Array indicating the omega coefficients regarding the combinations
         of vaccines and virus types. Each cell indicates that an
-        infected individual has a lower probability of :math:`1-\omega` to die. 
-        Rows indicate the vaccinations and columns the virus types. Number of 
+        infected individual has a lower probability of :math:`1-\omega` to die.
+        Rows indicate the vaccinations and columns the virus types. Number of
         rows must equal number of vaccination states (without non-vaccination
         state) and the number of columns must equal the number of virus types.
-    
+
     delta_matrix : numpy.array
         Array indicating the delta coefficients regarding the combinations
         of vaccines and virus types. Each cell indicates that a
         vaccinated individual has a lower probability of :math:`1-\delta` to
-        become infected while meeting an infectious person. 
-        Rows indicate the vaccinations and columns the virus types. Number of 
+        become infected while meeting an infectious person.
+        Rows indicate the vaccinations and columns the virus types. Number of
         rows must equal number of vaccination states (without non-vaccination
         state) and the number of columns must equal the number of virus types.
 
@@ -78,12 +78,12 @@ def model_vaccination_create_sbml(
         to the wild type. Number of elements must be the same as the number
         of virus types. The first entry must be the degree of the wild type and
         should be set to one.
-    
+
     single_parameter : dict
         Dictionary containing the values for :math:`\lambda, p, \gamma, \beta`.
         the keys are the respective names and the values are the values that
         are desired.
-        
+
     parameters_constant : {True, False}
         If True, all parameters are constant. If False, they are allowed to be
         non-constant. Rules can eb set by the `parameter_rules' argument.
@@ -96,7 +96,7 @@ def model_vaccination_create_sbml(
         Allows to specify new additional parameters in a dict. The keys must be
         the names and the values the respective magnitudes. Can be used to
         define parameters that are used for `parameter_rules`.
-    
+
     t0_susceptible : float
         Number of initial assignment for susceptible states.
 
@@ -112,7 +112,7 @@ def model_vaccination_create_sbml(
         If True, the SBML model is checked for errors.
 
     """
-    
+
     vaccination_states_removed = [
         x for x in vaccination_states if x != non_vaccination_state
     ]
@@ -167,13 +167,26 @@ def model_vaccination_create_sbml(
 
     assignments = create_initial_assignments_model(species=species)
 
+    nu_rules = create_rules_vaccination_rate(
+        vaccinated_compartments=vaccinated_compartments,
+        vaccination_states_removed=vaccination_states_removed,
+        non_vaccination_state=non_vaccination_state,
+        virus_states=virus_states,
+        areas=areas,
+    )
+    
+    if parameter_rules is None:
+        parameter_rules_all = nu_rules
+    else:
+        parameter_rules_all = {**nu_rules, **parameter_rules}
+
     model_input_dictionary = write_entities_to_dict(
         compartments=compartments,
         species=species,
         parameters=parameters,
         reactions=reactions,
         assignments=assignments,
-        parameter_rules=parameter_rules,
+        parameter_rules=parameter_rules_all,
     )
 
     write_dict_to_sbml_file(
@@ -190,7 +203,7 @@ def b_distance_function(x):
     Parameters
     ----------
     x : float
-        Distance between two countries. 
+        Distance between two countries.
 
     Returns
     -------
@@ -227,7 +240,7 @@ def get_all_species_alive_area(species_list, area):
     ----------
     species_list : list of strings
         List of all species.
-    
+
     area : str
         name of area for which the species should be returned.
 
@@ -244,10 +257,10 @@ def get_all_species_alive_area(species_list, area):
     return numb_total_population_alive
 
 
-def get_M_matrix(areas, species, distance_matrix):  
+def get_M_matrix(areas, species, distance_matrix):
     """Computes strings of formulas for the matrix that defines the probability
     of meeting another individual.
-    
+
     Parameters
     ----------
     areas : list of strings
@@ -255,12 +268,12 @@ def get_M_matrix(areas, species, distance_matrix):
 
     species : list of strings
         List containing the names of all species.
-    
+
     distance_matrix : np.array
         Matrix indicating the distances between countries. Does not have to be
         symmetric and can therefore be used to model seasonal behavior or the
         like.
-    
+
     Returns
     -------
     M : pd.DataFrame
@@ -291,13 +304,13 @@ def get_M_matrix(areas, species, distance_matrix):
 
 def create_comaprtments_model(areas):
     """Creates compartments of the model
-    
+
     Parameters
     ----------
     areas : list of strings
         List containing the names of the areas.
 
-    
+
     Returns
     -------
     compartments : dict
@@ -324,7 +337,7 @@ def create_species_model(
     species_comp,
 ):
     """Create species of the model.
-    
+
     Parameters
     ----------
 
@@ -343,7 +356,7 @@ def create_species_model(
 
     species_comp : list of strings
         List containing the names of the compartments. Should not be changed.
-    
+
 
     Returns
     -------
@@ -388,7 +401,7 @@ def create_parameters_model(
     t0_infectious,
 ):
     """Create parameters for the model.
-    
+
     Parameters
     ----------
     species : list of strings
@@ -410,17 +423,17 @@ def create_parameters_model(
     omega_df : pandas.DataFrame
         Data frame indicating the omega coefficients regarding the combinations
         of vaccines and virus types. Each cell indicates that an
-        infected individual has a lower probability of :math:`1-\omega` to die. 
-        Rows indicate the vaccinations and columns the virus types. Number of 
+        infected individual has a lower probability of :math:`1-\omega` to die.
+        Rows indicate the vaccinations and columns the virus types. Number of
         rows must equal number of vaccination states (without non-vaccination
         state) and the number of columns must equal the number of virus types.
-    
+
     delta_df : pandas.DataFrame
         data frame indicating the delta coefficients regarding the combinations
         of vaccines and virus types. Each cell indicates that a
         vaccinated individual has a lower probability of :math:`1-\delta` to
-        become infected while meeting an infectious person. 
-        Rows indicate the vaccinations and columns the virus types. Number of 
+        become infected while meeting an infectious person.
+        Rows indicate the vaccinations and columns the virus types. Number of
         rows must equal number of vaccination states (without non-vaccination
         state) and the number of columns must equal the number of virus types.
 
@@ -429,12 +442,12 @@ def create_parameters_model(
         relative to the wild type. Number of elements must be the same as the
         number of virus types. The first entry must be the degree of the wild
         type and should be set to one.
-    
+
     single_parameter : dict
         Dictionary containing the values for :math:`\lambda, p, \gamma, \beta`.
         the keys are the respective names and the values are the values that
         are desired.
-        
+
     parameters_constant : {True, False}
         If True, all parameters are constant. If False, they are allowed to be
         non-constant. Rules can eb set by the `parameter_rules' argument.
@@ -443,7 +456,7 @@ def create_parameters_model(
         Allows to specify new additional parameters in a dict. The keys must be
         the names and the values the respective magnitudes. Can be used to
         define parameters that are used for `parameter_rules`.
-    
+
     t0_susceptible : float
         Number of initial assignment for susceptible states.
 
@@ -485,11 +498,19 @@ def create_parameters_model(
         "beta": {"value": single_parameter["beta"], "constant": parameters_constant},
     }
 
+    total_numb_vacc = {}
+    for index_vaccination in vaccination_states_removed:
+        keys = f"number_{index_vaccination}"
+        total_numb_vacc[keys] = {"value": 0, "constant": False}
+
     vaccination_parameters = {}
+    vaccination_proportions = {}
     for index_vaccination in vaccination_states_removed:
         for index_areas in areas:
-            keys = f"nu_{index_areas}_{index_vaccination}"
-            vaccination_parameters[keys] = {"value": 0, "constant": parameters_constant}
+            keys_nu = f"nu_{index_areas}_{index_vaccination}"
+            keys_proportion = f"proportion_{index_areas}_{index_vaccination}"
+            vaccination_parameters[keys_nu] = {"value": 0, "constant": False}
+            vaccination_proportions[keys_proportion] = {"value": 0, "constant": False}
 
     all_species = species.keys()
     initial_amount = {}
@@ -515,6 +536,8 @@ def create_parameters_model(
             **eta_dict,
             **initial_amount,
             **vaccination_parameters,
+            **total_numb_vacc,
+            **vaccination_proportions,
             **additional_parameters,
         }
 
@@ -525,16 +548,66 @@ def create_parameters_model(
             **eta_dict,
             **initial_amount,
             **vaccination_parameters,
+            **total_numb_vacc,
+            **vaccination_proportions,
         }
 
     return parameters
 
 
+def create_rules_vaccination_rate(
+    vaccinated_compartments, vaccination_states_removed, non_vaccination_state, virus_states, areas
+):
+
+    rules_nu = {}
+    for index_vaccination in vaccination_states_removed:
+        id_number_vaccinations = f"number_{index_vaccination}"
+        for index_areas in areas:
+            id_rule = f"rule_nu_{index_areas}_{index_vaccination}"
+            id_nu = f"nu_{index_areas}_{index_vaccination}"
+            id_proportion = f"proportion_{index_areas}_{index_vaccination}"
+            to_be_vaccinated = get_all_individuals_to_be_vaccinated(
+                vaccinated_compartments=vaccinated_compartments,
+                non_vaccination_state=non_vaccination_state,
+                virus_states=virus_states,
+                areas=[index_areas],
+            )
+
+            formula = (
+                f"{id_proportion} * {id_number_vaccinations} / ({to_be_vaccinated})"
+            )
+            rules_nu[id_rule] = {"parameter_id": id_nu, "formula": formula}
+
+    return rules_nu
+
+
+def get_all_individuals_to_be_vaccinated(
+    vaccinated_compartments, non_vaccination_state, virus_states, areas
+):
+
+    vaccinated_individuals = ""
+    for index_compartments in vaccinated_compartments:
+        for index_virus in virus_states:
+            for index_areas in areas:
+                if index_compartments == "susceptible":
+                    state = (
+                        f"{index_compartments}_{index_areas}_{non_vaccination_state}"
+                    )
+                else:
+                    state = f"{index_compartments}_{index_areas}_{non_vaccination_state}_{index_virus}"
+                vaccinated_individuals = vaccinated_individuals + "+" + state
+
+    return vaccinated_individuals
+
+
 def create_dead_recover_reactions_model(
-    vaccination_states, non_vaccination_state, virus_states, areas, 
+    vaccination_states,
+    non_vaccination_state,
+    virus_states,
+    areas,
 ):
     """Create death and recover reactions for the model.
-    
+
     Parameters
     ----------
     species : list of strings
@@ -596,7 +669,7 @@ def create_infection_reactions_model(
     species, vaccination_states, non_vaccination_state, virus_states, areas, distance_M
 ):
     """Create infection reactions for the model.
-    
+
     Parameters
     ----------
     species : list of strings
@@ -614,7 +687,7 @@ def create_infection_reactions_model(
 
     areas : list of strings
         List containing the names of the areas.
-    
+
     distance_M : pd.DataFrame
         Data frame containing the formulas for the M matrix as strings.
 
@@ -673,7 +746,7 @@ def create_vaccination_reactions_model(
     areas,
 ):
     """Create vaccination reactions for the model.
-    
+
     Parameters
     ----------
     species_comp : list of strings
@@ -740,10 +813,9 @@ def create_reactions_model(
     species,
     distances,
     vaccinated_compartments,
-
 ):
     """Create reactions for the model.
-    
+
     Parameters
     ----------
     vaccination_states : list of strings
@@ -770,7 +842,7 @@ def create_reactions_model(
         Matrix indicating the distances between countries. Does not have to be
         symmetric and can therefore be used to model seasonal behavior or the
         like.
-        
+
     vaccinated_compartments : list of strings
         List of compartments from which individuals are vaccinated.
 
@@ -823,7 +895,7 @@ def create_initial_assignments_model(species):
     """Create initial assignments for the model. Here only the formal type
     is defined. Assigning values to the parameters is done by
     :func:`create_parameters_model`.
-    
+
     Parameters
     ----------
     species : list of strings

@@ -15,16 +15,16 @@ class Solver;
 
 namespace model_vaccination {
 
-extern std::array<const char*, 37> parameterNames;
+extern std::array<const char*, 39> parameterNames;
 extern std::array<const char*, 0> fixedParameterNames;
 extern std::array<const char*, 21> stateNames;
-extern std::array<const char*, 22> observableNames;
-extern std::array<const char*, 36> expressionNames;
-extern std::array<const char*, 37> parameterIds;
+extern std::array<const char*, 24> observableNames;
+extern std::array<const char*, 38> expressionNames;
+extern std::array<const char*, 39> parameterIds;
 extern std::array<const char*, 0> fixedParameterIds;
 extern std::array<const char*, 21> stateIds;
-extern std::array<const char*, 22> observableIds;
-extern std::array<const char*, 36> expressionIds;
+extern std::array<const char*, 24> observableIds;
+extern std::array<const char*, 38> expressionIds;
 
 extern void Jy_vaccination(realtype *Jy, const int iy, const realtype *p, const realtype *k, const realtype *y, const realtype *sigmay, const realtype *my);
 extern void dJydsigma_vaccination(realtype *dJydsigma, const int iy, const realtype *p, const realtype *k, const realtype *y, const realtype *sigmay, const realtype *my);
@@ -38,9 +38,9 @@ extern void dwdp_rowvals_vaccination(SUNMatrixWrapper &rowvals);
 extern void dwdx_vaccination(realtype *dwdx, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w, const realtype *tcl);
 extern void dwdx_colptrs_vaccination(SUNMatrixWrapper &colptrs);
 extern void dwdx_rowvals_vaccination(SUNMatrixWrapper &rowvals);
-
-
-
+extern void dwdw_vaccination(realtype *dwdw, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w, const realtype *tcl);
+extern void dwdw_colptrs_vaccination(SUNMatrixWrapper &colptrs);
+extern void dwdw_rowvals_vaccination(SUNMatrixWrapper &rowvals);
 extern void dxdotdw_vaccination(realtype *dxdotdw, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w);
 extern void dxdotdw_colptrs_vaccination(SUNMatrixWrapper &colptrs);
 extern void dxdotdw_rowvals_vaccination(SUNMatrixWrapper &rowvals);
@@ -51,7 +51,7 @@ extern void dxdotdw_rowvals_vaccination(SUNMatrixWrapper &rowvals);
 
 
 extern void dydx_vaccination(realtype *dydx, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w, const realtype *dwdx);
-
+extern void dydp_vaccination(realtype *dydp, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const int ip, const realtype *w, const realtype *dtcldp);
 extern void sigmay_vaccination(realtype *sigmay, const realtype t, const realtype *p, const realtype *k);
 
 extern void w_vaccination(realtype *w, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *tcl);
@@ -84,27 +84,27 @@ class Model_vaccination : public amici::Model_ODE {
                   21,                           // nx_solver
                   21,                       // nxtrue_solver
                   0,                    // nx_solver_reinit
-                  37,                                  // np
+                  39,                                  // np
                   0,                                  // nk
-                  22,                                  // ny
-                  22,                              // nytrue
+                  24,                                  // ny
+                  24,                              // nytrue
                   0,                                  // nz
                   0,                              // nztrue
                   0,                              // nevent
                   1,                          // nobjective
-                  36,                                  // nw
-                  288,                               // ndwdx
-                  98,                               // ndwdp
-                  0,                               // ndwdw
+                  38,                                  // nw
+                  294,                               // ndwdx
+                  96,                               // ndwdp
+                  6,                               // ndwdw
                   72,                            // ndxdotdw
-                  std::vector<int>{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},                              // ndjydy
+                  std::vector<int>{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},                              // ndjydy
                   0,                                       // nnz
                   21,                                 // ubw
                   21                                  // lbw
               ),
               amici::SimulationParameters(
                   std::vector<realtype>{}, // fixedParameters
-                  std::vector<realtype>{0.01, 0.10000000000000001, 0.5, 2.0, 0.90000000000000002, 0.90000000000000002, 0.59999999999999998, 0.59999999999999998, 0.69999999999999996, 0.59999999999999998, 0.90000000000000002, 0.90000000000000002, 1.0, 1.3, 30000.0, 0.0, 0.0, 1000.0, 1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}        // dynamic parameters
+                  std::vector<realtype>{0.01, 0.10000000000000001, 0.5, 2.0, 0.90000000000000002, 0.90000000000000002, 0.59999999999999998, 0.59999999999999998, 0.69999999999999996, 0.59999999999999998, 0.90000000000000002, 0.90000000000000002, 1.0, 1.3, 30000.0, 0.0, 0.0, 1000.0, 1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}        // dynamic parameters
               ),
               amici::SecondOrderMode::none,                                  // o2mode
               std::vector<realtype>(21, 0.0),   // idlist
@@ -112,7 +112,7 @@ class Model_vaccination : public amici::Model_ODE {
               true,                                        // pythonGenerated
               0,                       // ndxdotdp_explicit
               0,                       // ndxdotdx_explicit
-              0                        // w_recursion_depth
+              1                        // w_recursion_depth
           ) {}
 
     /**
@@ -333,11 +333,15 @@ class Model_vaccination : public amici::Model_ODE {
     }
 
 
-    virtual void fdwdw(realtype *dwdw, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w, const realtype *tcl) override {}
+    virtual void fdwdw(realtype *dwdw, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w, const realtype *tcl) override {
+        dwdw_vaccination(dwdw, t, x, p, k, h, w, tcl);
+    }
 
-    virtual void fdwdw_colptrs(SUNMatrixWrapper &colptrs) override {}
+    virtual void fdwdw_colptrs(SUNMatrixWrapper &colptrs) override {        dwdw_colptrs_vaccination(colptrs);
+    }
 
-    virtual void fdwdw_rowvals(SUNMatrixWrapper &rowvals) override {}
+    virtual void fdwdw_rowvals(SUNMatrixWrapper &rowvals) override {        dwdw_rowvals_vaccination(rowvals);
+    }
 
 
     virtual void fdxdotdw(realtype *dxdotdw, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w) override {
@@ -370,7 +374,9 @@ class Model_vaccination : public amici::Model_ODE {
     }
 
 
-    virtual void fdydp(realtype *dydp, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const int ip, const realtype *w, const realtype *dtcldp) override {}
+    virtual void fdydp(realtype *dydp, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const int ip, const realtype *w, const realtype *dtcldp) override {
+        dydp_vaccination(dydp, t, x, p, k, h, ip, w, dtcldp);
+    }
 
 
     /** model specific implementation of fdzdp

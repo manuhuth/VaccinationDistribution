@@ -1,7 +1,39 @@
 import amici
 
 
-def get_model_and_solver_from_sbml(path_sbml, model_name, model_directory):
+def create_observables(vaccination_states_removed, areas, name_parameter='nu'):
+    """Create dictionary with observables that is used by 
+    :func:`get_model_and_solver_from_sbml`.
+
+    Parameters
+    ----------
+    vaccination_states : list of strings
+        List containing the names of the vaccinations containing a state for
+        non-vaccinated individuals.
+
+    areas : list of strings
+        List containing the names of the areas.
+        
+    name_parameter : str
+        String that is used as name for the vaccination parameters. 
+
+    Returns
+    -------
+    observables : dict
+        dictionary with observables that is used by 
+        :func:`get_model_and_solver_from_sbml`.
+    """   
+    observables = {}
+    for index_vaccinations in vaccination_states_removed:
+        for index_areas in areas:
+            observable_id = f"observable_{name_parameter}_{index_areas}_{index_vaccinations}"
+            formula = f'{name_parameter}_{index_areas}_{index_vaccinations}'
+            observables[observable_id] = {'name':'', 'formula': formula}
+    
+    return observables
+
+
+def get_model_and_solver_from_sbml(path_sbml, model_name, model_directory, observables=None):
     """Get model and solver objects from a SBML file.
 
      Parameters
@@ -25,7 +57,7 @@ def get_model_and_solver_from_sbml(path_sbml, model_name, model_directory):
 
     filename = path_sbml + ".xml"
     sbml_importer = amici.SbmlImporter(filename)
-    sbml_importer.sbml2amici(model_name, model_directory)
+    sbml_importer.sbml2amici(model_name, model_directory, observables=observables)
 
     model_module = amici.import_model_module(model_name, model_directory)
     model = model_module.getModel()

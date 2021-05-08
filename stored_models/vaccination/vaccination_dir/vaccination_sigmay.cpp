@@ -12,30 +12,8 @@ namespace amici {
 namespace model_vaccination {
 
 void sigmay_vaccination(realtype *sigmay, const realtype t, const realtype *p, const realtype *k){
-    sigma_ysusceptible_countryA_vac0 = 1.0;  // sigmay[0]
-    sigma_ysusceptible_countryA_vac1 = 1.0;  // sigmay[1]
-    sigma_ysusceptible_countryA_vac2 = 1.0;  // sigmay[2]
-    sigma_yinfectious_countryA_vac0_virW = 1.0;  // sigmay[3]
-    sigma_yinfectious_countryA_vac0_virM = 1.0;  // sigmay[4]
-    sigma_yinfectious_countryA_vac1_virW = 1.0;  // sigmay[5]
-    sigma_yinfectious_countryA_vac1_virM = 1.0;  // sigmay[6]
-    sigma_yinfectious_countryA_vac2_virW = 1.0;  // sigmay[7]
-    sigma_yinfectious_countryA_vac2_virM = 1.0;  // sigmay[8]
-    sigma_yrecovered_countryA_vac0_virW = 1.0;  // sigmay[9]
-    sigma_yrecovered_countryA_vac0_virM = 1.0;  // sigmay[10]
-    sigma_yrecovered_countryA_vac1_virW = 1.0;  // sigmay[11]
-    sigma_yrecovered_countryA_vac1_virM = 1.0;  // sigmay[12]
-    sigma_yrecovered_countryA_vac2_virW = 1.0;  // sigmay[13]
-    sigma_yrecovered_countryA_vac2_virM = 1.0;  // sigmay[14]
-    sigma_ydead_countryA_vac0_virW = 1.0;  // sigmay[15]
-    sigma_ydead_countryA_vac0_virM = 1.0;  // sigmay[16]
-    sigma_ydead_countryA_vac1_virW = 1.0;  // sigmay[17]
-    sigma_ydead_countryA_vac1_virM = 1.0;  // sigmay[18]
-    sigma_ydead_countryA_vac2_virW = 1.0;  // sigmay[19]
-    sigma_ydead_countryA_vac2_virM = 1.0;  // sigmay[20]
-    sigma_ynu_countryA_vac1 = 1.0;  // sigmay[21]
-    sigma_ynu_countryA_vac2 = 1.0;  // sigmay[22]
-    sigma_ycountryA = 1.0;  // sigmay[23]
+    sigma_observable_nu_vac1 = 1.0;  // sigmay[0]
+    sigma_observable_nu_vac2 = 1.0;  // sigmay[1]
 }
 
 } // namespace model_vaccination

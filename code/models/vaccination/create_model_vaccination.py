@@ -257,6 +257,46 @@ def get_all_species_alive_area(species_list, area):
     return numb_total_population_alive
 
 
+def get_all_individuals_to_be_vaccinated(
+    vaccinated_compartments, non_vaccination_state, virus_states, areas
+):
+    """Get sum of all names of species that have to be vaccinated.
+
+    Parameters
+    ----------
+    vaccinated_compartments : list of strings
+        List of compartments from which individuals are vaccinated.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    Returns
+    -------
+    vaccinated_individuals : str
+        Sum of all names of species that have to be vaccinated.
+    """
+
+    vaccinated_individuals = ""
+    for index_compartments in vaccinated_compartments:
+        for index_virus in virus_states:
+            for index_areas in areas:
+                if index_compartments == "susceptible":
+                    state = (
+                        f"{index_compartments}_{index_areas}_{non_vaccination_state}"
+                    )
+                else:
+                    state = f"{index_compartments}_{index_areas}_{non_vaccination_state}_{index_virus}"
+                vaccinated_individuals = vaccinated_individuals + "+" + state
+
+    return vaccinated_individuals
+
+
 def get_M_matrix(areas, species, distance_matrix):
     """Computes strings of formulas for the matrix that defines the probability
     of meeting another individual.
@@ -558,7 +598,27 @@ def create_parameters_model(
 def create_rules_vaccination_rate(
     vaccinated_compartments, vaccination_states_removed, non_vaccination_state, virus_states, areas
 ):
+    """Create rules for the vaccination rates.
 
+    Parameters
+    ----------
+    vaccinated_compartments : list of strings
+        List of compartments from which individuals are vaccinated.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    Returns
+    -------
+    rules_nu : dict
+        Dictionary including all rules for the vaccination parameters.
+    """
     rules_nu = {}
     for index_vaccination in vaccination_states_removed:
         id_number_vaccinations = f"number_{index_vaccination}"
@@ -579,25 +639,6 @@ def create_rules_vaccination_rate(
             rules_nu[id_rule] = {"parameter_id": id_nu, "formula": formula}
 
     return rules_nu
-
-
-def get_all_individuals_to_be_vaccinated(
-    vaccinated_compartments, non_vaccination_state, virus_states, areas
-):
-
-    vaccinated_individuals = ""
-    for index_compartments in vaccinated_compartments:
-        for index_virus in virus_states:
-            for index_areas in areas:
-                if index_compartments == "susceptible":
-                    state = (
-                        f"{index_compartments}_{index_areas}_{non_vaccination_state}"
-                    )
-                else:
-                    state = f"{index_compartments}_{index_areas}_{non_vaccination_state}_{index_virus}"
-                vaccinated_individuals = vaccinated_individuals + "+" + state
-
-    return vaccinated_individuals
 
 
 def create_dead_recover_reactions_model(

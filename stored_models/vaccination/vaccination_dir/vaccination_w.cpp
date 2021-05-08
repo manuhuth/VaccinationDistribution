@@ -14,8 +14,8 @@ namespace model_vaccination {
 
 void w_vaccination(realtype *w, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *tcl){
     nu_countryA_vac1 = number_vac1*proportion_countryA_vac1/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // w[0]
-    nu_countryB_vac2 = number_vac2*proportion_countryB_vac2/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);  // w[1]
-    nu_countryA_vac2 = number_vac2*proportion_countryA_vac2/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // w[2]
+    nu_countryA_vac2 = number_vac2*proportion_countryA_vac2/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // w[1]
+    nu_countryB_vac2 = number_vac2*proportion_countryB_vac2/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);  // w[2]
     nu_countryB_vac1 = number_vac1*proportion_countryB_vac1/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);  // w[3]
     flux_r0 = infectious_countryA_vac0_virW + lambda1*(1 - amici_p);  // w[4]
     flux_r1 = amici_p*infectious_countryA_vac0_virW*lambda1;  // w[5]

@@ -1,7 +1,7 @@
 import amici
 
 
-def create_observables(vaccination_states_removed, areas, name_parameter='nu'):
+def create_observables_vaccination_rates(vaccination_states_removed, areas, name_parameter='nu'):
     """Create dictionary with observables that is used by 
     :func:`get_model_and_solver_from_sbml`.
 
@@ -28,7 +28,8 @@ def create_observables(vaccination_states_removed, areas, name_parameter='nu'):
         for index_areas in areas:
             observable_id = f"observable_{name_parameter}_{index_areas}_{index_vaccinations}"
             formula = f'{name_parameter}_{index_areas}_{index_vaccinations}'
-            observables[observable_id] = {'name':'', 'formula': formula}
+            
+            observables[observable_id] = {'name':formula, 'formula': formula}
     
     return observables
 

@@ -119,15 +119,17 @@ std::array<const char*, 42> stateNames = {
 "dead_countryB_vac2_virM", // x_rdata[41]
 };
 
-std::array<const char*, 2> observableNames = {
-    "", // y[0]
-"", // y[1]
+std::array<const char*, 4> observableNames = {
+    "nu_countryA_vac1", // y[0]
+"nu_countryB_vac1", // y[1]
+"nu_countryA_vac2", // y[2]
+"nu_countryB_vac2", // y[3]
 };
 
 std::array<const char*, 112> expressionNames = {
     "nu_countryA_vac1", // w[0]
-"nu_countryB_vac2", // w[1]
-"nu_countryA_vac2", // w[2]
+"nu_countryA_vac2", // w[1]
+"nu_countryB_vac2", // w[2]
 "nu_countryB_vac1", // w[3]
 "flux_r0", // w[4]
 "flux_r1", // w[5]
@@ -353,15 +355,17 @@ std::array<const char*, 42> stateIds = {
 "dead_countryB_vac2_virM", // x_rdata[41]
 };
 
-std::array<const char*, 2> observableIds = {
-    "observable_nu_vac1", // y[0]
-"observable_nu_vac2", // y[1]
+std::array<const char*, 4> observableIds = {
+    "observable_nu_countryA_vac1", // y[0]
+"observable_nu_countryB_vac1", // y[1]
+"observable_nu_countryA_vac2", // y[2]
+"observable_nu_countryB_vac2", // y[3]
 };
 
 std::array<const char*, 112> expressionIds = {
     "nu_countryA_vac1", // w[0]
-"nu_countryB_vac2", // w[1]
-"nu_countryA_vac2", // w[2]
+"nu_countryA_vac2", // w[1]
+"nu_countryB_vac2", // w[2]
 "nu_countryB_vac1", // w[3]
 "flux_r0", // w[4]
 "flux_r1", // w[5]

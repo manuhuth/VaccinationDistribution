@@ -12,8 +12,10 @@ namespace amici {
 namespace model_vaccination {
 
 void sigmay_vaccination(realtype *sigmay, const realtype t, const realtype *p, const realtype *k){
-    sigma_observable_nu_vac1 = 1.0;  // sigmay[0]
-    sigma_observable_nu_vac2 = 1.0;  // sigmay[1]
+    sigma_observable_nu_countryA_vac1 = 1.0;  // sigmay[0]
+    sigma_observable_nu_countryB_vac1 = 1.0;  // sigmay[1]
+    sigma_observable_nu_countryA_vac2 = 1.0;  // sigmay[2]
+    sigma_observable_nu_countryB_vac2 = 1.0;  // sigmay[3]
 }
 
 } // namespace model_vaccination

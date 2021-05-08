@@ -1,11 +1,13 @@
 import numpy as np
+
 from models.vaccination.create_model_vaccination import model_vaccination_create_sbml
 from visualization.model_results import plot_states
+from visualization.model_results import plot_observables
 from visualization.model_results import get_substates
 from functions.run_sbml import get_model_and_solver_from_sbml
 from functions.run_sbml import model_run
-from functions.run_sbml import create_observables
-from amici.plotting import plotObservableTrajectories
+from functions.run_sbml import create_observables_vaccination_rates
+
 
 path_sbml = "stored_models/vaccination/vaccination"
 
@@ -19,7 +21,7 @@ model_vaccination_create_sbml(
     t0_infectious=1000,
 )
 
-observables = create_observables(vaccination_states_removed=['vac1', 'vac2'], areas=areas)
+observables = create_observables_vaccination_rates(vaccination_states_removed=['vac1', 'vac2'], areas=areas)
 
 model_and_solver = get_model_and_solver_from_sbml(
     path_sbml=path_sbml,
@@ -40,19 +42,19 @@ model_result = model_run(
         "beta": 4,
         "susceptible_countryA_vac0_t0": 400000,
         "susceptible_countryB_vac0_t0": 40000,
-        "lambda1": 0.4,
-        "p": 0.8,
-        "number_vac1": 1000,
-        "number_vac2": 2000,
+        "lambda1": 0.01,
+        "p": 0.3,
+        "number_vac1": 100,
+        "number_vac2": 200,
         'proportion_countryA_vac1' : 0.7,
-        'proportion_countryA_vac2' : 1,
+        'proportion_countryA_vac2' : 0.5,
         'proportion_countryB_vac1' : 0.3,
-        'proportion_countryB_vac2' : 0,
+        'proportion_countryB_vac2' : 0.5,
     },
 )
 
 #TODO rewrite plot function
-plotObservableTrajectories(model_result, model = model)
+plot_observables(results=model_result, model = model)
 fig, ax = plot_states(results=model_result, model=model)
 
 # dir(model)
@@ -60,7 +62,7 @@ par_values = model.getParameters()
 par_names = model.getParameterNames()
 model.getFixedParameterNames()
 
-substates = get_substates(model=model, substrings=["vac2"])
+substates = get_substates(model=model, substrings=['dead', 'countryA'], include_all=True)
 fig, ax = plot_states(results=model_result, model=model, state_ids=substates)
 
 

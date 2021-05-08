@@ -1,6 +1,6 @@
 #define nu_countryA_vac1 w[0]
-#define nu_countryB_vac2 w[1]
-#define nu_countryA_vac2 w[2]
+#define nu_countryA_vac2 w[1]
+#define nu_countryB_vac2 w[2]
 #define nu_countryB_vac1 w[3]
 #define flux_r0 w[4]
 #define flux_r1 w[5]

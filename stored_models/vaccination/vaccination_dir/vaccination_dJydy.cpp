@@ -17,10 +17,16 @@ namespace model_vaccination {
 void dJydy_vaccination(realtype *dJydy, const int iy, const realtype *p, const realtype *k, const realtype *y, const realtype *sigmay, const realtype *my){
     switch(iy) {
         case 0:
-            dJydy[0] = (-1.0*mobservable_nu_vac1 + 1.0*observable_nu_vac1)/std::pow(sigma_observable_nu_vac1, 2);
+            dJydy[0] = (-1.0*mobservable_nu_countryA_vac1 + 1.0*observable_nu_countryA_vac1)/std::pow(sigma_observable_nu_countryA_vac1, 2);
             break;
         case 1:
-            dJydy[0] = (-1.0*mobservable_nu_vac2 + 1.0*observable_nu_vac2)/std::pow(sigma_observable_nu_vac2, 2);
+            dJydy[0] = (-1.0*mobservable_nu_countryB_vac1 + 1.0*observable_nu_countryB_vac1)/std::pow(sigma_observable_nu_countryB_vac1, 2);
+            break;
+        case 2:
+            dJydy[0] = (-1.0*mobservable_nu_countryA_vac2 + 1.0*observable_nu_countryA_vac2)/std::pow(sigma_observable_nu_countryA_vac2, 2);
+            break;
+        case 3:
+            dJydy[0] = (-1.0*mobservable_nu_countryB_vac2 + 1.0*observable_nu_countryB_vac2)/std::pow(sigma_observable_nu_countryB_vac2, 2);
             break;
     }
 }

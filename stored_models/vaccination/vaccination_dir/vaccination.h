@@ -18,12 +18,12 @@ namespace model_vaccination {
 extern std::array<const char*, 62> parameterNames;
 extern std::array<const char*, 0> fixedParameterNames;
 extern std::array<const char*, 42> stateNames;
-extern std::array<const char*, 2> observableNames;
+extern std::array<const char*, 4> observableNames;
 extern std::array<const char*, 112> expressionNames;
 extern std::array<const char*, 62> parameterIds;
 extern std::array<const char*, 0> fixedParameterIds;
 extern std::array<const char*, 42> stateIds;
-extern std::array<const char*, 2> observableIds;
+extern std::array<const char*, 4> observableIds;
 extern std::array<const char*, 112> expressionIds;
 
 extern void Jy_vaccination(realtype *Jy, const int iy, const realtype *p, const realtype *k, const realtype *y, const realtype *sigmay, const realtype *my);
@@ -86,8 +86,8 @@ class Model_vaccination : public amici::Model_ODE {
                   0,                    // nx_solver_reinit
                   62,                                  // np
                   0,                                  // nk
-                  2,                                  // ny
-                  2,                              // nytrue
+                  4,                                  // ny
+                  4,                              // nytrue
                   0,                                  // nz
                   0,                              // nztrue
                   0,                              // nevent
@@ -97,7 +97,7 @@ class Model_vaccination : public amici::Model_ODE {
                   312,                               // ndwdp
                   12,                               // ndwdw
                   216,                            // ndxdotdw
-                  std::vector<int>{1,1},                              // ndjydy
+                  std::vector<int>{1,1,1,1},                              // ndjydy
                   0,                                       // nnz
                   42,                                 // ubw
                   42                                  // lbw

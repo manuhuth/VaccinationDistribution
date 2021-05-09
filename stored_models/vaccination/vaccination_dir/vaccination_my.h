@@ -2,3 +2,7 @@
 #define mobservable_nu_countryB_vac1 my[1]
 #define mobservable_nu_countryA_vac2 my[2]
 #define mobservable_nu_countryB_vac2 my[3]
+#define mobservable_proportion_countryA_vac1 my[4]
+#define mobservable_proportion_countryB_vac1 my[5]
+#define mobservable_proportion_countryA_vac2 my[6]
+#define mobservable_proportion_countryB_vac2 my[7]

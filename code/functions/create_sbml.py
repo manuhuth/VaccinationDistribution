@@ -80,7 +80,7 @@ def create_sbml_file(
         parameter_rule_identifier = parameter_rules.keys()
         for keys in parameter_rule_identifier:
             create_parameter_rule(model=model, rule_id=keys, **parameter_rules[keys])
-    
+
     return document
 
 

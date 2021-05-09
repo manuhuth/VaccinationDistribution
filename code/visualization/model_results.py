@@ -139,6 +139,7 @@ def plot_observables(
 
     return fig, ax
 
+
 def get_observable_trajectory_data_frame(results, model):
     """Create data frame of state trajectories of observables.
 
@@ -163,7 +164,20 @@ def get_observable_trajectory_data_frame(results, model):
     return df_trajectories
 
 
-def get_substates(model, substrings, include_all = True):
+def get_observables_by_name(observables, substrings, include_all=True, key="name"):
+    observables_names = []
+    for index_dicts in observables.keys():
+        value = observables[index_dicts][key]
+        if include_all is True:
+            if all(x in value for x in substrings):
+                observables_names.append(value)
+        else:
+            if any(x in value for x in substrings):
+                observables_names.append(value)
+    return observables_names
+
+
+def get_substates(model, substrings, include_all=True):
     """Get states that contain certain substrings.
 
     Parameters
@@ -174,7 +188,7 @@ def get_substates(model, substrings, include_all = True):
     substrings : list of strings
         Substrings that occur in the name of the species that should be
         addressed.
-    
+
     include_all : {True, False}
         If `True`, only states that include all substrings are returned. If
         `False` all states that include one substring are returned.
@@ -187,12 +201,14 @@ def get_substates(model, substrings, include_all = True):
     """
 
     states = model.getStateIds()
-    
+
     if include_all is False:
-        substates = list(set(get_states_by_substrings_any(states=states, substrings=substrings)))
+        substates = list(
+            set(get_states_by_substrings_any(states=states, substrings=substrings))
+        )
     else:
         substates = get_states_by_substrings_all(states=states, substrings=substrings)
-        
+
     return substates
 
 
@@ -221,7 +237,7 @@ def get_states_by_substrings_all(states, substrings):
             state.append(index_states)
 
     return state
-    
+
 
 def get_states_by_substrings_any(states, substrings):
     """Get state names that contain any substring.

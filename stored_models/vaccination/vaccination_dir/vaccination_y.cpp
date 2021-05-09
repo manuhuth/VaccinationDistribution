@@ -17,6 +17,10 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
     y[1] = nu_countryB_vac1;
     y[2] = nu_countryA_vac2;
     y[3] = nu_countryB_vac2;
+    y[4] = proportion_countryA_vac1;
+    y[5] = proportion_countryB_vac1;
+    y[6] = proportion_countryA_vac2;
+    y[7] = proportion_countryB_vac2;
 }
 
 } // namespace model_vaccination

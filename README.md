@@ -3,7 +3,7 @@
 
 ## To-Do:
 - Create time varying rules that determine vaccination rates (Find appropriate Vaccination strategies)
-- Functional form of inter-spatial infections 
+- Functional form of inter-spatial infections (robustness checks for different functions!)
 - Write function to optimize over
 
 

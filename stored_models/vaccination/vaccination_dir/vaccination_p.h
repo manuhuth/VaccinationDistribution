@@ -56,7 +56,3 @@
 #define dead_countryB_vac2_virM_t0 p[55]
 #define number_vac1 p[56]
 #define number_vac2 p[57]
-#define proportion_countryA_vac1 p[58]
-#define proportion_countryB_vac1 p[59]
-#define proportion_countryA_vac2 p[60]
-#define proportion_countryB_vac2 p[61]

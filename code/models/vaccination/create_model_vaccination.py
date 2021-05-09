@@ -174,11 +174,13 @@ def model_vaccination_create_sbml(
         virus_states=virus_states,
         areas=areas,
     )
-    
+
+    # rules must be specified in the right order. Since nu needs parameter_rules
+    # parameter rules must appear in the dictionary before nu rules!
     if parameter_rules is None:
         parameter_rules_all = nu_rules
     else:
-        parameter_rules_all = {**nu_rules, **parameter_rules}
+        parameter_rules_all = {**parameter_rules, **nu_rules}
 
     model_input_dictionary = write_entities_to_dict(
         compartments=compartments,
@@ -596,7 +598,11 @@ def create_parameters_model(
 
 
 def create_rules_vaccination_rate(
-    vaccinated_compartments, vaccination_states_removed, non_vaccination_state, virus_states, areas
+    vaccinated_compartments,
+    vaccination_states_removed,
+    non_vaccination_state,
+    virus_states,
+    areas,
 ):
     """Create rules for the vaccination rates.
 

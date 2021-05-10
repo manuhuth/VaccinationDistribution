@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+from matplotlib.ticker import FormatStrFormatter
+
 
 def plot_states(
     results,
@@ -41,7 +43,7 @@ def plot_states(
 
     """
     fig, ax = plt.subplots()
-    df_trajectories = get_state_trajectory_data_frame(results, model)
+    df_trajectories = results["states"]
 
     if state_ids is None:
         states = df_trajectories.columns
@@ -50,7 +52,7 @@ def plot_states(
 
     for index in states:
         label = index
-        ax.plot(results["t"], df_trajectories[index], label=label)
+        ax.plot(df_trajectories.index, df_trajectories[index], label=label)
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         ax.legend()
@@ -90,6 +92,8 @@ def plot_observables(
     ylabel="$x_i(t)$",
     title="Observables trajectories",
     observable_ids=None,
+    set_off_scientific_notation=False,
+    decimal_floats=4,
 ):
     """Plot trajectories of species. Only a part of species can be addressed
     by using the state_ids parameter.
@@ -116,27 +120,47 @@ def plot_observables(
         trajectory of a species is printed if one of the substrings occur in
         their name.
 
+    set_off_scientific_notation : {True, False}
+        If True, the numbers of the y-axis are not displayed in scientific
+        format in any case.
+
+    decimal_floats : integer
+        Number of decimal floats dispalyed at the y-axis if.
+        set_off_scientific_notation` is True.
+
     Returns
     -------
     fig, ax : figure.Figure, AxesSubplot
 
     """
     fig, ax = plt.subplots()
-    df_trajectories = get_observable_trajectory_data_frame(results, model)
+
+    df_trajectories = results["observables"]
+    df_trajectories.columns = df_trajectories.columns.str.lstrip("observable_")
 
     if observable_ids is None:
         observables = df_trajectories.columns
     else:
         observables = observable_ids
 
+    # redefinition prevents graphs from applying scientifix notation
+    # if unnecessary.
+    df_observables_to_be_plotted = df_trajectories[observables]
+
     for index in observables:
         label = index
-        ax.plot(results["t"], df_trajectories[index], label=label)
+        ax.plot(
+            df_observables_to_be_plotted.index,
+            df_observables_to_be_plotted[index],
+            label=label,
+        )
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         ax.legend()
         ax.set_title(title)
-
+    if set_off_scientific_notation is True:
+        ax.get_yaxis().get_major_formatter().set_useOffset(False)
+        ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{decimal_floats}f"))
     return fig, ax
 
 

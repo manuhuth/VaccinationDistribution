@@ -336,30 +336,15 @@
             <divide/>
             <apply>
               <plus/>
-              <ci> susceptible_countryA_vac0 </ci>
-              <ci> susceptible_countryA_vac1 </ci>
-              <ci> susceptible_countryA_vac2 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
               <ci> infectious_countryA_vac0_virM </ci>
               <ci> infectious_countryA_vac1_virW </ci>
               <ci> infectious_countryA_vac1_virM </ci>
               <ci> infectious_countryA_vac2_virW </ci>
               <ci> infectious_countryA_vac2_virM </ci>
-              <ci> recovered_countryA_vac0_virW </ci>
-              <ci> recovered_countryA_vac0_virM </ci>
-              <ci> recovered_countryA_vac1_virW </ci>
-              <ci> recovered_countryA_vac1_virM </ci>
-              <ci> recovered_countryA_vac2_virW </ci>
-              <ci> recovered_countryA_vac2_virM </ci>
             </apply>
             <apply>
               <plus/>
-              <ci> susceptible_countryA_vac0 </ci>
-              <ci> susceptible_countryA_vac1 </ci>
-              <ci> susceptible_countryA_vac2 </ci>
-              <ci> susceptible_countryB_vac0 </ci>
-              <ci> susceptible_countryB_vac1 </ci>
-              <ci> susceptible_countryB_vac2 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
               <ci> infectious_countryA_vac0_virM </ci>
               <ci> infectious_countryA_vac1_virW </ci>
@@ -372,18 +357,6 @@
               <ci> infectious_countryB_vac1_virM </ci>
               <ci> infectious_countryB_vac2_virW </ci>
               <ci> infectious_countryB_vac2_virM </ci>
-              <ci> recovered_countryA_vac0_virW </ci>
-              <ci> recovered_countryA_vac0_virM </ci>
-              <ci> recovered_countryA_vac1_virW </ci>
-              <ci> recovered_countryA_vac1_virM </ci>
-              <ci> recovered_countryA_vac2_virW </ci>
-              <ci> recovered_countryA_vac2_virM </ci>
-              <ci> recovered_countryB_vac0_virW </ci>
-              <ci> recovered_countryB_vac0_virM </ci>
-              <ci> recovered_countryB_vac1_virW </ci>
-              <ci> recovered_countryB_vac1_virM </ci>
-              <ci> recovered_countryB_vac2_virW </ci>
-              <ci> recovered_countryB_vac2_virM </ci>
             </apply>
           </apply>
         </math>
@@ -394,30 +367,15 @@
             <divide/>
             <apply>
               <plus/>
-              <ci> susceptible_countryB_vac0 </ci>
-              <ci> susceptible_countryB_vac1 </ci>
-              <ci> susceptible_countryB_vac2 </ci>
               <ci> infectious_countryB_vac0_virW </ci>
               <ci> infectious_countryB_vac0_virM </ci>
               <ci> infectious_countryB_vac1_virW </ci>
               <ci> infectious_countryB_vac1_virM </ci>
               <ci> infectious_countryB_vac2_virW </ci>
               <ci> infectious_countryB_vac2_virM </ci>
-              <ci> recovered_countryB_vac0_virW </ci>
-              <ci> recovered_countryB_vac0_virM </ci>
-              <ci> recovered_countryB_vac1_virW </ci>
-              <ci> recovered_countryB_vac1_virM </ci>
-              <ci> recovered_countryB_vac2_virW </ci>
-              <ci> recovered_countryB_vac2_virM </ci>
             </apply>
             <apply>
               <plus/>
-              <ci> susceptible_countryA_vac0 </ci>
-              <ci> susceptible_countryA_vac1 </ci>
-              <ci> susceptible_countryA_vac2 </ci>
-              <ci> susceptible_countryB_vac0 </ci>
-              <ci> susceptible_countryB_vac1 </ci>
-              <ci> susceptible_countryB_vac2 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
               <ci> infectious_countryA_vac0_virM </ci>
               <ci> infectious_countryA_vac1_virW </ci>
@@ -430,18 +388,6 @@
               <ci> infectious_countryB_vac1_virM </ci>
               <ci> infectious_countryB_vac2_virW </ci>
               <ci> infectious_countryB_vac2_virM </ci>
-              <ci> recovered_countryA_vac0_virW </ci>
-              <ci> recovered_countryA_vac0_virM </ci>
-              <ci> recovered_countryA_vac1_virW </ci>
-              <ci> recovered_countryA_vac1_virM </ci>
-              <ci> recovered_countryA_vac2_virW </ci>
-              <ci> recovered_countryA_vac2_virM </ci>
-              <ci> recovered_countryB_vac0_virW </ci>
-              <ci> recovered_countryB_vac0_virM </ci>
-              <ci> recovered_countryB_vac1_virW </ci>
-              <ci> recovered_countryB_vac1_virM </ci>
-              <ci> recovered_countryB_vac2_virW </ci>
-              <ci> recovered_countryB_vac2_virM </ci>
             </apply>
           </apply>
         </math>
@@ -452,30 +398,15 @@
             <divide/>
             <apply>
               <plus/>
-              <ci> susceptible_countryA_vac0 </ci>
-              <ci> susceptible_countryA_vac1 </ci>
-              <ci> susceptible_countryA_vac2 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
               <ci> infectious_countryA_vac0_virM </ci>
               <ci> infectious_countryA_vac1_virW </ci>
               <ci> infectious_countryA_vac1_virM </ci>
               <ci> infectious_countryA_vac2_virW </ci>
               <ci> infectious_countryA_vac2_virM </ci>
-              <ci> recovered_countryA_vac0_virW </ci>
-              <ci> recovered_countryA_vac0_virM </ci>
-              <ci> recovered_countryA_vac1_virW </ci>
-              <ci> recovered_countryA_vac1_virM </ci>
-              <ci> recovered_countryA_vac2_virW </ci>
-              <ci> recovered_countryA_vac2_virM </ci>
             </apply>
             <apply>
               <plus/>
-              <ci> susceptible_countryA_vac0 </ci>
-              <ci> susceptible_countryA_vac1 </ci>
-              <ci> susceptible_countryA_vac2 </ci>
-              <ci> susceptible_countryB_vac0 </ci>
-              <ci> susceptible_countryB_vac1 </ci>
-              <ci> susceptible_countryB_vac2 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
               <ci> infectious_countryA_vac0_virM </ci>
               <ci> infectious_countryA_vac1_virW </ci>
@@ -488,18 +419,6 @@
               <ci> infectious_countryB_vac1_virM </ci>
               <ci> infectious_countryB_vac2_virW </ci>
               <ci> infectious_countryB_vac2_virM </ci>
-              <ci> recovered_countryA_vac0_virW </ci>
-              <ci> recovered_countryA_vac0_virM </ci>
-              <ci> recovered_countryA_vac1_virW </ci>
-              <ci> recovered_countryA_vac1_virM </ci>
-              <ci> recovered_countryA_vac2_virW </ci>
-              <ci> recovered_countryA_vac2_virM </ci>
-              <ci> recovered_countryB_vac0_virW </ci>
-              <ci> recovered_countryB_vac0_virM </ci>
-              <ci> recovered_countryB_vac1_virW </ci>
-              <ci> recovered_countryB_vac1_virM </ci>
-              <ci> recovered_countryB_vac2_virW </ci>
-              <ci> recovered_countryB_vac2_virM </ci>
             </apply>
           </apply>
         </math>
@@ -510,30 +429,15 @@
             <divide/>
             <apply>
               <plus/>
-              <ci> susceptible_countryB_vac0 </ci>
-              <ci> susceptible_countryB_vac1 </ci>
-              <ci> susceptible_countryB_vac2 </ci>
               <ci> infectious_countryB_vac0_virW </ci>
               <ci> infectious_countryB_vac0_virM </ci>
               <ci> infectious_countryB_vac1_virW </ci>
               <ci> infectious_countryB_vac1_virM </ci>
               <ci> infectious_countryB_vac2_virW </ci>
               <ci> infectious_countryB_vac2_virM </ci>
-              <ci> recovered_countryB_vac0_virW </ci>
-              <ci> recovered_countryB_vac0_virM </ci>
-              <ci> recovered_countryB_vac1_virW </ci>
-              <ci> recovered_countryB_vac1_virM </ci>
-              <ci> recovered_countryB_vac2_virW </ci>
-              <ci> recovered_countryB_vac2_virM </ci>
             </apply>
             <apply>
               <plus/>
-              <ci> susceptible_countryA_vac0 </ci>
-              <ci> susceptible_countryA_vac1 </ci>
-              <ci> susceptible_countryA_vac2 </ci>
-              <ci> susceptible_countryB_vac0 </ci>
-              <ci> susceptible_countryB_vac1 </ci>
-              <ci> susceptible_countryB_vac2 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
               <ci> infectious_countryA_vac0_virM </ci>
               <ci> infectious_countryA_vac1_virW </ci>
@@ -546,18 +450,6 @@
               <ci> infectious_countryB_vac1_virM </ci>
               <ci> infectious_countryB_vac2_virW </ci>
               <ci> infectious_countryB_vac2_virM </ci>
-              <ci> recovered_countryA_vac0_virW </ci>
-              <ci> recovered_countryA_vac0_virM </ci>
-              <ci> recovered_countryA_vac1_virW </ci>
-              <ci> recovered_countryA_vac1_virM </ci>
-              <ci> recovered_countryA_vac2_virW </ci>
-              <ci> recovered_countryA_vac2_virM </ci>
-              <ci> recovered_countryB_vac0_virW </ci>
-              <ci> recovered_countryB_vac0_virM </ci>
-              <ci> recovered_countryB_vac1_virW </ci>
-              <ci> recovered_countryB_vac1_virM </ci>
-              <ci> recovered_countryB_vac2_virW </ci>
-              <ci> recovered_countryB_vac2_virM </ci>
             </apply>
           </apply>
         </math>

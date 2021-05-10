@@ -93,7 +93,7 @@ class Model_vaccination : public amici::Model_ODE {
                   0,                              // nevent
                   1,                          // nobjective
                   116,                                  // nw
-                  2328,                               // ndwdx
+                  2256,                               // ndwdx
                   308,                               // ndwdp
                   16,                               // ndwdw
                   216,                            // ndxdotdw

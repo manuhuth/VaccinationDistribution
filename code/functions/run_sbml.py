@@ -1,67 +1,162 @@
 import amici
-
-from models.vaccination.create_model_vaccination import get_all_species_alive
-from models.vaccination.create_model_vaccination import get_all_species_alive_area
-from models.vaccination.create_model_vaccination import create_species_model
+import numpy as np
+import pandas as pd
 
 
-def create_rules_vaccination_proportion_relative_population(
-    species_comp, vaccination_states, non_vaccination_state, virus_states, areas
+def run_model(
+    model,
+    solver,
+    periods,
+    length_periods,
+    set_start_parameter,
+    set_parameter,
+    observables_names,
+    set_initials_zero=True,
 ):
-    """Create rules for the vaccination proportions as relative country sizes.
-
+    """
     Parameters
     ----------
-    species_comp : list of strings
-        List containing the names of the compartments.
+    model : amici.Model
+        Model to run.
 
-    vaccination_states : list of strings
-        List containing the names of the vaccinations containing a state for
-        non-vaccinated individuals.
+    solver : amici.Solver
+        Solver for amici model.
 
-    non_vaccination_state : str
-        Name of state indicates non-vaccinated individuals.
+    periods : int
+        Number of start and stop periods to be simulated.
 
-    virus_states : list of strings
-        List containing the names of the virus types.
+    length_periods : int
+        Length of each start and stop period.
 
-    areas : list of strings
-        List containing the names of the areas.
+    set_start_parameter : dict
+        Dictionary specifying the start parameter.
+
+    set_parameter : dict
+        Dictionary containing other parameter specifications.
+
+    observables_names : list of strings
+        Names of the observables.
 
     Returns
     -------
-    rules_proportions_vaccination : dict
-        Dictionary including all rules for the proportion parameters.
+    trajectory_dict : dict
+        Dictionary with keys `states` and `observables` and the respective
+        data frames of trajectories as values.
     """
-    vaccination_states_removed = vaccination_states_removed = [
-        x for x in vaccination_states if x != non_vaccination_state
-    ]
-    species = create_species_model(
-        species_comp=species_comp,
-        areas=areas,
-        vaccination_states=vaccination_states,
-        non_vaccination_state=non_vaccination_state,
-        virus_states=virus_states,
+    # set all first values to zero, to prevent state
+    if set_initials_zero is True:
+        model = set_all_initial_conditions_to_zero(model)
+
+    timepoints = np.linspace(0, length_periods - 1, length_periods)
+    periods_minus_one = periods - 1
+
+    set_parameter_first = {**set_start_parameter, **set_parameter}
+
+    first_period = run_model_once(
+        model=model,
+        solver=solver,
+        timepoints=timepoints,
+        set_parameter=set_parameter_first,
     )
 
-    population_alive_all = get_all_species_alive(species_list=species)
+    states = model.getStateIds()
+    df_trajectories_states = pd.DataFrame(first_period["x"], columns=(states))
+    df_trajectories_observables = pd.DataFrame(
+        first_period["y"], columns=(observables_names)
+    )
 
-    rules_proportions_vaccination = {}
-    for index_vaccination in vaccination_states_removed:
-        for index_areas in areas:
-            population_alive_area = get_all_species_alive_area(
-                species_list=species, area=index_areas
+    if periods_minus_one > 0:
+        for _ in range(periods_minus_one):
+            start_values_it = use_end_values_as_start_values(
+                df_trajectories_states=df_trajectories_states
             )
-            id_rule = f"rule_proportion_{index_areas}_{index_vaccination}"
-            id_proportion = f"proportion_{index_areas}_{index_vaccination}"
+            set_parameter_it = {**start_values_it, **set_parameter}
+            model_result = run_model_once(
+                model=model,
+                solver=solver,
+                timepoints=timepoints,
+                set_parameter=set_parameter_it,
+            )
 
-            formula = f"({population_alive_area}) / ({population_alive_all})"
-            rules_proportions_vaccination[id_rule] = {
-                "parameter_id": id_proportion,
-                "formula": formula,
-            }
+            # remove first row by [1:, :] since it is already
+            # in previous data frame
+            states_iteration = model_result["x"][1:, :]
+            observables_iteration = model_result["y"][1:, :]
 
-    return rules_proportions_vaccination
+            df_trajectories_states_iteration = pd.DataFrame(
+                states_iteration, columns=(states)
+            )
+
+            df_trajectories_observables_iteration = pd.DataFrame(
+                observables_iteration, columns=(observables_names)
+            )
+
+            df_trajectories_states = pd.concat(
+                [df_trajectories_states, df_trajectories_states_iteration],
+                ignore_index=True,
+            )
+
+            df_trajectories_observables = pd.concat(
+                [df_trajectories_observables, df_trajectories_observables_iteration],
+                ignore_index=True,
+            )
+
+    trajectory_dict = {
+        "states": df_trajectories_states,
+        "observables": df_trajectories_observables,
+    }
+    return trajectory_dict
+
+
+def set_all_initial_conditions_to_zero(model):
+    """Set all initial conditions to zero.
+
+    Parameters
+    ----------
+    model : amici.model
+        Amici model.
+
+    Returns
+    -------
+    model : amici.model
+        Amici model with initial parameters parameters zero.
+    """
+    parameter_names_all = model.getParameterNames()
+    parameter_names_start = [x for x in parameter_names_all if "t0" in x]
+    for keys in parameter_names_start:
+        model.setParameterByName(keys, 0)
+
+    return model
+
+
+def use_end_values_as_start_values(df_trajectories_states, identifier_start="t0"):
+    """Returns the end values of a model run as dictionary that can be passed
+    to set new starting values for a new model run.
+
+    Parameters
+    ----------
+    df_trajectories : pandas.DataFrame
+        Data frame containing the trajectories of all states.
+
+    identifier_start : str
+        identifier tha is used to identify starting values.
+
+    Returns
+    -------
+    new_start_values_dict : dict
+    Dictionary that contains the names of the starting parameters as keys and
+    the last values of the previous trajectory as values.
+    """
+    df_end_values = df_trajectories_states.iloc[[-1]]
+
+    new_start_values_dict = {}
+    for index_states in df_trajectories_states.columns:
+        string_with_identifier = f"{index_states}_{identifier_start}"
+        new_start_values_dict[string_with_identifier] = float(
+            df_end_values[index_states]
+        )
+
+    return new_start_values_dict
 
 
 def create_observables_vaccination_rates(
@@ -106,22 +201,22 @@ def get_model_and_solver_from_sbml(
 ):
     """Get model and solver objects from a SBML file.
 
-     Parameters
-     ----------
-     path_sbml : str
-         Path to sbml file that contains the model.
+    Parameters
+    ----------
+    path_sbml : str
+        Path to sbml file that contains the model.
 
-     model_name : str
-         Name of the model.
+    model_name : str
+        Name of the model.
 
-     model_directory : str
-         Path and name of where model directory should be stored.
+    model_directory : str
+        Path and name of where model directory should be stored.
 
-     Returns
-     -------
+    Returns
+    -------
     model_solver : dict
-        Dictionary containing model and solver as keys and as values
-        the respective objects from the sbml file.
+       Dictionary containing model and solver as keys and as values
+       the respective objects from the sbml file.
 
     """
 
@@ -138,7 +233,7 @@ def get_model_and_solver_from_sbml(
     return model_solver
 
 
-def model_run(model, solver, timepoints, set_parameter=None):
+def run_model_once(model, solver, timepoints, set_parameter=None):
     """Run model and return outputs for specification.
 
     Parameters

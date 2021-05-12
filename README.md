@@ -2,10 +2,10 @@
 
 
 ## To-Do:
-- Create time varying rules that determine vaccination rates (Find appropriate Vaccination strategies)
+- find realistic parameter
+- Use step-wise function
+- Use step-wise optimization with new incoming data points
 - Functional form of inter-spatial infections (robustness checks for different functions!)
-- Write function to optimize over
-
 
 
 ## Further tasks 

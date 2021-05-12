@@ -81,13 +81,14 @@ observables_names = observables.keys()
 model_results = run_model(
     model=model,
     solver=solver,
-    periods=1,
-    length_periods=12,
+    periods=7,
+    length_periods=2,
     set_start_parameter=set_start_parameter,
     set_parameter=set_parameter,
     observables_names=observables.keys(),
 )
 
+# -----------------------Plot Model--------------------------------------------
 trajectory_states = model_results["states"]
 trajectory_observables = model_results["observables"]
 

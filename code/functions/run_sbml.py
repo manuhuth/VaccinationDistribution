@@ -47,7 +47,7 @@ def run_model(
     if set_initials_zero is True:
         model = set_all_initial_conditions_to_zero(model)
 
-    timepoints = np.linspace(0, length_periods - 1, length_periods)
+    timepoints = np.linspace(1, length_periods, length_periods)
     periods_minus_one = periods - 1
 
     set_parameter_first = {**set_start_parameter, **set_parameter}
@@ -78,10 +78,8 @@ def run_model(
                 set_parameter=set_parameter_it,
             )
 
-            # remove first row by [1:, :] since it is already
-            # in previous data frame
-            states_iteration = model_result["x"][1:, :]
-            observables_iteration = model_result["y"][1:, :]
+            states_iteration = model_result["x"]
+            observables_iteration = model_result["y"]
 
             df_trajectories_states_iteration = pd.DataFrame(
                 states_iteration, columns=(states)

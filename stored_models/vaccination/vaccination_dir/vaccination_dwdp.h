@@ -304,5 +304,5 @@
 #define dflux_r95_deta_virM dwdp[303]
 #define dnu_countryB_vac1_dnumber_vac1 dwdp[304]
 #define dnu_countryA_vac1_dnumber_vac1 dwdp[305]
-#define dnu_countryB_vac2_dnumber_vac2 dwdp[306]
-#define dnu_countryA_vac2_dnumber_vac2 dwdp[307]
+#define dnu_countryA_vac2_dnumber_vac2 dwdp[306]
+#define dnu_countryB_vac2_dnumber_vac2 dwdp[307]

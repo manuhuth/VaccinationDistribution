@@ -64,20 +64,20 @@
       <parameter id="delta_vac2_virM" name="delta_vac2_virM" value="0.9" units="dimensionless" constant="false"/>
       <parameter id="eta_virW" name="eta_virW" value="1" units="dimensionless" constant="true"/>
       <parameter id="eta_virM" name="eta_virM" value="1.3" units="dimensionless" constant="true"/>
-      <parameter id="susceptible_countryA_vac0_t0" name="susceptible_countryA_vac0_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="susceptible_countryA_vac0_t0" name="susceptible_countryA_vac0_t0" value="200000" units="dimensionless" constant="true"/>
       <parameter id="susceptible_countryA_vac1_t0" name="susceptible_countryA_vac1_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="susceptible_countryA_vac2_t0" name="susceptible_countryA_vac2_t0" value="0" units="dimensionless" constant="true"/>
-      <parameter id="susceptible_countryB_vac0_t0" name="susceptible_countryB_vac0_t0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="susceptible_countryB_vac0_t0" name="susceptible_countryB_vac0_t0" value="200000" units="dimensionless" constant="true"/>
       <parameter id="susceptible_countryB_vac1_t0" name="susceptible_countryB_vac1_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="susceptible_countryB_vac2_t0" name="susceptible_countryB_vac2_t0" value="0" units="dimensionless" constant="true"/>
-      <parameter id="infectious_countryA_vac0_virW_t0" name="infectious_countryA_vac0_virW_t0" value="1000" units="dimensionless" constant="true"/>
-      <parameter id="infectious_countryA_vac0_virM_t0" name="infectious_countryA_vac0_virM_t0" value="1000" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryA_vac0_virW_t0" name="infectious_countryA_vac0_virW_t0" value="100" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryA_vac0_virM_t0" name="infectious_countryA_vac0_virM_t0" value="100" units="dimensionless" constant="true"/>
       <parameter id="infectious_countryA_vac1_virW_t0" name="infectious_countryA_vac1_virW_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="infectious_countryA_vac1_virM_t0" name="infectious_countryA_vac1_virM_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="infectious_countryA_vac2_virW_t0" name="infectious_countryA_vac2_virW_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="infectious_countryA_vac2_virM_t0" name="infectious_countryA_vac2_virM_t0" value="0" units="dimensionless" constant="true"/>
-      <parameter id="infectious_countryB_vac0_virW_t0" name="infectious_countryB_vac0_virW_t0" value="1000" units="dimensionless" constant="true"/>
-      <parameter id="infectious_countryB_vac0_virM_t0" name="infectious_countryB_vac0_virM_t0" value="1000" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryB_vac0_virW_t0" name="infectious_countryB_vac0_virW_t0" value="100" units="dimensionless" constant="true"/>
+      <parameter id="infectious_countryB_vac0_virM_t0" name="infectious_countryB_vac0_virM_t0" value="100" units="dimensionless" constant="true"/>
       <parameter id="infectious_countryB_vac1_virW_t0" name="infectious_countryB_vac1_virW_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="infectious_countryB_vac1_virM_t0" name="infectious_countryB_vac1_virM_t0" value="0" units="dimensionless" constant="true"/>
       <parameter id="infectious_countryB_vac2_virW_t0" name="infectious_countryB_vac2_virW_t0" value="0" units="dimensionless" constant="true"/>

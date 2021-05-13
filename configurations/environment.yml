@@ -7,7 +7,7 @@ channels:
   - bioconda
 
 dependencies:
-  - python=3.9
+  - python=3.8
   - respy
   - pandas
   - numpy
@@ -17,6 +17,7 @@ dependencies:
   - pip
   - pytest-flake8
   - libsbml
+  - estimagic
   
   - pip:
     - black

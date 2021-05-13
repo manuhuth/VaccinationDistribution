@@ -23,22 +23,10 @@ void dJydy_vaccination(realtype *dJydy, const int iy, const realtype *p, const r
             dJydy[0] = (-1.0*mobservable_nu_countryB_vac1 + 1.0*observable_nu_countryB_vac1)/std::pow(sigma_observable_nu_countryB_vac1, 2);
             break;
         case 2:
-            dJydy[0] = (-1.0*mobservable_nu_countryA_vac2 + 1.0*observable_nu_countryA_vac2)/std::pow(sigma_observable_nu_countryA_vac2, 2);
-            break;
-        case 3:
-            dJydy[0] = (-1.0*mobservable_nu_countryB_vac2 + 1.0*observable_nu_countryB_vac2)/std::pow(sigma_observable_nu_countryB_vac2, 2);
-            break;
-        case 4:
             dJydy[0] = (-1.0*mobservable_proportion_countryA_vac1 + 1.0*observable_proportion_countryA_vac1)/std::pow(sigma_observable_proportion_countryA_vac1, 2);
             break;
-        case 5:
+        case 3:
             dJydy[0] = (-1.0*mobservable_proportion_countryB_vac1 + 1.0*observable_proportion_countryB_vac1)/std::pow(sigma_observable_proportion_countryB_vac1, 2);
-            break;
-        case 6:
-            dJydy[0] = (-1.0*mobservable_proportion_countryA_vac2 + 1.0*observable_proportion_countryA_vac2)/std::pow(sigma_observable_proportion_countryA_vac2, 2);
-            break;
-        case 7:
-            dJydy[0] = (-1.0*mobservable_proportion_countryB_vac2 + 1.0*observable_proportion_countryB_vac2)/std::pow(sigma_observable_proportion_countryB_vac2, 2);
             break;
     }
 }

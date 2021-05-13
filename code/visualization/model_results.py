@@ -1,7 +1,9 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 
 from matplotlib.ticker import FormatStrFormatter
+from mpl_toolkits.mplot3d import Axes3D
 
 
 def plot_states(
@@ -288,3 +290,36 @@ def get_states_by_substrings_any(states, substrings):
         state += states_removed
 
     return state
+
+
+def plot_3D_function(
+    function, number_parameter, xlabel="$vac_1$", ylabel="$vac_2$", zlabel="infectious"
+):
+
+    x1 = np.linspace(0, 1)
+    x2 = np.linspace(0, 1)
+
+    xvalues = []
+    array = []
+    for i in range(0, len(x1)):
+        for j in range(0, len(x2)):
+            array = [x1[i], x2[j]]
+            xvalues.append(array)
+
+    yvalues = np.linspace(0, 0, len(xvalues))
+    for i, j in zip(xvalues, range(0, len(xvalues))):
+        theta_df = pd.DataFrame(
+            i, columns=["value"], index=[f"theta_{i}" for i in range(number_parameter)]
+        )
+        yvalues[j] = function(theta=theta_df)["value"]
+
+    xvalues = np.array(xvalues)
+    xvalues1 = xvalues[:, 0]
+    xvalues2 = xvalues[:, 1]
+
+    fig = plt.figure()
+    ax = Axes3D(fig)
+    ax.scatter(xvalues1, xvalues2, yvalues, c=yvalues, cmap="viridis", linewidth=0.05)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.set_zlabel(zlabel)

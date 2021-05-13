@@ -1,8 +1,0 @@
-#define dJy0_dobservable_nu_countryA_vac1 dJydy[0]
-#define dJy0_dobservable_nu_countryB_vac1_1 dJydy[1]
-#define dJy0_dobservable_nu_countryA_vac2_2 dJydy[2]
-#define dJy0_dobservable_nu_countryB_vac2_3 dJydy[3]
-#define dJy0_dobservable_proportion_countryA_vac1_4 dJydy[4]
-#define dJy0_dobservable_proportion_countryB_vac1_5 dJydy[5]
-#define dJy0_dobservable_proportion_countryA_vac2_6 dJydy[6]
-#define dJy0_dobservable_proportion_countryB_vac2_7 dJydy[7]

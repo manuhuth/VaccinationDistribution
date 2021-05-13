@@ -68,6 +68,14 @@ set_start_parameter = {
     "infectious_countryA_vac0_virM_t0": 1000,
     "infectious_countryB_vac0_virW_t0": 1000,
     "infectious_countryB_vac0_virM_t0": 1000,
+    "infectious_countryA_vac1_virW_t0": 1000,
+    "infectious_countryA_vac1_virM_t0": 1000,
+    "infectious_countryB_vac1_virW_t0": 1000,
+    "infectious_countryB_vac1_virM_t0": 1000,
+    "infectious_countryA_vac2_virW_t0": 1000,
+    "infectious_countryA_vac2_virM_t0": 1000,
+    "infectious_countryB_vac2_virW_t0": 1000,
+    "infectious_countryB_vac2_virM_t0": 1000,
 }
 set_parameter = {
     "beta": 2,
@@ -118,6 +126,6 @@ plot_observables(
 # model.getFixedParameterNames()
 
 substates = get_substates(
-    model=model, substrings=["infectious", "vac0"], include_all=True
+    model=model, substrings=["infectious", "vac1", 'countryA'], include_all=True
 )
 fig, ax = plot_states(results=model_results, model=model, state_ids=substates)

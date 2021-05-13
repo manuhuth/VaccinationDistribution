@@ -77,16 +77,16 @@ set_parameter = {
     "p": 0.3,
     "number_vac1": 100,
     "number_vac2": 100,
-    'omega_vac1_virW': 0.9,
-    'delta_vac1_virW': 0.9,
-    'omega_vac2_virW': 0.6,
-    'delta_vac2_virW': 0.6,
-    'omega_vac1_virM': 0.6,
-    'delta_vac1_virM': 0.6,
-    'omega_vac2_virM': 0.9,
-    'delta_vac2_virM': 0.9,
-    'eta_virW':1,
-    'eta_virM':1.3,
+    "omega_vac1_virW": 0.9,
+    "delta_vac1_virW": 0.9,
+    "omega_vac2_virW": 0.6,
+    "delta_vac2_virW": 0.6,
+    "omega_vac1_virM": 0.6,
+    "delta_vac1_virM": 0.6,
+    "omega_vac2_virM": 0.9,
+    "delta_vac2_virM": 0.9,
+    "eta_virW": 1,
+    "eta_virM": 1.3,
 }
 observables_names = observables.keys()
 
@@ -109,10 +109,10 @@ run_model_stepwise_vaccines_sum_partial = partial(
     final_amount=False,
 )
 
-#plot only works for 2 parameter example (1 period)
-#plot_3D_function(
+# plot only works for 2 parameter example (1 period)
+# plot_3D_function(
 #    function=run_model_stepwise_vaccines_sum_partial, number_parameter=2 * periods
-#)
+# )
 
 # ------------Optimize Estimagic-----------------------------------------------------
 

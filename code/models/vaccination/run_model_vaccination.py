@@ -126,6 +126,6 @@ plot_observables(
 # model.getFixedParameterNames()
 
 substates = get_substates(
-    model=model, substrings=["infectious", "vac1", 'countryA'], include_all=True
+    model=model, substrings=["infectious", "vac1", "countryA"], include_all=True
 )
 fig, ax = plot_states(results=model_results, model=model, state_ids=substates)

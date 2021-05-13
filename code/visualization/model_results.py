@@ -295,6 +295,31 @@ def get_states_by_substrings_any(states, substrings):
 def plot_3D_function(
     function, number_parameter, xlabel="$vac_1$", ylabel="$vac_2$", zlabel="infectious"
 ):
+    """Plot the function with respect to two input parameters.
+
+    Parameters
+    ----------
+    function : function
+        Function that is used to map the inputs to the output. Must return a
+        dictionary with the desired quantity that has value as key.
+        
+    number_parameter : int
+        Number of parameter.    
+    
+    xlabel : str
+        Label of x-axis.
+        
+    ylabel : str
+        Label of y-axis.
+        
+    zlabel : str
+        Label of z-axis.
+
+    Returns
+    -------
+    None.
+
+    """
 
     x1 = np.linspace(0, 1)
     x2 = np.linspace(0, 1)

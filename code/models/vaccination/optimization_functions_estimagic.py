@@ -8,7 +8,7 @@ from functions.run_sbml import use_end_values_as_start_values
 from visualization.model_results import get_substates
 
 
-def run_model_stepwise_vaccines(
+def run_model_stepwise_vaccines_estimagic(
     theta,
     model,
     solver,
@@ -22,7 +22,7 @@ def run_model_stepwise_vaccines(
     """
     Run model that allows to stepwise adapt the distribution of vaccines.
     After each period the proportions of vaccinations are set to the respective
-    value in theta. The first `periods` values in the column `value` of the 
+    value in theta. The first `periods` values in the column `value` of the
     data frame theta correspond to vaccine one, the rest to vaccine two.
 
     Parameters
@@ -56,7 +56,7 @@ def run_model_stepwise_vaccines(
 
     periods : int
         Number of decision periods.
-    
+
     set_initials_zero : {True, False}
         If true, all parameters are reset after running. Should be set to True.
         Otherwise it can be possible that some results are still in the cache.
@@ -162,20 +162,20 @@ def run_model_stepwise_vaccines(
 
 
 def get_sum_of_states(model, trajectory_dict, state_type=["dead"], final_amount=True):
-    """ Get the sum of output states.
+    """Get the sum of output states.
 
     Parameters
     ----------
     model : amici.model
         Model to use.
-        
+
     trajectory_dict : dict
         Dictionary of state trajectories.
-        
-    state_type : list 
+
+    state_type : list
         List including the substrings of the states
         that should be used to sum over.
-        
+
     final_amount : {True, False}
         If True only the final amount is considered. If False the sum of all
         periods is used.
@@ -201,7 +201,7 @@ def get_sum_of_states(model, trajectory_dict, state_type=["dead"], final_amount=
     return sum_states
 
 
-def run_model_stepwise_vaccines_sum(
+def run_model_stepwise_vaccines_sum_estimagic(
     theta,
     model,
     solver,
@@ -218,7 +218,7 @@ def run_model_stepwise_vaccines_sum(
     Run model that allows to stepwise adapt the distribution of vaccines and
     return sum of specified states.
     After each period the proportions of vaccinations are set to the respective
-    value in theta. The first `periods` values in the column `value` of the 
+    value in theta. The first `periods` values in the column `value` of the
     data frame theta correspond to vaccine one, the rest to vaccine two.
 
     Parameters
@@ -252,18 +252,22 @@ def run_model_stepwise_vaccines_sum(
 
     periods : int
         Number of decision periods.
-    
+
     set_initials_zero : {True, False}
         If true, all parameters are reset after running. Should be set to True.
         Otherwise it can be possible that some results are still in the cache.
 
-    state_type : list 
+    state_type : list
         List including the substrings of the states
         that should be used to sum over.
-        
+
     final_amount : {True, False}
         If True only the final amount is considered. If False the sum of all
         periods is used.
+
+    estimagic_dict : {True, False}
+        If True the output is in the form of an estimagic dictionary. If False
+        the output is a simple float.
 
     Returns
     -------
@@ -272,7 +276,7 @@ def run_model_stepwise_vaccines_sum(
         be used by estimagic.
 
     """
-    trajectory_dict = run_model_stepwise_vaccines(
+    trajectory_dict = run_model_stepwise_vaccines_estimagic(
         theta,
         model,
         solver,
@@ -291,7 +295,6 @@ def run_model_stepwise_vaccines_sum(
         final_amount=final_amount,
     )
 
-    out = {
-        "value": sum_states,
-    }
+    out = {"value": sum_states}
+
     return out

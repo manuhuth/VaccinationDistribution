@@ -302,16 +302,16 @@ def plot_3D_function(
     function : function
         Function that is used to map the inputs to the output. Must return a
         dictionary with the desired quantity that has value as key.
-        
+
     number_parameter : int
-        Number of parameter.    
-    
+        Number of parameter.
+
     xlabel : str
         Label of x-axis.
-        
+
     ylabel : str
         Label of y-axis.
-        
+
     zlabel : str
         Label of z-axis.
 

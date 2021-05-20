@@ -89,27 +89,37 @@ model_and_solver = get_model_and_solver_from_sbml(
 model = model_and_solver["model"]
 solver = model_and_solver["solver"]
 set_start_parameter = {
-    "susceptible_countryA_vac0_t0": 60000,
-    "susceptible_countryB_vac0_t0": 40000,
+    "susceptible_countryA_vac0_t0": 80000,
+    "susceptible_countryB_vac0_t0": 80000,
     "infectious_countryA_vac0_virW_t0": 1000,
     "infectious_countryA_vac0_virM_t0": 1000,
     "infectious_countryB_vac0_virW_t0": 1000,
     "infectious_countryB_vac0_virM_t0": 1000,
-    "infectious_countryA_vac1_virW_t0": 1000,
-    "infectious_countryA_vac1_virM_t0": 1000,
-    "infectious_countryB_vac1_virW_t0": 1000,
-    "infectious_countryB_vac1_virM_t0": 1000,
-    "infectious_countryA_vac2_virW_t0": 1000,
-    "infectious_countryA_vac2_virM_t0": 1000,
-    "infectious_countryB_vac2_virW_t0": 1000,
-    "infectious_countryB_vac2_virM_t0": 1000,
+    "infectious_countryA_vac1_virW_t0": 100,
+    "infectious_countryA_vac1_virM_t0": 100,
+    "infectious_countryB_vac1_virW_t0": 100,
+    "infectious_countryB_vac1_virM_t0": 100,
+    "infectious_countryA_vac2_virW_t0": 100,
+    "infectious_countryA_vac2_virM_t0": 100,
+    "infectious_countryB_vac2_virW_t0": 100,
+    "infectious_countryB_vac2_virM_t0": 100,
 }
 set_fixed_parameter = {
     "beta": 2,
     "lambda1": 0.01,
     "p": 0.3,
-    "number_vac1": 1000,
-    "number_vac2": 800,
+    "number_vac1": 200,
+    "number_vac2": 200,
+    "omega_vac1_virW": 0.5,
+    "delta_vac1_virW": 0.6,
+    "omega_vac2_virW": 0.5,
+    "delta_vac2_virW": 0.6,
+    "omega_vac1_virM": 0.5,
+    "delta_vac1_virM": 0.6,
+    "omega_vac2_virM": 0.5,
+    "delta_vac2_virM": 0.6,
+    "eta_virW": 1,
+    "eta_virM": 1.3,
 }
 observables_names = list(observables.keys())
 
@@ -146,29 +156,39 @@ def to_optimize(theta):
     model = model_and_solver["model"]
     solver = model_and_solver["solver"]
     set_start_parameter = {
-        "susceptible_countryA_vac0_t0": 60000,
-        "susceptible_countryB_vac0_t0": 40000,
+        "susceptible_countryA_vac0_t0": 80000,
+        "susceptible_countryB_vac0_t0": 80000,
         "infectious_countryA_vac0_virW_t0": 1000,
         "infectious_countryA_vac0_virM_t0": 1000,
         "infectious_countryB_vac0_virW_t0": 1000,
         "infectious_countryB_vac0_virM_t0": 1000,
-        "infectious_countryA_vac1_virW_t0": 1000,
-        "infectious_countryA_vac1_virM_t0": 1000,
-        "infectious_countryB_vac1_virW_t0": 1000,
-        "infectious_countryB_vac1_virM_t0": 1000,
-        "infectious_countryA_vac2_virW_t0": 1000,
-        "infectious_countryA_vac2_virM_t0": 1000,
-        "infectious_countryB_vac2_virW_t0": 1000,
-        "infectious_countryB_vac2_virM_t0": 1000,
+        "infectious_countryA_vac1_virW_t0": 100,
+        "infectious_countryA_vac1_virM_t0": 100,
+        "infectious_countryB_vac1_virW_t0": 100,
+        "infectious_countryB_vac1_virM_t0": 100,
+        "infectious_countryA_vac2_virW_t0": 100,
+        "infectious_countryA_vac2_virM_t0": 100,
+        "infectious_countryB_vac2_virW_t0": 100,
+        "infectious_countryB_vac2_virM_t0": 100,
     }
     set_fixed_parameter = {
-        "beta": 2,
+        "beta": 3,
         "lambda1": 0.01,
         "p": 0.3,
-        "number_vac1": 1200,
-        "number_vac2": 1000,
+        "number_vac1": 800,
+        "number_vac2": 800,
+        "omega_vac1_virW": 0.5,
+        "delta_vac1_virW": 0.6,
+        "omega_vac2_virW": 0.5,
+        "delta_vac2_virW": 0.6,
+        "omega_vac1_virM": 0.5,
+        "delta_vac1_virM": 0.6,
+        "omega_vac2_virM": 0.5,
+        "delta_vac2_virM": 0.6,
+        "eta_virW": 1,
+        "eta_virM": 1.3,
     }
-    observables_names = list(observables.keys())
+
     
     para = theta["value"]
     set_proportions = {

@@ -788,24 +788,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <cn type="integer"> 0 </cn>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <cn type="integer"> 0 </cn>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
             </apply>
           </math>
@@ -844,24 +841,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <cn type="integer"> 0 </cn>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <cn type="integer"> 0 </cn>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac0_virM </ci>
             </apply>
           </math>
@@ -900,24 +894,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <ci> omega_vac1_virW </ci>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> omega_vac1_virW </ci>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac1_virW </ci>
             </apply>
           </math>
@@ -956,24 +947,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <ci> omega_vac1_virM </ci>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> omega_vac1_virM </ci>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac1_virM </ci>
             </apply>
           </math>
@@ -1012,24 +1000,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <ci> omega_vac2_virW </ci>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> omega_vac2_virW </ci>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac2_virW </ci>
             </apply>
           </math>
@@ -1068,24 +1053,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <ci> omega_vac2_virM </ci>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> omega_vac2_virM </ci>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryA_vac2_virM </ci>
             </apply>
           </math>
@@ -1124,24 +1106,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <cn type="integer"> 0 </cn>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <cn type="integer"> 0 </cn>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryB_vac0_virW </ci>
             </apply>
           </math>
@@ -1180,24 +1159,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <cn type="integer"> 0 </cn>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <cn type="integer"> 0 </cn>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryB_vac0_virM </ci>
             </apply>
           </math>
@@ -1236,24 +1212,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <ci> omega_vac1_virW </ci>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> omega_vac1_virW </ci>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryB_vac1_virW </ci>
             </apply>
           </math>
@@ -1292,24 +1265,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <ci> omega_vac1_virM </ci>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> omega_vac1_virM </ci>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryB_vac1_virM </ci>
             </apply>
           </math>
@@ -1348,24 +1318,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <ci> omega_vac2_virW </ci>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> omega_vac2_virW </ci>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryB_vac2_virW </ci>
             </apply>
           </math>
@@ -1404,24 +1371,21 @@
         <kineticLaw>
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <apply>
-              <plus/>
+              <times/>
               <apply>
-                <times/>
+                <minus/>
+                <cn type="integer"> 1 </cn>
                 <apply>
-                  <minus/>
-                  <cn type="integer"> 1 </cn>
+                  <times/>
                   <apply>
-                    <times/>
-                    <apply>
-                      <minus/>
-                      <cn type="integer"> 1 </cn>
-                      <ci> omega_vac2_virM </ci>
-                    </apply>
-                    <ci> p </ci>
+                    <minus/>
+                    <cn type="integer"> 1 </cn>
+                    <ci> omega_vac2_virM </ci>
                   </apply>
+                  <ci> p </ci>
                 </apply>
-                <ci> lambda1 </ci>
               </apply>
+              <ci> lambda1 </ci>
               <ci> infectious_countryB_vac2_virM </ci>
             </apply>
           </math>
@@ -1581,7 +1545,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -1738,7 +1702,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -1895,7 +1859,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -2049,7 +2013,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -2202,7 +2166,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -2355,7 +2319,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -2511,7 +2475,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -2668,7 +2632,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -2825,7 +2789,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -2979,7 +2943,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -3132,7 +3096,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -3285,7 +3249,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -3441,7 +3405,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -3598,7 +3562,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -3755,7 +3719,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -3909,7 +3873,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -4062,7 +4026,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -4215,7 +4179,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -4371,7 +4335,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -4528,7 +4492,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -4685,7 +4649,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -4839,7 +4803,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -4992,7 +4956,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -5145,7 +5109,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -5301,7 +5265,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -5458,7 +5422,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -5615,7 +5579,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -5769,7 +5733,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -5922,7 +5886,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -6075,7 +6039,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -6231,7 +6195,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -6388,7 +6352,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -6545,7 +6509,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -6699,7 +6663,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -6852,7 +6816,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -7005,7 +6969,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -7158,7 +7122,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -7311,7 +7275,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -7464,7 +7428,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -7620,7 +7584,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -7777,7 +7741,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -7934,7 +7898,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -8088,7 +8052,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -8241,7 +8205,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -8394,7 +8358,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -8550,7 +8514,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -8707,7 +8671,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -8864,7 +8828,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -9018,7 +8982,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -9171,7 +9135,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -9324,7 +9288,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -9480,7 +9444,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -9637,7 +9601,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -9794,7 +9758,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -9948,7 +9912,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -10101,7 +10065,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -10254,7 +10218,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -10410,7 +10374,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -10567,7 +10531,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -10724,7 +10688,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -10878,7 +10842,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -11031,7 +10995,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -11184,7 +11148,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -11340,7 +11304,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -11497,7 +11461,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -11654,7 +11618,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -11808,7 +11772,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -11961,7 +11925,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -12114,7 +12078,7 @@
                       <ci> recovered_countryB_vac2_virM </ci>
                     </apply>
                   </apply>
-                  <cn> 0.0909090909090909 </cn>
+                  <cn> 0.25 </cn>
                 </apply>
               </apply>
               <apply>
@@ -12270,7 +12234,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -12427,7 +12391,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>
@@ -12584,7 +12548,7 @@
                         <ci> recovered_countryB_vac2_virM </ci>
                       </apply>
                     </apply>
-                    <cn> 0.0909090909090909 </cn>
+                    <cn> 0.25 </cn>
                   </apply>
                 </apply>
               </apply>

@@ -36,7 +36,7 @@ vaccination_states_removed = [
 model_vaccination_create_sbml(
     path=path_sbml,
     areas=areas,
-    distances=np.array([[0, 1], [1, 0]]),
+    distances=np.array([[0, 3], [3, 0]]),
 )
 
 observables_nu = create_observables_vaccination_rates(
@@ -65,36 +65,36 @@ model = model_and_solver["model"]
 solver = model_and_solver["solver"]
 set_start_parameter = {
     "susceptible_countryA_vac0_t0": 80000,
-    "susceptible_countryB_vac0_t0": 40000,
-    "infectious_countryA_vac0_virW_t0": 1000,
-    "infectious_countryA_vac0_virM_t0": 500,
-    "infectious_countryB_vac0_virW_t0": 1000,
-    "infectious_countryB_vac0_virM_t0": 500,
-    "infectious_countryA_vac1_virW_t0": 100,
-    "infectious_countryA_vac1_virM_t0": 50,
-    "infectious_countryB_vac1_virW_t0": 100,
-    "infectious_countryB_vac1_virM_t0": 50,
-    "infectious_countryA_vac2_virW_t0": 100,
-    "infectious_countryA_vac2_virM_t0": 50,
-    "infectious_countryB_vac2_virW_t0": 100,
-    "infectious_countryB_vac2_virM_t0": 50,
+    "susceptible_countryB_vac0_t0": 80000,
+    "infectious_countryA_vac0_virW_t0": 10,
+    "infectious_countryA_vac0_virM_t0": 10,
+    "infectious_countryB_vac0_virW_t0": 10,
+    "infectious_countryB_vac0_virM_t0": 10,
+    "infectious_countryA_vac1_virW_t0": 1,
+    "infectious_countryA_vac1_virM_t0": 1,
+    "infectious_countryB_vac1_virW_t0": 1,
+    "infectious_countryB_vac1_virM_t0": 1,
+    "infectious_countryA_vac2_virW_t0": 1,
+    "infectious_countryA_vac2_virM_t0": 1,
+    "infectious_countryB_vac2_virW_t0": 1,
+    "infectious_countryB_vac2_virM_t0": 1,
 }
 set_parameter = {
-    "beta": 3,
-    "lambda1": 0.01,
-    "p": 0.3,
-    "number_vac1": 100,
-    "number_vac2": 100,
-    "omega_vac1_virW": 0.5,
-    "delta_vac1_virW": 0.6,
-    "omega_vac2_virW": 0.5,
-    "delta_vac2_virW": 0.6,
-    "omega_vac1_virM": 0.5,
-    "delta_vac1_virM": 0.6,
-    "omega_vac2_virM": 0.5,
-    "delta_vac2_virM": 0.6,
-    "eta_virW": 1,
-    "eta_virM": 1.3,
+    "beta": 3, #infection rate
+    "lambda1": 0.1, #rate of transition from infectious to recovered/dead
+    "p": 0.3, #probability of dying p*lambda is fraction that dies in vac0 
+    "number_vac1": 100, #inflow of vaccine 1
+    "number_vac2": 100, #inflow of vaccine 2
+    "omega_vac1_virW": 0.5, #if 1 vaccine1 gives full death protection against wild type if infected
+    "delta_vac1_virW": 0.6, #if 1 vaccine1 gives full infection protection against wild type
+    "omega_vac2_virW": 0.5, #if 1 vaccine2 gives full death protection against wild type if infected
+    "delta_vac2_virW": 0.6, #if 1 vaccine2 gives full infection protection against wild type
+    "omega_vac1_virM": 0.5, #if 1 vaccine1 gives full death protection against mutant type if infected
+    "delta_vac1_virM": 0.6, #if 1 vaccine1 gives full infection protection against mutant type
+    "omega_vac2_virM": 0.5, #if 1 vaccine1 gives full death protection against mutant type if infected
+    "delta_vac2_virM": 0.6, #if 1 vaccine2 gives full infection protection against mutant type
+    "eta_virW": 1, #factor with which beta is scaled for the wild type
+    "eta_virM": 1.3, #factor with which beta is scaled for the mutant type
 }
 observables_names = observables.keys()
 
@@ -105,6 +105,7 @@ set_initials_zero = True
 
 
 # ------------Optimize Estimagic-----------------------------------------------
+quantity = "dead"
 run_model_stepwise_vaccines_sum_partial_estimagic = partial(
     run_model_stepwise_vaccines_sum_estimagic,
     model=model,
@@ -115,14 +116,15 @@ run_model_stepwise_vaccines_sum_partial_estimagic = partial(
     length_periods=length_periods,
     periods=periods,
     set_initials_zero=set_initials_zero,
-    state_type=["dead"],
+    state_type=[quantity],
     final_amount=True,
 )
 
 # plot only works for 2 parameter example (1 period)
 plot_3D_function(
     function=run_model_stepwise_vaccines_sum_partial_estimagic,
-    number_parameter=2 * periods,
+    number_parameter=2 * periods, set_off_scientific_notation = True,
+    decimal_floats = 3, zlabel=quantity,
 )
 
 
@@ -155,6 +157,76 @@ for index_multi in range(n_multi):
     )
 
 df_multistart[df_multistart.value == df_multistart.value.min()]
+# -----------------------Plot Model--------------------------------------------
+from visualization.model_results import plot_states
+from visualization.model_results import plot_observables
+from visualization.model_results import get_substates
+from visualization.model_results import get_observables_by_name
+from functions.run_sbml import run_model
+
+av1 = 0.5
+av2 = 0.7
+para ={**set_parameter,  'proportion_countryA_vac1' : av1,
+ 'proportion_countryB_vac1' : 1- av1 ,
+ 'proportion_countryA_vac2' : av2,
+ 'proportion_countryB_vac2' : 1-av2}
+
+model_results = run_model(
+    model=model,
+    solver=solver,
+    periods=1,
+    length_periods=12,
+    set_start_parameter=set_start_parameter,
+    set_parameter=para,
+    observables_names=observables.keys(),
+)
+trajectory_states = model_results["states"]
+trajectory_observables = model_results["observables"]
+
+# visualization
+observables_names_nu = get_observables_by_name(
+    observables, substrings=["nu"], include_all=True
+)
+observables_names_proportion = get_observables_by_name(
+    observables, substrings=["proportion"], include_all=True
+)
+# TODO check if values make sense
+plot_observables(
+    results=model_results, model=model, observable_ids=observables_names_nu
+)
+plot_observables(
+    results=model_results,
+    model=model,
+    observable_ids=observables_names_proportion,
+    set_off_scientific_notation=True,
+    decimal_floats=4,
+)
+# fig, ax = plot_states(results=model_result, model=model)
+
+# dir(model)
+# par_values = model.getParameters()
+# par_names = model.getParameterNames()
+# model.getFixedParameterNames()
+
+substates = get_substates(
+    model=model, substrings=["vac0", "countryA"], include_all=True
+)
+fig, ax = plot_states(results=model_results, model=model, state_ids=substates)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ------------Optimize pyPesto-----------------------------------------------
 ###pyPesto has problem with partial functions
 def run_model_stepwise_vaccines_sum_partial_pesto(theta):

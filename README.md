@@ -4,9 +4,9 @@
 ## To-Do:
 - find realistic parameters
 - resolve piecewise SBML
-- implement splines
-- neural-nets
-- try deterministic rule for noise models
+- implement splines (~ 3. - 10. June)
+- neural-nets (~ 20. July)
+- try deterministic rule for noise models ('til submission)
 - Functional form of inter-spatial infections (robustness checks for different functions!)
 
 

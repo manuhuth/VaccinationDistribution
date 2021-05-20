@@ -706,7 +706,7 @@ def create_dead_recover_reactions_model(
                 dead_recover_reactions[key_recover] = {
                     "reactants": {f"{numb_infected}": 1},
                     "products": {f"{numb_recovered}": 1},
-                    "formula": f" (1 - (1 - {omega_term}) * p) * lambda1 + {numb_infected}",
+                    "formula": f" (1 - (1 - {omega_term}) * p) * lambda1 * {numb_infected}",
                 }
                 dead_recover_reactions[key_death] = {
                     "reactants": {f"{numb_infected}": 1},

@@ -60,7 +60,7 @@ model_vaccination_create_sbml(
     path=path_sbml,
     areas=areas,
     parameter_rules=rules_proportions,
-    distances=np.array([[0, 10], [10, 0]]),
+    distances=np.array([[0, 3], [3, 0]]),
     t0_susceptible=0,
     t0_infectious=1000,
     additional_parameters=additional_parameters,
@@ -91,37 +91,37 @@ solver = model_and_solver["solver"]
 set_start_parameter = {
     "susceptible_countryA_vac0_t0": 80000,
     "susceptible_countryB_vac0_t0": 80000,
-    "infectious_countryA_vac0_virW_t0": 1000,
-    "infectious_countryA_vac0_virM_t0": 1000,
-    "infectious_countryB_vac0_virW_t0": 1000,
-    "infectious_countryB_vac0_virM_t0": 1000,
-    "infectious_countryA_vac1_virW_t0": 100,
-    "infectious_countryA_vac1_virM_t0": 100,
-    "infectious_countryB_vac1_virW_t0": 100,
-    "infectious_countryB_vac1_virM_t0": 100,
-    "infectious_countryA_vac2_virW_t0": 100,
-    "infectious_countryA_vac2_virM_t0": 100,
-    "infectious_countryB_vac2_virW_t0": 100,
-    "infectious_countryB_vac2_virM_t0": 100,
+    "infectious_countryA_vac0_virW_t0": 10,
+    "infectious_countryA_vac0_virM_t0": 10,
+    "infectious_countryB_vac0_virW_t0": 10,
+    "infectious_countryB_vac0_virM_t0": 10,
+    "infectious_countryA_vac1_virW_t0": 1,
+    "infectious_countryA_vac1_virM_t0": 1,
+    "infectious_countryB_vac1_virW_t0": 1,
+    "infectious_countryB_vac1_virM_t0": 1,
+    "infectious_countryA_vac2_virW_t0": 1,
+    "infectious_countryA_vac2_virM_t0": 1,
+    "infectious_countryB_vac2_virW_t0": 1,
+    "infectious_countryB_vac2_virM_t0": 1,
 }
 set_fixed_parameter = {
-    "beta": 2,
-    "lambda1": 0.01,
-    "p": 0.3,
-    "number_vac1": 200,
-    "number_vac2": 200,
-    "omega_vac1_virW": 0.5,
-    "delta_vac1_virW": 0.6,
-    "omega_vac2_virW": 0.5,
-    "delta_vac2_virW": 0.6,
-    "omega_vac1_virM": 0.5,
-    "delta_vac1_virM": 0.6,
-    "omega_vac2_virM": 0.5,
-    "delta_vac2_virM": 0.6,
-    "eta_virW": 1,
-    "eta_virM": 1.3,
+    "beta": 3, #infection rate
+    "lambda1": 0.1, #rate of transition from infectious to recovered/dead
+    "p": 0.3, #probability of dying p*lambda is fraction that dies in vac0 
+    "number_vac1": 100, #inflow of vaccine 1
+    "number_vac2": 100, #inflow of vaccine 2
+    "omega_vac1_virW": 0.5, #if 1 vaccine1 gives full death protection against wild type if infected
+    "delta_vac1_virW": 0.6, #if 1 vaccine1 gives full infection protection against wild type
+    "omega_vac2_virW": 0.5, #if 1 vaccine2 gives full death protection against wild type if infected
+    "delta_vac2_virW": 0.6, #if 1 vaccine2 gives full infection protection against wild type
+    "omega_vac1_virM": 0.5, #if 1 vaccine1 gives full death protection against mutant type if infected
+    "delta_vac1_virM": 0.6, #if 1 vaccine1 gives full infection protection against mutant type
+    "omega_vac2_virM": 0.5, #if 1 vaccine1 gives full death protection against mutant type if infected
+    "delta_vac2_virM": 0.6, #if 1 vaccine2 gives full infection protection against mutant type
+    "eta_virW": 1, #factor with which beta is scaled for the wild type
+    "eta_virM": 1.3, #factor with which beta is scaled for the mutant type
 }
-observables_names = list(observables.keys())
+
 
 set_proportions = {
     "proportion_par_countryA_vac1_0": 0.2,
@@ -155,38 +155,34 @@ from estimagic import minimize
 def to_optimize(theta):
     model = model_and_solver["model"]
     solver = model_and_solver["solver"]
-    set_start_parameter = {
-        "susceptible_countryA_vac0_t0": 80000,
-        "susceptible_countryB_vac0_t0": 80000,
-        "infectious_countryA_vac0_virW_t0": 1000,
-        "infectious_countryA_vac0_virM_t0": 1000,
-        "infectious_countryB_vac0_virW_t0": 1000,
-        "infectious_countryB_vac0_virM_t0": 1000,
-        "infectious_countryA_vac1_virW_t0": 100,
-        "infectious_countryA_vac1_virM_t0": 100,
-        "infectious_countryB_vac1_virW_t0": 100,
-        "infectious_countryB_vac1_virM_t0": 100,
-        "infectious_countryA_vac2_virW_t0": 100,
-        "infectious_countryA_vac2_virM_t0": 100,
-        "infectious_countryB_vac2_virW_t0": 100,
-        "infectious_countryB_vac2_virM_t0": 100,
-    }
     set_fixed_parameter = {
-        "beta": 3,
-        "lambda1": 0.01,
-        "p": 0.3,
-        "number_vac1": 800,
-        "number_vac2": 800,
-        "omega_vac1_virW": 0.5,
-        "delta_vac1_virW": 0.6,
-        "omega_vac2_virW": 0.5,
-        "delta_vac2_virW": 0.6,
-        "omega_vac1_virM": 0.5,
-        "delta_vac1_virM": 0.6,
-        "omega_vac2_virM": 0.5,
-        "delta_vac2_virM": 0.6,
-        "eta_virW": 1,
-        "eta_virM": 1.3,
+        "beta": 3, #infection rate
+        "lambda1": 0.1, #rate of transition from infectious to recovered/dead
+        "p": 0.3, #probability of dying p*lambda is fraction that dies in vac0 
+        "number_vac1": 100, #inflow of vaccine 1
+        "number_vac2": 100, #inflow of vaccine 2
+        "omega_vac1_virW": 0.5, #if 1 vaccine1 gives full death protection against wild type if infected
+        "delta_vac1_virW": 0.6, #if 1 vaccine1 gives full infection protection against wild type
+        "omega_vac2_virW": 0.5, #if 1 vaccine2 gives full death protection against wild type if infected
+        "delta_vac2_virW": 0.6, #if 1 vaccine2 gives full infection protection against wild type
+        "omega_vac1_virM": 0.5, #if 1 vaccine1 gives full death protection against mutant type if infected
+        "delta_vac1_virM": 0.6, #if 1 vaccine1 gives full infection protection against mutant type
+        "omega_vac2_virM": 0.5, #if 1 vaccine1 gives full death protection against mutant type if infected
+        "delta_vac2_virM": 0.6, #if 1 vaccine2 gives full infection protection against mutant type
+        "eta_virW": 1, #factor with which beta is scaled for the wild type
+        "eta_virM": 1.3, #factor with which beta is scaled for the mutant type
+    }
+
+    
+    set_proportions = {
+        "proportion_par_countryA_vac1_0": 0.2,
+        "proportion_par_countryA_vac1_3": 0.1,
+        "proportion_par_countryA_vac1_6": 0.2,
+        "proportion_par_countryA_vac1_9": 0.1,
+        "proportion_par_countryA_vac2_0": 0.2,
+        "proportion_par_countryA_vac2_3": 0.1,
+        "proportion_par_countryA_vac2_6": 0.2,
+        "proportion_par_countryA_vac2_9": 0.1,
     }
 
     

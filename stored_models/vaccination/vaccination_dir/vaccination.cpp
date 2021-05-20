@@ -137,14 +137,14 @@ std::array<const char*, 9> observableNames = {
 };
 
 std::array<const char*, 116> expressionNames = {
-    "proportion_countryB_vac1", // w[0]
-"proportion_countryB_vac2", // w[1]
+    "proportion_countryA_vac1", // w[0]
+"proportion_countryB_vac1", // w[1]
 "proportion_countryA_vac2", // w[2]
-"proportion_countryA_vac1", // w[3]
-"nu_countryA_vac2", // w[4]
-"nu_countryB_vac2", // w[5]
-"nu_countryA_vac1", // w[6]
-"nu_countryB_vac1", // w[7]
+"proportion_countryB_vac2", // w[3]
+"nu_countryB_vac2", // w[4]
+"nu_countryB_vac1", // w[5]
+"nu_countryA_vac2", // w[6]
+"nu_countryA_vac1", // w[7]
 "flux_r0", // w[8]
 "flux_r1", // w[9]
 "flux_r2", // w[10]
@@ -387,14 +387,14 @@ std::array<const char*, 9> observableIds = {
 };
 
 std::array<const char*, 116> expressionIds = {
-    "proportion_countryB_vac1", // w[0]
-"proportion_countryB_vac2", // w[1]
+    "proportion_countryA_vac1", // w[0]
+"proportion_countryB_vac1", // w[1]
 "proportion_countryA_vac2", // w[2]
-"proportion_countryA_vac1", // w[3]
-"nu_countryA_vac2", // w[4]
-"nu_countryB_vac2", // w[5]
-"nu_countryA_vac1", // w[6]
-"nu_countryB_vac1", // w[7]
+"proportion_countryB_vac2", // w[3]
+"nu_countryB_vac2", // w[4]
+"nu_countryB_vac1", // w[5]
+"nu_countryA_vac2", // w[6]
+"nu_countryA_vac1", // w[7]
 "flux_r0", // w[8]
 "flux_r1", // w[9]
 "flux_r2", // w[10]

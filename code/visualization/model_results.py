@@ -293,7 +293,8 @@ def get_states_by_substrings_any(states, substrings):
 
 
 def plot_3D_function(
-    function, number_parameter, xlabel="$vac_1$", ylabel="$vac_2$", zlabel="infectious"
+    function, number_parameter, xlabel="$vac_1$", ylabel="$vac_2$", zlabel="infectious",
+    set_off_scientific_notation = False, decimal_floats = 3
 ):
     """Plot the function with respect to two input parameters.
 
@@ -348,3 +349,6 @@ def plot_3D_function(
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_zlabel(zlabel)
+    if set_off_scientific_notation is True:
+        ax.get_zaxis().get_major_formatter().set_useOffset(False)
+        ax.zaxis.set_major_formatter(FormatStrFormatter(f"%.{decimal_floats}f"))

@@ -130,8 +130,8 @@ std::array<const char*, 4> observableNames = {
 std::array<const char*, 112> expressionNames = {
     "nu_countryA_vac2", // w[0]
 "nu_countryA_vac1", // w[1]
-"nu_countryB_vac1", // w[2]
-"nu_countryB_vac2", // w[3]
+"nu_countryB_vac2", // w[2]
+"nu_countryB_vac1", // w[3]
 "flux_r0", // w[4]
 "flux_r1", // w[5]
 "flux_r2", // w[6]
@@ -367,8 +367,8 @@ std::array<const char*, 4> observableIds = {
 std::array<const char*, 112> expressionIds = {
     "nu_countryA_vac2", // w[0]
 "nu_countryA_vac1", // w[1]
-"nu_countryB_vac1", // w[2]
-"nu_countryB_vac2", // w[3]
+"nu_countryB_vac2", // w[2]
+"nu_countryB_vac1", // w[3]
 "flux_r0", // w[4]
 "flux_r1", // w[5]
 "flux_r2", // w[6]

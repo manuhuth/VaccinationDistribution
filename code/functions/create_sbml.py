@@ -5,7 +5,13 @@ from libsbml import writeSBMLToFile
 
 
 def create_sbml_file(
-    compartments, species, parameters, reactions, assignments=None, parameter_rules=None
+    compartments,
+    species,
+    parameters,
+    reactions,
+    assignments=None,
+    parameter_rules=None,
+    rate_rules=None,
 ):
     """Create SBML object for given inputs. Function does not save the file.
     Saving is done by :func:`write_dict_to_sbml_file`.
@@ -81,6 +87,11 @@ def create_sbml_file(
         for keys in parameter_rule_identifier:
             create_parameter_rule(model=model, rule_id=keys, **parameter_rules[keys])
 
+    if rate_rules is not None:
+        rate_rule_identifier = rate_rules.keys()
+        for keys in rate_rule_identifier:
+            create_parameter_rate_rule(model=model, rule_id=keys, **rate_rules[keys])
+
     return document
 
 
@@ -118,6 +129,7 @@ def write_entities_to_dict(
     reactions,
     assignments=None,
     parameter_rules=None,
+    rate_rules=None,
 ):
     """
     Transforms inputs to dictionaries with the entities as keys and the
@@ -175,6 +187,9 @@ def write_entities_to_dict(
 
     if parameter_rules is not None:
         output["parameter_rules"] = parameter_rules
+
+    if rate_rules is not None:
+        output["rate_rules"] = rate_rules
 
     return output
 
@@ -512,6 +527,47 @@ def create_parameter_rule(model, parameter_id, formula, rule_id, rule_name=None)
     if rule_name is None:
         rule_name = rule_id
     parameter_rule = model.createAssignmentRule()
+    parameter_rule.setId(rule_id)
+    parameter_rule.setName(rule_name)
+    parameter_rule.setVariable(parameter_id)
+    math_ast = libsbml.parseL3Formula(formula)
+    parameter_rule.setMath(math_ast)
+
+    return parameter_rule
+
+
+def create_parameter_rate_rule(model, parameter_id, formula, rule_id, rule_name=None):
+    """
+    Creates new rule for libsbml.Model. It is not necessary
+    to assign the function to a value. The rule is automatically
+    added to the input model outside of the function.
+
+    Parameters
+    ----------
+    model : libsbml.Model
+        Model for which species will be created.
+
+    parameter_id : str
+        Parameter for which the rule is created.
+
+    formula : str
+        Formula that describes the type of rule.
+
+    rule_id: str
+        Rule id for created rule.
+
+    rule_name: str
+        SBML name for created rule.
+
+    Returns
+    -------
+    parameter_rule : libsbml.AssignmentRule
+        Rule defined for the parameter.
+    """
+
+    if rule_name is None:
+        rule_name = rule_id
+    parameter_rule = model.createRateRule()
     parameter_rule.setId(rule_id)
     parameter_rule.setName(rule_name)
     parameter_rule.setVariable(parameter_id)

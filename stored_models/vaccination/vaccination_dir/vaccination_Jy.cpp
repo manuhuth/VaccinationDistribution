@@ -39,6 +39,9 @@ void Jy_vaccination(realtype *Jy, const int iy, const realtype *p, const realtyp
         case 7:
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_proportion_countryB_vac2, 2)) + 0.5*std::pow(-mobservable_proportion_countryB_vac2 + observable_proportion_countryB_vac2, 2)/std::pow(sigma_observable_proportion_countryB_vac2, 2);
             break;
+        case 8:
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_time, 2)) + 0.5*std::pow(-mobservable_time + observable_time, 2)/std::pow(sigma_observable_time, 2);
+            break;
     }
 }
 

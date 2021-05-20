@@ -182,6 +182,8 @@ def model_vaccination_create_sbml(
     else:
         parameter_rules_all = {**parameter_rules, **nu_rules}
 
+    rate_rules = {"time_rule": {"parameter_id": "t", "formula": "1"}}
+
     model_input_dictionary = write_entities_to_dict(
         compartments=compartments,
         species=species,
@@ -189,6 +191,7 @@ def model_vaccination_create_sbml(
         reactions=reactions,
         assignments=assignments,
         parameter_rules=parameter_rules_all,
+        rate_rules=rate_rules,
     )
 
     write_dict_to_sbml_file(
@@ -538,6 +541,7 @@ def create_parameters_model(
         "p": {"value": single_parameter["p"], "constant": parameters_constant},
         "gamma": {"value": single_parameter["gamma"], "constant": parameters_constant},
         "beta": {"value": single_parameter["beta"], "constant": parameters_constant},
+        "t": {"value": 0, "constant": False},
     }
 
     total_numb_vacc = {}

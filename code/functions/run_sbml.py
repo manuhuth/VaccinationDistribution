@@ -47,7 +47,7 @@ def run_model(
     if set_initials_zero is True:
         model = set_all_initial_conditions_to_zero(model)
 
-    timepoints = np.linspace(1, length_periods, length_periods)
+    timepoints = np.linspace(0, length_periods-1, length_periods)
     periods_minus_one = periods - 1
 
     set_parameter_first = {**set_start_parameter, **set_parameter}

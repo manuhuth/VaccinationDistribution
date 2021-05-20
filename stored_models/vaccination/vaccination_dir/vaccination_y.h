@@ -6,3 +6,4 @@
 #define observable_proportion_countryB_vac1 y[5]
 #define observable_proportion_countryA_vac2 y[6]
 #define observable_proportion_countryB_vac2 y[7]
+#define observable_time y[8]

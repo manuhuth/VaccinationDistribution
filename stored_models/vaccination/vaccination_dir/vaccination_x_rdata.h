@@ -40,3 +40,4 @@
 #define dead_countryB_vac1_virM x_rdata[39]
 #define dead_countryB_vac2_virW x_rdata[40]
 #define dead_countryB_vac2_virM x_rdata[41]
+#define amici_t x_rdata[42]

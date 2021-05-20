@@ -7,7 +7,8 @@
 namespace amici {
 namespace model_vaccination {
 
-static constexpr std::array<std::array<sunindextype, 1>, 8> dJydy_rowvals_vaccination_ = {{
+static constexpr std::array<std::array<sunindextype, 1>, 9> dJydy_rowvals_vaccination_ = {{
+    {0}, 
     {0}, 
     {0}, 
     {0}, 

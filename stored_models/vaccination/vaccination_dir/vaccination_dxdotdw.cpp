@@ -7,6 +7,7 @@
 
 #include "vaccination_x.h"
 #include "vaccination_p.h"
+#include "vaccination_h.h"
 #include "vaccination_w.h"
 #include "vaccination_dxdotdw.h"
 

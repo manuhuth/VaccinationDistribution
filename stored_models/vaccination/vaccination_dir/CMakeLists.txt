@@ -47,7 +47,9 @@ vaccination_dxdotdw.cpp
 vaccination_dJydy_colptrs.cpp 
 vaccination_x_solver.cpp 
 vaccination_dwdx_rowvals.cpp 
+vaccination_stau.cpp 
 vaccination_sigmay.cpp 
+vaccination_root.cpp 
 vaccination_dJydy.cpp 
 vaccination_dwdx.cpp 
 vaccination_x0.cpp 
@@ -60,6 +62,7 @@ vaccination_dwdw_rowvals.cpp
 vaccination_dwdp_colptrs.cpp 
 vaccination_dwdw_colptrs.cpp 
 vaccination_Jy.cpp 
+vaccination_deltasx.cpp 
 vaccination.cpp 
 ${MODEL_DIR}/wrapfunctions.cpp
 )

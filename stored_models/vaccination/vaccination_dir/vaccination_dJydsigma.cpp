@@ -39,6 +39,9 @@ void dJydsigma_vaccination(realtype *dJydsigma, const int iy, const realtype *p,
         case 7:
             dJydsigma[7] = 1.0/sigma_observable_proportion_countryB_vac2 - 1.0*std::pow(-mobservable_proportion_countryB_vac2 + observable_proportion_countryB_vac2, 2)/std::pow(sigma_observable_proportion_countryB_vac2, 3);
             break;
+        case 8:
+            dJydsigma[8] = 1.0/sigma_observable_time - 1.0*std::pow(-mobservable_time + observable_time, 2)/std::pow(sigma_observable_time, 3);
+            break;
     }
 }
 

@@ -6,3 +6,4 @@
 #define dJy0_dobservable_proportion_countryB_vac1_5 dJydy[5]
 #define dJy0_dobservable_proportion_countryA_vac2_6 dJydy[6]
 #define dJy0_dobservable_proportion_countryB_vac2_7 dJydy[7]
+#define dJy0_dobservable_time_8 dJydy[8]

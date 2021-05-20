@@ -53,6 +53,7 @@ void x_rdata_vaccination(realtype *x_rdata, const realtype *x, const realtype *t
     x_rdata[39] = dead_countryB_vac1_virM;
     x_rdata[40] = dead_countryB_vac2_virW;
     x_rdata[41] = dead_countryB_vac2_virM;
+    x_rdata[42] = amici_t;
 }
 
 } // namespace model_vaccination

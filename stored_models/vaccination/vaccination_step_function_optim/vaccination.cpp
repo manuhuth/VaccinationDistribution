@@ -74,7 +74,7 @@ std::array<const char*, 0> fixedParameterNames = {
     
 };
 
-std::array<const char*, 42> stateNames = {
+std::array<const char*, 43> stateNames = {
     "susceptible_countryA_vac0", // x_rdata[0]
 "susceptible_countryA_vac1", // x_rdata[1]
 "susceptible_countryA_vac2", // x_rdata[2]
@@ -117,6 +117,7 @@ std::array<const char*, 42> stateNames = {
 "dead_countryB_vac1_virM", // x_rdata[39]
 "dead_countryB_vac2_virW", // x_rdata[40]
 "dead_countryB_vac2_virM", // x_rdata[41]
+"t", // x_rdata[42]
 };
 
 std::array<const char*, 4> observableNames = {
@@ -127,10 +128,10 @@ std::array<const char*, 4> observableNames = {
 };
 
 std::array<const char*, 112> expressionNames = {
-    "nu_countryB_vac2", // w[0]
+    "nu_countryA_vac2", // w[0]
 "nu_countryA_vac1", // w[1]
 "nu_countryB_vac1", // w[2]
-"nu_countryA_vac2", // w[3]
+"nu_countryB_vac2", // w[3]
 "flux_r0", // w[4]
 "flux_r1", // w[5]
 "flux_r2", // w[6]
@@ -310,7 +311,7 @@ std::array<const char*, 0> fixedParameterIds = {
     
 };
 
-std::array<const char*, 42> stateIds = {
+std::array<const char*, 43> stateIds = {
     "susceptible_countryA_vac0", // x_rdata[0]
 "susceptible_countryA_vac1", // x_rdata[1]
 "susceptible_countryA_vac2", // x_rdata[2]
@@ -353,6 +354,7 @@ std::array<const char*, 42> stateIds = {
 "dead_countryB_vac1_virM", // x_rdata[39]
 "dead_countryB_vac2_virW", // x_rdata[40]
 "dead_countryB_vac2_virM", // x_rdata[41]
+"amici_t", // x_rdata[42]
 };
 
 std::array<const char*, 4> observableIds = {
@@ -363,10 +365,10 @@ std::array<const char*, 4> observableIds = {
 };
 
 std::array<const char*, 112> expressionIds = {
-    "nu_countryB_vac2", // w[0]
+    "nu_countryA_vac2", // w[0]
 "nu_countryA_vac1", // w[1]
 "nu_countryB_vac1", // w[2]
-"nu_countryA_vac2", // w[3]
+"nu_countryB_vac2", // w[3]
 "flux_r0", // w[4]
 "flux_r1", // w[5]
 "flux_r2", // w[6]

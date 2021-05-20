@@ -40,3 +40,4 @@
 #define xdot39 xdot[39]
 #define xdot40 xdot[40]
 #define xdot41 xdot[41]
+#define xdot42 xdot[42]

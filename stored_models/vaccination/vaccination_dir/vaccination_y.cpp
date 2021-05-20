@@ -7,6 +7,7 @@
 
 #include "vaccination_x.h"
 #include "vaccination_p.h"
+#include "vaccination_h.h"
 #include "vaccination_w.h"
 
 namespace amici {
@@ -21,6 +22,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
     y[5] = proportion_countryB_vac1;
     y[6] = proportion_countryA_vac2;
     y[7] = proportion_countryB_vac2;
+    y[8] = amici_t;
 }
 
 } // namespace model_vaccination

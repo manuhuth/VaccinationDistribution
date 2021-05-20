@@ -54,6 +54,7 @@
       <parameter id="p" name="p" value="0.1" units="dimensionless" constant="false"/>
       <parameter id="gamma" name="gamma" value="0.5" units="dimensionless" constant="false"/>
       <parameter id="beta" name="beta" value="2" units="dimensionless" constant="false"/>
+      <parameter id="t" name="t" value="0" units="dimensionless" constant="false"/>
       <parameter id="omega_vac1_virW" name="omega_vac1_virW" value="0.9" units="dimensionless" constant="false"/>
       <parameter id="delta_vac1_virW" name="delta_vac1_virW" value="0.9" units="dimensionless" constant="false"/>
       <parameter id="omega_vac2_virW" name="omega_vac2_virW" value="0.6" units="dimensionless" constant="false"/>
@@ -116,6 +117,14 @@
       <parameter id="proportion_countryB_vac1" name="proportion_countryB_vac1" value="0" units="dimensionless" constant="false"/>
       <parameter id="proportion_countryA_vac2" name="proportion_countryA_vac2" value="0" units="dimensionless" constant="false"/>
       <parameter id="proportion_countryB_vac2" name="proportion_countryB_vac2" value="0" units="dimensionless" constant="false"/>
+      <parameter id="proportion_par_countryA_vac1_0" name="proportion_par_countryA_vac1_0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="proportion_par_countryA_vac1_3" name="proportion_par_countryA_vac1_3" value="0" units="dimensionless" constant="true"/>
+      <parameter id="proportion_par_countryA_vac1_6" name="proportion_par_countryA_vac1_6" value="0" units="dimensionless" constant="true"/>
+      <parameter id="proportion_par_countryA_vac1_9" name="proportion_par_countryA_vac1_9" value="0" units="dimensionless" constant="true"/>
+      <parameter id="proportion_par_countryA_vac2_0" name="proportion_par_countryA_vac2_0" value="0" units="dimensionless" constant="true"/>
+      <parameter id="proportion_par_countryA_vac2_3" name="proportion_par_countryA_vac2_3" value="0" units="dimensionless" constant="true"/>
+      <parameter id="proportion_par_countryA_vac2_6" name="proportion_par_countryA_vac2_6" value="0" units="dimensionless" constant="true"/>
+      <parameter id="proportion_par_countryA_vac2_9" name="proportion_par_countryA_vac2_9" value="0" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment name="assignment_susceptible_countryA_vac0" symbol="susceptible_countryA_vac0">
@@ -332,126 +341,358 @@
     <listOfRules>
       <assignmentRule name="rule_proportion_countryA_vac1" variable="proportion_countryA_vac1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <divide/>
-            <apply>
-              <plus/>
-              <ci> infectious_countryA_vac0_virW </ci>
-              <ci> infectious_countryA_vac0_virM </ci>
-              <ci> infectious_countryA_vac1_virW </ci>
-              <ci> infectious_countryA_vac1_virM </ci>
-              <ci> infectious_countryA_vac2_virW </ci>
-              <ci> infectious_countryA_vac2_virM </ci>
-            </apply>
-            <apply>
-              <plus/>
-              <ci> infectious_countryA_vac0_virW </ci>
-              <ci> infectious_countryA_vac0_virM </ci>
-              <ci> infectious_countryA_vac1_virW </ci>
-              <ci> infectious_countryA_vac1_virM </ci>
-              <ci> infectious_countryA_vac2_virW </ci>
-              <ci> infectious_countryA_vac2_virM </ci>
-              <ci> infectious_countryB_vac0_virW </ci>
-              <ci> infectious_countryB_vac0_virM </ci>
-              <ci> infectious_countryB_vac1_virW </ci>
-              <ci> infectious_countryB_vac1_virM </ci>
-              <ci> infectious_countryB_vac2_virW </ci>
-              <ci> infectious_countryB_vac2_virM </ci>
-            </apply>
-          </apply>
-        </math>
-      </assignmentRule>
-      <assignmentRule name="rule_proportion_countryB_vac1" variable="proportion_countryB_vac1">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <divide/>
-            <apply>
-              <plus/>
-              <ci> infectious_countryB_vac0_virW </ci>
-              <ci> infectious_countryB_vac0_virM </ci>
-              <ci> infectious_countryB_vac1_virW </ci>
-              <ci> infectious_countryB_vac1_virM </ci>
-              <ci> infectious_countryB_vac2_virW </ci>
-              <ci> infectious_countryB_vac2_virM </ci>
-            </apply>
-            <apply>
-              <plus/>
-              <ci> infectious_countryA_vac0_virW </ci>
-              <ci> infectious_countryA_vac0_virM </ci>
-              <ci> infectious_countryA_vac1_virW </ci>
-              <ci> infectious_countryA_vac1_virM </ci>
-              <ci> infectious_countryA_vac2_virW </ci>
-              <ci> infectious_countryA_vac2_virM </ci>
-              <ci> infectious_countryB_vac0_virW </ci>
-              <ci> infectious_countryB_vac0_virM </ci>
-              <ci> infectious_countryB_vac1_virW </ci>
-              <ci> infectious_countryB_vac1_virM </ci>
-              <ci> infectious_countryB_vac2_virW </ci>
-              <ci> infectious_countryB_vac2_virM </ci>
-            </apply>
-          </apply>
+          <piecewise>
+            <piece>
+              <cn type="integer"> 0 </cn>
+              <apply>
+                <lt/>
+                <ci> t </ci>
+                <cn type="integer"> 0 </cn>
+              </apply>
+            </piece>
+            <piece>
+              <ci> proportion_par_countryA_vac1_0 </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <ci> proportion_par_countryA_vac1_3 </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 6 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <ci> proportion_par_countryA_vac1_6 </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 6 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 9 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <ci> proportion_par_countryA_vac1_9 </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 9 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 12 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn type="integer"> 0 </cn>
+            </otherwise>
+          </piecewise>
         </math>
       </assignmentRule>
       <assignmentRule name="rule_proportion_countryA_vac2" variable="proportion_countryA_vac2">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <divide/>
-            <apply>
-              <plus/>
-              <ci> infectious_countryA_vac0_virW </ci>
-              <ci> infectious_countryA_vac0_virM </ci>
-              <ci> infectious_countryA_vac1_virW </ci>
-              <ci> infectious_countryA_vac1_virM </ci>
-              <ci> infectious_countryA_vac2_virW </ci>
-              <ci> infectious_countryA_vac2_virM </ci>
-            </apply>
-            <apply>
-              <plus/>
-              <ci> infectious_countryA_vac0_virW </ci>
-              <ci> infectious_countryA_vac0_virM </ci>
-              <ci> infectious_countryA_vac1_virW </ci>
-              <ci> infectious_countryA_vac1_virM </ci>
-              <ci> infectious_countryA_vac2_virW </ci>
-              <ci> infectious_countryA_vac2_virM </ci>
-              <ci> infectious_countryB_vac0_virW </ci>
-              <ci> infectious_countryB_vac0_virM </ci>
-              <ci> infectious_countryB_vac1_virW </ci>
-              <ci> infectious_countryB_vac1_virM </ci>
-              <ci> infectious_countryB_vac2_virW </ci>
-              <ci> infectious_countryB_vac2_virM </ci>
-            </apply>
-          </apply>
+          <piecewise>
+            <piece>
+              <cn type="integer"> 0 </cn>
+              <apply>
+                <lt/>
+                <ci> t </ci>
+                <cn type="integer"> 0 </cn>
+              </apply>
+            </piece>
+            <piece>
+              <ci> proportion_par_countryA_vac2_0 </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <ci> proportion_par_countryA_vac2_3 </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 6 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <ci> proportion_par_countryA_vac2_6 </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 6 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 9 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <ci> proportion_par_countryA_vac2_9 </ci>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 9 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 12 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn type="integer"> 0 </cn>
+            </otherwise>
+          </piecewise>
+        </math>
+      </assignmentRule>
+      <assignmentRule name="rule_proportion_countryB_vac1" variable="proportion_countryB_vac1">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <cn type="integer"> 0 </cn>
+              <apply>
+                <lt/>
+                <ci> t </ci>
+                <cn type="integer"> 0 </cn>
+              </apply>
+            </piece>
+            <piece>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> proportion_par_countryA_vac1_0 </ci>
+              </apply>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> proportion_par_countryA_vac1_3 </ci>
+              </apply>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 6 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> proportion_par_countryA_vac1_6 </ci>
+              </apply>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 6 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 9 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> proportion_par_countryA_vac1_9 </ci>
+              </apply>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 9 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 12 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn type="integer"> 0 </cn>
+            </otherwise>
+          </piecewise>
         </math>
       </assignmentRule>
       <assignmentRule name="rule_proportion_countryB_vac2" variable="proportion_countryB_vac2">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <apply>
-            <divide/>
-            <apply>
-              <plus/>
-              <ci> infectious_countryB_vac0_virW </ci>
-              <ci> infectious_countryB_vac0_virM </ci>
-              <ci> infectious_countryB_vac1_virW </ci>
-              <ci> infectious_countryB_vac1_virM </ci>
-              <ci> infectious_countryB_vac2_virW </ci>
-              <ci> infectious_countryB_vac2_virM </ci>
-            </apply>
-            <apply>
-              <plus/>
-              <ci> infectious_countryA_vac0_virW </ci>
-              <ci> infectious_countryA_vac0_virM </ci>
-              <ci> infectious_countryA_vac1_virW </ci>
-              <ci> infectious_countryA_vac1_virM </ci>
-              <ci> infectious_countryA_vac2_virW </ci>
-              <ci> infectious_countryA_vac2_virM </ci>
-              <ci> infectious_countryB_vac0_virW </ci>
-              <ci> infectious_countryB_vac0_virM </ci>
-              <ci> infectious_countryB_vac1_virW </ci>
-              <ci> infectious_countryB_vac1_virM </ci>
-              <ci> infectious_countryB_vac2_virW </ci>
-              <ci> infectious_countryB_vac2_virM </ci>
-            </apply>
-          </apply>
+          <piecewise>
+            <piece>
+              <cn type="integer"> 0 </cn>
+              <apply>
+                <lt/>
+                <ci> t </ci>
+                <cn type="integer"> 0 </cn>
+              </apply>
+            </piece>
+            <piece>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> proportion_par_countryA_vac2_0 </ci>
+              </apply>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 0 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> proportion_par_countryA_vac2_3 </ci>
+              </apply>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 3 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 6 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> proportion_par_countryA_vac2_6 </ci>
+              </apply>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 6 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 9 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <piece>
+              <apply>
+                <minus/>
+                <cn type="integer"> 1 </cn>
+                <ci> proportion_par_countryA_vac2_9 </ci>
+              </apply>
+              <apply>
+                <and/>
+                <apply>
+                  <geq/>
+                  <ci> t </ci>
+                  <cn type="integer"> 9 </cn>
+                </apply>
+                <apply>
+                  <lt/>
+                  <ci> t </ci>
+                  <cn type="integer"> 12 </cn>
+                </apply>
+              </apply>
+            </piece>
+            <otherwise>
+              <cn type="integer"> 0 </cn>
+            </otherwise>
+          </piecewise>
         </math>
       </assignmentRule>
       <assignmentRule name="rule_nu_countryA_vac1" variable="nu_countryA_vac1">
@@ -530,6 +771,11 @@
           </apply>
         </math>
       </assignmentRule>
+      <rateRule name="time_rule" variable="t">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <cn type="integer"> 1 </cn>
+        </math>
+      </rateRule>
     </listOfRules>
     <listOfReactions>
       <reaction id="infectious_countryA_vac0_virW_to_recovered_countryA_vac0_virW" reversible="false">

@@ -20,6 +20,7 @@ void sigmay_vaccination(realtype *sigmay, const realtype t, const realtype *p, c
     sigma_observable_proportion_countryB_vac1 = 1.0;  // sigmay[5]
     sigma_observable_proportion_countryA_vac2 = 1.0;  // sigmay[6]
     sigma_observable_proportion_countryB_vac2 = 1.0;  // sigmay[7]
+    sigma_observable_time = 1.0;  // sigmay[8]
 }
 
 } // namespace model_vaccination

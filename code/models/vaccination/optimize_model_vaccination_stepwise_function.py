@@ -36,7 +36,7 @@ vaccination_states_removed = [
 model_vaccination_create_sbml(
     path=path_sbml,
     areas=areas,
-    distances=np.array([[0, 5], [5, 0]]),
+    distances=np.array([[0, 1], [1, 0]]),
 )
 
 observables_nu = create_observables_vaccination_rates(
@@ -65,41 +65,41 @@ model = model_and_solver["model"]
 solver = model_and_solver["solver"]
 set_start_parameter = {
     "susceptible_countryA_vac0_t0": 80000,
-    "susceptible_countryB_vac0_t0": 80000,
+    "susceptible_countryB_vac0_t0": 40000,
     "infectious_countryA_vac0_virW_t0": 1000,
-    "infectious_countryA_vac0_virM_t0": 1000,
+    "infectious_countryA_vac0_virM_t0": 500,
     "infectious_countryB_vac0_virW_t0": 1000,
-    "infectious_countryB_vac0_virM_t0": 1000,
+    "infectious_countryB_vac0_virM_t0": 500,
     "infectious_countryA_vac1_virW_t0": 100,
-    "infectious_countryA_vac1_virM_t0": 100,
+    "infectious_countryA_vac1_virM_t0": 50,
     "infectious_countryB_vac1_virW_t0": 100,
-    "infectious_countryB_vac1_virM_t0": 100,
+    "infectious_countryB_vac1_virM_t0": 50,
     "infectious_countryA_vac2_virW_t0": 100,
-    "infectious_countryA_vac2_virM_t0": 100,
+    "infectious_countryA_vac2_virM_t0": 50,
     "infectious_countryB_vac2_virW_t0": 100,
-    "infectious_countryB_vac2_virM_t0": 100,
+    "infectious_countryB_vac2_virM_t0": 50,
 }
 set_parameter = {
-    "beta": 2,
+    "beta": 3,
     "lambda1": 0.01,
     "p": 0.3,
     "number_vac1": 100,
     "number_vac2": 100,
     "omega_vac1_virW": 0.5,
-    "delta_vac1_virW": 0.9,
+    "delta_vac1_virW": 0.6,
     "omega_vac2_virW": 0.5,
     "delta_vac2_virW": 0.6,
     "omega_vac1_virM": 0.5,
     "delta_vac1_virM": 0.6,
     "omega_vac2_virM": 0.5,
-    "delta_vac2_virM": 0.9,
+    "delta_vac2_virM": 0.6,
     "eta_virW": 1,
     "eta_virM": 1.3,
 }
 observables_names = observables.keys()
 
-length_periods = 2
-periods = 6
+length_periods = 12
+periods = 1
 observables_names = observables.keys()
 set_initials_zero = True
 
@@ -120,18 +120,22 @@ run_model_stepwise_vaccines_sum_partial_estimagic = partial(
 )
 
 # plot only works for 2 parameter example (1 period)
-#plot_3D_function(
-#    function=run_model_stepwise_vaccines_sum_partial_estimagic,
-#    number_parameter=2 * periods,
-#)
+plot_3D_function(
+    function=run_model_stepwise_vaccines_sum_partial_estimagic,
+    number_parameter=2 * periods,
+)
 
 
-n_multi=20
-cols = [f"start_{i}" for i in range(2 * periods)] + [f"theta_{i}" for i in range(2 * periods)] + ['value']
-df_multistart = pd.DataFrame(data=None,index=range(n_multi), columns=cols)
+n_multi = 20
+cols = (
+    [f"start_{i}" for i in range(2 * periods)]
+    + [f"theta_{i}" for i in range(2 * periods)]
+    + ["value"]
+)
+df_multistart = pd.DataFrame(data=None, index=range(n_multi), columns=cols)
 for index_multi in range(n_multi):
     print(index_multi)
-    start = np.random.uniform(0,1, 2 * periods)
+    start = np.random.uniform(0, 1, 2 * periods)
     start_params = pd.DataFrame(
         data=start,
         columns=["value"],
@@ -139,14 +143,16 @@ for index_multi in range(n_multi):
     )
     start_params["lower_bound"] = np.repeat(0, 2 * periods)
     start_params["upper_bound"] = np.repeat(1, 2 * periods)
-    
+
     res = minimize(
         criterion=run_model_stepwise_vaccines_sum_partial_estimagic,
         params=start_params,
         algorithm="nag_pybobyqa",
     )
-    
-    df_multistart.iloc[index_multi] = np.append(start, np.append(res['solution_x'], res['solution_criterion']))
+
+    df_multistart.iloc[index_multi] = np.append(
+        start, np.append(res["solution_x"], res["solution_criterion"])
+    )
 
 df_multistart[df_multistart.value == df_multistart.value.min()]
 # ------------Optimize pyPesto-----------------------------------------------
@@ -178,7 +184,7 @@ optimizer_cmaes = pypesto.optimize.CmaesOptimizer()
 
 optimizer_cobyla = optimize.ScipyOptimizer(method="COBYLA")
 
-n_starts = 200
+n_starts = 20
 
 # save optimizer trace
 history_options = pypesto.HistoryOptions(trace_record=True)

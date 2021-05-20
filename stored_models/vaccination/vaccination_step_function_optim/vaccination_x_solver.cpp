@@ -53,6 +53,7 @@ void x_solver_vaccination(realtype *x_solver, const realtype *x_rdata){
     x_solver[39] = dead_countryB_vac1_virM;
     x_solver[40] = dead_countryB_vac2_virW;
     x_solver[41] = dead_countryB_vac2_virM;
+    x_solver[42] = amici_t;
 }
 
 } // namespace model_vaccination

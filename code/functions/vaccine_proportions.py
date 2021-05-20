@@ -1,7 +1,194 @@
+import numpy as np
+
 from models.vaccination.create_model_vaccination import get_all_species_alive
 from models.vaccination.create_model_vaccination import get_all_species_alive_area
 from models.vaccination.create_model_vaccination import create_species_model
-from visualization.model_results import get_substates
+
+
+def create_parameters_piecewise(
+    decision_period_length,
+    number_decision_periods,
+    first_vaccination_period,
+    vaccination_states,
+    non_vaccination_state,
+    areas,
+):
+
+    vaccination_states_removed = [
+        x for x in vaccination_states if x != non_vaccination_state
+    ]
+
+    number_periods = decision_period_length * number_decision_periods
+    decision_periods = (
+        np.array(range(0, number_periods, decision_period_length))
+        + first_vaccination_period
+    )
+
+    areas_no_last = areas[:-1]
+    parameter_proportions_vaccination = {}
+    for index_vaccination in vaccination_states_removed:
+        for index_areas in areas_no_last:
+            for index_time in decision_periods:
+                proportion_par_id = (
+                    f"proportion_par_{index_areas}_{index_vaccination}_{index_time}"
+                )
+                parameter_proportions_vaccination[proportion_par_id] = {
+                    "value": 0,
+                    "constant": True,
+                }
+
+    return parameter_proportions_vaccination
+
+
+def get_piecewise_string_formula(
+    areas,
+    area_index,
+    vac_index,
+    first_vaccination_period,
+    decision_periods,
+    decision_period_length,
+    minus_others=False,
+):
+    """
+    Generate piecewise formulas for proportions.
+
+    Parameters
+    ----------
+    area_index : str
+        Name of area for which proportion is computed.
+
+    vac_index : str
+        Name of vaccine for which proportion is computed.
+
+    first_vaccination_period : int
+        First period in which vaccines are used.
+
+    decision_periods : int
+        Number of decision periods.
+
+    decision_period_length : int
+        Length of decision periods.
+
+    Returns
+    -------
+    string_formula : str
+    Formula that determines the piecewise proportions.
+    """
+    no_last_area = areas[:-1]
+    string_formula = f"piecewise(0, t < {first_vaccination_period},"
+    for index_decision_periods in decision_periods:
+        if minus_others is False:
+            proportion_id = (
+                f" proportion_par_{area_index}_{vac_index}_{index_decision_periods},"
+            )
+            
+        else:
+            proportion_id = get_string_formula_one_minus(
+                other_areas=no_last_area,
+                vaccine=vac_index,
+                first_vaccination_period=first_vaccination_period,
+                decision_period=index_decision_periods,
+            )
+
+        period_id = f" ((t >= {index_decision_periods}) && (t < {index_decision_periods + decision_period_length})),"
+        
+        string_formula = string_formula + proportion_id + period_id
+
+    string_formula = string_formula + " 0)"
+
+    return string_formula
+
+
+def get_string_formula_one_minus(
+    other_areas, vaccine, first_vaccination_period, decision_period
+):
+
+    string_formula = "1 "
+    for index_areas in other_areas:
+        string_formula = (
+            string_formula
+            + f"- proportion_par_{index_areas}_{vaccine}_{decision_period},"
+        )
+
+    return string_formula
+
+
+def create_rules_vaccination_proportion_piecewise(
+    decision_period_length,
+    number_decision_periods,
+    first_vaccination_period,
+    vaccination_states,
+    non_vaccination_state,
+    areas,
+):
+    """Create rules for the vaccination proportions as relative country sizes.
+
+    Parameters
+    ----------
+    vaccination_states : list of strings
+        List containing the names of the vaccinations containing a state for
+        non-vaccinated individuals.
+
+    non_vaccination_state : str
+        Name of state indicates non-vaccinated individuals.
+
+    virus_states : list of strings
+        List containing the names of the virus types.
+
+    areas : list of strings
+        List containing the names of the areas.
+
+    Returns
+    -------
+    rules_proportions_vaccination : dict
+        Dictionary including all rules for the proportion parameters.
+    """
+    vaccination_states_removed = [
+        x for x in vaccination_states if x != non_vaccination_state
+    ]
+
+    number_periods = decision_period_length * number_decision_periods
+    decision_periods = (
+        np.array(range(0, number_periods, decision_period_length))
+        + first_vaccination_period
+    )
+
+    last_area = areas[-1]
+
+    rules_proportions_vaccination = {}
+    for index_areas in areas:
+        for index_vaccination in vaccination_states_removed:
+            id_rule = f"rule_proportion_{index_areas}_{index_vaccination}"
+            id_proportion = f"proportion_{index_areas}_{index_vaccination}"
+
+            if index_areas != last_area:
+                formula_string = get_piecewise_string_formula(
+                    areas=areas,
+                    area_index=index_areas,
+                    vac_index=index_vaccination,
+                    first_vaccination_period=first_vaccination_period,
+                    decision_periods=decision_periods,
+                    decision_period_length=decision_period_length,
+                    minus_others=False,
+                )
+            else:
+                formula_string = get_piecewise_string_formula(
+                    areas=areas,
+                    area_index=index_areas,
+                    vac_index=index_vaccination,
+                    first_vaccination_period=first_vaccination_period,
+                    decision_periods=decision_periods,
+                    decision_period_length=decision_period_length,
+                    minus_others=True,
+                )
+
+            formula = formula_string
+            rules_proportions_vaccination[id_rule] = {
+                "parameter_id": id_proportion,
+                "formula": formula,
+            }
+
+    return rules_proportions_vaccination
 
 
 def create_rules_vaccination_proportion_relative_infected_population(

@@ -17,12 +17,12 @@ namespace model_vaccination {
 
 extern std::array<const char*, 62> parameterNames;
 extern std::array<const char*, 0> fixedParameterNames;
-extern std::array<const char*, 42> stateNames;
+extern std::array<const char*, 43> stateNames;
 extern std::array<const char*, 4> observableNames;
 extern std::array<const char*, 112> expressionNames;
 extern std::array<const char*, 62> parameterIds;
 extern std::array<const char*, 0> fixedParameterIds;
-extern std::array<const char*, 42> stateIds;
+extern std::array<const char*, 43> stateIds;
 extern std::array<const char*, 4> observableIds;
 extern std::array<const char*, 112> expressionIds;
 
@@ -79,10 +79,10 @@ class Model_vaccination : public amici::Model_ODE {
     Model_vaccination()
         : amici::Model_ODE(
               amici::ModelDimensions(
-                  42,                            // nx_rdata
-                  42,                        // nxtrue_rdata
-                  42,                           // nx_solver
-                  42,                       // nxtrue_solver
+                  43,                            // nx_rdata
+                  43,                        // nxtrue_rdata
+                  43,                           // nx_solver
+                  43,                       // nxtrue_solver
                   0,                    // nx_solver_reinit
                   62,                                  // np
                   0,                                  // nk
@@ -99,15 +99,15 @@ class Model_vaccination : public amici::Model_ODE {
                   216,                            // ndxdotdw
                   std::vector<int>{1,1,1,1},                              // ndjydy
                   0,                                       // nnz
-                  42,                                 // ubw
-                  42                                  // lbw
+                  43,                                 // ubw
+                  43                                  // lbw
               ),
               amici::SimulationParameters(
                   std::vector<realtype>{}, // fixedParameters
                   std::vector<realtype>{0.01, 0.10000000000000001, 0.5, 2.0, 0.90000000000000002, 0.90000000000000002, 0.59999999999999998, 0.59999999999999998, 0.69999999999999996, 0.59999999999999998, 0.90000000000000002, 0.90000000000000002, 1.0, 1.3, 200000.0, 0.0, 0.0, 200000.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}        // dynamic parameters
               ),
               amici::SecondOrderMode::none,                                  // o2mode
-              std::vector<realtype>(42, 0.0),   // idlist
+              std::vector<realtype>(43, 0.0),   // idlist
               std::vector<int>{},                          // z2event
               true,                                        // pythonGenerated
               0,                       // ndxdotdp_explicit

@@ -56,6 +56,7 @@ void xdot_vaccination(realtype *xdot, const realtype t, const realtype *x, const
     xdot39 = 1.0*flux_r19;  // xdot[39]
     xdot40 = 1.0*flux_r21;  // xdot[40]
     xdot41 = 1.0*flux_r23;  // xdot[41]
+    xdot42 = 1.0;  // xdot[42]
 }
 
 } // namespace model_vaccination

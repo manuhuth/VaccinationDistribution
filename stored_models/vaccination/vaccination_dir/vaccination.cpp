@@ -5,7 +5,7 @@ namespace amici {
 
 namespace model_vaccination {
 
-std::array<const char*, 58> parameterNames = {
+std::array<const char*, 66> parameterNames = {
     "lambda1", // p[0]
 "p", // p[1]
 "gamma", // p[2]
@@ -64,13 +64,21 @@ std::array<const char*, 58> parameterNames = {
 "dead_countryB_vac2_virM_t0", // p[55]
 "number_vac1", // p[56]
 "number_vac2", // p[57]
+"proportion_par_countryA_vac1_0", // p[58]
+"proportion_par_countryA_vac1_3", // p[59]
+"proportion_par_countryA_vac1_6", // p[60]
+"proportion_par_countryA_vac1_9", // p[61]
+"proportion_par_countryA_vac2_0", // p[62]
+"proportion_par_countryA_vac2_3", // p[63]
+"proportion_par_countryA_vac2_6", // p[64]
+"proportion_par_countryA_vac2_9", // p[65]
 };
 
 std::array<const char*, 0> fixedParameterNames = {
     
 };
 
-std::array<const char*, 42> stateNames = {
+std::array<const char*, 43> stateNames = {
     "susceptible_countryA_vac0", // x_rdata[0]
 "susceptible_countryA_vac1", // x_rdata[1]
 "susceptible_countryA_vac2", // x_rdata[2]
@@ -113,9 +121,10 @@ std::array<const char*, 42> stateNames = {
 "dead_countryB_vac1_virM", // x_rdata[39]
 "dead_countryB_vac2_virW", // x_rdata[40]
 "dead_countryB_vac2_virM", // x_rdata[41]
+"t", // x_rdata[42]
 };
 
-std::array<const char*, 8> observableNames = {
+std::array<const char*, 9> observableNames = {
     "nu_countryA_vac1", // y[0]
 "nu_countryB_vac1", // y[1]
 "nu_countryA_vac2", // y[2]
@@ -124,17 +133,18 @@ std::array<const char*, 8> observableNames = {
 "proportion_countryB_vac1", // y[5]
 "proportion_countryA_vac2", // y[6]
 "proportion_countryB_vac2", // y[7]
+"t", // y[8]
 };
 
 std::array<const char*, 116> expressionNames = {
     "proportion_countryB_vac1", // w[0]
-"proportion_countryA_vac1", // w[1]
+"proportion_countryB_vac2", // w[1]
 "proportion_countryA_vac2", // w[2]
-"proportion_countryB_vac2", // w[3]
-"nu_countryB_vac1", // w[4]
-"nu_countryA_vac2", // w[5]
+"proportion_countryA_vac1", // w[3]
+"nu_countryA_vac2", // w[4]
+"nu_countryB_vac2", // w[5]
 "nu_countryA_vac1", // w[6]
-"nu_countryB_vac2", // w[7]
+"nu_countryB_vac1", // w[7]
 "flux_r0", // w[8]
 "flux_r1", // w[9]
 "flux_r2", // w[10]
@@ -245,7 +255,7 @@ std::array<const char*, 116> expressionNames = {
 "flux_r107", // w[115]
 };
 
-std::array<const char*, 58> parameterIds = {
+std::array<const char*, 66> parameterIds = {
     "lambda1", // p[0]
 "amici_p", // p[1]
 "gamma", // p[2]
@@ -304,13 +314,21 @@ std::array<const char*, 58> parameterIds = {
 "dead_countryB_vac2_virM_t0", // p[55]
 "number_vac1", // p[56]
 "number_vac2", // p[57]
+"proportion_par_countryA_vac1_0", // p[58]
+"proportion_par_countryA_vac1_3", // p[59]
+"proportion_par_countryA_vac1_6", // p[60]
+"proportion_par_countryA_vac1_9", // p[61]
+"proportion_par_countryA_vac2_0", // p[62]
+"proportion_par_countryA_vac2_3", // p[63]
+"proportion_par_countryA_vac2_6", // p[64]
+"proportion_par_countryA_vac2_9", // p[65]
 };
 
 std::array<const char*, 0> fixedParameterIds = {
     
 };
 
-std::array<const char*, 42> stateIds = {
+std::array<const char*, 43> stateIds = {
     "susceptible_countryA_vac0", // x_rdata[0]
 "susceptible_countryA_vac1", // x_rdata[1]
 "susceptible_countryA_vac2", // x_rdata[2]
@@ -353,9 +371,10 @@ std::array<const char*, 42> stateIds = {
 "dead_countryB_vac1_virM", // x_rdata[39]
 "dead_countryB_vac2_virW", // x_rdata[40]
 "dead_countryB_vac2_virM", // x_rdata[41]
+"amici_t", // x_rdata[42]
 };
 
-std::array<const char*, 8> observableIds = {
+std::array<const char*, 9> observableIds = {
     "observable_nu_countryA_vac1", // y[0]
 "observable_nu_countryB_vac1", // y[1]
 "observable_nu_countryA_vac2", // y[2]
@@ -364,17 +383,18 @@ std::array<const char*, 8> observableIds = {
 "observable_proportion_countryB_vac1", // y[5]
 "observable_proportion_countryA_vac2", // y[6]
 "observable_proportion_countryB_vac2", // y[7]
+"observable_time", // y[8]
 };
 
 std::array<const char*, 116> expressionIds = {
     "proportion_countryB_vac1", // w[0]
-"proportion_countryA_vac1", // w[1]
+"proportion_countryB_vac2", // w[1]
 "proportion_countryA_vac2", // w[2]
-"proportion_countryB_vac2", // w[3]
-"nu_countryB_vac1", // w[4]
-"nu_countryA_vac2", // w[5]
+"proportion_countryA_vac1", // w[3]
+"nu_countryA_vac2", // w[4]
+"nu_countryB_vac2", // w[5]
 "nu_countryA_vac1", // w[6]
-"nu_countryB_vac2", // w[7]
+"nu_countryB_vac1", // w[7]
 "flux_r0", // w[8]
 "flux_r1", // w[9]
 "flux_r2", // w[10]

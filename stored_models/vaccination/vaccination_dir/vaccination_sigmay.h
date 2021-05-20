@@ -6,3 +6,4 @@
 #define sigma_observable_proportion_countryB_vac1 sigmay[5]
 #define sigma_observable_proportion_countryA_vac2 sigmay[6]
 #define sigma_observable_proportion_countryB_vac2 sigmay[7]
+#define sigma_observable_time sigmay[8]

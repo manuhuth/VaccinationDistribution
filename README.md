@@ -2,8 +2,11 @@
 
 
 ## To-Do:
-- find realistic parameter
+- find realistic parameters
+- resolve piecewise SBML
 - implement splines
+- neural-nets
+- try deterministic rule for noise models
 - Functional form of inter-spatial infections (robustness checks for different functions!)
 
 

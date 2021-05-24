@@ -81,7 +81,7 @@ def get_piecewise_string_formula(
             proportion_id = (
                 f" proportion_par_{area_index}_{vac_index}_{index_decision_periods},"
             )
-            
+
         else:
             proportion_id = get_string_formula_one_minus(
                 other_areas=no_last_area,
@@ -91,7 +91,7 @@ def get_piecewise_string_formula(
             )
 
         period_id = f" ((t >= {index_decision_periods}) && (t < {index_decision_periods + decision_period_length})),"
-        
+
         string_formula = string_formula + proportion_id + period_id
 
     string_formula = string_formula + " 0)"

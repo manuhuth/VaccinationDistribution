@@ -47,7 +47,6 @@ def plot_states(
     fig, ax = plt.subplots()
     df_trajectories = results["states"]
     time = results["observables"]["time"]
-    
 
     if state_ids is None:
         states = df_trajectories.columns
@@ -296,9 +295,16 @@ def get_states_by_substrings_any(states, substrings):
 
 
 def plot_3D_function(
-    function, xlabel="$vac_1$", ylabel="$vac_2$", zlabel="infectious",
-    set_off_scientific_notation = False, decimal_floats = 3, start_linspace_x=0,
-    start_linspace_y=0, end_linspace_x=1, end_linspace_y=1,
+    function,
+    xlabel="$vac_1$",
+    ylabel="$vac_2$",
+    zlabel="infectious",
+    set_off_scientific_notation=False,
+    decimal_floats=3,
+    start_linspace_x=0,
+    start_linspace_y=0,
+    end_linspace_x=1,
+    end_linspace_y=1,
 ):
     """Plot the function with respect to two input parameters.
 
@@ -326,7 +332,7 @@ def plot_3D_function(
 
     """
 
-    number_parameter=2
+    number_parameter = 2
     x1 = np.linspace(start_linspace_x, end_linspace_x)
     x2 = np.linspace(start_linspace_y, end_linspace_y)
     xvalues = []

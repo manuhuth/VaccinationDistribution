@@ -4,7 +4,3 @@
 #define Heaviside_3 h[3]
 #define Heaviside_4 h[4]
 #define Heaviside_5 h[5]
-#define Heaviside_6 h[6]
-#define Heaviside_7 h[7]
-#define Heaviside_8 h[8]
-#define Heaviside_9 h[9]

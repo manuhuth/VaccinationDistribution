@@ -46,6 +46,8 @@ def plot_states(
     """
     fig, ax = plt.subplots()
     df_trajectories = results["states"]
+    time = results["observables"]["time"]
+    
 
     if state_ids is None:
         states = df_trajectories.columns
@@ -54,7 +56,7 @@ def plot_states(
 
     for index in states:
         label = index
-        ax.plot(df_trajectories.index, df_trajectories[index], label=label)
+        ax.plot(time, df_trajectories[index], label=label)
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         ax.legend()
@@ -90,12 +92,13 @@ def get_state_trajectory_data_frame(results, model):
 def plot_observables(
     results,
     model,
-    xlabel="$t$ (d)",
+    xlabel="$t$",
     ylabel="$x_i(t)$",
     title="Observables trajectories",
     observable_ids=None,
     set_off_scientific_notation=False,
     decimal_floats=4,
+    time_name="time",
 ):
     """Plot trajectories of species. Only a part of species can be addressed
     by using the state_ids parameter.
@@ -152,7 +155,7 @@ def plot_observables(
     for index in observables:
         label = index
         ax.plot(
-            df_observables_to_be_plotted.index,
+            df_trajectories[time_name],
             df_observables_to_be_plotted[index],
             label=label,
         )
@@ -293,8 +296,9 @@ def get_states_by_substrings_any(states, substrings):
 
 
 def plot_3D_function(
-    function, number_parameter, xlabel="$vac_1$", ylabel="$vac_2$", zlabel="infectious",
-    set_off_scientific_notation = False, decimal_floats = 3
+    function, xlabel="$vac_1$", ylabel="$vac_2$", zlabel="infectious",
+    set_off_scientific_notation = False, decimal_floats = 3, start_linspace_x=0,
+    start_linspace_y=0, end_linspace_x=1, end_linspace_y=1,
 ):
     """Plot the function with respect to two input parameters.
 
@@ -322,9 +326,9 @@ def plot_3D_function(
 
     """
 
-    x1 = np.linspace(0, 1)
-    x2 = np.linspace(0, 1)
-
+    number_parameter=2
+    x1 = np.linspace(start_linspace_x, end_linspace_x)
+    x2 = np.linspace(start_linspace_y, end_linspace_y)
     xvalues = []
     array = []
     for i in range(0, len(x1)):

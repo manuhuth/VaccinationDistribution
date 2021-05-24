@@ -9,11 +9,11 @@ def model_vaccination_create_sbml(
     vaccination_states=["vac0", "vac1", "vac2"],
     non_vaccination_state="vac0",
     virus_states=["virW", "virM"],
-    areas=["countryA"],
+    areas=["countryA", "CountryB"],
     species_comp=["susceptible", "infectious", "recovered", "dead"],
     vaccinated_compartments=["susceptible", "recovered"],
-    omega_matrix=np.array([[0.9, 0.6], [0.7, 0.9]]),
-    delta_matrix=np.array([[0.9, 0.6], [0.6, 0.9]]),
+    omega_matrix=np.array([[0.5, 0.6], [0.5, 0.6]]),
+    delta_matrix=np.array([[0.5, 0.6], [0.5, 0.6]]),
     eta_vector=np.array([[1, 1.3]]),
     single_parameter={
         "lambda": 0.01,
@@ -26,7 +26,7 @@ def model_vaccination_create_sbml(
     additional_parameters=None,
     t0_susceptible=200000,
     t0_infectious=100,
-    distances=np.array([[0]]),
+    distances=np.array([[0, 3], [3, 0]]),
     check_error=False,
 ):
     """Create model specified by the input parameters. Parameters can

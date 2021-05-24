@@ -14,13 +14,9 @@ namespace model_vaccination {
 void sigmay_vaccination(realtype *sigmay, const realtype t, const realtype *p, const realtype *k){
     sigma_observable_nu_countryA_vac1 = 1.0;  // sigmay[0]
     sigma_observable_nu_countryB_vac1 = 1.0;  // sigmay[1]
-    sigma_observable_nu_countryA_vac2 = 1.0;  // sigmay[2]
-    sigma_observable_nu_countryB_vac2 = 1.0;  // sigmay[3]
-    sigma_observable_proportion_countryA_vac1 = 1.0;  // sigmay[4]
-    sigma_observable_proportion_countryB_vac1 = 1.0;  // sigmay[5]
-    sigma_observable_proportion_countryA_vac2 = 1.0;  // sigmay[6]
-    sigma_observable_proportion_countryB_vac2 = 1.0;  // sigmay[7]
-    sigma_observable_time = 1.0;  // sigmay[8]
+    sigma_observable_proportion_countryA_vac1 = 1.0;  // sigmay[2]
+    sigma_observable_proportion_countryB_vac1 = 1.0;  // sigmay[3]
+    sigma_observable_time = 1.0;  // sigmay[4]
 }
 
 } // namespace model_vaccination

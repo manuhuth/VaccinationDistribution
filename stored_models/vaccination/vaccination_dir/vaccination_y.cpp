@@ -16,13 +16,9 @@ namespace model_vaccination {
 void y_vaccination(realtype *y, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h, const realtype *w){
     y[0] = nu_countryA_vac1;
     y[1] = nu_countryB_vac1;
-    y[2] = nu_countryA_vac2;
-    y[3] = nu_countryB_vac2;
-    y[4] = proportion_countryA_vac1;
-    y[5] = proportion_countryB_vac1;
-    y[6] = proportion_countryA_vac2;
-    y[7] = proportion_countryB_vac2;
-    y[8] = amici_t;
+    y[2] = proportion_countryA_vac1;
+    y[3] = proportion_countryB_vac1;
+    y[4] = amici_t;
 }
 
 } // namespace model_vaccination

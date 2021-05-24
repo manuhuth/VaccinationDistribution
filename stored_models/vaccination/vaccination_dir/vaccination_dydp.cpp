@@ -19,57 +19,17 @@ void dydp_vaccination(realtype *dydp, const realtype t, const realtype *x, const
             dydp[0] = proportion_countryA_vac1/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
             dydp[1] = proportion_countryB_vac1/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
             break;
-        case 57:
-            dydp[2] = proportion_countryA_vac2/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[3] = proportion_countryB_vac2/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            break;
-        case 58:
-            dydp[0] = number_vac1*(1.0 - 1.0*amici::heaviside(amici_t - 3))*std::pow(amici::heaviside(amici_t), 2)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[1] = number_vac1*(1.0*amici::heaviside(amici_t - 3) - 1.0)*std::pow(amici::heaviside(amici_t), 2)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            dydp[4] = (1.0 - 1.0*amici::heaviside(amici_t - 3))*std::pow(amici::heaviside(amici_t), 2);
-            dydp[5] = (1.0*amici::heaviside(amici_t - 3) - 1.0)*std::pow(amici::heaviside(amici_t), 2);
-            break;
-        case 59:
-            dydp[0] = number_vac1*(-1.0*(amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) - 1.0)*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 3)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[1] = number_vac1*(1.0*(amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1.0)*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 3)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            dydp[4] = (-1.0*(amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) - 1.0)*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 3);
-            dydp[5] = (1.0*(amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1.0)*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 3);
-            break;
         case 60:
-            dydp[0] = number_vac1*(-1.0*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) - 1.0)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 6)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[1] = number_vac1*(1.0*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1.0)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 6)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            dydp[4] = (-1.0*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) - 1.0)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 6);
-            dydp[5] = (1.0*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1.0)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 6);
+            dydp[0] = number_vac1*(1.0 - 1.0*amici::heaviside(amici_t - 200))*std::pow(amici::heaviside(amici_t), 2)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
+            dydp[1] = number_vac1*(1.0*amici::heaviside(amici_t - 200) - 1.0)*std::pow(amici::heaviside(amici_t), 2)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
+            dydp[2] = (1.0 - 1.0*amici::heaviside(amici_t - 200))*std::pow(amici::heaviside(amici_t), 2);
+            dydp[3] = (1.0*amici::heaviside(amici_t - 200) - 1.0)*std::pow(amici::heaviside(amici_t), 2);
             break;
         case 61:
-            dydp[0] = number_vac1*(-1.0*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t - 6) - 1.0)*((amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 12) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 9)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[1] = number_vac1*(1.0*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t - 6) + 1.0)*((amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 12) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 9)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            dydp[4] = (-1.0*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t - 6) - 1.0)*((amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 12) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 9);
-            dydp[5] = (1.0*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t - 6) + 1.0)*((amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 12) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 9);
-            break;
-        case 62:
-            dydp[2] = number_vac2*(1.0 - 1.0*amici::heaviside(amici_t - 3))*std::pow(amici::heaviside(amici_t), 2)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[3] = number_vac2*(1.0*amici::heaviside(amici_t - 3) - 1.0)*std::pow(amici::heaviside(amici_t), 2)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            dydp[6] = (1.0 - 1.0*amici::heaviside(amici_t - 3))*std::pow(amici::heaviside(amici_t), 2);
-            dydp[7] = (1.0*amici::heaviside(amici_t - 3) - 1.0)*std::pow(amici::heaviside(amici_t), 2);
-            break;
-        case 63:
-            dydp[2] = number_vac2*(-1.0*(amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) - 1.0)*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 3)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[3] = number_vac2*(1.0*(amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1.0)*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 3)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            dydp[6] = (-1.0*(amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) - 1.0)*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 3);
-            dydp[7] = (1.0*(amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1.0)*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 3);
-            break;
-        case 64:
-            dydp[2] = number_vac2*(-1.0*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) - 1.0)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 6)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[3] = number_vac2*(1.0*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1.0)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 6)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            dydp[6] = (-1.0*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) - 1.0)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 6);
-            dydp[7] = (1.0*(amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1.0)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 6);
-            break;
-        case 65:
-            dydp[2] = number_vac2*(-1.0*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t - 6) - 1.0)*((amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 12) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 9)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
-            dydp[3] = number_vac2*(1.0*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t - 6) + 1.0)*((amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 12) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 9)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
-            dydp[6] = (-1.0*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t - 6) - 1.0)*((amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 12) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 9);
-            dydp[7] = (1.0*(amici::heaviside(amici_t - 9) - 1)*amici::heaviside(amici_t - 6) + 1.0)*((amici::heaviside(amici_t - 6) - 1)*amici::heaviside(amici_t - 3) + 1)*((amici::heaviside(amici_t - 3) - 1)*amici::heaviside(amici_t) + 1)*(amici::heaviside(amici_t - 12) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 9);
+            dydp[0] = number_vac1*(-1.0*(amici::heaviside(amici_t - 200) - 1)*amici::heaviside(amici_t) - 1.0)*(amici::heaviside(amici_t - 400) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 200)/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);
+            dydp[1] = number_vac1*(1.0*(amici::heaviside(amici_t - 200) - 1)*amici::heaviside(amici_t) + 1.0)*(amici::heaviside(amici_t - 400) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 200)/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);
+            dydp[2] = (-1.0*(amici::heaviside(amici_t - 200) - 1)*amici::heaviside(amici_t) - 1.0)*(amici::heaviside(amici_t - 400) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 200);
+            dydp[3] = (1.0*(amici::heaviside(amici_t - 200) - 1)*amici::heaviside(amici_t) + 1.0)*(amici::heaviside(amici_t - 400) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 200);
             break;
     }
 }

@@ -22,24 +22,12 @@ void Jy_vaccination(realtype *Jy, const int iy, const realtype *p, const realtyp
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_nu_countryB_vac1, 2)) + 0.5*std::pow(-mobservable_nu_countryB_vac1 + observable_nu_countryB_vac1, 2)/std::pow(sigma_observable_nu_countryB_vac1, 2);
             break;
         case 2:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_nu_countryA_vac2, 2)) + 0.5*std::pow(-mobservable_nu_countryA_vac2 + observable_nu_countryA_vac2, 2)/std::pow(sigma_observable_nu_countryA_vac2, 2);
-            break;
-        case 3:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_nu_countryB_vac2, 2)) + 0.5*std::pow(-mobservable_nu_countryB_vac2 + observable_nu_countryB_vac2, 2)/std::pow(sigma_observable_nu_countryB_vac2, 2);
-            break;
-        case 4:
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_proportion_countryA_vac1, 2)) + 0.5*std::pow(-mobservable_proportion_countryA_vac1 + observable_proportion_countryA_vac1, 2)/std::pow(sigma_observable_proportion_countryA_vac1, 2);
             break;
-        case 5:
+        case 3:
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_proportion_countryB_vac1, 2)) + 0.5*std::pow(-mobservable_proportion_countryB_vac1 + observable_proportion_countryB_vac1, 2)/std::pow(sigma_observable_proportion_countryB_vac1, 2);
             break;
-        case 6:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_proportion_countryA_vac2, 2)) + 0.5*std::pow(-mobservable_proportion_countryA_vac2 + observable_proportion_countryA_vac2, 2)/std::pow(sigma_observable_proportion_countryA_vac2, 2);
-            break;
-        case 7:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_proportion_countryB_vac2, 2)) + 0.5*std::pow(-mobservable_proportion_countryB_vac2 + observable_proportion_countryB_vac2, 2)/std::pow(sigma_observable_proportion_countryB_vac2, 2);
-            break;
-        case 8:
+        case 4:
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_observable_time, 2)) + 0.5*std::pow(-mobservable_time + observable_time, 2)/std::pow(sigma_observable_time, 2);
             break;
     }

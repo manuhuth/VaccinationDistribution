@@ -13,6 +13,7 @@ def plot_states(
     ylabel="$x_i(t)$",
     title="State trajectories",
     state_ids=None,
+    time_name="time"
 ):
     """Plot trajectories of species. Only a part of species can be addressed
     by using the state_ids parameter.
@@ -46,7 +47,7 @@ def plot_states(
     """
     fig, ax = plt.subplots()
     df_trajectories = results["states"]
-    time = results["observables"]["time"]
+    time = results["observables"][time_name]
 
     if state_ids is None:
         states = df_trajectories.columns

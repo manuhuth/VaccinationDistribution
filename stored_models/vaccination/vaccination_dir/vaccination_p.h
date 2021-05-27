@@ -58,5 +58,6 @@
 #define number_vac2 p[57]
 #define proportion_countryA_vac2 p[58]
 #define proportion_countryB_vac2 p[59]
-#define proportion_par_countryA_vac1_0 p[60]
-#define proportion_par_countryA_vac1_200 p[61]
+#define y1 p[60]
+#define y2 p[61]
+#define y3 p[62]

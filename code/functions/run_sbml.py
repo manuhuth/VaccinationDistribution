@@ -10,7 +10,6 @@ def run_model(
     length_periods,
     set_start_parameter,
     set_parameter,
-    observables_names,
     set_initials_zero=True,
     number_intervals=1000,
 ):
@@ -59,7 +58,8 @@ def run_model(
         timepoints=timepoints,
         set_parameter=set_parameter_first,
     )
-
+    
+    observables_names = model.getObservableNames()
     states = model.getStateIds()
     df_trajectories_states = pd.DataFrame(first_period["x"], columns=(states))
     df_trajectories_observables = pd.DataFrame(

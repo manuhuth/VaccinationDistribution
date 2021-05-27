@@ -24,6 +24,7 @@ def model_vaccination_create_sbml(
     parameters_constant=False,
     parameter_rules=None,
     additional_parameters=None,
+    splines=None,
     t0_susceptible=200000,
     t0_infectious=100,
     distances=np.array([[0, 3], [3, 0]]),
@@ -192,6 +193,7 @@ def model_vaccination_create_sbml(
         assignments=assignments,
         parameter_rules=parameter_rules_all,
         rate_rules=rate_rules,
+        splines=splines,
     )
 
     write_dict_to_sbml_file(

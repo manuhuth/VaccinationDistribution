@@ -3,6 +3,9 @@ from libsbml import parseL3Formula
 from libsbml import SBMLDocument
 from libsbml import writeSBMLToFile
 
+from amici.splines import CubicHermiteSpline
+
+
 
 def create_sbml_file(
     compartments,
@@ -12,6 +15,7 @@ def create_sbml_file(
     assignments=None,
     parameter_rules=None,
     rate_rules=None,
+    splines=None,
 ):
     """Create SBML object for given inputs. Function does not save the file.
     Saving is done by :func:`write_dict_to_sbml_file`.
@@ -87,13 +91,36 @@ def create_sbml_file(
         for keys in parameter_rule_identifier:
             create_parameter_rule(model=model, rule_id=keys, **parameter_rules[keys])
 
+   
+    if splines is not None:
+        spline_identifier = splines.keys()
+        for keys in spline_identifier:
+            create_cubic_hermite_spline(model=model, parameter_name=keys, **splines[keys])
+
     if rate_rules is not None:
         rate_rule_identifier = rate_rules.keys()
         for keys in rate_rule_identifier:
             create_parameter_rate_rule(model=model, rule_id=keys, **rate_rules[keys])
-
+        
     return document
 
+def create_cubic_hermite_spline(model, parameter_name, time_symbol, xx, yy, xx_names,
+                                yy_names):
+    spline = CubicHermiteSpline(
+            sbmlId = parameter_name,
+            x = time_symbol,
+            xx = xx, #make to xx_names if absolute value problem is solved
+            yy = yy_names,
+        )
+    
+    spline.addToSbmlModel(model=model, auto_add = True,
+        x_nominal = xx,
+        y_nominal = yy,
+        #y_units: Optional[str] = None,
+        #x_units: Optional[str] = None)
+        )
+    
+    return spline
 
 def write_dict_to_sbml_file(dictionary, path, error_check=False):
     """
@@ -130,6 +157,7 @@ def write_entities_to_dict(
     assignments=None,
     parameter_rules=None,
     rate_rules=None,
+    splines=None,
 ):
     """
     Transforms inputs to dictionaries with the entities as keys and the
@@ -190,6 +218,9 @@ def write_entities_to_dict(
 
     if rate_rules is not None:
         output["rate_rules"] = rate_rules
+    
+    if splines is not None:
+        output["splines"] = splines
 
     return output
 

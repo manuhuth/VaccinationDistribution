@@ -2206,5 +2206,4 @@
 #define dflux_r93_drecovered_countryB_vac2_virM dwdx[2205]
 #define dflux_r94_drecovered_countryB_vac2_virM dwdx[2206]
 #define dflux_r95_drecovered_countryB_vac2_virM dwdx[2207]
-#define dproportion_countryB_vac1_damici_t dwdx[2208]
-#define dproportion_countryA_vac1_damici_t dwdx[2209]
+#define dspline_countryA_vac1_damici_t dwdx[2208]

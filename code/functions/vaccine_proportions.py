@@ -4,6 +4,62 @@ from models.vaccination.create_model_vaccination import get_all_species_alive
 from models.vaccination.create_model_vaccination import get_all_species_alive_area
 from models.vaccination.create_model_vaccination import create_species_model
 
+#TODO write proper doc strings
+def create_spline_parameters(areas, vaccination_states_removed, leave_out = "last"):
+    if leave_out == "last":
+        areas_to_use = areas[:-1]
+    elif leave_out is None:
+        areas_to_use = areas    
+    else:
+        areas_to_use = leave_out
+
+    spline_parameters = {}
+    for index_areas in areas_to_use:
+        for index_vaccine in vaccination_states_removed:
+            parameter_name = f"spline_{index_areas}_{index_vaccine}"
+            spline_parameters[parameter_name] = {"value" : 0, "constant" : False}
+    
+    return spline_parameters
+
+
+#create transformation
+def create_spline_transformation_rules(areas, vaccination_states_removed, leave_out = "last"):
+    if leave_out == "last":
+        areas_to_use = areas[:-1]
+    elif leave_out is None:
+        areas_to_use = areas    
+    else:
+        areas_to_use = leave_out
+    rules_transformation_splines = {}
+    for index_areas in areas_to_use:
+        for index_vaccine in vaccination_states_removed:
+            parameter_id = f"proportion_{index_areas}_{index_vaccine}"
+            spline_id = f"spline_{index_areas}_{index_vaccine}"
+            rule_id = "rule_transformation" + spline_id
+            formula = f"1 / (1 + ExponentialE^(-({spline_id})))"
+            rules_transformation_splines[rule_id] = {"parameter_id" : parameter_id,
+                                                            "formula" : formula}
+    return rules_transformation_splines
+
+
+def create_one_minus_rules_splines(areas, vaccination_states_removed, leave_out = "last"):
+    if leave_out == "last":
+        area = areas[-1]
+    elif leave_out is None:
+        area = leave_out  
+    
+    areas_to_use = [x for x in areas if x != area]
+    
+    rules_minus_one = {}
+    for index_vaccines in vaccination_states_removed:
+        formula = get_string_formula_one_minus_splines(
+                    other_areas=areas_to_use, vaccine=index_vaccines,
+                )
+        parameter_id = f"proportion_{area}_{index_vaccines}"
+        rule_id = f"rule_proportion_one_minus_{index_vaccines}"
+        rules_minus_one[rule_id] = {"parameter_id" : parameter_id, "formula":formula}
+    
+    return rules_minus_one
 
 def create_parameters_piecewise(
     decision_period_length,
@@ -86,7 +142,6 @@ def get_piecewise_string_formula(
             proportion_id = get_string_formula_one_minus(
                 other_areas=no_last_area,
                 vaccine=vac_index,
-                first_vaccination_period=first_vaccination_period,
                 decision_period=index_decision_periods,
             )
 
@@ -100,7 +155,7 @@ def get_piecewise_string_formula(
 
 
 def get_string_formula_one_minus(
-    other_areas, vaccine, first_vaccination_period, decision_period
+    other_areas, vaccine, decision_period
 ):
 
     string_formula = "1 "
@@ -108,6 +163,18 @@ def get_string_formula_one_minus(
         string_formula = (
             string_formula
             + f"- proportion_par_{index_areas}_{vaccine}_{decision_period},"
+        )
+
+    return string_formula
+
+def get_string_formula_one_minus_splines(
+    other_areas, vaccine,
+):
+    string_formula = "1 "
+    for index_areas in other_areas:
+        string_formula = (
+            string_formula
+            + f"- proportion_{index_areas}_{vaccine}"
         )
 
     return string_formula

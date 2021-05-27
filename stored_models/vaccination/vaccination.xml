@@ -117,8 +117,10 @@
       <parameter id="proportion_countryB_vac1" name="proportion_countryB_vac1" value="0" units="dimensionless" constant="false"/>
       <parameter id="proportion_countryA_vac2" name="proportion_countryA_vac2" value="0" units="dimensionless" constant="false"/>
       <parameter id="proportion_countryB_vac2" name="proportion_countryB_vac2" value="0" units="dimensionless" constant="false"/>
-      <parameter id="proportion_par_countryA_vac1_0" name="proportion_par_countryA_vac1_0" value="0" units="dimensionless" constant="true"/>
-      <parameter id="proportion_par_countryA_vac1_200" name="proportion_par_countryA_vac1_200" value="0" units="dimensionless" constant="true"/>
+      <parameter id="spline_countryA_vac1" name="spline_countryA_vac1" value="0" units="dimensionless" constant="false"/>
+      <parameter id="y1" value="0" constant="true"/>
+      <parameter id="y2" value="1" constant="true"/>
+      <parameter id="y3" value="1" constant="true"/>
     </listOfParameters>
     <listOfInitialAssignments>
       <initialAssignment name="assignment_susceptible_countryA_vac0" symbol="susceptible_countryA_vac0">
@@ -333,110 +335,33 @@
       </initialAssignment>
     </listOfInitialAssignments>
     <listOfRules>
-      <assignmentRule name="rule_proportion_countryA_vac1" variable="proportion_countryA_vac1">
+      <assignmentRule name="rule_transformationspline_countryA_vac1" variable="proportion_countryA_vac1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <piecewise>
-            <piece>
-              <cn type="integer"> 0 </cn>
+          <apply>
+            <divide/>
+            <cn type="integer"> 1 </cn>
+            <apply>
+              <plus/>
+              <cn type="integer"> 1 </cn>
               <apply>
-                <lt/>
-                <ci> t </ci>
-                <cn type="integer"> 0 </cn>
-              </apply>
-            </piece>
-            <piece>
-              <ci> proportion_par_countryA_vac1_0 </ci>
-              <apply>
-                <and/>
+                <power/>
+                <exponentiale/>
                 <apply>
-                  <geq/>
-                  <ci> t </ci>
-                  <cn type="integer"> 0 </cn>
-                </apply>
-                <apply>
-                  <lt/>
-                  <ci> t </ci>
-                  <cn type="integer"> 200 </cn>
+                  <minus/>
+                  <ci> spline_countryA_vac1 </ci>
                 </apply>
               </apply>
-            </piece>
-            <piece>
-              <ci> proportion_par_countryA_vac1_200 </ci>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <ci> t </ci>
-                  <cn type="integer"> 200 </cn>
-                </apply>
-                <apply>
-                  <lt/>
-                  <ci> t </ci>
-                  <cn type="integer"> 400 </cn>
-                </apply>
-              </apply>
-            </piece>
-            <otherwise>
-              <cn type="integer"> 0 </cn>
-            </otherwise>
-          </piecewise>
+            </apply>
+          </apply>
         </math>
       </assignmentRule>
-      <assignmentRule name="rule_proportion_countryB_vac1" variable="proportion_countryB_vac1">
+      <assignmentRule name="rule_proportion_one_minus_vac1" variable="proportion_countryB_vac1">
         <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <piecewise>
-            <piece>
-              <cn type="integer"> 0 </cn>
-              <apply>
-                <lt/>
-                <ci> t </ci>
-                <cn type="integer"> 0 </cn>
-              </apply>
-            </piece>
-            <piece>
-              <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
-                <ci> proportion_par_countryA_vac1_0 </ci>
-              </apply>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <ci> t </ci>
-                  <cn type="integer"> 0 </cn>
-                </apply>
-                <apply>
-                  <lt/>
-                  <ci> t </ci>
-                  <cn type="integer"> 200 </cn>
-                </apply>
-              </apply>
-            </piece>
-            <piece>
-              <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
-                <ci> proportion_par_countryA_vac1_200 </ci>
-              </apply>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <ci> t </ci>
-                  <cn type="integer"> 200 </cn>
-                </apply>
-                <apply>
-                  <lt/>
-                  <ci> t </ci>
-                  <cn type="integer"> 400 </cn>
-                </apply>
-              </apply>
-            </piece>
-            <otherwise>
-              <cn type="integer"> 0 </cn>
-            </otherwise>
-          </piecewise>
+          <apply>
+            <minus/>
+            <cn type="integer"> 1 </cn>
+            <ci> proportion_countryA_vac1 </ci>
+          </apply>
         </math>
       </assignmentRule>
       <assignmentRule name="rule_nu_countryA_vac1" variable="nu_countryA_vac1">
@@ -513,6 +438,267 @@
               <ci> recovered_countryB_vac0_virM </ci>
             </apply>
           </apply>
+        </math>
+      </assignmentRule>
+      <assignmentRule id="assignment_spline_countryA_vac1" variable="spline_countryA_vac1">
+        <annotation>
+          <amici:spline xmlns:amici="http://github.com/AMICI-dev/AMICI" amici:spline_method="cubic_hermite">
+            <amici:spline_evaluation_point>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <ci>t</ci>
+              </math>
+            </amici:spline_evaluation_point>
+            <amici:spline_grid>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn>0.0</cn>
+              </math>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn>0.20000000000000001</cn>
+              </math>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <cn>0.59999999999999998</cn>
+              </math>
+            </amici:spline_grid>
+            <amici:spline_values>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <ci>y1</ci>
+              </math>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <ci>y2</ci>
+              </math>
+              <math xmlns="http://www.w3.org/1998/Math/MathML">
+                <ci>y3</ci>
+              </math>
+            </amici:spline_values>
+          </amici:spline>
+        </annotation>
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <piecewise>
+            <piece>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <cn> 1 </cn>
+                  <ci> y1 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <plus/>
+                      <ci> t </ci>
+                      <cn> 0 </cn>
+                    </apply>
+                    <cn> 0.2 </cn>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <times/>
+                        <cn> 1 </cn>
+                        <ci> y1 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <cn> 1 </cn>
+                      <ci> y2 </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <divide/>
+                        <apply>
+                          <plus/>
+                          <ci> t </ci>
+                          <cn> 0 </cn>
+                        </apply>
+                        <cn> 0.2 </cn>
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <apply>
+                          <minus/>
+                          <apply>
+                            <times/>
+                            <cn> 0.5 </cn>
+                            <ci> y1 </ci>
+                          </apply>
+                        </apply>
+                        <apply>
+                          <minus/>
+                          <apply>
+                            <times/>
+                            <cn> 0.75 </cn>
+                            <ci> y2 </ci>
+                          </apply>
+                          <apply>
+                            <times/>
+                            <cn> 0.25 </cn>
+                            <ci> y3 </ci>
+                          </apply>
+                        </apply>
+                        <apply>
+                          <times/>
+                          <apply>
+                            <divide/>
+                            <apply>
+                              <plus/>
+                              <ci> t </ci>
+                              <cn> 0 </cn>
+                            </apply>
+                            <cn> 0.2 </cn>
+                          </apply>
+                          <apply>
+                            <plus/>
+                            <apply>
+                              <minus/>
+                              <apply>
+                                <times/>
+                                <cn> 0.5 </cn>
+                                <ci> y1 </ci>
+                              </apply>
+                              <apply>
+                                <times/>
+                                <cn> 0.75 </cn>
+                                <ci> y2 </ci>
+                              </apply>
+                            </apply>
+                            <apply>
+                              <times/>
+                              <cn> 0.25 </cn>
+                              <ci> y3 </ci>
+                            </apply>
+                          </apply>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+              <apply>
+                <lt/>
+                <ci> t </ci>
+                <cn> 0.2 </cn>
+              </apply>
+            </piece>
+            <otherwise>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <cn> 1 </cn>
+                  <ci> y2 </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <apply>
+                    <divide/>
+                    <apply>
+                      <minus/>
+                      <ci> t </ci>
+                      <cn> 0.2 </cn>
+                    </apply>
+                    <cn> 0.4 </cn>
+                  </apply>
+                  <apply>
+                    <plus/>
+                    <apply>
+                      <minus/>
+                      <apply>
+                        <times/>
+                        <cn> 1 </cn>
+                        <ci> y1 </ci>
+                      </apply>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <cn> 0.5 </cn>
+                      <ci> y2 </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <cn> 0.5 </cn>
+                      <ci> y3 </ci>
+                    </apply>
+                    <apply>
+                      <times/>
+                      <apply>
+                        <divide/>
+                        <apply>
+                          <minus/>
+                          <ci> t </ci>
+                          <cn> 0.2 </cn>
+                        </apply>
+                        <cn> 0.4 </cn>
+                      </apply>
+                      <apply>
+                        <plus/>
+                        <apply>
+                          <minus/>
+                          <apply>
+                            <times/>
+                            <cn> 2 </cn>
+                            <ci> y1 </ci>
+                          </apply>
+                          <apply>
+                            <times/>
+                            <cn> 3 </cn>
+                            <ci> y2 </ci>
+                          </apply>
+                        </apply>
+                        <apply>
+                          <times/>
+                          <cn> 1 </cn>
+                          <ci> y3 </ci>
+                        </apply>
+                        <apply>
+                          <times/>
+                          <apply>
+                            <divide/>
+                            <apply>
+                              <minus/>
+                              <ci> t </ci>
+                              <cn> 0.2 </cn>
+                            </apply>
+                            <cn> 0.4 </cn>
+                          </apply>
+                          <apply>
+                            <plus/>
+                            <apply>
+                              <minus/>
+                              <apply>
+                                <times/>
+                                <cn> 1 </cn>
+                                <ci> y1 </ci>
+                              </apply>
+                            </apply>
+                            <apply>
+                              <minus/>
+                              <apply>
+                                <times/>
+                                <cn> 1.5 </cn>
+                                <ci> y2 </ci>
+                              </apply>
+                              <apply>
+                                <times/>
+                                <cn> 0.5 </cn>
+                                <ci> y3 </ci>
+                              </apply>
+                            </apply>
+                          </apply>
+                        </apply>
+                      </apply>
+                    </apply>
+                  </apply>
+                </apply>
+              </apply>
+            </otherwise>
+          </piecewise>
         </math>
       </assignmentRule>
       <rateRule name="time_rule" variable="t">

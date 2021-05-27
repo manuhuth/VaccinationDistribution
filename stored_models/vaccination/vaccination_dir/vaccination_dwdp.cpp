@@ -325,10 +325,9 @@ void dwdp_vaccination(realtype *dwdp, const realtype t, const realtype *x, const
     dnu_countryA_vac2_dnumber_vac2 = proportion_countryA_vac2/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // dwdp[307]
     dnu_countryA_vac2_dproportion_countryA_vac2 = number_vac2/(recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + 2*susceptible_countryA_vac0);  // dwdp[308]
     dnu_countryB_vac2_dproportion_countryB_vac2 = number_vac2/(recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + 2*susceptible_countryB_vac0);  // dwdp[309]
-    dproportion_countryB_vac1_dproportion_par_countryA_vac1_0 = (1.0*amici::heaviside(amici_t - 200) - 1.0)*std::pow(amici::heaviside(amici_t), 2);  // dwdp[310]
-    dproportion_countryA_vac1_dproportion_par_countryA_vac1_0 = (1.0 - 1.0*amici::heaviside(amici_t - 200))*std::pow(amici::heaviside(amici_t), 2);  // dwdp[311]
-    dproportion_countryB_vac1_dproportion_par_countryA_vac1_200 = (1.0*(amici::heaviside(amici_t - 200) - 1)*amici::heaviside(amici_t) + 1.0)*(amici::heaviside(amici_t - 400) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 200);  // dwdp[312]
-    dproportion_countryA_vac1_dproportion_par_countryA_vac1_200 = (-1.0*(amici::heaviside(amici_t - 200) - 1)*amici::heaviside(amici_t) - 1.0)*(amici::heaviside(amici_t - 400) - 1)*amici::heaviside(amici_t)*amici::heaviside(amici_t - 200);  // dwdp[313]
+    dspline_countryA_vac1_dy1 = (1.0 - 1.0*amici::heaviside(amici_t - 0.20000000000000001))*(5.0*amici_t*(5.0*amici_t*(2.5*amici_t - 0.5) - 1) + 1) + 1.0*(0.050505050505050504*amici_t - 0.010101010101010102)*((99.5 - 2.5*amici_t)*(0.050505050505050504*amici_t - 0.010101010101010102) - 49.5)*amici::heaviside(amici_t - 0.20000000000000001);  // dwdp[310]
+    dspline_countryA_vac1_dy2 = 5.0*amici_t*(1.0 - 1.0*amici::heaviside(amici_t - 0.20000000000000001))*(5.0*amici_t*(0.50505050505050497 - 2.5252525252525251*amici_t) + 1) + (1.0*(0.050505050505050504*amici_t - 0.010101010101010102)*((0.050505050505050504*amici_t - 0.010101010101010102)*(2.5252525252525251*amici_t - 100.50505050505051) + 49) + 1.0)*amici::heaviside(amici_t - 0.20000000000000001);  // dwdp[311]
+    dspline_countryA_vac1_dy3 = 25.0*std::pow(amici_t, 2)*(1.0 - 1.0*amici::heaviside(amici_t - 0.20000000000000001))*(0.025252525252525249*amici_t - 0.0050505050505050501) + 1.0*(0.050505050505050504*amici_t - 0.010101010101010102)*((1.005050505050505 - 0.025252525252525252*amici_t)*(0.050505050505050504*amici_t - 0.010101010101010102) + 0.5)*amici::heaviside(amici_t - 0.20000000000000001);  // dwdp[312]
 }
 
 } // namespace model_vaccination

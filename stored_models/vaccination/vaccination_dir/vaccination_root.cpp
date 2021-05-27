@@ -13,12 +13,8 @@ namespace amici {
 namespace model_vaccination {
 
 void root_vaccination(realtype *root, const realtype t, const realtype *x, const realtype *p, const realtype *k, const realtype *h){
-    root[0] = amici_t;
-    root[1] = -amici_t;
-    root[2] = amici_t - 200;
-    root[3] = 200 - amici_t;
-    root[4] = amici_t - 400;
-    root[5] = 400 - amici_t;
+    root[0] = amici_t - 0.20000000000000001;
+    root[1] = 0.20000000000000001 - amici_t;
 }
 
 } // namespace model_vaccination

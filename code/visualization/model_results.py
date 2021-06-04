@@ -13,7 +13,8 @@ def plot_states(
     ylabel="$x_i(t)$",
     title="State trajectories",
     state_ids=None,
-    time_name="time"
+    time_name="time",
+    legend_location="upper left",
 ):
     """Plot trajectories of species. Only a part of species can be addressed
     by using the state_ids parameter.
@@ -61,6 +62,7 @@ def plot_states(
         ax.set_ylabel(ylabel)
         ax.legend()
         ax.set_title(title)
+    ax.legend(bbox_to_anchor=(1, 0.8, 0.3, 0.2), loc=legend_location)
 
     return fig, ax
 
@@ -99,6 +101,7 @@ def plot_observables(
     set_off_scientific_notation=False,
     decimal_floats=4,
     time_name="time",
+    legend_location="upper left",
 ):
     """Plot trajectories of species. Only a part of species can be addressed
     by using the state_ids parameter.
@@ -163,9 +166,13 @@ def plot_observables(
         ax.set_ylabel(ylabel)
         ax.legend()
         ax.set_title(title)
+
+    ax.legend(bbox_to_anchor=(1, 0.8, 0.3, 0.2), loc=legend_location)
+
     if set_off_scientific_notation is True:
         ax.get_yaxis().get_major_formatter().set_useOffset(False)
         ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{decimal_floats}f"))
+
     return fig, ax
 
 

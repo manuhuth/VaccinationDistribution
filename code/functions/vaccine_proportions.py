@@ -1,15 +1,124 @@
 import numpy as np
 
+from sympy import symbols
+from amici.splines import UniformGrid
+
 from models.vaccination.create_model_vaccination import get_all_species_alive
 from models.vaccination.create_model_vaccination import get_all_species_alive_area
 from models.vaccination.create_model_vaccination import create_species_model
 
-#TODO write proper doc strings
-def create_spline_parameters(areas, vaccination_states_removed, leave_out = "last"):
+
+def create_spline(area, vaccine, stop, length):
+    """Generate dictionary with information for the spline.
+    Spline is associated to a vaccine and an area.
+
+    Parameters
+    ----------
+    area : str
+        Name of area for which spline is created.
+
+    vaccine : str
+        Name of vaccine for which spline is created.
+
+    stop : int
+        Last period for the uniform grid on whoch the spline is computed.
+
+    length : int
+        Number of intervalss on which the spline is computed.
+
+    Returns
+    -------
+    splines : dict
+        Dicitionary containing the information of the spline.
+    """
+    xx = UniformGrid(start=0, stop=stop, length=length)
+    yy_names = []
+    xx_names = []
+
+    for index in range(length):
+        yy_names.append(symbols(f"yy_{area}_{vaccine}_{index}"))
+        xx_names.append(symbols(f"xx{index}"))
+
+    yy = np.repeat(0, length)
+    splines = {
+        f"spline_{area}_{vaccine}": {
+            "time_symbol": "t",
+            "xx": xx,
+            "yy": yy,
+            "xx_names": xx_names,  # not used currently
+            "yy_names": yy_names,
+        }
+    }
+
+    return splines
+
+
+def create_splines(areas_without, vaccination_states_removed, stop, length):
+    """Generate dictionary with information for spline that is passed to
+    :func: `model_vaccination_create_sbml`. Spline is associated to a vaccine
+    and an area.
+
+    Parameters
+    ----------
+    areas_without : list
+        Names of areas for which splines are created.
+
+    vaccination_states_removed : list
+        Names of vaccines for which splines are created.
+
+    stop : int
+        Last period for the uniform grid on whoch the spline is computed.
+
+    length : int
+        Number of intervalss on which the spline is computed.
+
+    Returns
+    -------
+    splines : dict
+        Dicitionary containing the information of that is passed to
+        :func: `model_vaccination_create_sbml`.
+    """
+
+    splines = {}
+    for index_areas in areas_without:
+        for index_vaccines in vaccination_states_removed:
+            new_spline = create_spline(
+                area=index_areas, vaccine=index_vaccines, stop=stop, length=length
+            )
+            splines = {**splines, **new_spline}
+
+    return splines
+
+
+# TODO write proper doc strings
+def create_spline_parameters(areas, vaccination_states_removed, leave_out="last"):
+    """Generate dictionary with information for the actual spline parameter
+    that is passed to :func: `model_vaccination_create_sbml`.
+
+    Parameters
+    ----------
+    areas : list
+        Names of areas for which splines are created.
+
+    vaccination_states_removed : list
+        Names of vaccines for which splines are created.
+
+    leave_out : {'last', str, None}
+        Name of area for which no spline should be computed. If 'last' the last
+        area from the list areas is left out. We need to leave on area out
+        such that the last area becomes one minus the sum of all other areas.
+
+    Returns
+    -------
+    spline_parameters : dict
+        Dicitionary containing the information of that is passed to
+        :func: `model_vaccination_create_sbml`.
+    """
+
     if leave_out == "last":
         areas_to_use = areas[:-1]
     elif leave_out is None:
-        areas_to_use = areas    
+        areas_to_use = areas
     else:
         areas_to_use = leave_out
 
@@ -17,17 +126,41 @@ def create_spline_parameters(areas, vaccination_states_removed, leave_out = "las
     for index_areas in areas_to_use:
         for index_vaccine in vaccination_states_removed:
             parameter_name = f"spline_{index_areas}_{index_vaccine}"
-            spline_parameters[parameter_name] = {"value" : 0, "constant" : False}
-    
+            spline_parameters[parameter_name] = {"value": 0, "constant": False}
+
     return spline_parameters
 
 
-#create transformation
-def create_spline_transformation_rules(areas, vaccination_states_removed, leave_out = "last"):
+# create transformation
+def create_spline_transformation_rules(
+    areas, vaccination_states_removed, leave_out="last"
+):
+    """Generate dictionary with information for the actual spline transformation
+    rules that is passed to :func: `model_vaccination_create_sbml`.
+
+    Parameters
+    ----------
+    areas : list
+        Names of areas for which splines are created.
+
+    vaccination_states_removed : list
+        Names of vaccines for which splines are created.
+
+    leave_out : {'last', str, None}
+        Name of area for which no spline should be computed. If 'last' the last
+        area from the list areas is left out. We need to leave on area out
+        such that the last area becomes one minus the sum of all other areas.
+
+    Returns
+    -------
+    rules_transformation_splines: dict
+        Dicitionary containing the information of that is passed to
+        :func: `model_vaccination_create_sbml`.
+    """
     if leave_out == "last":
         areas_to_use = areas[:-1]
     elif leave_out is None:
-        areas_to_use = areas    
+        areas_to_use = areas
     else:
         areas_to_use = leave_out
     rules_transformation_splines = {}
@@ -37,29 +170,55 @@ def create_spline_transformation_rules(areas, vaccination_states_removed, leave_
             spline_id = f"spline_{index_areas}_{index_vaccine}"
             rule_id = "rule_transformation" + spline_id
             formula = f"1 / (1 + ExponentialE^(-({spline_id})))"
-            rules_transformation_splines[rule_id] = {"parameter_id" : parameter_id,
-                                                            "formula" : formula}
+            rules_transformation_splines[rule_id] = {
+                "parameter_id": parameter_id,
+                "formula": formula,
+            }
     return rules_transformation_splines
 
 
-def create_one_minus_rules_splines(areas, vaccination_states_removed, leave_out = "last"):
+def create_one_minus_rules_splines(areas, vaccination_states_removed, leave_out="last"):
+    """Generate dictionary with information for the rules for the splie
+    parameter that is passed to :func: `model_vaccination_create_sbml`.
+
+    Parameters
+    ----------
+    areas : list
+        Names of areas for which splines are created.
+
+    vaccination_states_removed : list
+        Names of vaccines for which splines are created.
+
+    leave_out : {'last', str, None}
+        Name of area for which no spline should be computed. If 'last' the last
+        area from the list areas is left out. We need to leave on area out
+        such that the last area becomes one minus the sum of all other areas.
+
+    Returns
+    -------
+    rules_minus_one : dict
+        Dicitionary containing the information of that is passed to
+        :func: `model_vaccination_create_sbml`.
+    """
     if leave_out == "last":
         area = areas[-1]
     elif leave_out is None:
-        area = leave_out  
-    
+        area = leave_out
+
     areas_to_use = [x for x in areas if x != area]
-    
+
     rules_minus_one = {}
     for index_vaccines in vaccination_states_removed:
         formula = get_string_formula_one_minus_splines(
-                    other_areas=areas_to_use, vaccine=index_vaccines,
-                )
+            other_areas=areas_to_use,
+            vaccine=index_vaccines,
+        )
         parameter_id = f"proportion_{area}_{index_vaccines}"
         rule_id = f"rule_proportion_one_minus_{index_vaccines}"
-        rules_minus_one[rule_id] = {"parameter_id" : parameter_id, "formula":formula}
-    
+        rules_minus_one[rule_id] = {"parameter_id": parameter_id, "formula": formula}
+
     return rules_minus_one
+
 
 def create_parameters_piecewise(
     decision_period_length,
@@ -69,6 +228,35 @@ def create_parameters_piecewise(
     non_vaccination_state,
     areas,
 ):
+    """Generate dictionary with information for the piecewise parameter
+    that is passed to :func: `model_vaccination_create_sbml`.
+
+    Parameters
+    ----------
+    decision_period_length : int
+        Last time point on which the piecewise function is computed.
+
+    number_decision_periods : int
+        Number of intervals for piecewise function.
+
+    first_vaccination_period : int
+        Start period of avccination.
+
+    vaccination_states : list
+        Names of vaccination states including a state for non-vaccinated.
+
+    non_vaccination_state : str
+        State that is not vaccinated.
+
+    areas : list
+        Names of areas for which parameters are created.
+
+    Returns
+    -------
+    parameter_proportions_vaccination: dict
+        Dicitionary containing the information of that is passed to
+        :func: `model_vaccination_create_sbml`.
+    """
 
     vaccination_states_removed = [
         x for x in vaccination_states if x != non_vaccination_state
@@ -154,9 +342,7 @@ def get_piecewise_string_formula(
     return string_formula
 
 
-def get_string_formula_one_minus(
-    other_areas, vaccine, decision_period
-):
+def get_string_formula_one_minus(other_areas, vaccine, decision_period):
 
     string_formula = "1 "
     for index_areas in other_areas:
@@ -167,15 +353,14 @@ def get_string_formula_one_minus(
 
     return string_formula
 
+
 def get_string_formula_one_minus_splines(
-    other_areas, vaccine,
+    other_areas,
+    vaccine,
 ):
     string_formula = "1 "
     for index_areas in other_areas:
-        string_formula = (
-            string_formula
-            + f"- proportion_{index_areas}_{vaccine}"
-        )
+        string_formula = string_formula + f"- proportion_{index_areas}_{vaccine}"
 
     return string_formula
 

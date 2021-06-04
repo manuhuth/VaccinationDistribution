@@ -148,27 +148,36 @@ void Jy_vaccination(realtype *Jy, const int iy, const realtype *p, const realtyp
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_yproportion_countryA_vac1, 2)) + 0.5*std::pow(-myproportion_countryA_vac1 + yproportion_countryA_vac1, 2)/std::pow(sigma_yproportion_countryA_vac1, 2);
             break;
         case 44:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_yproportion_countryB_vac1, 2)) + 0.5*std::pow(-myproportion_countryB_vac1 + yproportion_countryB_vac1, 2)/std::pow(sigma_yproportion_countryB_vac1, 2);
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_yproportion_countryA_vac2, 2)) + 0.5*std::pow(-myproportion_countryA_vac2 + yproportion_countryA_vac2, 2)/std::pow(sigma_yproportion_countryA_vac2, 2);
             break;
         case 45:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryA_vac1, 2)) + 0.5*std::pow(-mynu_countryA_vac1 + ynu_countryA_vac1, 2)/std::pow(sigma_ynu_countryA_vac1, 2);
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_yproportion_countryB_vac1, 2)) + 0.5*std::pow(-myproportion_countryB_vac1 + yproportion_countryB_vac1, 2)/std::pow(sigma_yproportion_countryB_vac1, 2);
             break;
         case 46:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryB_vac1, 2)) + 0.5*std::pow(-mynu_countryB_vac1 + ynu_countryB_vac1, 2)/std::pow(sigma_ynu_countryB_vac1, 2);
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_yproportion_countryB_vac2, 2)) + 0.5*std::pow(-myproportion_countryB_vac2 + yproportion_countryB_vac2, 2)/std::pow(sigma_yproportion_countryB_vac2, 2);
             break;
         case 47:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryA_vac2, 2)) + 0.5*std::pow(-mynu_countryA_vac2 + ynu_countryA_vac2, 2)/std::pow(sigma_ynu_countryA_vac2, 2);
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryA_vac1, 2)) + 0.5*std::pow(-mynu_countryA_vac1 + ynu_countryA_vac1, 2)/std::pow(sigma_ynu_countryA_vac1, 2);
             break;
         case 48:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryB_vac2, 2)) + 0.5*std::pow(-mynu_countryB_vac2 + ynu_countryB_vac2, 2)/std::pow(sigma_ynu_countryB_vac2, 2);
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryB_vac1, 2)) + 0.5*std::pow(-mynu_countryB_vac1 + ynu_countryB_vac1, 2)/std::pow(sigma_ynu_countryB_vac1, 2);
             break;
         case 49:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_yspline_countryA_vac1, 2)) + 0.5*std::pow(-myspline_countryA_vac1 + yspline_countryA_vac1, 2)/std::pow(sigma_yspline_countryA_vac1, 2);
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryA_vac2, 2)) + 0.5*std::pow(-mynu_countryA_vac2 + ynu_countryA_vac2, 2)/std::pow(sigma_ynu_countryA_vac2, 2);
             break;
         case 50:
-            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ycountryA, 2)) + 0.5*std::pow(-mycountryA + ycountryA, 2)/std::pow(sigma_ycountryA, 2);
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ynu_countryB_vac2, 2)) + 0.5*std::pow(-mynu_countryB_vac2 + ynu_countryB_vac2, 2)/std::pow(sigma_ynu_countryB_vac2, 2);
             break;
         case 51:
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_yspline_countryA_vac1, 2)) + 0.5*std::pow(-myspline_countryA_vac1 + yspline_countryA_vac1, 2)/std::pow(sigma_yspline_countryA_vac1, 2);
+            break;
+        case 52:
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_yspline_countryA_vac2, 2)) + 0.5*std::pow(-myspline_countryA_vac2 + yspline_countryA_vac2, 2)/std::pow(sigma_yspline_countryA_vac2, 2);
+            break;
+        case 53:
+            Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ycountryA, 2)) + 0.5*std::pow(-mycountryA + ycountryA, 2)/std::pow(sigma_ycountryA, 2);
+            break;
+        case 54:
             Jy[0] = 0.5*std::log(2*amici::pi*std::pow(sigma_ycountryB, 2)) + 0.5*std::pow(-mycountryB + ycountryB, 2)/std::pow(sigma_ycountryB, 2);
             break;
     }

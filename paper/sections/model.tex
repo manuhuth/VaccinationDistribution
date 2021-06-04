@@ -1,4 +1,4 @@
-\section{Rule-based modeling}
+\section{Compartments}
 
 In the proposed model the compartments are Susceptible ($S$), Infectious ($I$), Recovered and Dead ($D$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). Since we are dealing with two virus variants, the wild type $w$ and the mutant $m$, we account for this by introducing the feature $c_j$ with $j \in \{w,m\}$ that indicates the type of virus we are referring to. For infectious individuals we can distinguish between symptomatic $s_y$ and asymptomatic cases $s_n$.
  
@@ -6,7 +6,10 @@ We use the set notation of \cite{Waites.2021} to address certain subsets of the 
 
 In more specific cases it might be more comprehensive to replace the index numbers by meaningful abbreviations.
 
-\subsection{Model}
+
+On the next page you find a graphical representation of the model using tikz. I have omitted the second region and cross-border infections from the graph to increase readability.  
+\textit{no heading and just somewhere}
+\includegraphics[scale=0.15]{images/vaccination.png}
 
 \textbf{Assumptions so far:} 
 \begin{itemize}
@@ -25,31 +28,12 @@ In more specific cases it might be more comprehensive to replace the index numbe
 \item minimize over dead people or integrate of infected
 \end{itemize}
 
-\subsection{Transition Rates}
 
-\subsubsection*{Vaccination}
-For $j \in \{1,2\}$, $l \in \{1,2\}$
-\begin{align*}
-\set(x_S, v_0, a_l) &\xrightarrow{\nu_{j,l}(\cdot)} \set(x_S, v_j, a_l) \notag \\
-\set(x_R, v_0, c_w, a_l) &\xrightarrow{\nu_{j,l}(\cdot)} \set(x_R, v_j, c_w, a_l)
-\end{align*}
-How to determine the vaccination rate? We denote the number of vaccinations of type $v_j$ available at time $t$ in country $l$ by $W_{j,l}(t)$ and the total number number of vaccine $j$ by $W_j(t) = W_{j,A}(t) + W_{j,B}(t)$. We assume that all doses of vaccines are immediately vaccinated. Thus, it must hold that 
-\begin{align*}
-W_{j,A}(t) &= \nu_{j, A} \cdot \left( |\set(x_S, v_0, a_A)| + |\set(x_R, v_0, a_A, c_w)| + |\set(x_R, v_0, a_A, c_m)| \right) \notag \\
-W_{j,B}(t) &= \nu_{j, B} \cdot \left( |\set(x_S, v_0, a_B)| + |\set(x_R, v_0, a_B, c_w)| + |\set(x_R, v_0, a_B, c_m)| \right). 
-\end{align*}
-Which is to say that the total number of vaccines $j$ at $t$ must equal the number of individuals vaccinated with $j$ at $t$. Let $f_{j,A}(t)$ be the fraction of vaccine $j$ that is allocated to country $A$. We can write $W_{j,A}(t) = f_{j,A}(t) W_j(t)$ and $W_{j,B}(t) = \left[1 - f_{j,A}(t)\right] W_j(t)$. Combining both yields for country $A$ and $B$
-\begin{align*}
-\nu_{j,A} &= \frac{ f_{j,A}(t) W_{j}(t)}{|\set(x_S, v_0, a_A)| + |\set(x_R, v_0, a_A, c_w)| + |\set(x_R, v_0, a_A, c_m)|} \notag \\
-\nu_{j,B} &= \frac{\left[1 - f_{j,A}(t)\right]  W_{j}(t)}{|\set(x_S, v_0, a_B)| + |\set(x_R, v_0, a_B, c_w)| + |\set(x_R, v_0, a_B, c_m)|}.
-\end{align*}
-To decide on the vaccination rates we therefore need to specify the trajectory of the fraction $f_{j,A}(t)$. Find appropriate function $g: \R^ \to [0,1]$. Let $y \in \R^b_+$ be the vector containing the number of individuals of the relevant compartments to consider and $z \in \R^b$ be parameters.  
-\begin{itemize}
-	\item logistic function $g(x \cdot z) = \frac{1}{1 + \exp(-y \cdot z)}$
 
-\end{itemize}
 
-  
+\subsection{Dynamics}
+
+ 
 \subsubsection*{Susceptible to Infectious}
 To facilitate notation, we distinguish between individuals that are alive and those that are dead. We exclude all dead individuals by using prime notation to only address all living individuals, e.g. $\set'(a_l) =  \set(x_S, a_l) \cup \set(x_I, a_l) \cup \set(x_R, a_l)$. We define $N_l(t) = |\set'(a_l) |$ as the number of living individuals in area $l$ at time $t$. For specifying the transition rates we need to specify the probabilities that two individuals of a certain type meet. We do so by using the relative frequencies and adjust for cross-area meetings. The probability of an individual $i \in \set()$ to be in a particular subset is approximated by the relative frequencies. For example, the (time dependent) probability that a randomly drawn living individual is from area $l$ is $\prob\left(i \in \set'(a_l) \right) = \frac{N_l(t)}{N_1(t) + N_2(t)}$. To compute the probability that an individual is susceptible, conditioned that it is from area $l$, we can use Bayes' formula 
 \begin{align}
@@ -131,8 +115,13 @@ vaccinated. For $k \in \{1,2\}$ and $l \in \{1,2\}$
 \set(x_I,  v_k, c_w, a_l) &\xrightarrow{(1-\omega_{k,w}p) \lambda} \set(x_R,  v_k, c_w, a_l) \notag 
 \end{align}
 
+\subsubsection*{Vaccination}
+For $j \in \{1,2\}$, $l \in \{1,2\}$
+\begin{align*}
+\set(x_S, v_0, a_l) &\xrightarrow{\nu_{j,l}(\cdot)} \set(x_S, v_j, a_l) \notag \\
+\set(x_I, v_0, c_w, a_l) &\xrightarrow{\nu_{j,l}(\cdot)} \set(x_I, v_j, c_w, a_l) \notag \\
+\set(x_R, v_0, c_w, a_l) &\xrightarrow{\nu_{j,l}(\cdot)} \set(x_R, v_j, c_w, a_l)
+\end{align*}
 
-\subsection{Graphical model description}
-On the next page you find a graphical representation of the model using tikz. I have omitted the second region and cross-border infections from the graph to increase readability.  
 
-\includegraphics[scale=0.15]{images/vaccination.png}
+

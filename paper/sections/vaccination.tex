@@ -1,0 +1,45 @@
+\section{Vaccine allocation}
+How to determine the vaccination rate? We denote the number of vaccinations of type $v_j$ available at time $t$ in country $l$ by $W_{j,l}(t)$ and the total number number of vaccine $j$ by $W_j(t) = W_{j,A}(t) + W_{j,B}(t)$. We assume that all doses of vaccines are immediately vaccinated. Thus, it must hold that 
+\begin{align*}
+W_{j,A}(t) &= \nu_{j, A} \cdot \left( |\set(x_S, v_0, a_A)| + |\set(x_R, v_0, a_A, c_w)| + |\set(x_R, v_0, a_A, c_m)| \right) \notag \\
+W_{j,B}(t) &= \nu_{j, B} \cdot \left( |\set(x_S, v_0, a_B)| + |\set(x_R, v_0, a_B, c_w)| + |\set(x_R, v_0, a_B, c_m)| \right). 
+\end{align*}
+Which is to say that the total number of vaccines $j$ at $t$ must equal the number of individuals vaccinated with $j$ at $t$. Let $f_{j,A}(t)$ be the fraction of vaccine $j$ that is allocated to country $A$. We can write $W_{j,A}(t) = f_{j,A}(t) W_j(t)$ and $W_{j,B}(t) = \left[1 - f_{j,A}(t)\right] W_j(t)$. Combining both yields for country $A$ and $B$
+\begin{align*}
+\nu_{j,A} &= \frac{ f_{j,A}(t) W_{j}(t)}{|\set(x_S, v_0, a_A)| + |\set(x_R, v_0, a_A, c_w)| + |\set(x_R, v_0, a_A, c_m)|} \notag \\
+\nu_{j,B} &= \frac{\left[1 - f_{j,A}(t)\right]  W_{j}(t)}{|\set(x_S, v_0, a_B)| + |\set(x_R, v_0, a_B, c_w)| + |\set(x_R, v_0, a_B, c_m)|}.
+\end{align*}
+To decide on the vaccination rates we need to specify the trajectory of the fraction $f_{j,A}(t)$. Additional to the time $t$ we use $f_{j,A}(\theta; t, \Y(t))$, with $\theta \in \R^z$, to indicate that the fraction potentially is dependent on an additional parameter vector $\theta$ and the compartments $\Y(t)$. In the end we optimize over the parameters $\theta$ that parameterizes the fraction. In this paper we examine three different strategies of modeling $f_{j,A}(\theta; t, \Y(t))$. Let $[t_1, t_{z+1}]$ be an interval on the real line and $T_i = [t_i, t_{i+1})$ be a subset of the partition $\cup_{i=1}^z=[t_1, t_{z+1}]$ with $t_i < t_{i+1}$ for all $i = 1, 2, \dots, z$.   
+\begin{enumerate}
+\item The fraction is stepwise defined according to the time $t$. No additional compartments are used.
+In this setup we associate $z$ parameters $\theta_i \in [0,1]$  to the $z$ intervals $T_i$. We assume in our model that we start with the vaccination from the very beginning and therefore set $t_1 = 0$. At each time $t_i$ the policy maker decide which fraction of the vaccine is assigned to country A up to time $t_{i+1}$. The resulting function is a stepwise function that takes the the value $\theta_i$ in the interval $[t_i, t_{i+1})$ such that
+\begin{align*}
+f_{j,A}(\theta; t) = \theta_i \quad \forall t \in  T_i
+\end{align*}
+\input{tikz/stepwise}
+We can interpret this approach as follows: Policy makers determine a fraction that is allocated to country A for a fixed decision period, evaluate, and then adjust before the next decision period begins.
+
+\item The fraction follows a cubic hermite spline $S(\theta; t)$ of order three that is transformed via a sigmoid function to obtain values between zero and one. No additional compartments are used. 
+Following this approach we associate each Polynomial $P_{i}(\theta; t)$ with the subset $T_i$. On the contrary to the previous approach, the rate of vaccine is not determined in each subinterval by a fixed constant value but by a polynomial of order three. For the cubic hermite splines each polynomial $P_{i}(\theta; t)$ is of degree three and can be defined by the basis polynomials $b_1(t) = 2t^3 - 3t^2 +1, b_2(t) = t^3 - 2t^2 +t, b_3(t) = -2t^3 + 3t^2$ and
+$b_4(t) = t^3 - t^2$, the infimum ($t_i$) and supremum ($t_{i+1}$) of $T_i$ and specified values of $P_{i}(\theta; t_i) = \theta_i$, $P_{i+1}(\theta; t_{i+1})=\theta_{i+1}$ and its derivatives $P'_{i}(\theta; t_i)$, $P'_{i}(\theta; t_{i+1})$.\\
+To compute the derivatives we use finite differences with one-sided approximations at the boundaries $t_1$ and $t_{z+1}$
+\begin{align*}
+P'_{1}(\theta; t_1) &= \frac{P_{2}(\theta; t_2) - P_{1}(\theta; t_1)}{t_2 - t_1} \notag \\
+P'_{i}(\theta; t_i) &= \frac{1}{2}\left[\frac{P_{i+1}(\theta; t_{i+1}) - P_{i}(\theta; t_i)}{t_{i+1} - t_i} + \frac{P_{i}(\theta; t_{i}) - P_{i-1}(\theta; t_{i-1})}{t_{i} - t_{i-1}} \right] \notag \\
+P'_{z}(\theta; t_{z+1}) &= \frac{P_{z+1}(\theta; t_{z+1}) - P_{z}(\theta; t_z)}{t_{z+1} - t_z}
+\end{align*}
+For $t \in T_i$ let $t' = (t-t_i)/(t_{i+1} - t_i)$. Then the polynomial $P_{i}(\theta; t) $ is given by 
+\begin{align*}
+P_{i}(\theta; t) &= b_1(t') \overbrace{P_{i}(\theta; t_i)}^{\theta_i} + b_2(t') (t_{i+1} - t_i) P'_{i}(\theta; t_i) \notag \\& \quad + b_3(t') \underbrace{P_{i+1}(\theta; t_{i+1})}_{\theta_{i+1}} + b_4(t') (t_{i+1} - t_i) P'_{i}(\theta; t_{i+1})
+\end{align*}
+$P_{i}(\theta; t)$ depends on $\theta_i$ and $\theta_{i+1}$ through the functional values and the derivatives at the boundaries.  \\
+To ensure that the fractions stay between zero and one, we apply a sigmoid transformation of the polynomials such that the fraction of vaccine $j$ that is allocated to country $A$ can be written as
+\begin{align}
+f_{j,A}(\theta; t) =  \frac{1}{1 + \exp{(-P_{i}(\theta_i; t))}} \quad \forall t \in T_i. 
+\end{align}
+Note that $S(\theta; t)$ is continuous by construction, the sigmoid function $\sigma(\cdot)$ is continuous and thus the composition $\sigma(S(\theta; t))$ is also continuous.
+\input{tikz/splines}
+
+\item The fraction is determined by a neural network. 
+\end{enumerate}    
+

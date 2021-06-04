@@ -851,7 +851,7 @@ def create_vaccination_reactions_model(
                     ] = {
                         "reactants": {f"{numb_to_be_vaccinated}": 1},
                         "products": {f"{numb_vaccinated}": 1},
-                        "formula": f" nu_{index_areas}_{index_vaccination}* {numb_to_be_vaccinated}",
+                        "formula": f" nu_{index_areas}_{index_vaccination} * {numb_to_be_vaccinated}",
                     }
 
     return vaccination_reactions

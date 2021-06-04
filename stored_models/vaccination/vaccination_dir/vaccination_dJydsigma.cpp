@@ -148,28 +148,37 @@ void dJydsigma_vaccination(realtype *dJydsigma, const int iy, const realtype *p,
             dJydsigma[43] = 1.0/sigma_yproportion_countryA_vac1 - 1.0*std::pow(-myproportion_countryA_vac1 + yproportion_countryA_vac1, 2)/std::pow(sigma_yproportion_countryA_vac1, 3);
             break;
         case 44:
-            dJydsigma[44] = 1.0/sigma_yproportion_countryB_vac1 - 1.0*std::pow(-myproportion_countryB_vac1 + yproportion_countryB_vac1, 2)/std::pow(sigma_yproportion_countryB_vac1, 3);
+            dJydsigma[44] = 1.0/sigma_yproportion_countryA_vac2 - 1.0*std::pow(-myproportion_countryA_vac2 + yproportion_countryA_vac2, 2)/std::pow(sigma_yproportion_countryA_vac2, 3);
             break;
         case 45:
-            dJydsigma[45] = 1.0/sigma_ynu_countryA_vac1 - 1.0*std::pow(-mynu_countryA_vac1 + ynu_countryA_vac1, 2)/std::pow(sigma_ynu_countryA_vac1, 3);
+            dJydsigma[45] = 1.0/sigma_yproportion_countryB_vac1 - 1.0*std::pow(-myproportion_countryB_vac1 + yproportion_countryB_vac1, 2)/std::pow(sigma_yproportion_countryB_vac1, 3);
             break;
         case 46:
-            dJydsigma[46] = 1.0/sigma_ynu_countryB_vac1 - 1.0*std::pow(-mynu_countryB_vac1 + ynu_countryB_vac1, 2)/std::pow(sigma_ynu_countryB_vac1, 3);
+            dJydsigma[46] = 1.0/sigma_yproportion_countryB_vac2 - 1.0*std::pow(-myproportion_countryB_vac2 + yproportion_countryB_vac2, 2)/std::pow(sigma_yproportion_countryB_vac2, 3);
             break;
         case 47:
-            dJydsigma[47] = 1.0/sigma_ynu_countryA_vac2 - 1.0*std::pow(-mynu_countryA_vac2 + ynu_countryA_vac2, 2)/std::pow(sigma_ynu_countryA_vac2, 3);
+            dJydsigma[47] = 1.0/sigma_ynu_countryA_vac1 - 1.0*std::pow(-mynu_countryA_vac1 + ynu_countryA_vac1, 2)/std::pow(sigma_ynu_countryA_vac1, 3);
             break;
         case 48:
-            dJydsigma[48] = 1.0/sigma_ynu_countryB_vac2 - 1.0*std::pow(-mynu_countryB_vac2 + ynu_countryB_vac2, 2)/std::pow(sigma_ynu_countryB_vac2, 3);
+            dJydsigma[48] = 1.0/sigma_ynu_countryB_vac1 - 1.0*std::pow(-mynu_countryB_vac1 + ynu_countryB_vac1, 2)/std::pow(sigma_ynu_countryB_vac1, 3);
             break;
         case 49:
-            dJydsigma[49] = 1.0/sigma_yspline_countryA_vac1 - 1.0*std::pow(-myspline_countryA_vac1 + yspline_countryA_vac1, 2)/std::pow(sigma_yspline_countryA_vac1, 3);
+            dJydsigma[49] = 1.0/sigma_ynu_countryA_vac2 - 1.0*std::pow(-mynu_countryA_vac2 + ynu_countryA_vac2, 2)/std::pow(sigma_ynu_countryA_vac2, 3);
             break;
         case 50:
-            dJydsigma[50] = 1.0/sigma_ycountryA - 1.0*std::pow(-mycountryA + ycountryA, 2)/std::pow(sigma_ycountryA, 3);
+            dJydsigma[50] = 1.0/sigma_ynu_countryB_vac2 - 1.0*std::pow(-mynu_countryB_vac2 + ynu_countryB_vac2, 2)/std::pow(sigma_ynu_countryB_vac2, 3);
             break;
         case 51:
-            dJydsigma[51] = 1.0/sigma_ycountryB - 1.0*std::pow(-mycountryB + ycountryB, 2)/std::pow(sigma_ycountryB, 3);
+            dJydsigma[51] = 1.0/sigma_yspline_countryA_vac1 - 1.0*std::pow(-myspline_countryA_vac1 + yspline_countryA_vac1, 2)/std::pow(sigma_yspline_countryA_vac1, 3);
+            break;
+        case 52:
+            dJydsigma[52] = 1.0/sigma_yspline_countryA_vac2 - 1.0*std::pow(-myspline_countryA_vac2 + yspline_countryA_vac2, 2)/std::pow(sigma_yspline_countryA_vac2, 3);
+            break;
+        case 53:
+            dJydsigma[53] = 1.0/sigma_ycountryA - 1.0*std::pow(-mycountryA + ycountryA, 2)/std::pow(sigma_ycountryA, 3);
+            break;
+        case 54:
+            dJydsigma[54] = 1.0/sigma_ycountryB - 1.0*std::pow(-mycountryB + ycountryB, 2)/std::pow(sigma_ycountryB, 3);
             break;
     }
 }

@@ -58,7 +58,7 @@ def run_model(
         timepoints=timepoints,
         set_parameter=set_parameter_first,
     )
-    
+
     observables_names = model.getObservableNames()
     states = model.getStateIds()
     df_trajectories_states = pd.DataFrame(first_period["x"], columns=(states))
@@ -196,7 +196,11 @@ def create_observables_vaccination_rates(
 
 
 def get_model_and_solver_from_sbml(
-    path_sbml, model_name, model_directory, observables=None
+    path_sbml,
+    model_name,
+    model_directory,
+    observables=None,
+    only_import=False,
 ):
     """Get model and solver objects from a SBML file.
 
@@ -220,8 +224,9 @@ def get_model_and_solver_from_sbml(
     """
 
     filename = path_sbml + ".xml"
-    sbml_importer = amici.SbmlImporter(filename)
-    sbml_importer.sbml2amici(model_name, model_directory, observables=observables)
+    if only_import is False:
+        sbml_importer = amici.SbmlImporter(filename)
+        sbml_importer.sbml2amici(model_name, model_directory, observables=observables)
 
     model_module = amici.import_model_module(model_name, model_directory)
     model = model_module.getModel()

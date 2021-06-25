@@ -2,9 +2,8 @@
 
 
 ## To-Do:
-- find realistic parameters
-- resolve piecewise SBML
-- implement splines (~ 3. - 10. June)
+- find appropriate quantity of vaccine inflow
+- rewrite piecewise SBML
 - neural-nets (~ 20. July)
 - try deterministic rule for noise models ('til submission)
 - Functional form of inter-spatial infections (robustness checks for different functions!)

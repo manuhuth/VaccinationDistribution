@@ -7,8 +7,8 @@
 namespace amici {
 namespace model_vaccination {
 
-static constexpr std::array<sunindextype, 20> dwdw_rowvals_vaccination_ = {
-    3, 2, 4, 7, 5, 6, 8, 107, 111, 113, 9, 106, 110, 112, 108, 114, 116, 109, 115, 117
+static constexpr std::array<sunindextype, 24> dwdw_rowvals_vaccination_ = {
+    4, 5, 8, 10, 7, 11, 6, 7, 8, 9, 11, 109, 113, 115, 108, 112, 114, 10, 110, 116, 118, 111, 117, 119
 };
 
 void dwdw_rowvals_vaccination(SUNMatrixWrapper &dwdw){

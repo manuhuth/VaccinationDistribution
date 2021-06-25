@@ -137,6 +137,19 @@ def model_vaccination_create_sbml(
         virus_states=virus_states,
     )
 
+    distance_parameters = {}
+    distances_df = pd.DataFrame(distances, columns=areas, index=areas)
+    b_distance_matrix = b_distance_function(distances_df)
+    D = pd.DataFrame(np.nan, index=areas, columns=areas)
+
+    for index_areas_row in areas:
+        for index_areas_col in areas:
+            name = f"distance_{index_areas_row}_{index_areas_col}"
+            D.loc[index_areas_row, index_areas_col] = name
+            distance_parameters[name] = {
+                "value": b_distance_matrix.loc[index_areas_row, index_areas_col]
+            }
+
     # create parameters
     parameters = create_parameters_model(
         species=species,
@@ -147,6 +160,7 @@ def model_vaccination_create_sbml(
         omega_df=omega_df,
         delta_df=delta_df,
         eta_df=eta_df,
+        distance_parameters=distance_parameters,
         single_parameter=single_parameter,
         parameters_constant=parameters_constant,
         additional_parameters=additional_parameters,
@@ -161,7 +175,7 @@ def model_vaccination_create_sbml(
         vaccination_states_removed=vaccination_states_removed,
         virus_states=virus_states,
         species=species,
-        distances=distances,
+        distances=D,
         vaccinated_compartments=vaccinated_compartments,
         non_vaccination_state=non_vaccination_state,
     )
@@ -327,8 +341,8 @@ def get_M_matrix(areas, species, distance_matrix):
         Matrix containing the formulas for the M matrix as strings.
 
     """
-    distances_df = pd.DataFrame(distance_matrix, columns=areas, index=areas)
-    b_distance_matrix = b_distance_function(distances_df)
+    # distances_df = pd.DataFrame(distance_matrix, columns=areas, index=areas)
+    # b_distance_matrix = b_distance_function(distances_df)
     numb_total_population_alive = get_all_species_alive(species_list=species)
     M = pd.DataFrame(np.nan, index=areas, columns=areas)
     for index_areas_row in areas:
@@ -338,7 +352,7 @@ def get_M_matrix(areas, species, distance_matrix):
             else:
                 M.loc[
                     index_areas_row, index_areas_col
-                ] = f"({get_all_species_alive_area(species_list=species, area=index_areas_row )})/({numb_total_population_alive })*{b_distance_matrix[index_areas_col][index_areas_row]}"
+                ] = f"({get_all_species_alive_area(species_list=species, area=index_areas_row )})/({numb_total_population_alive })*{distance_matrix.loc[index_areas_col, index_areas_row]}"
     if len(areas) == 1:
         add_term = "1"
     else:
@@ -442,6 +456,7 @@ def create_parameters_model(
     delta_df,
     eta_df,
     single_parameter,
+    distance_parameters,
     parameters_constant,
     additional_parameters,
     t0_susceptible,
@@ -587,6 +602,7 @@ def create_parameters_model(
             **total_numb_vacc,
             **vaccination_proportions,
             **additional_parameters,
+            **distance_parameters,
         }
 
     else:
@@ -598,6 +614,7 @@ def create_parameters_model(
             **vaccination_parameters,
             **total_numb_vacc,
             **vaccination_proportions,
+            **distance_parameters,
         }
 
     return parameters
@@ -759,6 +776,7 @@ def create_infection_reactions_model(
                     for index_vaccination_susceptible in vaccination_states:
 
                         numb_susceptible = f"susceptible_{index_areas_susceptible}_{index_vaccination_susceptible}"
+                        numb_susceptible_as_infectious = f"infectious_{index_areas_susceptible}_{index_vaccination_susceptible}_{index_virus_infected}"
                         numb_infectious = f"infectious_{index_areas_infected}_{index_vaccination_infected}_{index_virus_infected}"
                         numb_susceptible_area_population_alive = (
                             get_all_species_alive_area(
@@ -778,12 +796,23 @@ def create_infection_reactions_model(
                             gamma_term = "0"
                         modifier = list(species.keys())
                         keys = f"{numb_susceptible}_to_{numb_infectious}"
+
+                        if f"{numb_susceptible_as_infectious}" == f"{numb_infectious}":
+                            prod = {
+                                f"{numb_susceptible_as_infectious}": 2,
+                            }
+                        else:
+                            prod = {
+                                f"{numb_susceptible_as_infectious}": 1,
+                                f"{numb_infectious}": 1,
+                            }
+
                         infection_reactions[keys] = {
                             "reactants": {
                                 f"{numb_susceptible}": 1,
                                 f"{numb_infectious}": 1,
                             },
-                            "products": {f"{numb_infectious}": 2},
+                            "products": prod,
                             "modifiers": modifier,
                             "formula": f"beta * {eta_term} * (1-{delta_term}) * (1-{gamma_term})*{numb_susceptible}*{numb_infectious}*({distance_M.loc[index_areas_susceptible, index_areas_infected]})/({numb_susceptible_area_population_alive})",
                         }

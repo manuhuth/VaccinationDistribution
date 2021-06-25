@@ -45,7 +45,7 @@ def create_spline(area, vaccine, stop, length):
             "time_symbol": "t",
             "xx": xx,
             "yy": yy,
-            "xx_names": xx_names,  # not used currently
+            "xx_names": xx_names,
             "yy_names": yy_names,
         }
     }
@@ -90,7 +90,6 @@ def create_splines(areas_without, vaccination_states_removed, stop, length):
     return splines
 
 
-# TODO write proper doc strings
 def create_spline_parameters(areas, vaccination_states_removed, leave_out="last"):
     """Generate dictionary with information for the actual spline parameter
     that is passed to :func: `model_vaccination_create_sbml`.
@@ -218,6 +217,90 @@ def create_one_minus_rules_splines(areas, vaccination_states_removed, leave_out=
         rules_minus_one[rule_id] = {"parameter_id": parameter_id, "formula": formula}
 
     return rules_minus_one
+
+
+def create_parameters_piecewise_vaccine_supply(
+    xx,
+    vaccination_states,
+    non_vaccination_state,
+):
+    """Generate dictionary with information for the piecewise parameter
+    that is passed to :func: `model_vaccination_create_sbml`.
+
+    Parameters
+    ----------
+    decision_period_length : int
+        Last time point on which the piecewise function is computed.
+
+    number_decision_periods : int
+        Number of intervals for piecewise function.
+
+    first_vaccination_period : int
+        Start period of avccination.
+
+    vaccination_states : list
+        Names of vaccination states including a state for non-vaccinated.
+
+    non_vaccination_state : str
+        State that is not vaccinated.
+
+    areas : list
+        Names of areas for which parameters are created.
+
+    Returns
+    -------
+    parameter_proportions_vaccination: dict
+        Dicitionary containing the information of that is passed to
+        :func: `model_vaccination_create_sbml`.
+    """
+
+    vaccination_states_removed = [
+        x for x in vaccination_states if x != non_vaccination_state
+    ]
+
+    parameter_vaccine_supply = {}
+    for index_vaccination in vaccination_states_removed:
+        for index_time in xx:
+            vaccine_supply_par_id = (
+                f"vaccine_supply_par_{index_vaccination}_{index_time}"
+            )
+            parameter_vaccine_supply[vaccine_supply_par_id] = {
+                "value": 0,
+                "constant": True,
+            }
+
+    return parameter_vaccine_supply
+
+
+def get_piecewise_formula_xx_period(vaccine, xx):
+
+    formula = "piecewise("
+    for index in range(len(xx) - 1):
+        domain = f"((t >= {xx[index]}) && (t < {xx[index + 1]})),"
+        parameter = f"vaccine_supply_par_{vaccine}_{xx[index]},"
+        formula += parameter + domain
+    formula += "0)"
+
+    return formula
+
+
+def create_vaccine_supply_rules(vaccination_states, non_vaccination_state, xx):
+    vaccination_states_removed = [
+        x for x in vaccination_states if x != non_vaccination_state
+    ]
+
+    rules_vaccine_supply = {}
+    for index_vaccine in vaccination_states_removed:
+        formula = get_piecewise_formula_xx_period(vaccine=index_vaccine, xx=xx)
+        id_rule = f"supply_{index_vaccine}_rule"
+        id_parameter = f"number_{index_vaccine}"
+
+        rules_vaccine_supply[id_rule] = {
+            "parameter_id": id_parameter,
+            "formula": formula,
+        }
+
+    return rules_vaccine_supply
 
 
 def create_parameters_piecewise(

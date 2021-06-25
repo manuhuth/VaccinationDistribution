@@ -158,27 +158,33 @@ void dJydy_vaccination(realtype *dJydy, const int iy, const realtype *p, const r
             dJydy[0] = (-1.0*myproportion_countryB_vac2 + 1.0*yproportion_countryB_vac2)/std::pow(sigma_yproportion_countryB_vac2, 2);
             break;
         case 47:
-            dJydy[0] = (-1.0*mynu_countryA_vac1 + 1.0*ynu_countryA_vac1)/std::pow(sigma_ynu_countryA_vac1, 2);
+            dJydy[0] = (-1.0*mynumber_vac1 + 1.0*ynumber_vac1)/std::pow(sigma_ynumber_vac1, 2);
             break;
         case 48:
-            dJydy[0] = (-1.0*mynu_countryB_vac1 + 1.0*ynu_countryB_vac1)/std::pow(sigma_ynu_countryB_vac1, 2);
+            dJydy[0] = (-1.0*mynumber_vac2 + 1.0*ynumber_vac2)/std::pow(sigma_ynumber_vac2, 2);
             break;
         case 49:
-            dJydy[0] = (-1.0*mynu_countryA_vac2 + 1.0*ynu_countryA_vac2)/std::pow(sigma_ynu_countryA_vac2, 2);
+            dJydy[0] = (-1.0*mynu_countryA_vac1 + 1.0*ynu_countryA_vac1)/std::pow(sigma_ynu_countryA_vac1, 2);
             break;
         case 50:
-            dJydy[0] = (-1.0*mynu_countryB_vac2 + 1.0*ynu_countryB_vac2)/std::pow(sigma_ynu_countryB_vac2, 2);
+            dJydy[0] = (-1.0*mynu_countryB_vac1 + 1.0*ynu_countryB_vac1)/std::pow(sigma_ynu_countryB_vac1, 2);
             break;
         case 51:
-            dJydy[0] = (-1.0*myspline_countryA_vac1 + 1.0*yspline_countryA_vac1)/std::pow(sigma_yspline_countryA_vac1, 2);
+            dJydy[0] = (-1.0*mynu_countryA_vac2 + 1.0*ynu_countryA_vac2)/std::pow(sigma_ynu_countryA_vac2, 2);
             break;
         case 52:
-            dJydy[0] = (-1.0*myspline_countryA_vac2 + 1.0*yspline_countryA_vac2)/std::pow(sigma_yspline_countryA_vac2, 2);
+            dJydy[0] = (-1.0*mynu_countryB_vac2 + 1.0*ynu_countryB_vac2)/std::pow(sigma_ynu_countryB_vac2, 2);
             break;
         case 53:
-            dJydy[0] = (-1.0*mycountryA + 1.0*ycountryA)/std::pow(sigma_ycountryA, 2);
+            dJydy[0] = (-1.0*myspline_countryA_vac1 + 1.0*yspline_countryA_vac1)/std::pow(sigma_yspline_countryA_vac1, 2);
             break;
         case 54:
+            dJydy[0] = (-1.0*myspline_countryA_vac2 + 1.0*yspline_countryA_vac2)/std::pow(sigma_yspline_countryA_vac2, 2);
+            break;
+        case 55:
+            dJydy[0] = (-1.0*mycountryA + 1.0*ycountryA)/std::pow(sigma_ycountryA, 2);
+            break;
+        case 56:
             dJydy[0] = (-1.0*mycountryB + 1.0*ycountryB)/std::pow(sigma_ycountryB, 2);
             break;
     }

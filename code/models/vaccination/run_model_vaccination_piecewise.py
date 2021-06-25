@@ -1,11 +1,15 @@
 import numpy as np
+import pandas as pd
+from functools import partial
 
 from functions.run_sbml import run_model
 from models.vaccination.parameter import general_set_up
 from models.vaccination.parameter import fixed_parameter
-from models.vaccination.parameter import parameters_vaccine_one
-from models.vaccination.parameter import start_parameter_one
+from models.vaccination.parameter import parameters_vaccine_two
+from models.vaccination.parameter import start_parameter_two
 from models.vaccination.create_model_vaccination import model_vaccination_create_sbml
+from models.vaccination.create_model_vaccination import b_distance_function
+from models.vaccination.optimization_functions_estimagic import get_sum_of_states
 
 from visualization.model_results import plot_states
 from visualization.model_results import plot_observables
@@ -17,17 +21,21 @@ from functions.vaccine_proportions import create_parameters_piecewise
 from functions.run_sbml import create_observables_vaccination_rates
 from functions.run_sbml import get_model_and_solver_from_sbml
 
+from estimagic import minimize
+
+first_time = True
 # --------------------------Create Model--------------------------------------
-model_name = "vaccination"
-vaccination_states = ["vac0", "vac1"]
+model_name = "vaccination_piecewise"
+path_sbml = "stored_models/vaccination_piecewise/" + model_name
+vaccination_states = ["vac0", "vac1", "vac2"]
 non_vaccination_state = general_set_up()["non_vaccination_state"]
 virus_states = general_set_up()["virus_states"]
 areas = general_set_up()["areas"]
 distances = general_set_up()["distances"]
 species_comp = general_set_up()["species_compartments"]
 
-length_decision_period = 200
-number_decision_periods = 2
+length_decision_period = 14
+number_decision_periods = 11
 first_vaccination_period = 0
 
 vaccination_states_removed = [
@@ -51,7 +59,6 @@ additional_parameters = create_parameters_piecewise(
     areas=areas,
 )
 
-path_sbml = "stored_models/vaccination/" + model_name
 model_vaccination_create_sbml(
     path=path_sbml,
     areas=areas,
@@ -82,6 +89,7 @@ model_and_solver = get_model_and_solver_from_sbml(
     model_name=model_name,
     model_directory=model_directory,
     observables=observables,
+    only_import=not first_time,
 )
 
 created_model = {
@@ -90,206 +98,46 @@ created_model = {
     "observables": observables,
 }
 # -----------------------Run Model---------------------------------------------
-length = min(
-    length_decision_period * number_decision_periods + first_vaccination_period, 370
-)
+length = length_decision_period * number_decision_periods
 model = created_model["model"]
 solver = created_model["solver"]
 observables = created_model["observables"]
 
-set_start_parameter = start_parameter_one()
-set_fixed_parameter = {**fixed_parameter(), **parameters_vaccine_one()}
-set_proportions = {
-    "proportion_par_countryA_vac1_0": 0.2,
-    "proportion_par_countryA_vac1_200": 0.8,
+distance_parameters = {}
+distances_df = pd.DataFrame(distances, columns=areas, index=areas)
+b_distance_matrix = b_distance_function(distances_df)
+for index_areas_row in areas:
+    for index_areas_col in areas:
+        name = f"distance_{index_areas_row}_{index_areas_col}"
+        distance_parameters[name] = b_distance_matrix.loc[
+            index_areas_row, index_areas_col
+        ]
+
+set_start_parameter = start_parameter_two()
+set_fixed_parameter = {
+    **fixed_parameter(),
+    **parameters_vaccine_two(),
+    **distance_parameters,
 }
-
-set_parameter = {**set_fixed_parameter, **set_proportions}
-
-model_results = run_model(
-    model=model,
-    solver=solver,
-    periods=1,
-    length_periods=length,
-    set_start_parameter=set_start_parameter,
-    set_parameter=set_parameter,
-    observables_names=observables.keys(),
-)
-# -------------------------Plot Criterion---------------------------------------
-from models.vaccination.optimization_functions_estimagic import get_sum_of_states
-import pandas as pd
-from functools import partial
-from visualization.model_results import plot_3D_function
-
-
-def get_plotable_function(
-    theta, model, solver, length, set_start_parameter, observables, decision_on="dead"
-):
-
-    thetas = theta["value"]
-    set_proportions = {
-        "proportion_par_countryA_vac1_0": thetas[0],
-        "proportion_par_countryA_vac1_200": thetas[1],
-    }
-
-    set_parameter = {**set_fixed_parameter, **set_proportions}
-
-    model_results = run_model(
-        model=model,
-        solver=solver,
-        periods=1,
-        length_periods=length,
-        set_start_parameter=set_start_parameter,
-        set_parameter=set_parameter,
-        observables_names=observables,
-    )
-
-    out = model_results["states"]
-
-    trajectory_observables = model_results["observables"]
-    trajectory_states = model_results["states"]
-    trajectory_dict = {
-        "states": trajectory_states,
-        "observables": trajectory_observables,
-    }
-
-    if decision_on == "dead":
-        final_amount = True
-    else:
-        final_amount = False
-
-    out = {
-        "value": get_sum_of_states(
-            model, trajectory_dict, state_type=[decision_on], final_amount=final_amount
-        )
-    }
-
-    return out
-
-
-par_name = "proportion_par_countryA_vac1_200"
-
-
-def get_plotable_function_beta(
-    theta,
-    model,
-    solver,
-    length_periods,
-    set_fixed_parameter,
-    set_start_parameter,
-    observables,
-    decision_on="dead",
-):
-
-    thetas = theta["value"]
-    set_proportions = {
-        "proportion_par_countryA_vac1_0": thetas[0],
-        par_name: thetas[1],
-    }
-
-    set_parameter = {**set_fixed_parameter, **set_proportions}
-
-    model_results = run_model(
-        model=model,
-        solver=solver,
-        periods=1,
-        length_periods=length_periods,
-        set_start_parameter=set_start_parameter,
-        set_parameter=set_parameter,
-        observables_names=observables,
-    )
-
-    out = model_results["states"]
-
-    trajectory_observables = model_results["observables"]
-    trajectory_states = model_results["states"]
-    trajectory_dict = {
-        "states": trajectory_states,
-        "observables": trajectory_observables,
-    }
-
-    if decision_on == "dead":
-        final_amount = True
-    else:
-        final_amount = False
-
-    out = {
-        "value": get_sum_of_states(
-            model, trajectory_dict, state_type=[decision_on], final_amount=final_amount
-        )
-    }
-
-    return out
-
-
-# here change to one d
-to_plot = partial(
-    get_plotable_function_beta,
-    model=model,
-    solver=solver,
-    length_periods=length_decision_period,
-    set_start_parameter=set_start_parameter,
-    set_fixed_parameter=set_fixed_parameter,
-    observables=observables.keys(),
-    decision_on="infectious",
-)
-
-# change to one d
-plot_3D_function(
-    function=to_plot,
-    xlabel="$vac_1$",
-    ylabel=par_name,
-    zlabel="infectious",
-    set_off_scientific_notation=True,
-    decimal_floats=3,
-    start_linspace_y=0,
-    end_linspace_y=1,
-)
-
-# -----------------------Plot Model--------------------------------------------
-trajectory_states = model_results["states"]
-trajectory_observables = model_results["observables"]
-
-observables_names_nu = get_observables_by_name(
-    observables, substrings=["nu"], include_all=True
-)
-observables_names_proportion = get_observables_by_name(
-    observables, substrings=["proportion"], include_all=True
-)
-
-plot_observables(
-    results=model_results, model=model, observable_ids=observables_names_nu
-)
-plot_observables(
-    results=model_results,
-    model=model,
-    observable_ids=observables_names_proportion,
-    set_off_scientific_notation=True,
-    decimal_floats=4,
-)
-# fig, ax = plot_states(results=model_result, model=model)
-
-# dir(model)
-# par_values = model.getParameters()
-# par_names = model.getParameterNames()
-# model.getFixedParameterNames()
-
-substates = get_substates(
-    model=model, substrings=["vac0", "countryA"], include_all=True
-)
-fig, ax = plot_states(results=model_results, model=model, state_ids=substates)
-
 # -------------------------optimize--------------------------------------------
-from estimagic import minimize
 
 
-def criterion(theta, model, solver, set_fixed_parameter):
+xx = np.linspace(0, 140, 11)
+
+
+def criterion(
+    theta, model, solver, set_fixed_parameter, xx, vaccination_states_removed
+):
 
     para = theta["value"]
-    set_proportions = {
-        "proportion_par_countryA_vac1_0": para[0],
-        "proportion_par_countryA_vac1_200": para[1],
-    }
+
+    set_proportions = {}
+    number_index = 0
+    for index_vac in vaccination_states_removed:
+        for index_xx in xx:
+            name = f"proportion_par_countryA_{index_vac}_{index_xx}"
+            set_proportions[name] = para[number_index]
+            number_index += 1
 
     set_parameter = {**set_fixed_parameter, **set_proportions}
 
@@ -320,7 +168,12 @@ def criterion(theta, model, solver, set_fixed_parameter):
 
 
 to_optimize = partial(
-    criterion, model=model, solver=solver, set_fixed_parameter=set_fixed_parameter
+    criterion,
+    model=model,
+    solver=solver,
+    set_fixed_parameter=set_fixed_parameter,
+    xx=xx,
+    vaccination_states_removed=vaccination_states_removed,
 )
 
 n_multi = 20
@@ -331,6 +184,7 @@ cols = (
     + [f"theta_{i}" for i in range(number_vaccines * periods)]
     + ["value"]
 )
+np.random.seed(12345)
 df_multistart = pd.DataFrame(data=None, index=range(n_multi), columns=cols)
 for index_multi in range(n_multi):
     print(index_multi)
@@ -353,4 +207,25 @@ for index_multi in range(n_multi):
         start, np.append(res["solution_x"], res["solution_criterion"])
     )
 
-df_multistart[df_multistart.value == df_multistart.value.min()]
+optimal_column = df_multistart[df_multistart.value == df_multistart.value.min()]
+
+# ------------------------Run Optimum-----------------------------------------
+yy_names_str = []
+for index_vac in vaccination_states_removed:
+    for index_xx in xx:
+        yy_names_str.append(f"proportion_par_countryA_{index_vac}_{index_xx}")
+
+theta_names = [col for col in optimal_column if col.startswith("theta")]
+theta_optimal = list(optimal_column.loc[optimal_column.index[0], theta_names])
+yy_optimal = dict(zip(yy_names_str, theta_optimal))
+
+set_parameter = {**set_fixed_parameter, **yy_optimal}
+
+model_results_optimal = run_model(
+    model=model,
+    solver=solver,
+    periods=1,
+    length_periods=length,
+    set_start_parameter=set_start_parameter,
+    set_parameter=set_parameter,
+)

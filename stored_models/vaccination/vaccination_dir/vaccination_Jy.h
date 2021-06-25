@@ -53,3 +53,5 @@
 #define Jy52 Jy[52]
 #define Jy53 Jy[53]
 #define Jy54 Jy[54]
+#define Jy55 Jy[55]
+#define Jy56 Jy[56]

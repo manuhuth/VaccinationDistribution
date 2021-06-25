@@ -15,16 +15,16 @@ class Solver;
 
 namespace model_vaccination {
 
-extern std::array<const char*, 98> parameterNames;
+extern std::array<const char*, 115> parameterNames;
 extern std::array<const char*, 0> fixedParameterNames;
 extern std::array<const char*, 43> stateNames;
-extern std::array<const char*, 55> observableNames;
-extern std::array<const char*, 118> expressionNames;
-extern std::array<const char*, 98> parameterIds;
+extern std::array<const char*, 57> observableNames;
+extern std::array<const char*, 120> expressionNames;
+extern std::array<const char*, 115> parameterIds;
 extern std::array<const char*, 0> fixedParameterIds;
 extern std::array<const char*, 43> stateIds;
-extern std::array<const char*, 55> observableIds;
-extern std::array<const char*, 118> expressionIds;
+extern std::array<const char*, 57> observableIds;
+extern std::array<const char*, 120> expressionIds;
 
 extern void Jy_vaccination(realtype *Jy, const int iy, const realtype *p, const realtype *k, const realtype *y, const realtype *sigmay, const realtype *my);
 extern void dJydsigma_vaccination(realtype *dJydsigma, const int iy, const realtype *p, const realtype *k, const realtype *y, const realtype *sigmay, const realtype *my);
@@ -84,27 +84,27 @@ class Model_vaccination : public amici::Model_ODE {
                   43,                           // nx_solver
                   43,                       // nxtrue_solver
                   0,                    // nx_solver_reinit
-                  98,                                  // np
+                  115,                                  // np
                   0,                                  // nk
-                  55,                                  // ny
-                  55,                              // nytrue
+                  57,                                  // ny
+                  57,                              // nytrue
                   0,                                  // nz
                   0,                              // nztrue
-                  36,                              // nevent
+                  22,                              // nevent
                   1,                          // nobjective
-                  118,                                  // nw
-                  2210,                               // ndwdx
-                  348,                               // ndwdp
-                  20,                               // ndwdw
+                  120,                                  // nw
+                  2212,                               // ndwdx
+                  462,                               // ndwdp
+                  24,                               // ndwdw
                   216,                            // ndxdotdw
-                  std::vector<int>{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},                              // ndjydy
+                  std::vector<int>{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},                              // ndjydy
                   0,                                       // nnz
                   43,                                 // ubw
                   43                                  // lbw
               ),
               amici::SimulationParameters(
                   std::vector<realtype>{}, // fixedParameters
-                  std::vector<realtype>{0.01, 0.10000000000000001, 0.5, 2.0, 0.5, 0.5, 0.59999999999999998, 0.59999999999999998, 0.5, 0.5, 0.59999999999999998, 0.59999999999999998, 1.0, 1.3, 200000.0, 0.0, 0.0, 200000.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}        // dynamic parameters
+                  std::vector<realtype>{0.01, 0.10000000000000001, 0.5, 2.0, 0.5, 0.5, 0.59999999999999998, 0.59999999999999998, 0.5, 0.5, 0.59999999999999998, 0.59999999999999998, 1.0, 1.3, 200000.0, 0.0, 0.0, 200000.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.001, 0.001, 1.0, 0.0, 14.0, 28.0, 42.0, 56.0, 70.0, 84.0, 98.0, 112.0, 126.0, 140.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}        // dynamic parameters
               ),
               amici::SecondOrderMode::none,                                  // o2mode
               std::vector<realtype>(43, 0.0),   // idlist

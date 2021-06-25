@@ -2208,3 +2208,5 @@
 #define dflux_r95_drecovered_countryB_vac2_virM dwdx[2207]
 #define dspline_countryA_vac2_damici_t dwdx[2208]
 #define dspline_countryA_vac1_damici_t dwdx[2209]
+#define dnumber_vac1_damici_t dwdx[2210]
+#define dnumber_vac2_damici_t dwdx[2211]

@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+plt.rcParams.update(
+    {"text.usetex": True, "font.family": "sans-serif", "font.sans-serif": ["Helvetica"]}
+)
+
 from matplotlib.ticker import FormatStrFormatter
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -15,6 +19,11 @@ def plot_states(
     state_ids=None,
     time_name="time",
     legend_location="upper left",
+    legend_next_to_plot=False,
+    ncol=None,
+    colors=None,
+    custom_label=None,
+    ylim=None,
 ):
     """Plot trajectories of species. Only a part of species can be addressed
     by using the state_ids parameter.
@@ -55,15 +64,41 @@ def plot_states(
     else:
         states = state_ids
 
+    index_cols = 0
     for index in states:
-        label = index
-        ax.plot(time, df_trajectories[index], label=label)
+
+        if custom_label is not None:
+            label = custom_label[index_cols]
+        else:
+            label = index
+
+        if colors is not None:
+            ax.plot(time, df_trajectories[index], label=label, color=colors[index_cols])
+        else:
+            ax.plot(time, df_trajectories[index], label=label)
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
-        ax.legend()
+        if ylim is not None:
+            ax.set_ylim(ylim)
+        if ncol is not None:
+            ax.legend(loc=legend_location, ncol=ncol)
+        else:
+            ax.legend(loc=legend_location)
         ax.set_title(title)
-    ax.legend(bbox_to_anchor=(1, 0.8, 0.3, 0.2), loc=legend_location)
+        index_cols += 1
 
+    if legend_next_to_plot is True:
+        if ncol is not None:
+            ax.legend(bbox_to_anchor=(1, 0.8, 0.3, 0.2), loc=legend_location, ncol=ncol)
+        else:
+            ax.legend(bbox_to_anchor=(1, 0.8, 0.3, 0.2), loc=legend_location)
+    ax.spines["top"].set_alpha(0)
+    ax.spines["bottom"].set_alpha(0.3)
+    ax.spines["right"].set_alpha(0)
+    ax.spines["left"].set_alpha(0.3)
+    ax.grid(alpha=0.3)
+    ax.xaxis.set_ticks_position("none")
+    ax.yaxis.set_ticks_position("none")
     return fig, ax
 
 
@@ -94,14 +129,17 @@ def get_state_trajectory_data_frame(results, model):
 def plot_observables(
     results,
     model,
-    xlabel="$t$",
-    ylabel="$x_i(t)$",
+    xlabel="Days",
+    ylabel="Observables",
     title="Observables trajectories",
     observable_ids=None,
     set_off_scientific_notation=False,
     decimal_floats=4,
     time_name="time",
+    legend_next_to_plot=False,
     legend_location="upper left",
+    colors=None,
+    custom_label=None,
 ):
     """Plot trajectories of species. Only a part of species can be addressed
     by using the state_ids parameter.
@@ -154,25 +192,46 @@ def plot_observables(
     # redefinition prevents graphs from applying scientifix notation
     # if unnecessary.
     df_observables_to_be_plotted = df_trajectories[observables]
-
+    index_cols = 0
     for index in observables:
-        label = index
-        ax.plot(
-            df_trajectories[time_name],
-            df_observables_to_be_plotted[index],
-            label=label,
-        )
+        if custom_label is not None:
+            label = custom_label[index_cols]
+        else:
+            label = index
+
+        if colors is not None:
+            ax.plot(
+                df_trajectories[time_name],
+                df_observables_to_be_plotted[index],
+                label=custom_label[index_cols],
+                color=colors[index_cols],
+            )
+        else:
+            ax.plot(
+                df_trajectories[time_name],
+                df_observables_to_be_plotted[index],
+                label=label,
+            )
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
         ax.legend()
         ax.set_title(title)
+        index_cols += 1
 
-    ax.legend(bbox_to_anchor=(1, 0.8, 0.3, 0.2), loc=legend_location)
+    if legend_next_to_plot is True:
+        ax.legend(bbox_to_anchor=(1, 0.8, 0.3, 0.2), loc=legend_location)
 
     if set_off_scientific_notation is True:
         ax.get_yaxis().get_major_formatter().set_useOffset(False)
         ax.yaxis.set_major_formatter(FormatStrFormatter(f"%.{decimal_floats}f"))
 
+    ax.spines["top"].set_alpha(0)
+    ax.spines["bottom"].set_alpha(0.3)
+    ax.spines["right"].set_alpha(0)
+    ax.spines["left"].set_alpha(0.3)
+    ax.grid(alpha=0.3)
+    ax.xaxis.set_ticks_position("none")
+    ax.yaxis.set_ticks_position("none")
     return fig, ax
 
 
@@ -202,14 +261,14 @@ def get_observable_trajectory_data_frame(results, model):
 
 def get_observables_by_name(observables, substrings, include_all=True, key="name"):
     observables_names = []
-    for index_dicts in observables.keys():
-        value = observables[index_dicts][key]
+    for index_obs in observables:
+        # value = observables[index_dicts][key]
         if include_all is True:
-            if all(x in value for x in substrings):
-                observables_names.append(value)
+            if all(x in index_obs for x in substrings):
+                observables_names.append(index_obs)
         else:
-            if any(x in value for x in substrings):
-                observables_names.append(value)
+            if any(x in index_obs for x in substrings):
+                observables_names.append(index_obs)
     return observables_names
 
 

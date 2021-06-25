@@ -111,7 +111,7 @@ def create_cubic_hermite_spline(
     spline = CubicHermiteSpline(
         sbmlId=parameter_name,
         x=time_symbol,
-        xx=xx,  # make to xx_names. If we want to optimize over xx's as well
+        xx=xx_names,  # make to xx_names. If we want to optimize over xx's as well
         yy=yy_names,
     )
 

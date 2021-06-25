@@ -24,9 +24,9 @@ Following this approach we associate each Polynomial $P_{i}(\theta; t)$ with the
 $b_4(t) = t^3 - t^2$, the infimum ($t_i$) and supremum ($t_{i+1}$) of $T_i$ and specified values of $P_{i}(\theta; t_i) = \theta_i$, $P_{i+1}(\theta; t_{i+1})=\theta_{i+1}$ and its derivatives $P'_{i}(\theta; t_i)$, $P'_{i}(\theta; t_{i+1})$.\\
 To compute the derivatives we use finite differences with one-sided approximations at the boundaries $t_1$ and $t_{z+1}$
 \begin{align*}
-P'_{1}(\theta; t_1) &= \frac{P_{2}(\theta; t_2) - P_{1}(\theta; t_1)}{t_2 - t_1} \notag \\
-P'_{i}(\theta; t_i) &= \frac{1}{2}\left[\frac{P_{i+1}(\theta; t_{i+1}) - P_{i}(\theta; t_i)}{t_{i+1} - t_i} + \frac{P_{i}(\theta; t_{i}) - P_{i-1}(\theta; t_{i-1})}{t_{i} - t_{i-1}} \right] \notag \\
-P'_{z}(\theta; t_{z+1}) &= \frac{P_{z+1}(\theta; t_{z+1}) - P_{z}(\theta; t_z)}{t_{z+1} - t_z}
+P'_{1}(\theta; t_1) &\approx \frac{P_{2}(\theta; t_2) - P_{1}(\theta; t_1)}{t_2 - t_1} \notag \\
+P'_{i}(\theta; t_i) &\approx \frac{1}{2}\left[\frac{P_{i+1}(\theta; t_{i+1}) - P_{i}(\theta; t_i)}{t_{i+1} - t_i} + \frac{P_{i}(\theta; t_{i}) - P_{i-1}(\theta; t_{i-1})}{t_{i} - t_{i-1}} \right] \notag \\
+P'_{z}(\theta; t_{z+1}) &\approx \frac{P_{z+1}(\theta; t_{z+1}) - P_{z}(\theta; t_z)}{t_{z+1} - t_z}
 \end{align*}
 For $t \in T_i$ let $t' = (t-t_i)/(t_{i+1} - t_i)$. Then the polynomial $P_{i}(\theta; t) $ is given by 
 \begin{align*}

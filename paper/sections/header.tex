@@ -9,19 +9,21 @@
 \xdef*{\noexpand\textup{\string*}}
 \endgroup
 \usepackage{lmodern}
+
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage[nohead]{geometry}
 \usepackage[doublespacing]{setspace}
 \usepackage[bottom]{footmisc}
-\usepackage{booktabs} % optisch bessere Tabellen
+\usepackage{xltabular}
+\usepackage{booktabs}% optisch bessere Tabellen
 \usepackage{endnotes}
 \usepackage{natbib}
 \usepackage{comment}
 \usepackage{graphicx,caption}% ,subfigure} use subcaption instead, see below
 \usepackage{subfig}
 \usepackage{rotating}
-\usepackage{hyperref}
+\usepackage[allcolors=black]{hyperref}
 \usepackage[latin1]{inputenc} % Zeichencodierung
 \usepackage[T1]{fontenc} % Zeichencodierung
 \usepackage{pdflscape}
@@ -41,7 +43,7 @@
 \def\@biblabel#1{\hspace*{-\labelsep}}
 \makeatother
 \geometry{left=3cm,right=2cm,top=2cm,bottom=2cm}
-\hypersetup{colorlinks, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\hypersetup{colorlinks, linkcolor=black, citecolor=black, urlcolor=blue}
 %\usepackage{cite} % ohne eckige Klammer in Text
 %\usepackage[noadjust]{cite} % ohne eckige Klammer in Text
 % \renewcommand\citeleft{}%
@@ -71,7 +73,9 @@
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\X}{\mathbf{X}}
 \newcommand{\Y}{\mathbf{Y}}
-\newcommand{\set}{\mathcal{P}}	
+\newcommand{\set}{\mathcal{C}_t}
+\newcommand{\num}{y_t}	
+\newcommand{\der}{\dot{y}_t}	
 
 %----------------------------------------------------
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -103,6 +107,8 @@
 \newtheorem{proofof}{Proof of Theorem}
 \theoremstyle{plain}
 \newtheorem{algorithm}{Algorithm}
+\theoremstyle{plain}
+\newtheorem{example}{Example}
 
 \interfootnotelinepenalty=10000
 

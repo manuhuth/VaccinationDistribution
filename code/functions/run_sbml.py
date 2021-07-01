@@ -12,6 +12,7 @@ def run_model(
     set_parameter,
     set_initials_zero=True,
     number_intervals=1000,
+    gradient = False,
 ):
     """
     Parameters
@@ -65,6 +66,8 @@ def run_model(
     df_trajectories_observables = pd.DataFrame(
         first_period["y"], columns=(observables_names)
     )
+    
+    grad = first_period["sllh"]
 
     if periods_minus_one > 0:
         for _ in range(periods_minus_one):
@@ -103,6 +106,7 @@ def run_model(
     trajectory_dict = {
         "states": df_trajectories_states,
         "observables": df_trajectories_observables,
+        "gradient" : first_period,
     }
     return trajectory_dict
 
@@ -268,6 +272,6 @@ def run_model_once(model, solver, timepoints, set_parameter=None):
             model.setParameterByName(keys, set_parameter[keys])
 
     model.setTimepoints(timepoints)
-    rdata = amici.runAmiciSimulation(model, solver)
+    rdata = amici.runAmiciSimulation(model, solver)      
 
     return rdata

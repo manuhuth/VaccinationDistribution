@@ -1,0 +1,12 @@
+format_version: 1
+parameter_file: pt_table.tsv
+problems:
+  - condition_files:
+    - cond_table.tsv
+    measurement_files:
+    - mt_table.tsv
+    observable_files:
+    - ot_table.tsv
+    sbml_files:
+    - vaccination.xml
+

@@ -23,9 +23,13 @@ model_current = dict_out["model_current"]
 model_directory = dict_out["model_directory"]
 path_sbml = dict_out["path_sbml"]
 model_name = dict_out["model_name"]
-# compare_total = dict_out["compare_total"]
-# compare_A = dict_out["compare_A"]
-# compare_B = dict_out["B"]
+compare_total = dict_out["compare_total"]
+compare_A = dict_out["compare_A"]
+compare_B = dict_out["compare_B"]
+print(compare_total)
+print(compare_A)
+print(compare_B)
+
 
 model_solver = model_and_solver = get_model_and_solver_from_sbml(
     path_sbml=path_sbml,
@@ -37,6 +41,7 @@ model = model_solver["model"]
 observables = model.getObservableNames()
 
 # ------------plots_model------------------------------------------------------
+ylim_infectious = [0, 2.5 * 10 ** 7]
 colors = ["C2", "C3"]
 trajectory_states_optimal = model_optimal["states"]
 trajectory_observables_optimal = model_optimal["observables"]
@@ -134,7 +139,7 @@ fig, ax = plot_states(
     xlabel="Days",
     ylabel="Number of individuals",
     custom_label=["Virus wild type", "Virus mutant"],
-    ylim=[0, 2.3 * 10 ** 6],
+    ylim=ylim_infectious,
     legend_next_to_plot=False,
 )
 # ax.get_legend().remove()
@@ -156,7 +161,7 @@ fig, ax = plot_states(
     xlabel="Days",
     ylabel="Number of individuals",
     custom_label=["Virus wild type", "Virus mutant"],
-    ylim=[0, 2.3 * 10 ** 6],
+    ylim=ylim_infectious,
     legend_next_to_plot=False,
 )
 # ax.get_legend().remove()
@@ -185,7 +190,7 @@ fig, ax = plot_states(
         "Deceased (W)",
         "Deceased (M)",
     ],
-    # ylim = [0, 2.3*10**6],
+    # ylim = ylim_infectious,
     legend_next_to_plot=True,
 )
 # ax.get_legend().remove()
@@ -215,7 +220,7 @@ fig, ax = plot_states(
         "Deceased (W)",
         "Deceased (M)",
     ],
-    # ylim = [0, 2.3*10**6],
+    # ylim = ylim_infectious,
     legend_next_to_plot=True,
 )
 # ax.get_legend().remove()
@@ -254,7 +259,7 @@ fig, ax = plot_states(
     xlabel="Days",
     ylabel="Number of individuals",
     custom_label=["Virus wild type", "Virus mutant"],
-    ylim=[0, 2.3 * 10 ** 6],
+    ylim=ylim_infectious,
     legend_next_to_plot=False,
 )
 # ax.get_legend().remove()
@@ -275,7 +280,7 @@ fig, ax = plot_states(
     xlabel="Days",
     ylabel="Number of individuals",
     custom_label=["Virus wild type", "Virus mutant"],
-    ylim=[0, 2.3 * 10 ** 6],
+    ylim=ylim_infectious,
     legend_next_to_plot=False,
 )
 # ax.get_legend().remove()

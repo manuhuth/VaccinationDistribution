@@ -24,6 +24,8 @@ from functions.vaccine_proportions import create_spline_transformation_rules
 from functions.vaccine_proportions import create_one_minus_rules_splines
 from functions.vaccine_proportions import create_parameters_piecewise_vaccine_supply
 from functions.vaccine_proportions import create_vaccine_supply_rules
+from functions.create_vaccine_doses_inflow import create_inflow_from_data
+from visualization.model_results import get_substates
 
 
 first_time = False
@@ -41,7 +43,7 @@ length_decision_period = 140
 number_decision_periods = 1
 first_vaccination_period = 0
 number_yy = 11
-n_intervals = 2000
+n_intervals = 3000
 
 xx_list = ["xx" + str(i) for i in range(number_yy)]
 parameter_vacc_supply = create_parameters_piecewise_vaccine_supply(
@@ -92,7 +94,7 @@ model_vaccination_create_sbml(
 observables_vaccinated_vacc = {}
 for index_area in areas:
     for index_vacc in vaccination_states_removed:
-        name = "quantity_" + index_area + "_" + index_vacc
+        name = "observable_quantity_" + index_area + "_" + index_vacc
         proportion = f"proportion_{index_area}_{index_vacc}"
         number_vacc = f"number_{index_vacc}"
         formula = f"{proportion} * {number_vacc}"
@@ -109,7 +111,6 @@ for index in ["nu", "proportion", "spline"]:
         areas=areas,
         name_parameter=index,
     )
-    observables = {**observables, **new}
 
 model_directory = "stored_models/" + model_name + "/vaccination_dir"
 
@@ -118,6 +119,7 @@ model_and_solver = get_model_and_solver_from_sbml(
     model_name=model_name,
     model_directory=model_directory,
     only_import=not first_time,
+    observables=observables,
 )
 
 created_model = {
@@ -149,9 +151,12 @@ set_start_parameter = start_parameter_two()
 vaccine_supply_parameter_strings = [
     x for x in model.getParameterNames() if "vaccine_supply" in x
 ]
-vaccine_supply_parameter_values = np.repeat(
-    float(40000), len(vaccine_supply_parameter_strings)
-)
+#vaccine_supply_parameter_values = np.repeat(
+#    float(400000), len(vaccine_supply_parameter_strings)
+#)
+
+vaccine_supply_parameter_values = create_inflow_from_data()
+
 set_vaccine_supply_parameter = dict(
     zip(vaccine_supply_parameter_strings, vaccine_supply_parameter_values)
 )
@@ -291,10 +296,11 @@ while n_rows < n_multi and k < 10000:
     if cand_value < large_value:
         start_matrix = np.vstack((start_matrix, candidate))
         success_values.append(cand_value)
+        n_rows = start_matrix.shape[0] - 1
         print("success")
     print(k)
     k += 1
-    n_rows = start_matrix.shape[0] - 1
+    
 
 start_matrix = np.delete(start_matrix, (0), axis=0)
 
@@ -321,6 +327,40 @@ visualize.waterfall(results_max)
 
 df_results_max = results_max.optimize_result.as_dataframe()
 theta_optimal_max = df_results_max.iloc[0]["x"]
+#-----------------------Petab-------------------------------------------------
+#0. Condition table 
+columns_cond = ["conditionId", "beta"]
+first_row_cond = ["ordinary", 0.3]
+
+
+
+#1. observable table
+columns_ot = ["observableId", "observableFormula", "noiseFormula"]
+substates_d = get_substates(model, ["dead"], include_all=True)
+string_d = '+'.join(substates_d)
+obs_id = "observable_deaths"
+first_row_ot = [obs_id, string_d]
+
+#2. Measurement table
+columns_mt = ["observableId", "simulationConditionId", "measurement", "time"]
+first_row_mt = [obs_id, "ordinary", 0, length, 0]
+
+#3 Parameter table
+columns_pt = ["parameterId","parameterScale","lowerBound","upperBound","estimate"]
+
+col_parameterId = yy_names_str
+col_parameterScale = len(yy_names_str)*["lin"]
+col_lb = np.repeat(lower_bound, len(yy_names_str))
+col_ub = np.repeat(upper_bound, len(yy_names_str))
+col_est = np.repeat(1, len(yy_names_str))
+
+
+
+
+
+
+
+
 
 # ------------------------Run Optimum-----------------------------------------
 transformed_theta_optimal = np.log(theta_optimal_max / (1 - theta_optimal_max))
@@ -335,6 +375,7 @@ model_results_optimal = run_model(
     length_periods=length,
     set_start_parameter=set_start_parameter,
     set_parameter=set_parameter,
+    number_intervals=n_intervals,
 )
 trajectory_states_optimal = model_results_optimal["states"]
 trajectory_optimal = {
@@ -356,6 +397,7 @@ model_results_seperated = run_model(
     length_periods=length,
     set_start_parameter=set_start_parameter,
     set_parameter=set_parameter_seperated,
+    number_intervals=n_intervals,
 )
 df_seperated = model_results_seperated
 states_seperated = df_seperated["states"]

@@ -18,12 +18,12 @@ namespace model_vaccination {
 extern std::array<const char*, 115> parameterNames;
 extern std::array<const char*, 0> fixedParameterNames;
 extern std::array<const char*, 43> stateNames;
-extern std::array<const char*, 57> observableNames;
+extern std::array<const char*, 5> observableNames;
 extern std::array<const char*, 120> expressionNames;
 extern std::array<const char*, 115> parameterIds;
 extern std::array<const char*, 0> fixedParameterIds;
 extern std::array<const char*, 43> stateIds;
-extern std::array<const char*, 57> observableIds;
+extern std::array<const char*, 5> observableIds;
 extern std::array<const char*, 120> expressionIds;
 
 extern void Jy_vaccination(realtype *Jy, const int iy, const realtype *p, const realtype *k, const realtype *y, const realtype *sigmay, const realtype *my);
@@ -86,8 +86,8 @@ class Model_vaccination : public amici::Model_ODE {
                   0,                    // nx_solver_reinit
                   115,                                  // np
                   0,                                  // nk
-                  57,                                  // ny
-                  57,                              // nytrue
+                  5,                                  // ny
+                  5,                              // nytrue
                   0,                                  // nz
                   0,                              // nztrue
                   22,                              // nevent
@@ -97,7 +97,7 @@ class Model_vaccination : public amici::Model_ODE {
                   462,                               // ndwdp
                   24,                               // ndwdw
                   216,                            // ndxdotdw
-                  std::vector<int>{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},                              // ndjydy
+                  std::vector<int>{1,1,1,1,1},                              // ndjydy
                   0,                                       // nnz
                   43,                                 // ubw
                   43                                  // lbw

@@ -264,10 +264,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 82:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 83:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 84:
                     stau[0] = -1.0*sx42;
@@ -613,10 +613,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 82:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 83:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 84:
                     stau[0] = -1.0*sx42;
@@ -965,10 +965,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 83:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 84:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 85:
                     stau[0] = -1.0*sx42;
@@ -1314,10 +1314,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 83:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 84:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 85:
                     stau[0] = -1.0*sx42;
@@ -1666,10 +1666,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 84:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 85:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 86:
                     stau[0] = -1.0*sx42;
@@ -2015,10 +2015,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 84:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 85:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 86:
                     stau[0] = -1.0*sx42;
@@ -2367,10 +2367,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 85:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 86:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 87:
                     stau[0] = -1.0*sx42;
@@ -2716,10 +2716,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 85:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 86:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 87:
                     stau[0] = -1.0*sx42;
@@ -3068,10 +3068,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 86:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 87:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 88:
                     stau[0] = -1.0*sx42;
@@ -3417,10 +3417,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 86:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 87:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 88:
                     stau[0] = -1.0*sx42;
@@ -3769,10 +3769,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 87:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 88:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 89:
                     stau[0] = -1.0*sx42;
@@ -4118,10 +4118,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 87:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 88:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 89:
                     stau[0] = -1.0*sx42;
@@ -4470,10 +4470,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 88:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 89:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 90:
                     stau[0] = -1.0*sx42;
@@ -4819,10 +4819,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 88:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 89:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 90:
                     stau[0] = -1.0*sx42;
@@ -5171,10 +5171,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 89:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 90:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 91:
                     stau[0] = -1.0*sx42;
@@ -5520,10 +5520,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 89:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 90:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 91:
                     stau[0] = -1.0*sx42;
@@ -5872,10 +5872,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 90:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 91:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 92:
                     stau[0] = -1.0*sx42;
@@ -6221,10 +6221,10 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 90:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 91:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 92:
                     stau[0] = -1.0*sx42;
@@ -6546,7 +6546,7 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 82:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 83:
                     stau[0] = -1.0*sx42;
@@ -6573,7 +6573,7 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 91:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 92:
                     stau[0] = -1.0*sx42;
@@ -6895,7 +6895,7 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 82:
-                    stau[0] = 1.0 - 1.0*sx42;
+                    stau[0] = -1.0*sx42;
                     break;
                 case 83:
                     stau[0] = -1.0*sx42;
@@ -6922,7 +6922,7 @@ void stau_vaccination(realtype *stau, const realtype t, const realtype *x, const
                     stau[0] = -1.0*sx42;
                     break;
                 case 91:
-                    stau[0] = -1.0*sx42;
+                    stau[0] = 1.0 - 1.0*sx42;
                     break;
                 case 92:
                     stau[0] = -1.0*sx42;

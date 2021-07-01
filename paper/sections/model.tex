@@ -1,118 +1,140 @@
-\section{Compartments}
+\section{Model}
+We subdivide the classic SIRD compartments, Susceptible ($S$), Infectious ($I$), Recovered ($R$) and Deceased ($D$), with sub-compartments allowing for heterogeneous areas of residence and vaccination states as well as infections by different virus types. Individuals either live in area $A$ or area $B$. They are non-vaccinated $v_0$, vaccinated with vaccine one $v_1$ or vaccinated with vaccine two $v_2$. We introduce two virus types. A wild type $w$ that serves as baseline variant and a more infectious mutant $m$ variant.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.23]{images/vaccination_pp.png}
+\caption{Compartments }
+\end{figure}
+To describe our model we follow the notation in \cite{Waites.2021} and denote every sub-group of individuals by a set $\set(F_n)$, where $F_n$ is a placeholder for features of individuals the set $\set$ is representing and $t$ denotes the time at which the set is evaluated. We illustrate this in the following by examples. Let $x_i$ for $i \in \{S, I, R, D \}$ indicate to which general compartment an individual belongs, then, $\set(x_S)$ is the set of all susceptible individuals and $\set(x_I)$ is the set of all infectious individuals in $t$. If we want to distinguish not only between general compartments but additionally between countries of residence, we use the feature $c_j$ for $j \in \{A, B\}$ to indicate that the country of residence is $j$. $\set(x_S, c_A)$ is the set of all susceptible individuals of country A and $\set(x_S, c_B)$ of country B. Note that the ordinary set operators apply, allowing us to us linkages such as $\set(x_S, c_A) \cup \set(x_S, c_B) = \set(x_S)$ or $\set(x_S) \cap \set(x_I) = \emptyset$. The cardinality $|\cdot|$ represents the respective number of individuals in a set, e.g. $|\set(x_S)|$ equals the number of all susceptible individuals. To shorthand notation, we define $\num(F_n) = |\set(F_n)|$ as the number of individuals in the compartment addressed by $(F_n)$. \\ By definition $\set() = \cup_{u \in \{ S, I, R,D\}} \set(x_u)$ is the set of all individuals. An overview of all features is given in Table \ref{tab:features}. 
+\input{tables/feature_description}
 
-In the proposed model the compartments are Susceptible ($S$), Infectious ($I$), Recovered and Dead ($D$). Individuals either live in area one ($a_1$) or area two ($a_2$). They are non-vaccinated ($v_0$), vaccinated with vaccine one $(v_1)$ or vaccinated with vaccine two ($v_2$). Since we are dealing with two virus variants, the wild type $w$ and the mutant $m$, we account for this by introducing the feature $c_j$ with $j \in \{w,m\}$ that indicates the type of virus we are referring to. For infectious individuals we can distinguish between symptomatic $s_y$ and asymptomatic cases $s_n$.
- 
-We use the set notation of \cite{Waites.2021} to address certain subsets of the population. $\set()$ means all individuals. $\set(x_u)$ denotes all individuals from compartment $u \in \{S, I, R, D \}$, $\set(a_l)$ denotes all individuals from area $l \in \{1,2\}$, $\set(v_i)$ are all individuals with vaccination status $k \in \{0,1,2\}$, where zero indicates non-vaccinated, and $\set(c_j)$ are all individuals that currently have or had an infection with virus $j \in \{w,m\}$. With this notation we can pick desired subsets of the population by combining the appropriate features. All individuals from area one that are infected with the wild type are addressed by $\set(x_I, c_m)$. If we only want the unvaccinated individuals of them we use $\set(x_I, c_m, v_0)$. The usual set operators, like $\cup$. Using these operators allows us to address even more specific subsets like the set of all vaccinated individuals $\set(v_1) \cup \set(v_2)$. The set $\set()$ is defined as the whole population. The cardinalty $|\cdot|$ is used to addres the respective number of individuals in a set, e.g. $|\set(x_S, a_1)|$ equals the number of all susceptible individuals in area one.\\
-
-In more specific cases it might be more comprehensive to replace the index numbers by meaningful abbreviations.
-
-
-On the next page you find a graphical representation of the model using tikz. I have omitted the second region and cross-border infections from the graph to increase readability.  
-\textit{no heading and just somewhere}
-\includegraphics[scale=0.15]{images/vaccination.png}
-
-\textbf{Assumptions so far:} 
-\begin{itemize}
-    \item distinction between symptomatic and asymptomatic infected cases only at recovered
-    \item mutant can be more infectious but has same mortality. Additional parameter?
-    \item no vaccination during infection \href{https://www.cdc.gov/vaccines/covid-19/info-by-product/clinical-considerations.html}{see here} (US Center for Disease Control)
-    \item no births and other deaths
-    \item no reinfection
-\end{itemize}
-\vspace{0.5cm}
-
-\begin{itemize}
-\item time dependence of parameters
-\item cross-border with individuals being in the other country
-\item rate of going somewhere must not be the same as people coming in (modify b function)
-\item minimize over dead people or integrate of infected
-\end{itemize}
-
-
-
-
-\subsection{Dynamics}
-
- 
-\subsubsection*{Susceptible to Infectious}
-To facilitate notation, we distinguish between individuals that are alive and those that are dead. We exclude all dead individuals by using prime notation to only address all living individuals, e.g. $\set'(a_l) =  \set(x_S, a_l) \cup \set(x_I, a_l) \cup \set(x_R, a_l)$. We define $N_l(t) = |\set'(a_l) |$ as the number of living individuals in area $l$ at time $t$. For specifying the transition rates we need to specify the probabilities that two individuals of a certain type meet. We do so by using the relative frequencies and adjust for cross-area meetings. The probability of an individual $i \in \set()$ to be in a particular subset is approximated by the relative frequencies. For example, the (time dependent) probability that a randomly drawn living individual is from area $l$ is $\prob\left(i \in \set'(a_l) \right) = \frac{N_l(t)}{N_1(t) + N_2(t)}$. To compute the probability that an individual is susceptible, conditioned that it is from area $l$, we can use Bayes' formula 
-\begin{align}
-\prob\left( i \in \set(x_S) |  i \in \set'(a_l) \right)= \frac{\prob\left(i \in  \set(x_S, a_l) \right)}{\prob\left(i \in \set'(a_l)\right)} = \frac{|\set(x_S, a_l)|}{|\set'(a_l)|} = \frac{|\set(x_S, a_l)|}{N_l(t)}.
-\end{align}
-We are interested in how many individuals are on average infected by an infected individual. To facilitate notation we assume that the infected individual lives in area one and is infected with the wild type $w$. The average number of infected individuals is a composition of the infection rate that is dependent on the virus type, the average number of contacts per infected individual and unit of time and the share of susceptible individuals that can be infected. We start with the baseline case of two unvaccinated individuals and first define the transition for susceptible individuals from area two.\\ 
-Let $i_1 \in \set(x_I, v_0, c_w, a_1)$ and $i_2 \in \set()$.  We fix the location, vaccination status and compartment of individual one and allow individual two to potentially be from both areas and every compartment. We need to define $\prob(i_2 \in \set(x_S, v_0 ,a_2)|i_1 \in \set(x_I, v_0,c_w, a_1))$, the probability that the individual that can be infected is susceptible, unvaccinated and from area two given that individual one is infected with the wild type, unvaccinated and from area one. We assume that only the area has an influence on the probability of meeting an individual. The problem facilitates to finding $\prob(i_2 \in \set(x_S, v_0 ,a_2)|i_1 \in \set(a_1))$ or equivalently $\prob(i_2 \in \set(x_S, v_0) \wedge i_2 \in \set(a_2) | i_1 \in \set(a_1))$. Using Bayes' formula we can rewrite this as
+We do not incorporate reinfections. Thus, a susceptible individual cannot be associated with any virus type and therefore $\set(x_S, v_k) = \emptyset$ for all $k \in {w,m}$. Moreover, we impose a set of assumptions to our model. 
+\begin{assumption}\label{ass:model}
+For all $t,r \in \R_+$ and $s \in [-t, \infty)$ let
 \begin{align*}
-\prob(i_2 \in \set(x_S, v_0) \wedge i_2 \in \set(a_2) | i_1 \in \set(a_1)) &= \prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) )  \notag \\
-& \quad \cdot \prob(i_2 \in \set(x_S, v_0) | i_1 \in \set(a_1), i_2 \in \set(a_2) ) \notag \\
-&= \prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) )  \notag \\
-& \quad \cdot \prob(i_2 \in \set(x_S, v_0))
-\end{align*} 
-We first specify the probability $\prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) )$, which is to say, the probability that $i_2$ is from area two. We cannot use the relative frequency of the number of individuals $\frac{N_{2}(t)}{N_1(t) + N_2(t)}$ as probability since this would not take into account that individuals meet more often within one region. We therefore add a penalty term $b\left(\text{d}(a_1, a_2) \right)$ that accounts for the distance between the areas
-\begin{align*}
-\prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) ) = \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right).
+\tag{\ref{ass:model}.1} 
+\label{eq:no_reinfections}
+\set(x_I, v_k) \cap \mathcal{C}_{t+r}(x_S) &= \emptyset \\
+\tag{\ref{ass:model}.2} 
+\label{eq:no_double_vaccinations}
+\set(u_1) \cap \mathcal{C}_{t+s}(u_2) &= \emptyset \\
+\tag{\ref{ass:model}.3} 
+\label{eq:no_cross_border_mobility}
+\set(c_A) \cap \mathcal{C}_{t+s}(c_B) &= \emptyset 
 \end{align*}
-$b(y) \in [0,1], b\left(0\right) = 1$ and $\lim\limits_{y \to \infty} b\left(y\right) = 0$. \textit{idea for} $b(y)= \frac{1}{1 + b y}$. Analogously we define the probabilities of $\prob(i_1 \in \set(a_1) | i_2 \in \set(a_2) )$. Subsequently, we use short-hand notation to address the conditional location probabilities. Let $m_{u,v}$ be the $u$-th row and $v$-th column of the Matrix $\vect{M} \in \R^{2 \times 2}$.
+\end{assumption}
+Assumption \ref{eq:no_reinfections} rules out reinfections. An individual that has been infected once cannot become reinfected after it had recovered. According to recent studies \textbf{cite paper} this is not true for COVID-19. However, the number of reinfected individuals is negligible and we therefore do not incorporate reinfections to keep our model parsimonious. Assumption \ref{eq:no_double_vaccinations} implies that an individual only receives one type of vaccine. Receiving one vaccination shot in our model implies that an individual is fully protected according to the vaccine properties making it unrealistic to assign a second shot to this individual. Assumption \ref{eq:no_cross_border_mobility} rules out permanent cross-country movements of individuals. According to \textbf{cite how many individuals move from one to another country} the number is negligible. We therefore decided to leave out permanent changes of residence. However, we incorporate cross-border infections via meeting rates within the mass actions.
+
+\subsection{Mass actions and transition rules}
+For a specific compartment $(F_n)$, the derivative with respect to $t$ is defined by
 \begin{align*}
+\der(F_n) = \lim_{r \to 0} \frac{y_{t+r}(F_n) - y_{t}(F_n)}{r}.
+\end{align*}
+The mass actions describe transitions from one compartment to another compartment modeled by ordinary differential equations (ODEs). We use rule-based notation to determine the system of these ODEs. A rule describes one mass action from one compartment to another compartment. We use two type of rules. The first type only has, in biological terms, one reactant and one product and the second type has two of each
+\begin{align*}
+	\tag{first type rule}
+	\label{eq:first_type_rule}
+	\num(F_1) &\xrightarrow{r_1} \num(F_2) \\
+	\tag{second type rule} \label{eq:second_type_rule}
+	\underbrace{\num(F_2) + \num(F_3)}_{reactants} &\xrightarrow{r_2} \underbrace{\num(F_3) + \num(F_4)}_{products}.
+\end{align*}
+The logic is that the individuals of the reactant compartment leave their compartment and enter a specified product compartment. This has two implications. First, the sum of the stoichiometric coefficients of the reactants must equal the sum of the stoichiometric coefficients of the products. Secondly, reactants enter the corresponding ODE negatively and products positively and mass actions are additive. Translating the system from above into ODEs leads to
+\begin{align*}
+	\der(F_1) &= - r_1 \cdot \num(F_1) \\
+	\der(F_2) &= r_1 \cdot \num(F_1) - r_2 \cdot \num(F_2) \num(F_3) \\
+	\der(F_3) &= 0 \\
+	\der(F_4) &= r_2 \cdot \num(F_2) \num(F_3) .
+\end{align*} 
+Note that $\num(F_3)$ is reactant and product and therefore $\der(F_3) = r_2 \cdot \num(F_2) \num(F_3) - r_2 \cdot \num(F_2) \num(F_3) = 0$.
+Since our model consists of many rules, we do not write down the ODE system explicitly but implicitly via the rules.
+ 
+\subsubsection{Susceptible to Infectious}
+Every infection happens between an infectious individual $i_1 \in \set(x_I)$ and a susceptible individual $i_2 \in \set(x_S)$ and leads to two infectious individuals. The rules are in form of the \ref{eq:second_type_rule}. The transition rates, which are in this case infection rates, depend on the average number of total contacts, the type of virus the infectious individual is infected with, the vaccination status of both individuals and if both individuals are from the same country
+\begin{align*}
+\text{infection rate} = \text{average contacts} \times \text{infectiousness} \times \text{vaccine modifier} 
+\end{align*}
+In the following we elaborate on how to define each component of the infection rates.\\
+
+\textbf{Infectiousness.} Let $\alpha \in [0,1]$ be the proportion of susceptible individuals that get infected if they meet a wild type infected individual, without any vaccination, and $\eta \in (1, 1/\alpha]$ be the factor with which the mutant is more infectious than the wild type. Then $\beta = \alpha c$ is the average number of individuals infected per day by $i_1$ if $i_1 \in \set(x_I, v_w, u_0)$. If $i_1 \in \set(x_I, v_m, u_0)$ the average infected number increases to $\eta \beta$. 
+
+\textbf{Vaccine modifier.}
+To account for the influence of vaccines on vaccinated susceptible individuals, we introduce the parameters $\delta_{k,l} \in [0,1]$, where $k \in \{w, m\}$ indicates the virus type and $l \in \{ 1,2\}$ the vaccine type. If $i_2 \in \set(x_S, u_l) $ for all individuals that $i_1 \in \set(x_I, v_k)$ meets, the infection rate is multiplied by $1 - \delta_{k,l}$. $\delta_{k,l}$ can be interpreted as reduce in the probability of becoming infected while meeting an infectious individual.
+
+Moreover, vaccinated individuals have a lower probability of transmitting the virus (\textbf{Quelle}). We account for this by introducing the parameter $\gamma \in [0,1]$ and multiplying the average number of infected individuals by $(1 - \gamma)$ if $i_1 \in \set(x_I, u_1) \cup \set(x_I, u_2)$. $\gamma$ is therefore the reduction in the probability of not transmitting the virus after being vaccinated. We assume that $\gamma$ is constant over time and across vaccines (\textbf{Quelle}). 
+
+\textbf{Average contacts.}
+Let $c \in \R_+$ be the average number of toal contacts (planned an unplanned) of one infectious individual per day. We want to distinguish between how many of the average contacts per day $c$ are within individuals from the same country and how many are within individuals from another country. We do so by defining probabilities that given a meeting occurs, it is with an individual from another country and multiply $c$ with the respective probability to obtain the average number individuals infected by one individual in a certain country. We use the relative population number of a country as baseline probability and add a penalty term for cross-border meetings. The negation operator $\neg$ is used to indicate that a certain feature applies for all but the specified compartment, e.g. $\set(\neg x_D)$ is the set of all alive individuals. In the following we establish in detail how we specify all probabilities. We first specify the (time dependent) probability that a randomly drawn living individual $i_2$ lives in country $B$ 
+\begin{align*}
+\prob_t\left(i_2 \in \set(\neg x_D, c_B)\right) =\num(\neg x_D, c_B) / \num(\neg x_D).
+\end{align*}
+Note that the probability depends on the state of the whole system $Y(t)$. To increase readability we omit conditioning on $Y(t)$ and directly define $\prob_t$ to be conditioned on the state of the system $Y(t)$.  
+Second, we define the conditional probability that given $i_1$ is from country A, $i_2$ is from country B by adding a multiplicative penalty term $b(\cdot)$ reducing the probability of meeting individuals from other countries 
+\begin{align*}
+\prob_t(i_2 \in \set(\neg x_D, c_B) | i_1 \in \set(\neg x_D, c_A) ) = \prob_t\left(i_2 \in \set(\neg x_D, c_B)\right) \cdot b(d(A, B)),
+\end{align*}
+where $d(A, B)$ is a distance between country $A$ and country $B$ and $b: \R_+ \to [0,1]$, with 
+$(B.1) \ \lim_{b \to \infty} = 0, (B.2) \ b(0) = 1$, and $ \ (B.3) \ b(d_1) < b(d_2)$, if $d_1 > d_2$, is a function that maps the distance to the penalty value. The distance could be interpreted as geographical distance. However, it could also serve to incorporate other factors, like favored holiday destinations, that encourage or discourage cross-border meetings.  By mapping the distance into the unit interval, we allow the probability of a cross-border meeting to be maximally as high as the relative population size. Condition $(b.1)$ ensures that countries that a very large distance only have small influences onto each other, $(b.2)$ defines a rather theoretical case where cross-border meetings are as likely as within-country meetings, and $(b.3)$ ensures that countries that have a greater distance have a smaller influence on each other.      We define all possible conditional meeting probabilities depending on the countries of residence analogously. To increase readability, we collect them in a matrix $\vect{M} \in \R^{2 \times 2}$. Let $m_{j_1,j_2}$ for $j_1, j_2 \in \{A, B\}$ be the entries of $\vect{M}$
+\begin{align}
+\label{eq:matrix_M}
 \vect{M} &= \begin{pmatrix} 
-\prob(i_1 \in \set(a_1) | i_1 \in \set(a_1) ) & \prob(i_1 \in \set(a_1) | i_2 \in \set(a_2) ) \\
-\prob(i_2 \in \set(a_2) | i_1 \in \set(a_1) ) & \prob(i_2 \in \set(a_2) | i_2 \in \set(a_2) )
+m_{A,A} & m_{A,B} \\
+m_{B,A} & m_{B,B} 
 \end{pmatrix} \notag \\
 &= \begin{pmatrix} 
-1 - \frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) & \frac{N_{1}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) \\
-\frac{N_{2}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right) & 1 - \frac{N_{1}(t)}{N_1(t) + N_2(t)} \cdot b\left(\text{d}(a_1, a_2) \right)
-\end{pmatrix}
-\end{align*}
+\prob(i_1 \in \set(\neg x_D, c_A) | i_1 \in \set(\neg x_D, c_A) ) & \prob(i_1 \in \set(\neg x_D, c_A) | i_2 \in \set(\neg x_D, c_B) ) \\
+\prob(i_2 \in \set(\neg x_D, c_B) | i_1 \in \set(\neg x_D, c_A) ) & \prob(i_2 \in \set(\neg x_D, c_B) | i_2 \in \set(\neg x_D, c_B) )
+\end{pmatrix} \notag \\
+&= \begin{pmatrix} 
+1 - \num(\neg x_D, c_B) / \num(\neg x_D)   & \num(\neg x_D, c_A) / \num(\neg x_D)  \\
+\num(\neg x_D, c_B) / \num(\neg x_D)  & 1 - \num(\neg x_D, c_A) / \num(\neg x_D)
+\end{pmatrix} \cdot b\left(\text{d}(a_1, a_2) \right)
+\end{align} 
 
-The probability of individual two to be unvaccinated and susceptible, conditioned that it is from area two, is taken to be the relative frequency of unvaccinated, susceptible individuals from area two
-\begin{align*}
-\prob(i_2 \in \set(x_S, v_0)) = \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}
-\end{align*}
-Combining both results yields
-\begin{align*}
-\prob(i_2 \in \set(x_S, v_0 ,a_2)|i_1 \in \set(x_I, v_0,c_w, a_1)) = m_{2,1} \cdot \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}
-\end{align*}
-Hence, $i_1$ meets on average $m_{2,1} c \frac{|\set(x_S, v_0, a_2)|}{N_2(t)}$ unvaccinated susceptible individuals from area two. At this meetings, $\alpha$ individuals become infected. This probability changes if we condition on the mutant. $i_1$ infects on average $\alpha m_{2,1} c \frac{|\set(x_S, v_0, a_2)|}{N_2(t)} $ individuals. This is done by $|\set(x_I, v_0, a_1)|$ individuals from area one and therefore we get the transitions $\alpha  m_{2,1} c \frac{|\set(x_S, v_0, a_2)|}{N_2(t)} |\set(x_I, v_0, a_1)|$
-Using rule-based notation we write this as 
-\begin{align*}
-\set(x_{I},  v_0, c_w,a_1), \set(x_{S}, v_0, a_2) &\xrightarrow{ \frac{\alpha  m_{2,1} c}{N_2(t)} } \set(x_{I},v_0, c_w,a_1), \set(x_{I}, v_0, c_w, a_2)
-\end{align*}
-Same but for unvaccinated from same area (\textit{we ignore minus one})
-\begin{align*}
-\set(x_{I},  v_0, c_w,a_1), \set(x_{S}, v_0, a_1) &\xrightarrow{\frac{\alpha  m_{1,1} c}{N_1(t)}} \set(x_{I},  v_0, c_w,a_1), \set(x_{I},  v_0, c_w,a_1)
-\end{align*}
-The extension to the mutant and vaccinated individuals is straightforward by multiplying the probability that a meeting of an individual with the base virus type and a susceptible individual results in an infection. We assume that if the infected individual is vaccinated, this reduces the infection probability by the factor $1 -\gamma$ for $\gamma \in [0,1]$. For $k \in \{1,2\}$ and $l \in \{1,2\}$
-\begin{align*}
-\set(x_{I},  v_k, c_w, a_1), \set(x_{S}, v_0, a_l) &\xrightarrow{\frac{(1-\gamma) \alpha  m_{1,l} c}{N_l(t)}} \set(x_{I},  v_k, c_w,a_1), \set(x_{I},  v_0, c_w,a_l).
-\end{align*}
-We interpret $\gamma$ as degree of protection against spreading the virus after being vaccinated.
+%The negation operator $\neg$ is used to indicate that a certain feature applies for all but the specified compartment, e.g. $\set(\neg x_D)$ is the set of all alive individuals. We specify the probability of an individual $i_1 \in \set()$ to be in a particular subset by its relative frequency. For example, the (time dependent) probability that a randomly drawn living individual $i_1$ lives in country $A$ is $\prob_t\left(i_1 \in \set(\neg x_I, c_A)\right) =\num(\neg x_D, c_A) / \num(\neg x_D)$. Analogously, we can compute the probability the individual is from country A and susceptible by $\prob_t\left(i_1 \in \set(x_S, c_A)\right) = \num(x_S, c_A)/\num(\neg x_D)$. To compute the probability that the individual is susceptible, conditioned that it is from country $A$, we can use Bayes' formula 
+%\begin{align}
+%\prob_t\left( i_1 \in \set(x_S) |  i_1 \in \set(\neg x_D, c_A) \right)= \frac{\prob_t\left(i_1 \in  \set(x_S, c_A) \right)}{\prob_t\left(i_1 \in \set(\neg x_D, c_A)\right)} = \frac{\num(x_S, c_A)}{\num(\neg x_D, c_A)},
+%\end{align}
+%which yields just the proportion of susceptible individuals in country A.\\
 
-If the susceptible individual is vaccinated with vaccine $k \in \{1,2\}$ we assume that this reduces the infection probability for virus type $j \in \{w,m\}$ by the factor $1 - \delta_{j,k}$ for $\delta_{j,k} \in [0,1]$. For $k \in \{1,2 \}$ and $l \in \{1,2\}$
-\begin{align*}
-\set(x_{I},  v_0, c_w, a_1), \set(x_{S}, v_k, a_l) &\xrightarrow{\frac{(1-\delta_{w,k}) \alpha  m_{1,l} c}{N_l(t)}} \set(x_{I},  v_0, c_w, a_1), \set(x_{I},  v_k, c_w, a_l).
-\end{align*}
-We can interpret $\delta_{j,k}$ as degree of protection against virus type $j$ we gain from being vaccinated with vaccine $k$. In the extreme case where $\delta_{j,k} = 1$ vaccine $k$ gives a full protection against virus $j$ and no infections with virus $j$ are possible for individuals vaccinated with $k$. Analogously, $\delta_{j,k} = 0$ means that there is no additional protection at all.
+What if we are not only interested in the fraction of $c$ that is between countries but also in the fraction of more specific compartments? As in the probability of meeting $i_2 \in \set(x_S, c_B, u_0)$ given a meeting between $i_1$ and $i_2$ occurs and $i_1 \in \set(x_I, v_w, c_A, u_0)$. What we are looking for is the conditional probability $\prob_t(i_2 \in \set(x_S, c_B, u_0)|i_1 \in \set(x_I, v_w, c_A, u_0))$. This to say, the probability that the individual that can be infected ($i_2$) is susceptible, unvaccinated and from area two given that individual $i_1$ is infected with the wild type, unvaccinated and from area one. 
 
-We allow the mutant to be more or less infectious than the wild type by introducing the additional parameter $\eta \in \left(0, \frac{1}{\alpha}\right]$. $\eta > 1$ means that the mutant is more infectious than the wild type. \textit{maybe restrict to this case?} 
-For $l \in \{1,2\}$
-\begin{align*}
-\set(x_{I},  v_0, c_m, a_1), \set(x_{S}, v_0, a_l) &\xrightarrow{\frac{ \eta \alpha  m_{1,l} c}{N_l(t)}} \set(x_{I},  v_0, c_m, a_1), \set(x_{I},  v_0, c_m, a_l).
-\end{align*}
-We can combine the factors for different infection probabilities. For example the transition from the infectious individuals from area one, infected with the mutant, and vaccinated with vaccine one and the susceptible individuals vaccinated with vaccine two is for $l \in \{1,2\}$
-\begin{align*}
-\set(x_{I},  v_1, c_m, a_1), \set(x_{S}, v_2, a_l) &\xrightarrow{\frac{ \eta \alpha (1-\delta_{m,2}) (1-\gamma)  m_{1,l} c}{N_l(t)}} \set(x_{I},  v_1, c_m, a_1), \set(x_{I},  v_2, c_m, a_l).
-\end{align*}
-
-\subsubsection*{Infectious to Recovered/Death}
-non-vaccinated. For $l \in \{1,2\}$
+We facilitate our model and assume that the vaccination status as well as the type of virus infection of individual $i_1$ are independent of the features of $i_2$. Assuming independence of the vaccination status implies that an unvaccinated individual $i_1$ does not change her contact habits, given a certain number of meetings, compared to her counterfactual vaccinated self. Note that this does not mean that we assume that vaccinated and unvaccinated individuals have the same average number of contacts since the probabilities are defined on \textit{conditioned a meeting occurs}. Differences in the average number of contacts between vaccinated and unvaccinated individuals can be incorporated implicitly via the vaccination parameter $\delta_{k,l}$. Furthermore, we assume that the probability is dependend on whether an individual is alive but not on the exact general compartment $S, I$ or $R$. Making use these assumptions, we can omit conditioning on $v_w$ and $u_0$ and change $x_I$ to $\neg x_D$ such that the exercise facilitates to defining $\prob_t(i_2 \in \set(x_S, c_B, u_0)|i_1 \in \set(\neg x_D, c_A))$. Using Bayes' formula we can rewrite this as
 \begin{align}
-    \set(x_I,  v_0, c_w, a_l) &\xrightarrow{p \lambda} \set(x_D,  v_0, c_w, a_l) \notag \\
-\set(x_I,  v_0, c_w, a_l) &\xrightarrow{(1-p) \lambda} \set(x_R,  v_0, c_w, a_l) \notag \\
+\label{eq:cond_meeting_prob}
+\prob_t(i_2 \in \set(x_S, c_B, u_0)|i_1 \in \set(\neg x_D, c_A)) &= \prob_t(i_2 \in \set(\neg x_D, c_B) | i_1 \in \set(\neg x_D, c_A) )  \notag \\
+& \quad \cdot \prob_t(i_2 \in \set(x_S, u_0) | i_1 \in \set(\neg x_D, c_A), i_2 \in \set(\neg x_D, c_B) ) \notag \\
+&= \prob_t(i_2 \in \set(\neg x_D, c_B) | i_1 \in \set(\neg x_D, c_A) )  \notag \\
+& \quad \cdot \prob_t(i_2 \in \set(x_S, v_0)|i_2 \in \set(\neg x_D, c_B)) \notag\\
+&= \prob_t(i_2 \in \set(\neg x_D, c_B) | i_1 \in \set(\neg x_D, c_A) ) \notag \\
+& \quad \cdot \prob_t(i_2 \in \set(x_S, c_B, v_0))
+\end{align} 
+The conditional probability is therefore the product of the probability that $i_2$ is from country $B$ given that $i_1$ is from country $A$ and the probability that $i_2$ is a susceptible, unvaccinated individual from country $B$. Using equations \eqref{eq:matrix_M} and \eqref{eq:cond_meeting_prob} we obtain
+\begin{align}
+\label{eq:cond_prob_meeting_final}
+\prob_t(i_2 \in \set(x_S, c_B, u_0)|i_1 \in \set(x_I, v_w, c_A, u_0)) = m_{B,A} \cdot \num(x_S, c_B, v_0) / \num(\neg x_D, c_B). 
 \end{align}
 
-vaccinated. For $k \in \{1,2\}$ and $l \in \{1,2\}$
+\noindent \textbf{Infection rules.} With the derived probabilities we are able to specify the compartment specific infection rates and rules. We illustrate this by two examples. the first example deals with the compartments $\set(x_{I}, c_A, v_w, u_0)$ and $\set(x_{S}, c_B, u_0)$. By assumption, every individual $i_1 \in \set(x_{I}, c_A, v_w, u_0)$ has on average $c$ contacts per day. Equation \eqref{eq:cond_prob_meeting_final} defines the fraction of contacts which are between the two compartments of interest. Since both compartments are non-vaccinated compartments and $i_1 \in \set(v_w)$ the fraction of infectious contacts is $\alpha$. Thus, $i_1$ infects on average $\beta m_{B,A} \cdot \num(x_S, c_B, v_0) / \num(\neg x_D, c_B)$ susceptible, unvaccinated individuals from country B. This is done by $\num(x_{I}, c_A, v_w, u_0)$ unvaccinated, wild type infected individuals from country A. We can express the infection as \ref{eq:second_type_rule} rule by
+\begin{align*}
+\num(x_{I}, c_A, v_w, u_0) + \num(x_{S}, c_B, u_0) &\xrightarrow{ \frac{\beta \cdot m_{B,A} }{ \num(\neg x_D, c_B) }} \num(x_{I}, c_A, v_w, u_0) + \num(x_{I}, c_B, v_w, u_0).
+\end{align*}
+
+For the second example consider the compartments $\set(x_{I}, c_A, v_m, u_1)$ and $\set(x_{S}, c_B, u_2)$. We derive the rate analogously to the previous example. However, we need to account for vaccines and the more infectious mutant. Using the vaccine modifiers $\gamma$, $\delta_{m, 2}$ and the increase in infectiousness of the mutant $\eta$ yields
+\begin{align*}
+\num(x_{I}, c_A, v_m, u_1) + \num(x_{S}, c_B, u_2) &\xrightarrow{ \frac{\delta_{m,2} \gamma \eta \beta \cdot m_{B,A} }{ \num(\neg x_D, c_B) }} \num(x_{I}, c_A, v_m, u_1) + \num(x_{I}, c_B, v_m, u_2).
+\end{align*}
+To ensure readability we refrain from writing down all exact infection rules.
+
+\subsubsection{Infectious to Recovered/Deceased}
+The rules for the transitions from infectious to recovered or deceased can are for one individual independent of other individuals and therefore modeled as \ref{eq:first_type_rule}. For $\lambda \in \R_+$ we assume that on average an individual stays $1/\lambda$ days in the infectious state before it transmits either to the recovered or the deceased state. Thus, on average $\lambda$ individuals transmit out of each infectious compartment every day. We assume that a fraction $p \in [0,1]$ of unvaccinated individuals transmits to the deceased state and $(1-p)$ to the recovered state. $p$ can therefore be interpreted as the probability of dying after becoming infected. Note that $p$ does not depend on the virus type. The virus type therefore only influences the number of infections but not the probability of dying for infected individuals. \textbf{realistisch? Quelle} The corresponding rules for unvaccinated individuals are for $i \in \{A, B\}$ and $k \in \{w, m\}$
 \begin{align}
-    \set(x_I,  v_k, c_w, a_l) &\xrightarrow{\omega_{k,w} p \lambda} \set(x_D,  v_k, c_w, a_l) \notag \\
-\set(x_I,  v_k, c_w, a_l) &\xrightarrow{(1-\omega_{k,w}p) \lambda} \set(x_R,  v_k, c_w, a_l) \notag 
+    \set(x_I, c_j, v_w, u_0) &\xrightarrow{p \lambda} \set(x_D,c_j, v_w, u_0) \notag \\
+    \set(x_I, c_j, v_w, u_0) &\xrightarrow{(1-p) \lambda} \set(x_R,c_j, v_w, u_0) 
+\end{align}
+Since vaccinations heavily reduce the probability of dying after being infected (\textbf{Quelle}), we introduce the parameters $\omega_{k,l} \in [0,1]$ for $k \in \{w, m\}$ and $l \in \{1,2\}$. We use $p \omega_{k,l}$ as new probability of dying due to being infected with virus $k$ after being vaccinated with vaccine $l$.$\omega_{k,l}$ is thus the reduction in the probability of dying. The corresponding rules for vaccinated individuals are for $i \in \{A, B\}, k \in \{w, m\}$ and $l \in \{1,2\}$
+\begin{align}
+    \set(x_I, c_j, v_k, u_l) &\xrightarrow{p \omega_{k,l} \lambda} \set(x_D,c_j, v_k, u_l) \notag \\
+    \set(x_I, c_j, v_k, u_l) &\xrightarrow{(1-p \omega_{k,l}) \lambda} \set(x_R,c_j, v_k, u_l)
 \end{align}
 
 \subsubsection*{Vaccination}

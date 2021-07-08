@@ -12,7 +12,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 def plot_states(
     results,
-    model,
+    time,
     xlabel="$t$ (d)",
     ylabel="$x_i(t)$",
     title="State trajectories",
@@ -56,8 +56,11 @@ def plot_states(
 
     """
     fig, ax = plt.subplots()
-    df_trajectories = results["states"]
-    time = results["observables"][time_name]
+    if results is dict:
+        df_trajectories = results["states"]
+    else:
+        df_trajectories = results
+
 
     if state_ids is None:
         states = df_trajectories.columns
@@ -128,7 +131,7 @@ def get_state_trajectory_data_frame(results, model):
 
 def plot_observables(
     results,
-    model,
+    time,
     xlabel="Days",
     ylabel="Observables",
     title="Observables trajectories",
@@ -201,14 +204,14 @@ def plot_observables(
 
         if colors is not None:
             ax.plot(
-                df_trajectories[time_name],
+                time,
                 df_observables_to_be_plotted[index],
                 label=custom_label[index_cols],
                 color=colors[index_cols],
             )
         else:
             ax.plot(
-                df_trajectories[time_name],
+                time,
                 df_observables_to_be_plotted[index],
                 label=label,
             )

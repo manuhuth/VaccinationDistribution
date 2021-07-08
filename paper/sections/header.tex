@@ -9,7 +9,8 @@
 \xdef*{\noexpand\textup{\string*}}
 \endgroup
 \usepackage{lmodern}
-
+\usepackage{algorithm2e}
+\usepackage{algorithmic}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage[nohead]{geometry}
@@ -19,6 +20,7 @@
 \usepackage{booktabs}% optisch bessere Tabellen
 \usepackage{endnotes}
 \usepackage{natbib}
+\usepackage{optidef}
 \usepackage{comment}
 \usepackage{graphicx,caption}% ,subfigure} use subcaption instead, see below
 \usepackage{subfig}
@@ -30,6 +32,7 @@
 \usepackage{rotating}
 \usepackage[flushleft]{threeparttable}
 \usepackage{multirow}
+
 \usepackage{dsfont}
 \usepackage{dcolumn}% An Tabellen sollten die Spalten am Dezimalpunkt ausgerichtet sein! Dafür statt 'c' etc. einfach einen Punkt '.' setzen! Dies wird % durch nachstehenden Befehl definiert.
 \newcolumntype{.}{D{.}{.}{4}}
@@ -72,7 +75,7 @@
 \newcommand{\M}{\mathcal{M}}
 \newcommand{\x}{\mathbf{x}}
 \newcommand{\X}{\mathbf{X}}
-\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\Y}{Y}
 \newcommand{\set}{\mathcal{C}_t}
 \newcommand{\num}{y_t}	
 \newcommand{\der}{\dot{y}_t}	
@@ -105,8 +108,6 @@
 \newtheorem{theorem}{Theorem}
 \theoremstyle{definition}
 \newtheorem{proofof}{Proof of Theorem}
-\theoremstyle{plain}
-\newtheorem{algorithm}{Algorithm}
 \theoremstyle{plain}
 \newtheorem{example}{Example}
 

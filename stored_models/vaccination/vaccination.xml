@@ -51,10 +51,9 @@
     </listOfSpecies>
     <listOfParameters>
       <parameter id="lambda1" name="lambda1" value="0.01" units="dimensionless" constant="false"/>
-      <parameter id="p" name="p" value="0.1" units="dimensionless" constant="false"/>
+      <parameter id="prob_deceasing" name="prob_deceasing" value="0.1" units="dimensionless" constant="false"/>
       <parameter id="gamma" name="gamma" value="0.5" units="dimensionless" constant="false"/>
       <parameter id="beta" name="beta" value="2" units="dimensionless" constant="false"/>
-      <parameter id="t" name="t" value="0" units="dimensionless" constant="false"/>
       <parameter id="omega_vac1_virW" name="omega_vac1_virW" value="0.5" units="dimensionless" constant="false"/>
       <parameter id="delta_vac1_virW" name="delta_vac1_virW" value="0.5" units="dimensionless" constant="false"/>
       <parameter id="omega_vac2_virW" name="omega_vac2_virW" value="0.6" units="dimensionless" constant="false"/>
@@ -129,7 +128,6 @@
       <parameter id="vaccine_supply_par_vac1_xx7" name="vaccine_supply_par_vac1_xx7" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac1_xx8" name="vaccine_supply_par_vac1_xx8" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac1_xx9" name="vaccine_supply_par_vac1_xx9" value="0" units="dimensionless" constant="true"/>
-      <parameter id="vaccine_supply_par_vac1_xx10" name="vaccine_supply_par_vac1_xx10" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac2_xx0" name="vaccine_supply_par_vac2_xx0" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac2_xx1" name="vaccine_supply_par_vac2_xx1" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac2_xx2" name="vaccine_supply_par_vac2_xx2" value="0" units="dimensionless" constant="true"/>
@@ -140,22 +138,21 @@
       <parameter id="vaccine_supply_par_vac2_xx7" name="vaccine_supply_par_vac2_xx7" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac2_xx8" name="vaccine_supply_par_vac2_xx8" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac2_xx9" name="vaccine_supply_par_vac2_xx9" value="0" units="dimensionless" constant="true"/>
-      <parameter id="vaccine_supply_par_vac2_xx10" name="vaccine_supply_par_vac2_xx10" value="0" units="dimensionless" constant="true"/>
       <parameter id="distance_countryA_countryA" name="distance_countryA_countryA" value="1" units="dimensionless" constant="true"/>
       <parameter id="distance_countryA_countryB" name="distance_countryA_countryB" value="0.001" units="dimensionless" constant="true"/>
       <parameter id="distance_countryB_countryA" name="distance_countryB_countryA" value="0.001" units="dimensionless" constant="true"/>
       <parameter id="distance_countryB_countryB" name="distance_countryB_countryB" value="1" units="dimensionless" constant="true"/>
-      <parameter id="xx0" value="0" units="dimensionless" constant="true"/>
-      <parameter id="xx1" value="14" units="dimensionless" constant="true"/>
-      <parameter id="xx2" value="28" units="dimensionless" constant="true"/>
-      <parameter id="xx3" value="42" units="dimensionless" constant="true"/>
-      <parameter id="xx4" value="56" units="dimensionless" constant="true"/>
-      <parameter id="xx5" value="70" units="dimensionless" constant="true"/>
-      <parameter id="xx6" value="84" units="dimensionless" constant="true"/>
-      <parameter id="xx7" value="98" units="dimensionless" constant="true"/>
-      <parameter id="xx8" value="112" units="dimensionless" constant="true"/>
-      <parameter id="xx9" value="126" units="dimensionless" constant="true"/>
-      <parameter id="xx10" value="140" units="dimensionless" constant="true"/>
+      <parameter id="xx0" value="0" constant="true"/>
+      <parameter id="xx1" value="14" constant="true"/>
+      <parameter id="xx2" value="28" constant="true"/>
+      <parameter id="xx3" value="42" constant="true"/>
+      <parameter id="xx4" value="56" constant="true"/>
+      <parameter id="xx5" value="70" constant="true"/>
+      <parameter id="xx6" value="84" constant="true"/>
+      <parameter id="xx7" value="98" constant="true"/>
+      <parameter id="xx8" value="112" constant="true"/>
+      <parameter id="xx9" value="126" constant="true"/>
+      <parameter id="xx10" value="140" constant="true"/>
       <parameter id="yy_countryA_vac1_0" value="0" constant="true"/>
       <parameter id="yy_countryA_vac1_1" value="0" constant="true"/>
       <parameter id="yy_countryA_vac1_2" value="0" constant="true"/>
@@ -402,7 +399,7 @@
               <cn type="integer"> 1 </cn>
               <apply>
                 <power/>
-                <exponentiale/>
+                <cn> 2.718281828 </cn>
                 <apply>
                   <minus/>
                   <ci> spline_countryA_vac1 </ci>
@@ -422,7 +419,7 @@
               <cn type="integer"> 1 </cn>
               <apply>
                 <power/>
-                <exponentiale/>
+                <cn> 2.718281828 </cn>
                 <apply>
                   <minus/>
                   <ci> spline_countryA_vac2 </ci>
@@ -459,12 +456,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx0 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx1 </ci>
                 </apply>
               </apply>
@@ -475,12 +472,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx1 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx2 </ci>
                 </apply>
               </apply>
@@ -491,12 +488,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx2 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx3 </ci>
                 </apply>
               </apply>
@@ -507,12 +504,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx3 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx4 </ci>
                 </apply>
               </apply>
@@ -523,12 +520,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx4 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx5 </ci>
                 </apply>
               </apply>
@@ -539,12 +536,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx5 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx6 </ci>
                 </apply>
               </apply>
@@ -555,12 +552,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx6 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx7 </ci>
                 </apply>
               </apply>
@@ -571,12 +568,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx7 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx8 </ci>
                 </apply>
               </apply>
@@ -587,29 +584,13 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx8 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx9 </ci>
-                </apply>
-              </apply>
-            </piece>
-            <piece>
-              <ci> vaccine_supply_par_vac1_xx9 </ci>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <ci> t </ci>
-                  <ci> xx9 </ci>
-                </apply>
-                <apply>
-                  <lt/>
-                  <ci> t </ci>
-                  <ci> xx10 </ci>
                 </apply>
               </apply>
             </piece>
@@ -628,12 +609,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx0 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx1 </ci>
                 </apply>
               </apply>
@@ -644,12 +625,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx1 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx2 </ci>
                 </apply>
               </apply>
@@ -660,12 +641,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx2 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx3 </ci>
                 </apply>
               </apply>
@@ -676,12 +657,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx3 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx4 </ci>
                 </apply>
               </apply>
@@ -692,12 +673,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx4 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx5 </ci>
                 </apply>
               </apply>
@@ -708,12 +689,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx5 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx6 </ci>
                 </apply>
               </apply>
@@ -724,12 +705,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx6 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx7 </ci>
                 </apply>
               </apply>
@@ -740,12 +721,12 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx7 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx8 </ci>
                 </apply>
               </apply>
@@ -756,29 +737,13 @@
                 <and/>
                 <apply>
                   <geq/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx8 </ci>
                 </apply>
                 <apply>
                   <lt/>
-                  <ci> t </ci>
+                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <ci> xx9 </ci>
-                </apply>
-              </apply>
-            </piece>
-            <piece>
-              <ci> vaccine_supply_par_vac2_xx9 </ci>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <ci> t </ci>
-                  <ci> xx9 </ci>
-                </apply>
-                <apply>
-                  <lt/>
-                  <ci> t </ci>
-                  <ci> xx10 </ci>
                 </apply>
               </apply>
             </piece>
@@ -799,10 +764,11 @@
             </apply>
             <apply>
               <plus/>
-              <ci> susceptible_countryA_vac0 </ci>
-              <ci> susceptible_countryA_vac0 </ci>
+              <ci> infectious_countryA_vac0_virW </ci>
+              <ci> infectious_countryA_vac0_virM </ci>
               <ci> recovered_countryA_vac0_virW </ci>
               <ci> recovered_countryA_vac0_virM </ci>
+              <ci> susceptible_countryA_vac0 </ci>
             </apply>
           </apply>
         </math>
@@ -818,10 +784,11 @@
             </apply>
             <apply>
               <plus/>
-              <ci> susceptible_countryB_vac0 </ci>
-              <ci> susceptible_countryB_vac0 </ci>
+              <ci> infectious_countryB_vac0_virW </ci>
+              <ci> infectious_countryB_vac0_virM </ci>
               <ci> recovered_countryB_vac0_virW </ci>
               <ci> recovered_countryB_vac0_virM </ci>
+              <ci> susceptible_countryB_vac0 </ci>
             </apply>
           </apply>
         </math>
@@ -837,10 +804,11 @@
             </apply>
             <apply>
               <plus/>
-              <ci> susceptible_countryA_vac0 </ci>
-              <ci> susceptible_countryA_vac0 </ci>
+              <ci> infectious_countryA_vac0_virW </ci>
+              <ci> infectious_countryA_vac0_virM </ci>
               <ci> recovered_countryA_vac0_virW </ci>
               <ci> recovered_countryA_vac0_virM </ci>
+              <ci> susceptible_countryA_vac0 </ci>
             </apply>
           </apply>
         </math>
@@ -856,10 +824,11 @@
             </apply>
             <apply>
               <plus/>
-              <ci> susceptible_countryB_vac0 </ci>
-              <ci> susceptible_countryB_vac0 </ci>
+              <ci> infectious_countryB_vac0_virW </ci>
+              <ci> infectious_countryB_vac0_virM </ci>
               <ci> recovered_countryB_vac0_virW </ci>
               <ci> recovered_countryB_vac0_virM </ci>
+              <ci> susceptible_countryB_vac0 </ci>
             </apply>
           </apply>
         </math>
@@ -869,7 +838,7 @@
           <amici:spline xmlns:amici="http://github.com/AMICI-dev/AMICI" amici:spline_method="cubic_hermite">
             <amici:spline_evaluation_point>
               <math xmlns="http://www.w3.org/1998/Math/MathML">
-                <ci>t</ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
               </math>
             </amici:spline_evaluation_point>
             <amici:spline_grid>
@@ -956,7 +925,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx0 </ci>
                     </apply>
                     <apply>
@@ -981,7 +950,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx0 </ci>
                         </apply>
                         <apply>
@@ -1003,7 +972,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx0 </ci>
                               </apply>
                               <apply>
@@ -1122,7 +1091,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx1 </ci>
               </apply>
             </piece>
@@ -1136,7 +1105,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx1 </ci>
                     </apply>
                     <apply>
@@ -1156,7 +1125,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx1 </ci>
                         </apply>
                         <apply>
@@ -1178,7 +1147,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx1 </ci>
                               </apply>
                               <apply>
@@ -1634,7 +1603,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx2 </ci>
               </apply>
             </piece>
@@ -1648,7 +1617,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx2 </ci>
                     </apply>
                     <apply>
@@ -1668,7 +1637,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx2 </ci>
                         </apply>
                         <apply>
@@ -1690,7 +1659,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx2 </ci>
                               </apply>
                               <apply>
@@ -2146,7 +2115,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx3 </ci>
               </apply>
             </piece>
@@ -2160,7 +2129,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx3 </ci>
                     </apply>
                     <apply>
@@ -2180,7 +2149,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx3 </ci>
                         </apply>
                         <apply>
@@ -2202,7 +2171,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx3 </ci>
                               </apply>
                               <apply>
@@ -2658,7 +2627,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx4 </ci>
               </apply>
             </piece>
@@ -2672,7 +2641,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx4 </ci>
                     </apply>
                     <apply>
@@ -2692,7 +2661,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx4 </ci>
                         </apply>
                         <apply>
@@ -2714,7 +2683,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx4 </ci>
                               </apply>
                               <apply>
@@ -3170,7 +3139,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx5 </ci>
               </apply>
             </piece>
@@ -3184,7 +3153,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx5 </ci>
                     </apply>
                     <apply>
@@ -3204,7 +3173,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx5 </ci>
                         </apply>
                         <apply>
@@ -3226,7 +3195,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx5 </ci>
                               </apply>
                               <apply>
@@ -3682,7 +3651,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx6 </ci>
               </apply>
             </piece>
@@ -3696,7 +3665,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx6 </ci>
                     </apply>
                     <apply>
@@ -3716,7 +3685,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx6 </ci>
                         </apply>
                         <apply>
@@ -3738,7 +3707,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx6 </ci>
                               </apply>
                               <apply>
@@ -4194,7 +4163,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx7 </ci>
               </apply>
             </piece>
@@ -4208,7 +4177,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx7 </ci>
                     </apply>
                     <apply>
@@ -4228,7 +4197,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx7 </ci>
                         </apply>
                         <apply>
@@ -4250,7 +4219,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx7 </ci>
                               </apply>
                               <apply>
@@ -4706,7 +4675,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx8 </ci>
               </apply>
             </piece>
@@ -4720,7 +4689,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx8 </ci>
                     </apply>
                     <apply>
@@ -4740,7 +4709,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx8 </ci>
                         </apply>
                         <apply>
@@ -4762,7 +4731,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx8 </ci>
                               </apply>
                               <apply>
@@ -5221,7 +5190,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx9 </ci>
               </apply>
             </piece>
@@ -5235,7 +5204,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx9 </ci>
                     </apply>
                     <apply>
@@ -5252,7 +5221,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx9 </ci>
                         </apply>
                         <apply>
@@ -5271,7 +5240,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx9 </ci>
                               </apply>
                               <apply>
@@ -5443,7 +5412,7 @@
           <amici:spline xmlns:amici="http://github.com/AMICI-dev/AMICI" amici:spline_method="cubic_hermite">
             <amici:spline_evaluation_point>
               <math xmlns="http://www.w3.org/1998/Math/MathML">
-                <ci>t</ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
               </math>
             </amici:spline_evaluation_point>
             <amici:spline_grid>
@@ -5530,7 +5499,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx0 </ci>
                     </apply>
                     <apply>
@@ -5555,7 +5524,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx0 </ci>
                         </apply>
                         <apply>
@@ -5577,7 +5546,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx0 </ci>
                               </apply>
                               <apply>
@@ -5696,7 +5665,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx1 </ci>
               </apply>
             </piece>
@@ -5710,7 +5679,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx1 </ci>
                     </apply>
                     <apply>
@@ -5730,7 +5699,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx1 </ci>
                         </apply>
                         <apply>
@@ -5752,7 +5721,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx1 </ci>
                               </apply>
                               <apply>
@@ -6208,7 +6177,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx2 </ci>
               </apply>
             </piece>
@@ -6222,7 +6191,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx2 </ci>
                     </apply>
                     <apply>
@@ -6242,7 +6211,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx2 </ci>
                         </apply>
                         <apply>
@@ -6264,7 +6233,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx2 </ci>
                               </apply>
                               <apply>
@@ -6720,7 +6689,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx3 </ci>
               </apply>
             </piece>
@@ -6734,7 +6703,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx3 </ci>
                     </apply>
                     <apply>
@@ -6754,7 +6723,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx3 </ci>
                         </apply>
                         <apply>
@@ -6776,7 +6745,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx3 </ci>
                               </apply>
                               <apply>
@@ -7232,7 +7201,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx4 </ci>
               </apply>
             </piece>
@@ -7246,7 +7215,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx4 </ci>
                     </apply>
                     <apply>
@@ -7266,7 +7235,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx4 </ci>
                         </apply>
                         <apply>
@@ -7288,7 +7257,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx4 </ci>
                               </apply>
                               <apply>
@@ -7744,7 +7713,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx5 </ci>
               </apply>
             </piece>
@@ -7758,7 +7727,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx5 </ci>
                     </apply>
                     <apply>
@@ -7778,7 +7747,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx5 </ci>
                         </apply>
                         <apply>
@@ -7800,7 +7769,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx5 </ci>
                               </apply>
                               <apply>
@@ -8256,7 +8225,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx6 </ci>
               </apply>
             </piece>
@@ -8270,7 +8239,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx6 </ci>
                     </apply>
                     <apply>
@@ -8290,7 +8259,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx6 </ci>
                         </apply>
                         <apply>
@@ -8312,7 +8281,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx6 </ci>
                               </apply>
                               <apply>
@@ -8768,7 +8737,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx7 </ci>
               </apply>
             </piece>
@@ -8782,7 +8751,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx7 </ci>
                     </apply>
                     <apply>
@@ -8802,7 +8771,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx7 </ci>
                         </apply>
                         <apply>
@@ -8824,7 +8793,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx7 </ci>
                               </apply>
                               <apply>
@@ -9280,7 +9249,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx8 </ci>
               </apply>
             </piece>
@@ -9294,7 +9263,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx8 </ci>
                     </apply>
                     <apply>
@@ -9314,7 +9283,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx8 </ci>
                         </apply>
                         <apply>
@@ -9336,7 +9305,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx8 </ci>
                               </apply>
                               <apply>
@@ -9795,7 +9764,7 @@
               </apply>
               <apply>
                 <lt/>
-                <ci> t </ci>
+                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                 <ci> xx9 </ci>
               </apply>
             </piece>
@@ -9809,7 +9778,7 @@
                     <divide/>
                     <apply>
                       <minus/>
-                      <ci> t </ci>
+                      <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                       <ci> xx9 </ci>
                     </apply>
                     <apply>
@@ -9826,7 +9795,7 @@
                         <divide/>
                         <apply>
                           <minus/>
-                          <ci> t </ci>
+                          <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                           <ci> xx9 </ci>
                         </apply>
                         <apply>
@@ -9845,7 +9814,7 @@
                               <times/>
                               <apply>
                                 <minus/>
-                                <ci> t </ci>
+                                <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                                 <ci> xx9 </ci>
                               </apply>
                               <apply>
@@ -10012,11 +9981,6 @@
           </piecewise>
         </math>
       </assignmentRule>
-      <rateRule name="time_rule" variable="t">
-        <math xmlns="http://www.w3.org/1998/Math/MathML">
-          <cn type="integer"> 1 </cn>
-        </math>
-      </rateRule>
     </listOfRules>
     <listOfReactions>
       <reaction id="infectious_countryA_vac0_virW_to_recovered_countryA_vac0_virW" reversible="false">
@@ -10040,7 +10004,7 @@
                     <cn type="integer"> 1 </cn>
                     <cn type="integer"> 0 </cn>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10065,7 +10029,7 @@
                 <cn type="integer"> 1 </cn>
                 <cn type="integer"> 0 </cn>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryA_vac0_virW </ci>
             </apply>
@@ -10093,7 +10057,7 @@
                     <cn type="integer"> 1 </cn>
                     <cn type="integer"> 0 </cn>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10118,7 +10082,7 @@
                 <cn type="integer"> 1 </cn>
                 <cn type="integer"> 0 </cn>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryA_vac0_virM </ci>
             </apply>
@@ -10146,7 +10110,7 @@
                     <cn type="integer"> 1 </cn>
                     <ci> omega_vac1_virW </ci>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10171,7 +10135,7 @@
                 <cn type="integer"> 1 </cn>
                 <ci> omega_vac1_virW </ci>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryA_vac1_virW </ci>
             </apply>
@@ -10199,7 +10163,7 @@
                     <cn type="integer"> 1 </cn>
                     <ci> omega_vac1_virM </ci>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10224,7 +10188,7 @@
                 <cn type="integer"> 1 </cn>
                 <ci> omega_vac1_virM </ci>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryA_vac1_virM </ci>
             </apply>
@@ -10252,7 +10216,7 @@
                     <cn type="integer"> 1 </cn>
                     <ci> omega_vac2_virW </ci>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10277,7 +10241,7 @@
                 <cn type="integer"> 1 </cn>
                 <ci> omega_vac2_virW </ci>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryA_vac2_virW </ci>
             </apply>
@@ -10305,7 +10269,7 @@
                     <cn type="integer"> 1 </cn>
                     <ci> omega_vac2_virM </ci>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10330,7 +10294,7 @@
                 <cn type="integer"> 1 </cn>
                 <ci> omega_vac2_virM </ci>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryA_vac2_virM </ci>
             </apply>
@@ -10358,7 +10322,7 @@
                     <cn type="integer"> 1 </cn>
                     <cn type="integer"> 0 </cn>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10383,7 +10347,7 @@
                 <cn type="integer"> 1 </cn>
                 <cn type="integer"> 0 </cn>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryB_vac0_virW </ci>
             </apply>
@@ -10411,7 +10375,7 @@
                     <cn type="integer"> 1 </cn>
                     <cn type="integer"> 0 </cn>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10436,7 +10400,7 @@
                 <cn type="integer"> 1 </cn>
                 <cn type="integer"> 0 </cn>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryB_vac0_virM </ci>
             </apply>
@@ -10464,7 +10428,7 @@
                     <cn type="integer"> 1 </cn>
                     <ci> omega_vac1_virW </ci>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10489,7 +10453,7 @@
                 <cn type="integer"> 1 </cn>
                 <ci> omega_vac1_virW </ci>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryB_vac1_virW </ci>
             </apply>
@@ -10517,7 +10481,7 @@
                     <cn type="integer"> 1 </cn>
                     <ci> omega_vac1_virM </ci>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10542,7 +10506,7 @@
                 <cn type="integer"> 1 </cn>
                 <ci> omega_vac1_virM </ci>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryB_vac1_virM </ci>
             </apply>
@@ -10570,7 +10534,7 @@
                     <cn type="integer"> 1 </cn>
                     <ci> omega_vac2_virW </ci>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10595,7 +10559,7 @@
                 <cn type="integer"> 1 </cn>
                 <ci> omega_vac2_virW </ci>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryB_vac2_virW </ci>
             </apply>
@@ -10623,7 +10587,7 @@
                     <cn type="integer"> 1 </cn>
                     <ci> omega_vac2_virM </ci>
                   </apply>
-                  <ci> p </ci>
+                  <ci> prob_deceasing </ci>
                 </apply>
               </apply>
               <ci> lambda1 </ci>
@@ -10648,7 +10612,7 @@
                 <cn type="integer"> 1 </cn>
                 <ci> omega_vac2_virM </ci>
               </apply>
-              <ci> p </ci>
+              <ci> prob_deceasing </ci>
               <ci> lambda1 </ci>
               <ci> infectious_countryB_vac2_virM </ci>
             </apply>
@@ -21939,6 +21903,142 @@
               <times/>
               <ci> nu_countryB_vac2 </ci>
               <ci> susceptible_countryB_vac0 </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="infectious_countryA_vac0_virW_to_infectious_countryA_vac1_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious_countryA_vac0_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac1_virW" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nu_countryA_vac1 </ci>
+              <ci> infectious_countryA_vac0_virW </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="infectious_countryA_vac0_virW_to_infectious_countryA_vac2_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious_countryA_vac0_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac2_virW" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nu_countryA_vac2 </ci>
+              <ci> infectious_countryA_vac0_virW </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="infectious_countryA_vac0_virM_to_infectious_countryA_vac1_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious_countryA_vac0_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac1_virM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nu_countryA_vac1 </ci>
+              <ci> infectious_countryA_vac0_virM </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="infectious_countryA_vac0_virM_to_infectious_countryA_vac2_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious_countryA_vac0_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryA_vac2_virM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nu_countryA_vac2 </ci>
+              <ci> infectious_countryA_vac0_virM </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="infectious_countryB_vac0_virW_to_infectious_countryB_vac1_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious_countryB_vac0_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryB_vac1_virW" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nu_countryB_vac1 </ci>
+              <ci> infectious_countryB_vac0_virW </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="infectious_countryB_vac0_virW_to_infectious_countryB_vac2_virW" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious_countryB_vac0_virW" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryB_vac2_virW" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nu_countryB_vac2 </ci>
+              <ci> infectious_countryB_vac0_virW </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="infectious_countryB_vac0_virM_to_infectious_countryB_vac1_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious_countryB_vac0_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryB_vac1_virM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nu_countryB_vac1 </ci>
+              <ci> infectious_countryB_vac0_virM </ci>
+            </apply>
+          </math>
+        </kineticLaw>
+      </reaction>
+      <reaction id="infectious_countryB_vac0_virM_to_infectious_countryB_vac2_virM" reversible="false">
+        <listOfReactants>
+          <speciesReference species="infectious_countryB_vac0_virM" stoichiometry="1" constant="true"/>
+        </listOfReactants>
+        <listOfProducts>
+          <speciesReference species="infectious_countryB_vac2_virM" stoichiometry="1" constant="true"/>
+        </listOfProducts>
+        <kineticLaw>
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <apply>
+              <times/>
+              <ci> nu_countryB_vac2 </ci>
+              <ci> infectious_countryB_vac0_virM </ci>
             </apply>
           </math>
         </kineticLaw>

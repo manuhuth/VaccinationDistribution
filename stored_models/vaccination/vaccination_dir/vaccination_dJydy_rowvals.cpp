@@ -1,4 +1,3 @@
-#include "amici/sundials_matrix_wrapper.h"
 #include "sundials/sundials_types.h"
 
 #include <array>
@@ -7,7 +6,16 @@
 namespace amici {
 namespace model_vaccination {
 
-static constexpr std::array<std::array<sunindextype, 1>, 5> dJydy_rowvals_vaccination_ = {{
+static constexpr std::array<std::array<int, 1>, 14> dJydy_rowvals_vaccination_ = {{
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
+    {0}, 
     {0}, 
     {0}, 
     {0}, 
@@ -15,8 +23,8 @@ static constexpr std::array<std::array<sunindextype, 1>, 5> dJydy_rowvals_vaccin
     {0}, 
 }};
 
-void dJydy_rowvals_vaccination(SUNMatrixWrapper &dJydy, int index){
-    dJydy.set_indexvals(gsl::make_span(dJydy_rowvals_vaccination_[index]));
+void dJydy_rowvals_vaccination(sunindextype *rowvals, int index){
+    std::copy(dJydy_rowvals_vaccination_[index].begin(), dJydy_rowvals_vaccination_[index].end(), rowvals);
 }
-} // namespace model_vaccination
 } // namespace amici
+} // namespace model_vaccination

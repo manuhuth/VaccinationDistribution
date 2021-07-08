@@ -1,4 +1,3 @@
-#include "amici/sundials_matrix_wrapper.h"
 #include "sundials/sundials_types.h"
 
 #include <array>
@@ -7,12 +6,12 @@
 namespace amici {
 namespace model_vaccination {
 
-static constexpr std::array<sunindextype, 116> dwdp_colptrs_vaccination_ = {
-    0, 24, 48, 96, 168, 172, 184, 188, 200, 204, 216, 220, 232, 268, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 314, 315, 316, 317, 318, 319, 320, 321, 322, 323, 324, 324, 324, 360, 396, 396, 400, 404, 408, 412, 416, 420, 424, 428, 432, 436, 440, 441, 442, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462
+static constexpr std::array<int, 114> dwdp_colptrs_vaccination_ = {
+    0, 24, 48, 96, 168, 172, 184, 188, 200, 204, 216, 220, 232, 268, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 304, 314, 324, 334, 344, 354, 364, 374, 384, 394, 394, 404, 414, 424, 434, 444, 454, 464, 474, 484, 484, 484, 520, 556, 556, 578, 600, 622, 644, 666, 688, 710, 732, 754, 776, 798, 809, 820, 831, 842, 853, 864, 875, 886, 897, 908, 919, 930, 941, 952, 963, 974, 985, 996, 1007, 1018, 1029, 1040
 };
 
-void dwdp_colptrs_vaccination(SUNMatrixWrapper &dwdp){
-    dwdp.set_indexptrs(gsl::make_span(dwdp_colptrs_vaccination_));
+void dwdp_colptrs_vaccination(sunindextype *colptrs){
+    std::copy(dwdp_colptrs_vaccination_.begin(), dwdp_colptrs_vaccination_.end(), colptrs);
 }
-} // namespace model_vaccination
 } // namespace amici
+} // namespace model_vaccination

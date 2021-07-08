@@ -23,7 +23,7 @@ def fixed_parameter():
         "beta": 0.3,  # infection rate;
         "lambda1": 1
         / 10,  # rate of transition from infectious to recovered/dead; RKI https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Steckbrief.html;jsessionid=66D23F33F076AD1AA611E1C2159F45F7.internet052?nn=13490888#doc13776792bodyText10
-        "p": 0.02,  # probability of dying p*lambda is fraction that dies in vac0; https://www.nature.com/articles/s41598-021-84055-6
+        "prob_deceasing": 0.02,  # probability of dying p*lambda is fraction that dies in vac0; https://www.nature.com/articles/s41598-021-84055-6
         "eta_virW": 1,  # factor with which beta is scaled for the wild type
         "eta_virM": 1.2,  # factor with which beta is scaled for the mutant type
     }

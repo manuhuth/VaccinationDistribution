@@ -1,0 +1,1 @@
+#define sigmaobservable_deaths sigmay[0]

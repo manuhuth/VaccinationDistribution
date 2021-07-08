@@ -2,11 +2,9 @@
 #include "amici/defines.h"
 #include "sundials/sundials_types.h"
 
-#include <gsl/gsl-lite.hpp>
-#include <array>
-
-#include "vaccination_x.h"
-#include "vaccination_p.h"
+#include "p.h"
+#include "k.h"
+#include "x.h"
 
 namespace amici {
 namespace model_vaccination {
@@ -142,5 +140,5 @@ void sx0_vaccination(realtype *sx0, const realtype t,const realtype *x, const re
     }
 }
 
-} // namespace model_vaccination
 } // namespace amici
+} // namespace model_vaccination

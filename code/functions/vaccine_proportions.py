@@ -42,7 +42,7 @@ def create_spline(area, vaccine, stop, length):
     yy = np.repeat(0, length)
     splines = {
         f"spline_{area}_{vaccine}": {
-            "time_symbol": "t",
+            "time_symbol": "time",
             "xx": xx,
             "yy": yy,
             "xx_names": xx_names,
@@ -168,7 +168,7 @@ def create_spline_transformation_rules(
             parameter_id = f"proportion_{index_areas}_{index_vaccine}"
             spline_id = f"spline_{index_areas}_{index_vaccine}"
             rule_id = "rule_transformation" + spline_id
-            formula = f"1 / (1 + ExponentialE^(-({spline_id})))"
+            formula = f"1 / (1 + 2.718281828^(-({spline_id})))"
             rules_transformation_splines[rule_id] = {
                 "parameter_id": parameter_id,
                 "formula": formula,
@@ -276,7 +276,7 @@ def get_piecewise_formula_xx_period(vaccine, xx):
 
     formula = "piecewise("
     for index in range(len(xx) - 1):
-        domain = f"((t >= {xx[index]}) && (t < {xx[index + 1]})),"
+        domain = f"((time >= {xx[index]}) && (time < {xx[index + 1]})),"
         parameter = f"vaccine_supply_par_{vaccine}_{xx[index]},"
         formula += parameter + domain
     formula += "0)"
@@ -402,7 +402,7 @@ def get_piecewise_string_formula(
     Formula that determines the piecewise proportions.
     """
     no_last_area = areas[:-1]
-    string_formula = f"piecewise(0, t < {first_vaccination_period},"
+    string_formula = f"piecewise(0, time < {first_vaccination_period},"
     for index_decision_periods in decision_periods:
         if minus_others is False:
             proportion_id = (
@@ -416,7 +416,7 @@ def get_piecewise_string_formula(
                 decision_period=index_decision_periods,
             )
 
-        period_id = f" ((t >= {index_decision_periods}) && (t < {index_decision_periods + decision_period_length})),"
+        period_id = f" ((time >= {index_decision_periods}) && (time < {index_decision_periods + decision_period_length})),"
 
         string_formula = string_formula + proportion_id + period_id
 

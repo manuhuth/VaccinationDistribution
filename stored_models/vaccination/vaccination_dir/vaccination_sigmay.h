@@ -1,5 +1,0 @@
-#define sigma_observable_time sigmay[0]
-#define sigma_observable_quantity_countryA_vac1 sigmay[1]
-#define sigma_observable_quantity_countryA_vac2 sigmay[2]
-#define sigma_observable_quantity_countryB_vac1 sigmay[3]
-#define sigma_observable_quantity_countryB_vac2 sigmay[4]

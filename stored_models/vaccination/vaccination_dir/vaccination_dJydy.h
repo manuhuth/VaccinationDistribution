@@ -1,5 +1,0 @@
-#define dJy0_dobservable_time dJydy[0]
-#define dJy0_dobservable_quantity_countryA_vac1_1 dJydy[1]
-#define dJy0_dobservable_quantity_countryA_vac2_2 dJydy[2]
-#define dJy0_dobservable_quantity_countryB_vac1_3 dJydy[3]
-#define dJy0_dobservable_quantity_countryB_vac2_4 dJydy[4]

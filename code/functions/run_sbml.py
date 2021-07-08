@@ -66,8 +66,6 @@ def run_model(
     df_trajectories_observables = pd.DataFrame(
         first_period["y"], columns=(observables_names)
     )
-    
-    grad = first_period["sllh"]
 
     if periods_minus_one > 0:
         for _ in range(periods_minus_one):
@@ -106,7 +104,6 @@ def run_model(
     trajectory_dict = {
         "states": df_trajectories_states,
         "observables": df_trajectories_observables,
-        "gradient" : first_period,
     }
     return trajectory_dict
 
@@ -189,12 +186,13 @@ def create_observables_vaccination_rates(
     observables = {}
     for index_vaccinations in vaccination_states_removed:
         for index_areas in areas:
-            observable_id = (
-                f"observable_{name_parameter}_{index_areas}_{index_vaccinations}"
-            )
-            formula = f"{name_parameter}_{index_areas}_{index_vaccinations}"
-
-            observables[observable_id] = {"name": formula, "formula": formula}
+            if index_areas != "countryB" or name_parameter != "spline":
+                observable_id = (
+                    f"observable_{name_parameter}_{index_areas}_{index_vaccinations}"
+                )
+                formula = f"{name_parameter}_{index_areas}_{index_vaccinations}"
+    
+                observables[observable_id] = {"name": formula, "formula": formula}
 
     return observables
 

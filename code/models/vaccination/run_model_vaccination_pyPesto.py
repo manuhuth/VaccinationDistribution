@@ -43,9 +43,9 @@ length_decision_period = 140
 number_decision_periods = 1
 first_vaccination_period = 0
 number_yy = 11
-n_intervals = 3000
+n_intervals = 6000
 
-xx_list = ["xx" + str(i) for i in range(number_yy)]
+xx_list = ["xx" + str(i) for i in (range(number_yy-1))]
 parameter_vacc_supply = create_parameters_piecewise_vaccine_supply(
     xx=xx_list,
     vaccination_states=vaccination_states,
@@ -78,6 +78,7 @@ splines = create_splines(
     length=number_yy,
 )
 
+
 vaccine_supply_rules = create_vaccine_supply_rules(
     vaccination_states, non_vaccination_state, xx_list
 )
@@ -100,17 +101,19 @@ for index_area in areas:
         formula = f"{proportion} * {number_vacc}"
         observables_vaccinated_vacc[name] = {"name": name, "formula": formula}
 
-observables = {
-    "observable_time": {"name": "t", "formula": "t"},
-    **observables_vaccinated_vacc,
-}
 
+obs = {}
 for index in ["nu", "proportion", "spline"]:
     new = create_observables_vaccination_rates(
         vaccination_states_removed=vaccination_states_removed,
         areas=areas,
         name_parameter=index,
     )
+    
+    obs = {**obs, **new}
+    
+observables = { **obs, **observables_vaccinated_vacc,
+}
 
 model_directory = "stored_models/" + model_name + "/vaccination_dir"
 
@@ -273,12 +276,13 @@ def func_to_optimize_max(theta):
 
     if (percentage_A > 1) or (percentage_B > 1):
         value = large_value
+        #value = deceased_A + deceased_B
     else:
         value = deceased_A + deceased_B
 
     # value = np.max([percentage_A, percentage_B])
 
-    return value
+    return float(value)
 
 
 np.random.seed(12345)
@@ -303,24 +307,42 @@ while n_rows < n_multi and k < 10000:
     
 
 start_matrix = np.delete(start_matrix, (0), axis=0)
-
+from pypesto import Objective, FD
 objective = pypesto.Objective(fun=func_to_optimize_max)
+
+def obj_func(theta):
+    
+    grad = pypesto.FD(objective, method="central").get_grad(x=np.repeat(0.4, len(yy_names_str)))
+    hess = pypesto.FD(objective, method="forward").get_hess(x=np.repeat(0.4, len(yy_names_str)))
+    
+    return [func_to_optimize_max(theta=theta), grad, hess]
+    #return np.array([func_to_optimize_max(theta=theta)])
+
+
+objective2 = pypesto.Objective(fun=func_to_optimize_max, grad=True, hess=True)
+objective3 = pypesto.Objective(fun=obj_func, grad=True, hess=True)
+
 number_vaccines = len(vaccination_states) - 1
 number_parameters = len(yy_names_str)
 lb = np.repeat(lower_bound, number_parameters)
 ub = np.repeat(upper_bound, number_parameters)
 
-problem = pypesto.Problem(objective=objective, lb=lb, ub=ub, x_guesses=start_matrix)
 
-# optimizer = optimize.FidesOptimizer()
-optimizer = optimize.ScipyOptimizer("L-BFGS-B")
 history_options = pypesto.HistoryOptions(trace_record=True)
+engine = pypesto.engine.MultiProcessEngine()
+engine.n_procs = 8
+
+#problem = pypesto.Problem(objective=objective3, lb=lb, ub=ub, x_guesses=start_matrix)
+#optimizer = optimize.FidesOptimizer(options={"fatol" : 1})
+problem = pypesto.Problem(objective=objective, lb=lb, ub=ub, x_guesses=start_matrix)
+optimizer = optimize.ScipyOptimizer("L-BFGS-B")
 
 results_max = optimize.minimize(
     problem=problem,
     optimizer=optimizer,
     n_starts=n_multi,
     history_options=history_options,
+    #engine=engine,
 )
 
 visualize.waterfall(results_max)
@@ -328,39 +350,72 @@ visualize.waterfall(results_max)
 df_results_max = results_max.optimize_result.as_dataframe()
 theta_optimal_max = df_results_max.iloc[0]["x"]
 #-----------------------Petab-------------------------------------------------
+#import petab
+#import pypesto.petab
 #0. Condition table 
-columns_cond = ["conditionId", "beta"]
-first_row_cond = ["ordinary", 0.3]
+#parameters_fixed = [x for x in model.getParameterNames() if "yy_country" not in x]
+#parameter_values_fixed = model.getParameters()[0:len(parameters_fixed)]
+#columns_cond = ["conditionId"] + parameters_fixed
+#first_row_cond = ["ordinary"] +  list(parameter_values_fixed) 
 
-
+#df_cond = pd.DataFrame([first_row_cond], columns=columns_cond)
 
 #1. observable table
-columns_ot = ["observableId", "observableFormula", "noiseFormula"]
-substates_d = get_substates(model, ["dead"], include_all=True)
-string_d = '+'.join(substates_d)
-obs_id = "observable_deaths"
-first_row_ot = [obs_id, string_d]
+#columns_ot = ["observableId", "observableFormula", "noiseFormula"]
+#substates_d = get_substates(model, ["dead"], include_all=True)
+#string_d = '+'.join(substates_d)
+#obs_id = "observable_deaths"
+#first_row_ot = [obs_id, string_d, 1]
+#df_ot = pd.DataFrame([first_row_ot], columns=columns_ot)
+
 
 #2. Measurement table
-columns_mt = ["observableId", "simulationConditionId", "measurement", "time"]
-first_row_mt = [obs_id, "ordinary", 0, length, 0]
+#columns_mt = ["observableId", "simulationConditionId", "measurement", "time"]
+#first_row_mt = [obs_id, "ordinary", 0, length]
+#df_mt = pd.DataFrame([first_row_mt], columns=columns_mt)
 
 #3 Parameter table
-columns_pt = ["parameterId","parameterScale","lowerBound","upperBound","estimate"]
+#columns_pt = ["parameterId","parameterScale","lowerBound", "upperBound", "nominalValue", "estimate"]
 
-col_parameterId = yy_names_str
-col_parameterScale = len(yy_names_str)*["lin"]
-col_lb = np.repeat(lower_bound, len(yy_names_str))
-col_ub = np.repeat(upper_bound, len(yy_names_str))
-col_est = np.repeat(1, len(yy_names_str))
+#col_parameterId = yy_names_str
+#col_parameterScale = len(yy_names_str)*["lin"]
+#col_lb = np.repeat(lower_bound, len(yy_names_str))
+#col_ub = np.repeat(upper_bound, len(yy_names_str))
+#col_est = np.repeat(1, len(yy_names_str))
+#col_nominal = np.repeat(0, len(yy_names_str))
 
+#df_pt = pd.DataFrame(np.array([col_parameterId, col_parameterScale, col_lb, col_ub, col_nominal, col_est]).T, columns=columns_pt) 
 
+##save as TSVs
+#path_tsv = "stored_models/vaccination/"
+#path_cond = path_tsv + "cond_table.tsv"
+#df_cond.to_csv(path_cond, sep="\t", index=False)
 
+#path_ot = path_tsv + "ot_table.tsv"
+#df_ot.to_csv(path_ot, sep="\t", index=False)
 
+#path_mt = path_tsv + "mt_table.tsv"
+#df_mt.to_csv(path_mt, sep="\t", index=False)
 
+#path_pt = path_tsv + "pt_table.tsv"
+#df_pt.to_csv(path_pt, sep="\t", index=False)
 
+#petab analysis
 
+#TODO try to use longer petab import with model
+#yaml_config = path_tsv + "vaccination.yaml"
+#importer = pypesto.petab.PetabImporter.from_yaml(yaml_config)
+#problem = importer.create_problem()
+#objective = problem.objective
+#ret = objective(problem.x_nominal_free_scaled, sensi_orders=(0,1))
+#optimizer = optimize.ScipyOptimizer()
 
+#engine = pypesto.engine.SingleCoreEngine()
+#engine = pypesto.engine.MultiProcessEngine()
+
+# do the optimization
+#result = optimize.minimize(problem=problem, optimizer=optimizer,
+#                           n_starts=2, engine=engine)
 
 # ------------------------Run Optimum-----------------------------------------
 transformed_theta_optimal = np.log(theta_optimal_max / (1 - theta_optimal_max))
@@ -388,8 +443,8 @@ yy_seperated_splines_mutant = np.repeat(-20.0, len(yy_names_str) / 2)
 yy_seperated_splines = np.concatenate(
     (yy_seperated_splines_wild, yy_seperated_splines_mutant)
 )
-yy_current = dict(zip(yy_names_str, yy_seperated_splines))
-set_parameter_seperated = {**set_fixed_parameter, **yy_current}
+yy_seperated = dict(zip(yy_names_str, yy_seperated_splines))
+set_parameter_seperated = {**set_fixed_parameter, **yy_seperated}
 model_results_seperated = run_model(
     model=model,
     solver=solver,
@@ -399,6 +454,7 @@ model_results_seperated = run_model(
     set_parameter=set_parameter_seperated,
     number_intervals=n_intervals,
 )
+
 df_seperated = model_results_seperated
 states_seperated = df_seperated["states"]
 trajectory_seperated = {
@@ -480,7 +536,14 @@ dict_out = {
     "model_directory": model_directory,
     "model_name": model_name,
     "path_sbml": path_sbml,
+    "time_points" : model.getTimepoints()
 }
+
+model_out = {"state_names" : model.getStateNames(),
+             "initial_states" : model.getInitialStates(),
+             "par_magnitude" : model.getParameters(),
+             "par_names" : model.getParameterNames()
+             }
 
 
 with open(
@@ -488,4 +551,11 @@ with open(
     "wb",
 ) as output:
     out = dict_out
+    pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
+    
+with open(
+    "/home/manuel/Documents/VaccinationDistribution/code/objects/output_model_props.pkl",
+    "wb",
+) as output:
+    out = model_out
     pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)

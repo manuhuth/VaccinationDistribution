@@ -5,603 +5,370 @@ namespace amici {
 
 namespace model_vaccination {
 
-std::array<const char*, 115> parameterNames = {
-    "lambda1", // p[0]
-"p", // p[1]
-"gamma", // p[2]
-"beta", // p[3]
-"omega_vac1_virW", // p[4]
-"delta_vac1_virW", // p[5]
-"omega_vac2_virW", // p[6]
-"delta_vac2_virW", // p[7]
-"omega_vac1_virM", // p[8]
-"delta_vac1_virM", // p[9]
-"omega_vac2_virM", // p[10]
-"delta_vac2_virM", // p[11]
-"eta_virW", // p[12]
-"eta_virM", // p[13]
-"susceptible_countryA_vac0_t0", // p[14]
-"susceptible_countryA_vac1_t0", // p[15]
-"susceptible_countryA_vac2_t0", // p[16]
-"susceptible_countryB_vac0_t0", // p[17]
-"susceptible_countryB_vac1_t0", // p[18]
-"susceptible_countryB_vac2_t0", // p[19]
-"infectious_countryA_vac0_virW_t0", // p[20]
-"infectious_countryA_vac0_virM_t0", // p[21]
-"infectious_countryA_vac1_virW_t0", // p[22]
-"infectious_countryA_vac1_virM_t0", // p[23]
-"infectious_countryA_vac2_virW_t0", // p[24]
-"infectious_countryA_vac2_virM_t0", // p[25]
-"infectious_countryB_vac0_virW_t0", // p[26]
-"infectious_countryB_vac0_virM_t0", // p[27]
-"infectious_countryB_vac1_virW_t0", // p[28]
-"infectious_countryB_vac1_virM_t0", // p[29]
-"infectious_countryB_vac2_virW_t0", // p[30]
-"infectious_countryB_vac2_virM_t0", // p[31]
-"recovered_countryA_vac0_virW_t0", // p[32]
-"recovered_countryA_vac0_virM_t0", // p[33]
-"recovered_countryA_vac1_virW_t0", // p[34]
-"recovered_countryA_vac1_virM_t0", // p[35]
-"recovered_countryA_vac2_virW_t0", // p[36]
-"recovered_countryA_vac2_virM_t0", // p[37]
-"recovered_countryB_vac0_virW_t0", // p[38]
-"recovered_countryB_vac0_virM_t0", // p[39]
-"recovered_countryB_vac1_virW_t0", // p[40]
-"recovered_countryB_vac1_virM_t0", // p[41]
-"recovered_countryB_vac2_virW_t0", // p[42]
-"recovered_countryB_vac2_virM_t0", // p[43]
-"dead_countryA_vac0_virW_t0", // p[44]
-"dead_countryA_vac0_virM_t0", // p[45]
-"dead_countryA_vac1_virW_t0", // p[46]
-"dead_countryA_vac1_virM_t0", // p[47]
-"dead_countryA_vac2_virW_t0", // p[48]
-"dead_countryA_vac2_virM_t0", // p[49]
-"dead_countryB_vac0_virW_t0", // p[50]
-"dead_countryB_vac0_virM_t0", // p[51]
-"dead_countryB_vac1_virW_t0", // p[52]
-"dead_countryB_vac1_virM_t0", // p[53]
-"dead_countryB_vac2_virW_t0", // p[54]
-"dead_countryB_vac2_virM_t0", // p[55]
-"vaccine_supply_par_vac1_xx0", // p[56]
-"vaccine_supply_par_vac1_xx1", // p[57]
-"vaccine_supply_par_vac1_xx2", // p[58]
-"vaccine_supply_par_vac1_xx3", // p[59]
-"vaccine_supply_par_vac1_xx4", // p[60]
-"vaccine_supply_par_vac1_xx5", // p[61]
-"vaccine_supply_par_vac1_xx6", // p[62]
-"vaccine_supply_par_vac1_xx7", // p[63]
-"vaccine_supply_par_vac1_xx8", // p[64]
-"vaccine_supply_par_vac1_xx9", // p[65]
-"vaccine_supply_par_vac1_xx10", // p[66]
-"vaccine_supply_par_vac2_xx0", // p[67]
-"vaccine_supply_par_vac2_xx1", // p[68]
-"vaccine_supply_par_vac2_xx2", // p[69]
-"vaccine_supply_par_vac2_xx3", // p[70]
-"vaccine_supply_par_vac2_xx4", // p[71]
-"vaccine_supply_par_vac2_xx5", // p[72]
-"vaccine_supply_par_vac2_xx6", // p[73]
-"vaccine_supply_par_vac2_xx7", // p[74]
-"vaccine_supply_par_vac2_xx8", // p[75]
-"vaccine_supply_par_vac2_xx9", // p[76]
-"vaccine_supply_par_vac2_xx10", // p[77]
-"distance_countryA_countryA", // p[78]
-"distance_countryA_countryB", // p[79]
-"distance_countryB_countryA", // p[80]
-"distance_countryB_countryB", // p[81]
-"xx0", // p[82]
-"xx1", // p[83]
-"xx2", // p[84]
-"xx3", // p[85]
-"xx4", // p[86]
-"xx5", // p[87]
-"xx6", // p[88]
-"xx7", // p[89]
-"xx8", // p[90]
-"xx9", // p[91]
-"xx10", // p[92]
-"yy_countryA_vac1_0", // p[93]
-"yy_countryA_vac1_1", // p[94]
-"yy_countryA_vac1_2", // p[95]
-"yy_countryA_vac1_3", // p[96]
-"yy_countryA_vac1_4", // p[97]
-"yy_countryA_vac1_5", // p[98]
-"yy_countryA_vac1_6", // p[99]
-"yy_countryA_vac1_7", // p[100]
-"yy_countryA_vac1_8", // p[101]
-"yy_countryA_vac1_9", // p[102]
-"yy_countryA_vac1_10", // p[103]
-"yy_countryA_vac2_0", // p[104]
-"yy_countryA_vac2_1", // p[105]
-"yy_countryA_vac2_2", // p[106]
-"yy_countryA_vac2_3", // p[107]
-"yy_countryA_vac2_4", // p[108]
-"yy_countryA_vac2_5", // p[109]
-"yy_countryA_vac2_6", // p[110]
-"yy_countryA_vac2_7", // p[111]
-"yy_countryA_vac2_8", // p[112]
-"yy_countryA_vac2_9", // p[113]
-"yy_countryA_vac2_10", // p[114]
+std::array<const char*, 113> parameterNames = {
+    "lambda1",
+"prob_deceasing",
+"gamma",
+"beta",
+"omega_vac1_virW",
+"delta_vac1_virW",
+"omega_vac2_virW",
+"delta_vac2_virW",
+"omega_vac1_virM",
+"delta_vac1_virM",
+"omega_vac2_virM",
+"delta_vac2_virM",
+"eta_virW",
+"eta_virM",
+"susceptible_countryA_vac0_t0",
+"susceptible_countryA_vac1_t0",
+"susceptible_countryA_vac2_t0",
+"susceptible_countryB_vac0_t0",
+"susceptible_countryB_vac1_t0",
+"susceptible_countryB_vac2_t0",
+"infectious_countryA_vac0_virW_t0",
+"infectious_countryA_vac0_virM_t0",
+"infectious_countryA_vac1_virW_t0",
+"infectious_countryA_vac1_virM_t0",
+"infectious_countryA_vac2_virW_t0",
+"infectious_countryA_vac2_virM_t0",
+"infectious_countryB_vac0_virW_t0",
+"infectious_countryB_vac0_virM_t0",
+"infectious_countryB_vac1_virW_t0",
+"infectious_countryB_vac1_virM_t0",
+"infectious_countryB_vac2_virW_t0",
+"infectious_countryB_vac2_virM_t0",
+"recovered_countryA_vac0_virW_t0",
+"recovered_countryA_vac0_virM_t0",
+"recovered_countryA_vac1_virW_t0",
+"recovered_countryA_vac1_virM_t0",
+"recovered_countryA_vac2_virW_t0",
+"recovered_countryA_vac2_virM_t0",
+"recovered_countryB_vac0_virW_t0",
+"recovered_countryB_vac0_virM_t0",
+"recovered_countryB_vac1_virW_t0",
+"recovered_countryB_vac1_virM_t0",
+"recovered_countryB_vac2_virW_t0",
+"recovered_countryB_vac2_virM_t0",
+"dead_countryA_vac0_virW_t0",
+"dead_countryA_vac0_virM_t0",
+"dead_countryA_vac1_virW_t0",
+"dead_countryA_vac1_virM_t0",
+"dead_countryA_vac2_virW_t0",
+"dead_countryA_vac2_virM_t0",
+"dead_countryB_vac0_virW_t0",
+"dead_countryB_vac0_virM_t0",
+"dead_countryB_vac1_virW_t0",
+"dead_countryB_vac1_virM_t0",
+"dead_countryB_vac2_virW_t0",
+"dead_countryB_vac2_virM_t0",
+"vaccine_supply_par_vac1_xx0",
+"vaccine_supply_par_vac1_xx1",
+"vaccine_supply_par_vac1_xx2",
+"vaccine_supply_par_vac1_xx3",
+"vaccine_supply_par_vac1_xx4",
+"vaccine_supply_par_vac1_xx5",
+"vaccine_supply_par_vac1_xx6",
+"vaccine_supply_par_vac1_xx7",
+"vaccine_supply_par_vac1_xx8",
+"vaccine_supply_par_vac1_xx9",
+"vaccine_supply_par_vac2_xx0",
+"vaccine_supply_par_vac2_xx1",
+"vaccine_supply_par_vac2_xx2",
+"vaccine_supply_par_vac2_xx3",
+"vaccine_supply_par_vac2_xx4",
+"vaccine_supply_par_vac2_xx5",
+"vaccine_supply_par_vac2_xx6",
+"vaccine_supply_par_vac2_xx7",
+"vaccine_supply_par_vac2_xx8",
+"vaccine_supply_par_vac2_xx9",
+"distance_countryA_countryA",
+"distance_countryA_countryB",
+"distance_countryB_countryA",
+"distance_countryB_countryB",
+"xx0",
+"xx1",
+"xx2",
+"xx3",
+"xx4",
+"xx5",
+"xx6",
+"xx7",
+"xx8",
+"xx9",
+"xx10",
+"yy_countryA_vac1_0",
+"yy_countryA_vac1_1",
+"yy_countryA_vac1_2",
+"yy_countryA_vac1_3",
+"yy_countryA_vac1_4",
+"yy_countryA_vac1_5",
+"yy_countryA_vac1_6",
+"yy_countryA_vac1_7",
+"yy_countryA_vac1_8",
+"yy_countryA_vac1_9",
+"yy_countryA_vac1_10",
+"yy_countryA_vac2_0",
+"yy_countryA_vac2_1",
+"yy_countryA_vac2_2",
+"yy_countryA_vac2_3",
+"yy_countryA_vac2_4",
+"yy_countryA_vac2_5",
+"yy_countryA_vac2_6",
+"yy_countryA_vac2_7",
+"yy_countryA_vac2_8",
+"yy_countryA_vac2_9",
+"yy_countryA_vac2_10",
 };
 
 std::array<const char*, 0> fixedParameterNames = {
     
 };
 
-std::array<const char*, 43> stateNames = {
-    "susceptible_countryA_vac0", // x_rdata[0]
-"susceptible_countryA_vac1", // x_rdata[1]
-"susceptible_countryA_vac2", // x_rdata[2]
-"susceptible_countryB_vac0", // x_rdata[3]
-"susceptible_countryB_vac1", // x_rdata[4]
-"susceptible_countryB_vac2", // x_rdata[5]
-"infectious_countryA_vac0_virW", // x_rdata[6]
-"infectious_countryA_vac0_virM", // x_rdata[7]
-"infectious_countryA_vac1_virW", // x_rdata[8]
-"infectious_countryA_vac1_virM", // x_rdata[9]
-"infectious_countryA_vac2_virW", // x_rdata[10]
-"infectious_countryA_vac2_virM", // x_rdata[11]
-"infectious_countryB_vac0_virW", // x_rdata[12]
-"infectious_countryB_vac0_virM", // x_rdata[13]
-"infectious_countryB_vac1_virW", // x_rdata[14]
-"infectious_countryB_vac1_virM", // x_rdata[15]
-"infectious_countryB_vac2_virW", // x_rdata[16]
-"infectious_countryB_vac2_virM", // x_rdata[17]
-"recovered_countryA_vac0_virW", // x_rdata[18]
-"recovered_countryA_vac0_virM", // x_rdata[19]
-"recovered_countryA_vac1_virW", // x_rdata[20]
-"recovered_countryA_vac1_virM", // x_rdata[21]
-"recovered_countryA_vac2_virW", // x_rdata[22]
-"recovered_countryA_vac2_virM", // x_rdata[23]
-"recovered_countryB_vac0_virW", // x_rdata[24]
-"recovered_countryB_vac0_virM", // x_rdata[25]
-"recovered_countryB_vac1_virW", // x_rdata[26]
-"recovered_countryB_vac1_virM", // x_rdata[27]
-"recovered_countryB_vac2_virW", // x_rdata[28]
-"recovered_countryB_vac2_virM", // x_rdata[29]
-"dead_countryA_vac0_virW", // x_rdata[30]
-"dead_countryA_vac0_virM", // x_rdata[31]
-"dead_countryA_vac1_virW", // x_rdata[32]
-"dead_countryA_vac1_virM", // x_rdata[33]
-"dead_countryA_vac2_virW", // x_rdata[34]
-"dead_countryA_vac2_virM", // x_rdata[35]
-"dead_countryB_vac0_virW", // x_rdata[36]
-"dead_countryB_vac0_virM", // x_rdata[37]
-"dead_countryB_vac1_virW", // x_rdata[38]
-"dead_countryB_vac1_virM", // x_rdata[39]
-"dead_countryB_vac2_virW", // x_rdata[40]
-"dead_countryB_vac2_virM", // x_rdata[41]
-"t", // x_rdata[42]
+std::array<const char*, 42> stateNames = {
+    "susceptible_countryA_vac0",
+"susceptible_countryA_vac1",
+"susceptible_countryA_vac2",
+"susceptible_countryB_vac0",
+"susceptible_countryB_vac1",
+"susceptible_countryB_vac2",
+"infectious_countryA_vac0_virW",
+"infectious_countryA_vac0_virM",
+"infectious_countryA_vac1_virW",
+"infectious_countryA_vac1_virM",
+"infectious_countryA_vac2_virW",
+"infectious_countryA_vac2_virM",
+"infectious_countryB_vac0_virW",
+"infectious_countryB_vac0_virM",
+"infectious_countryB_vac1_virW",
+"infectious_countryB_vac1_virM",
+"infectious_countryB_vac2_virW",
+"infectious_countryB_vac2_virM",
+"recovered_countryA_vac0_virW",
+"recovered_countryA_vac0_virM",
+"recovered_countryA_vac1_virW",
+"recovered_countryA_vac1_virM",
+"recovered_countryA_vac2_virW",
+"recovered_countryA_vac2_virM",
+"recovered_countryB_vac0_virW",
+"recovered_countryB_vac0_virM",
+"recovered_countryB_vac1_virW",
+"recovered_countryB_vac1_virM",
+"recovered_countryB_vac2_virW",
+"recovered_countryB_vac2_virM",
+"dead_countryA_vac0_virW",
+"dead_countryA_vac0_virM",
+"dead_countryA_vac1_virW",
+"dead_countryA_vac1_virM",
+"dead_countryA_vac2_virW",
+"dead_countryA_vac2_virM",
+"dead_countryB_vac0_virW",
+"dead_countryB_vac0_virM",
+"dead_countryB_vac1_virW",
+"dead_countryB_vac1_virM",
+"dead_countryB_vac2_virW",
+"dead_countryB_vac2_virM",
 };
 
-std::array<const char*, 5> observableNames = {
-    "t", // y[0]
-"observable_quantity_countryA_vac1", // y[1]
-"observable_quantity_countryA_vac2", // y[2]
-"observable_quantity_countryB_vac1", // y[3]
-"observable_quantity_countryB_vac2", // y[4]
+std::array<const char*, 14> observableNames = {
+    "nu_countryA_vac1",
+"nu_countryB_vac1",
+"nu_countryA_vac2",
+"nu_countryB_vac2",
+"proportion_countryA_vac1",
+"proportion_countryB_vac1",
+"proportion_countryA_vac2",
+"proportion_countryB_vac2",
+"spline_countryA_vac1",
+"spline_countryA_vac2",
+"observable_quantity_countryA_vac1",
+"observable_quantity_countryA_vac2",
+"observable_quantity_countryB_vac1",
+"observable_quantity_countryB_vac2",
 };
 
-std::array<const char*, 120> expressionNames = {
-    "number_vac1", // w[0]
-"spline_countryA_vac1", // w[1]
-"spline_countryA_vac2", // w[2]
-"number_vac2", // w[3]
-"proportion_countryA_vac1", // w[4]
-"proportion_countryA_vac2", // w[5]
-"proportion_countryB_vac1", // w[6]
-"nu_countryA_vac1", // w[7]
-"nu_countryA_vac2", // w[8]
-"proportion_countryB_vac2", // w[9]
-"nu_countryB_vac2", // w[10]
-"nu_countryB_vac1", // w[11]
-"flux_r0", // w[12]
-"flux_r1", // w[13]
-"flux_r2", // w[14]
-"flux_r3", // w[15]
-"flux_r4", // w[16]
-"flux_r5", // w[17]
-"flux_r6", // w[18]
-"flux_r7", // w[19]
-"flux_r8", // w[20]
-"flux_r9", // w[21]
-"flux_r10", // w[22]
-"flux_r11", // w[23]
-"flux_r12", // w[24]
-"flux_r13", // w[25]
-"flux_r14", // w[26]
-"flux_r15", // w[27]
-"flux_r16", // w[28]
-"flux_r17", // w[29]
-"flux_r18", // w[30]
-"flux_r19", // w[31]
-"flux_r20", // w[32]
-"flux_r21", // w[33]
-"flux_r22", // w[34]
-"flux_r23", // w[35]
-"flux_r24", // w[36]
-"flux_r25", // w[37]
-"flux_r26", // w[38]
-"flux_r27", // w[39]
-"flux_r28", // w[40]
-"flux_r29", // w[41]
-"flux_r30", // w[42]
-"flux_r31", // w[43]
-"flux_r32", // w[44]
-"flux_r33", // w[45]
-"flux_r34", // w[46]
-"flux_r35", // w[47]
-"flux_r36", // w[48]
-"flux_r37", // w[49]
-"flux_r38", // w[50]
-"flux_r39", // w[51]
-"flux_r40", // w[52]
-"flux_r41", // w[53]
-"flux_r42", // w[54]
-"flux_r43", // w[55]
-"flux_r44", // w[56]
-"flux_r45", // w[57]
-"flux_r46", // w[58]
-"flux_r47", // w[59]
-"flux_r48", // w[60]
-"flux_r49", // w[61]
-"flux_r50", // w[62]
-"flux_r51", // w[63]
-"flux_r52", // w[64]
-"flux_r53", // w[65]
-"flux_r54", // w[66]
-"flux_r55", // w[67]
-"flux_r56", // w[68]
-"flux_r57", // w[69]
-"flux_r58", // w[70]
-"flux_r59", // w[71]
-"flux_r60", // w[72]
-"flux_r61", // w[73]
-"flux_r62", // w[74]
-"flux_r63", // w[75]
-"flux_r64", // w[76]
-"flux_r65", // w[77]
-"flux_r66", // w[78]
-"flux_r67", // w[79]
-"flux_r68", // w[80]
-"flux_r69", // w[81]
-"flux_r70", // w[82]
-"flux_r71", // w[83]
-"flux_r72", // w[84]
-"flux_r73", // w[85]
-"flux_r74", // w[86]
-"flux_r75", // w[87]
-"flux_r76", // w[88]
-"flux_r77", // w[89]
-"flux_r78", // w[90]
-"flux_r79", // w[91]
-"flux_r80", // w[92]
-"flux_r81", // w[93]
-"flux_r82", // w[94]
-"flux_r83", // w[95]
-"flux_r84", // w[96]
-"flux_r85", // w[97]
-"flux_r86", // w[98]
-"flux_r87", // w[99]
-"flux_r88", // w[100]
-"flux_r89", // w[101]
-"flux_r90", // w[102]
-"flux_r91", // w[103]
-"flux_r92", // w[104]
-"flux_r93", // w[105]
-"flux_r94", // w[106]
-"flux_r95", // w[107]
-"flux_r96", // w[108]
-"flux_r97", // w[109]
-"flux_r98", // w[110]
-"flux_r99", // w[111]
-"flux_r100", // w[112]
-"flux_r101", // w[113]
-"flux_r102", // w[114]
-"flux_r103", // w[115]
-"flux_r104", // w[116]
-"flux_r105", // w[117]
-"flux_r106", // w[118]
-"flux_r107", // w[119]
-};
-
-std::array<const char*, 115> parameterIds = {
-    "lambda1", // p[0]
-"amici_p", // p[1]
-"gamma", // p[2]
-"beta", // p[3]
-"omega_vac1_virW", // p[4]
-"delta_vac1_virW", // p[5]
-"omega_vac2_virW", // p[6]
-"delta_vac2_virW", // p[7]
-"omega_vac1_virM", // p[8]
-"delta_vac1_virM", // p[9]
-"omega_vac2_virM", // p[10]
-"delta_vac2_virM", // p[11]
-"eta_virW", // p[12]
-"eta_virM", // p[13]
-"susceptible_countryA_vac0_t0", // p[14]
-"susceptible_countryA_vac1_t0", // p[15]
-"susceptible_countryA_vac2_t0", // p[16]
-"susceptible_countryB_vac0_t0", // p[17]
-"susceptible_countryB_vac1_t0", // p[18]
-"susceptible_countryB_vac2_t0", // p[19]
-"infectious_countryA_vac0_virW_t0", // p[20]
-"infectious_countryA_vac0_virM_t0", // p[21]
-"infectious_countryA_vac1_virW_t0", // p[22]
-"infectious_countryA_vac1_virM_t0", // p[23]
-"infectious_countryA_vac2_virW_t0", // p[24]
-"infectious_countryA_vac2_virM_t0", // p[25]
-"infectious_countryB_vac0_virW_t0", // p[26]
-"infectious_countryB_vac0_virM_t0", // p[27]
-"infectious_countryB_vac1_virW_t0", // p[28]
-"infectious_countryB_vac1_virM_t0", // p[29]
-"infectious_countryB_vac2_virW_t0", // p[30]
-"infectious_countryB_vac2_virM_t0", // p[31]
-"recovered_countryA_vac0_virW_t0", // p[32]
-"recovered_countryA_vac0_virM_t0", // p[33]
-"recovered_countryA_vac1_virW_t0", // p[34]
-"recovered_countryA_vac1_virM_t0", // p[35]
-"recovered_countryA_vac2_virW_t0", // p[36]
-"recovered_countryA_vac2_virM_t0", // p[37]
-"recovered_countryB_vac0_virW_t0", // p[38]
-"recovered_countryB_vac0_virM_t0", // p[39]
-"recovered_countryB_vac1_virW_t0", // p[40]
-"recovered_countryB_vac1_virM_t0", // p[41]
-"recovered_countryB_vac2_virW_t0", // p[42]
-"recovered_countryB_vac2_virM_t0", // p[43]
-"dead_countryA_vac0_virW_t0", // p[44]
-"dead_countryA_vac0_virM_t0", // p[45]
-"dead_countryA_vac1_virW_t0", // p[46]
-"dead_countryA_vac1_virM_t0", // p[47]
-"dead_countryA_vac2_virW_t0", // p[48]
-"dead_countryA_vac2_virM_t0", // p[49]
-"dead_countryB_vac0_virW_t0", // p[50]
-"dead_countryB_vac0_virM_t0", // p[51]
-"dead_countryB_vac1_virW_t0", // p[52]
-"dead_countryB_vac1_virM_t0", // p[53]
-"dead_countryB_vac2_virW_t0", // p[54]
-"dead_countryB_vac2_virM_t0", // p[55]
-"vaccine_supply_par_vac1_xx0", // p[56]
-"vaccine_supply_par_vac1_xx1", // p[57]
-"vaccine_supply_par_vac1_xx2", // p[58]
-"vaccine_supply_par_vac1_xx3", // p[59]
-"vaccine_supply_par_vac1_xx4", // p[60]
-"vaccine_supply_par_vac1_xx5", // p[61]
-"vaccine_supply_par_vac1_xx6", // p[62]
-"vaccine_supply_par_vac1_xx7", // p[63]
-"vaccine_supply_par_vac1_xx8", // p[64]
-"vaccine_supply_par_vac1_xx9", // p[65]
-"vaccine_supply_par_vac1_xx10", // p[66]
-"vaccine_supply_par_vac2_xx0", // p[67]
-"vaccine_supply_par_vac2_xx1", // p[68]
-"vaccine_supply_par_vac2_xx2", // p[69]
-"vaccine_supply_par_vac2_xx3", // p[70]
-"vaccine_supply_par_vac2_xx4", // p[71]
-"vaccine_supply_par_vac2_xx5", // p[72]
-"vaccine_supply_par_vac2_xx6", // p[73]
-"vaccine_supply_par_vac2_xx7", // p[74]
-"vaccine_supply_par_vac2_xx8", // p[75]
-"vaccine_supply_par_vac2_xx9", // p[76]
-"vaccine_supply_par_vac2_xx10", // p[77]
-"distance_countryA_countryA", // p[78]
-"distance_countryA_countryB", // p[79]
-"distance_countryB_countryA", // p[80]
-"distance_countryB_countryB", // p[81]
-"xx0", // p[82]
-"xx1", // p[83]
-"xx2", // p[84]
-"xx3", // p[85]
-"xx4", // p[86]
-"xx5", // p[87]
-"xx6", // p[88]
-"xx7", // p[89]
-"xx8", // p[90]
-"xx9", // p[91]
-"xx10", // p[92]
-"yy_countryA_vac1_0", // p[93]
-"yy_countryA_vac1_1", // p[94]
-"yy_countryA_vac1_2", // p[95]
-"yy_countryA_vac1_3", // p[96]
-"yy_countryA_vac1_4", // p[97]
-"yy_countryA_vac1_5", // p[98]
-"yy_countryA_vac1_6", // p[99]
-"yy_countryA_vac1_7", // p[100]
-"yy_countryA_vac1_8", // p[101]
-"yy_countryA_vac1_9", // p[102]
-"yy_countryA_vac1_10", // p[103]
-"yy_countryA_vac2_0", // p[104]
-"yy_countryA_vac2_1", // p[105]
-"yy_countryA_vac2_2", // p[106]
-"yy_countryA_vac2_3", // p[107]
-"yy_countryA_vac2_4", // p[108]
-"yy_countryA_vac2_5", // p[109]
-"yy_countryA_vac2_6", // p[110]
-"yy_countryA_vac2_7", // p[111]
-"yy_countryA_vac2_8", // p[112]
-"yy_countryA_vac2_9", // p[113]
-"yy_countryA_vac2_10", // p[114]
+std::array<const char*, 113> parameterIds = {
+    "lambda1",
+"prob_deceasing",
+"gamma",
+"beta",
+"omega_vac1_virW",
+"delta_vac1_virW",
+"omega_vac2_virW",
+"delta_vac2_virW",
+"omega_vac1_virM",
+"delta_vac1_virM",
+"omega_vac2_virM",
+"delta_vac2_virM",
+"eta_virW",
+"eta_virM",
+"susceptible_countryA_vac0_t0",
+"susceptible_countryA_vac1_t0",
+"susceptible_countryA_vac2_t0",
+"susceptible_countryB_vac0_t0",
+"susceptible_countryB_vac1_t0",
+"susceptible_countryB_vac2_t0",
+"infectious_countryA_vac0_virW_t0",
+"infectious_countryA_vac0_virM_t0",
+"infectious_countryA_vac1_virW_t0",
+"infectious_countryA_vac1_virM_t0",
+"infectious_countryA_vac2_virW_t0",
+"infectious_countryA_vac2_virM_t0",
+"infectious_countryB_vac0_virW_t0",
+"infectious_countryB_vac0_virM_t0",
+"infectious_countryB_vac1_virW_t0",
+"infectious_countryB_vac1_virM_t0",
+"infectious_countryB_vac2_virW_t0",
+"infectious_countryB_vac2_virM_t0",
+"recovered_countryA_vac0_virW_t0",
+"recovered_countryA_vac0_virM_t0",
+"recovered_countryA_vac1_virW_t0",
+"recovered_countryA_vac1_virM_t0",
+"recovered_countryA_vac2_virW_t0",
+"recovered_countryA_vac2_virM_t0",
+"recovered_countryB_vac0_virW_t0",
+"recovered_countryB_vac0_virM_t0",
+"recovered_countryB_vac1_virW_t0",
+"recovered_countryB_vac1_virM_t0",
+"recovered_countryB_vac2_virW_t0",
+"recovered_countryB_vac2_virM_t0",
+"dead_countryA_vac0_virW_t0",
+"dead_countryA_vac0_virM_t0",
+"dead_countryA_vac1_virW_t0",
+"dead_countryA_vac1_virM_t0",
+"dead_countryA_vac2_virW_t0",
+"dead_countryA_vac2_virM_t0",
+"dead_countryB_vac0_virW_t0",
+"dead_countryB_vac0_virM_t0",
+"dead_countryB_vac1_virW_t0",
+"dead_countryB_vac1_virM_t0",
+"dead_countryB_vac2_virW_t0",
+"dead_countryB_vac2_virM_t0",
+"vaccine_supply_par_vac1_xx0",
+"vaccine_supply_par_vac1_xx1",
+"vaccine_supply_par_vac1_xx2",
+"vaccine_supply_par_vac1_xx3",
+"vaccine_supply_par_vac1_xx4",
+"vaccine_supply_par_vac1_xx5",
+"vaccine_supply_par_vac1_xx6",
+"vaccine_supply_par_vac1_xx7",
+"vaccine_supply_par_vac1_xx8",
+"vaccine_supply_par_vac1_xx9",
+"vaccine_supply_par_vac2_xx0",
+"vaccine_supply_par_vac2_xx1",
+"vaccine_supply_par_vac2_xx2",
+"vaccine_supply_par_vac2_xx3",
+"vaccine_supply_par_vac2_xx4",
+"vaccine_supply_par_vac2_xx5",
+"vaccine_supply_par_vac2_xx6",
+"vaccine_supply_par_vac2_xx7",
+"vaccine_supply_par_vac2_xx8",
+"vaccine_supply_par_vac2_xx9",
+"distance_countryA_countryA",
+"distance_countryA_countryB",
+"distance_countryB_countryA",
+"distance_countryB_countryB",
+"xx0",
+"xx1",
+"xx2",
+"xx3",
+"xx4",
+"xx5",
+"xx6",
+"xx7",
+"xx8",
+"xx9",
+"xx10",
+"yy_countryA_vac1_0",
+"yy_countryA_vac1_1",
+"yy_countryA_vac1_2",
+"yy_countryA_vac1_3",
+"yy_countryA_vac1_4",
+"yy_countryA_vac1_5",
+"yy_countryA_vac1_6",
+"yy_countryA_vac1_7",
+"yy_countryA_vac1_8",
+"yy_countryA_vac1_9",
+"yy_countryA_vac1_10",
+"yy_countryA_vac2_0",
+"yy_countryA_vac2_1",
+"yy_countryA_vac2_2",
+"yy_countryA_vac2_3",
+"yy_countryA_vac2_4",
+"yy_countryA_vac2_5",
+"yy_countryA_vac2_6",
+"yy_countryA_vac2_7",
+"yy_countryA_vac2_8",
+"yy_countryA_vac2_9",
+"yy_countryA_vac2_10",
 };
 
 std::array<const char*, 0> fixedParameterIds = {
     
 };
 
-std::array<const char*, 43> stateIds = {
-    "susceptible_countryA_vac0", // x_rdata[0]
-"susceptible_countryA_vac1", // x_rdata[1]
-"susceptible_countryA_vac2", // x_rdata[2]
-"susceptible_countryB_vac0", // x_rdata[3]
-"susceptible_countryB_vac1", // x_rdata[4]
-"susceptible_countryB_vac2", // x_rdata[5]
-"infectious_countryA_vac0_virW", // x_rdata[6]
-"infectious_countryA_vac0_virM", // x_rdata[7]
-"infectious_countryA_vac1_virW", // x_rdata[8]
-"infectious_countryA_vac1_virM", // x_rdata[9]
-"infectious_countryA_vac2_virW", // x_rdata[10]
-"infectious_countryA_vac2_virM", // x_rdata[11]
-"infectious_countryB_vac0_virW", // x_rdata[12]
-"infectious_countryB_vac0_virM", // x_rdata[13]
-"infectious_countryB_vac1_virW", // x_rdata[14]
-"infectious_countryB_vac1_virM", // x_rdata[15]
-"infectious_countryB_vac2_virW", // x_rdata[16]
-"infectious_countryB_vac2_virM", // x_rdata[17]
-"recovered_countryA_vac0_virW", // x_rdata[18]
-"recovered_countryA_vac0_virM", // x_rdata[19]
-"recovered_countryA_vac1_virW", // x_rdata[20]
-"recovered_countryA_vac1_virM", // x_rdata[21]
-"recovered_countryA_vac2_virW", // x_rdata[22]
-"recovered_countryA_vac2_virM", // x_rdata[23]
-"recovered_countryB_vac0_virW", // x_rdata[24]
-"recovered_countryB_vac0_virM", // x_rdata[25]
-"recovered_countryB_vac1_virW", // x_rdata[26]
-"recovered_countryB_vac1_virM", // x_rdata[27]
-"recovered_countryB_vac2_virW", // x_rdata[28]
-"recovered_countryB_vac2_virM", // x_rdata[29]
-"dead_countryA_vac0_virW", // x_rdata[30]
-"dead_countryA_vac0_virM", // x_rdata[31]
-"dead_countryA_vac1_virW", // x_rdata[32]
-"dead_countryA_vac1_virM", // x_rdata[33]
-"dead_countryA_vac2_virW", // x_rdata[34]
-"dead_countryA_vac2_virM", // x_rdata[35]
-"dead_countryB_vac0_virW", // x_rdata[36]
-"dead_countryB_vac0_virM", // x_rdata[37]
-"dead_countryB_vac1_virW", // x_rdata[38]
-"dead_countryB_vac1_virM", // x_rdata[39]
-"dead_countryB_vac2_virW", // x_rdata[40]
-"dead_countryB_vac2_virM", // x_rdata[41]
-"amici_t", // x_rdata[42]
+std::array<const char*, 42> stateIds = {
+    "susceptible_countryA_vac0",
+"susceptible_countryA_vac1",
+"susceptible_countryA_vac2",
+"susceptible_countryB_vac0",
+"susceptible_countryB_vac1",
+"susceptible_countryB_vac2",
+"infectious_countryA_vac0_virW",
+"infectious_countryA_vac0_virM",
+"infectious_countryA_vac1_virW",
+"infectious_countryA_vac1_virM",
+"infectious_countryA_vac2_virW",
+"infectious_countryA_vac2_virM",
+"infectious_countryB_vac0_virW",
+"infectious_countryB_vac0_virM",
+"infectious_countryB_vac1_virW",
+"infectious_countryB_vac1_virM",
+"infectious_countryB_vac2_virW",
+"infectious_countryB_vac2_virM",
+"recovered_countryA_vac0_virW",
+"recovered_countryA_vac0_virM",
+"recovered_countryA_vac1_virW",
+"recovered_countryA_vac1_virM",
+"recovered_countryA_vac2_virW",
+"recovered_countryA_vac2_virM",
+"recovered_countryB_vac0_virW",
+"recovered_countryB_vac0_virM",
+"recovered_countryB_vac1_virW",
+"recovered_countryB_vac1_virM",
+"recovered_countryB_vac2_virW",
+"recovered_countryB_vac2_virM",
+"dead_countryA_vac0_virW",
+"dead_countryA_vac0_virM",
+"dead_countryA_vac1_virW",
+"dead_countryA_vac1_virM",
+"dead_countryA_vac2_virW",
+"dead_countryA_vac2_virM",
+"dead_countryB_vac0_virW",
+"dead_countryB_vac0_virM",
+"dead_countryB_vac1_virW",
+"dead_countryB_vac1_virM",
+"dead_countryB_vac2_virW",
+"dead_countryB_vac2_virM",
 };
 
-std::array<const char*, 5> observableIds = {
-    "observable_time", // y[0]
-"observable_quantity_countryA_vac1", // y[1]
-"observable_quantity_countryA_vac2", // y[2]
-"observable_quantity_countryB_vac1", // y[3]
-"observable_quantity_countryB_vac2", // y[4]
+std::array<const char*, 14> observableIds = {
+    "observable_nu_countryA_vac1",
+"observable_nu_countryB_vac1",
+"observable_nu_countryA_vac2",
+"observable_nu_countryB_vac2",
+"observable_proportion_countryA_vac1",
+"observable_proportion_countryB_vac1",
+"observable_proportion_countryA_vac2",
+"observable_proportion_countryB_vac2",
+"observable_spline_countryA_vac1",
+"observable_spline_countryA_vac2",
+"observable_quantity_countryA_vac1",
+"observable_quantity_countryA_vac2",
+"observable_quantity_countryB_vac1",
+"observable_quantity_countryB_vac2",
 };
 
-std::array<const char*, 120> expressionIds = {
-    "number_vac1", // w[0]
-"spline_countryA_vac1", // w[1]
-"spline_countryA_vac2", // w[2]
-"number_vac2", // w[3]
-"proportion_countryA_vac1", // w[4]
-"proportion_countryA_vac2", // w[5]
-"proportion_countryB_vac1", // w[6]
-"nu_countryA_vac1", // w[7]
-"nu_countryA_vac2", // w[8]
-"proportion_countryB_vac2", // w[9]
-"nu_countryB_vac2", // w[10]
-"nu_countryB_vac1", // w[11]
-"flux_r0", // w[12]
-"flux_r1", // w[13]
-"flux_r2", // w[14]
-"flux_r3", // w[15]
-"flux_r4", // w[16]
-"flux_r5", // w[17]
-"flux_r6", // w[18]
-"flux_r7", // w[19]
-"flux_r8", // w[20]
-"flux_r9", // w[21]
-"flux_r10", // w[22]
-"flux_r11", // w[23]
-"flux_r12", // w[24]
-"flux_r13", // w[25]
-"flux_r14", // w[26]
-"flux_r15", // w[27]
-"flux_r16", // w[28]
-"flux_r17", // w[29]
-"flux_r18", // w[30]
-"flux_r19", // w[31]
-"flux_r20", // w[32]
-"flux_r21", // w[33]
-"flux_r22", // w[34]
-"flux_r23", // w[35]
-"flux_r24", // w[36]
-"flux_r25", // w[37]
-"flux_r26", // w[38]
-"flux_r27", // w[39]
-"flux_r28", // w[40]
-"flux_r29", // w[41]
-"flux_r30", // w[42]
-"flux_r31", // w[43]
-"flux_r32", // w[44]
-"flux_r33", // w[45]
-"flux_r34", // w[46]
-"flux_r35", // w[47]
-"flux_r36", // w[48]
-"flux_r37", // w[49]
-"flux_r38", // w[50]
-"flux_r39", // w[51]
-"flux_r40", // w[52]
-"flux_r41", // w[53]
-"flux_r42", // w[54]
-"flux_r43", // w[55]
-"flux_r44", // w[56]
-"flux_r45", // w[57]
-"flux_r46", // w[58]
-"flux_r47", // w[59]
-"flux_r48", // w[60]
-"flux_r49", // w[61]
-"flux_r50", // w[62]
-"flux_r51", // w[63]
-"flux_r52", // w[64]
-"flux_r53", // w[65]
-"flux_r54", // w[66]
-"flux_r55", // w[67]
-"flux_r56", // w[68]
-"flux_r57", // w[69]
-"flux_r58", // w[70]
-"flux_r59", // w[71]
-"flux_r60", // w[72]
-"flux_r61", // w[73]
-"flux_r62", // w[74]
-"flux_r63", // w[75]
-"flux_r64", // w[76]
-"flux_r65", // w[77]
-"flux_r66", // w[78]
-"flux_r67", // w[79]
-"flux_r68", // w[80]
-"flux_r69", // w[81]
-"flux_r70", // w[82]
-"flux_r71", // w[83]
-"flux_r72", // w[84]
-"flux_r73", // w[85]
-"flux_r74", // w[86]
-"flux_r75", // w[87]
-"flux_r76", // w[88]
-"flux_r77", // w[89]
-"flux_r78", // w[90]
-"flux_r79", // w[91]
-"flux_r80", // w[92]
-"flux_r81", // w[93]
-"flux_r82", // w[94]
-"flux_r83", // w[95]
-"flux_r84", // w[96]
-"flux_r85", // w[97]
-"flux_r86", // w[98]
-"flux_r87", // w[99]
-"flux_r88", // w[100]
-"flux_r89", // w[101]
-"flux_r90", // w[102]
-"flux_r91", // w[103]
-"flux_r92", // w[104]
-"flux_r93", // w[105]
-"flux_r94", // w[106]
-"flux_r95", // w[107]
-"flux_r96", // w[108]
-"flux_r97", // w[109]
-"flux_r98", // w[110]
-"flux_r99", // w[111]
-"flux_r100", // w[112]
-"flux_r101", // w[113]
-"flux_r102", // w[114]
-"flux_r103", // w[115]
-"flux_r104", // w[116]
-"flux_r105", // w[117]
-"flux_r106", // w[118]
-"flux_r107", // w[119]
-};
 
 } // namespace model_vaccination
 

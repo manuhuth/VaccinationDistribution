@@ -1,45 +1,114 @@
-\section{Vaccine allocation}
-How to determine the vaccination rate? We denote the number of vaccinations of type $v_j$ available at time $t$ in country $l$ by $W_{j,l}(t)$ and the total number number of vaccine $j$ by $W_j(t) = W_{j,A}(t) + W_{j,B}(t)$. We assume that all doses of vaccines are immediately vaccinated. Thus, it must hold that 
-\begin{align*}
-W_{j,A}(t) &= \nu_{j, A} \cdot \left( |\set(x_S, v_0, a_A)| + |\set(x_R, v_0, a_A, c_w)| + |\set(x_R, v_0, a_A, c_m)| \right) \notag \\
-W_{j,B}(t) &= \nu_{j, B} \cdot \left( |\set(x_S, v_0, a_B)| + |\set(x_R, v_0, a_B, c_w)| + |\set(x_R, v_0, a_B, c_m)| \right). 
-\end{align*}
-Which is to say that the total number of vaccines $j$ at $t$ must equal the number of individuals vaccinated with $j$ at $t$. Let $f_{j,A}(t)$ be the fraction of vaccine $j$ that is allocated to country $A$. We can write $W_{j,A}(t) = f_{j,A}(t) W_j(t)$ and $W_{j,B}(t) = \left[1 - f_{j,A}(t)\right] W_j(t)$. Combining both yields for country $A$ and $B$
-\begin{align*}
-\nu_{j,A} &= \frac{ f_{j,A}(t) W_{j}(t)}{|\set(x_S, v_0, a_A)| + |\set(x_R, v_0, a_A, c_w)| + |\set(x_R, v_0, a_A, c_m)|} \notag \\
-\nu_{j,B} &= \frac{\left[1 - f_{j,A}(t)\right]  W_{j}(t)}{|\set(x_S, v_0, a_B)| + |\set(x_R, v_0, a_B, c_w)| + |\set(x_R, v_0, a_B, c_m)|}.
-\end{align*}
-To decide on the vaccination rates we need to specify the trajectory of the fraction $f_{j,A}(t)$. Additional to the time $t$ we use $f_{j,A}(\theta; t, \Y(t))$, with $\theta \in \R^z$, to indicate that the fraction potentially is dependent on an additional parameter vector $\theta$ and the compartments $\Y(t)$. In the end we optimize over the parameters $\theta$ that parameterizes the fraction. In this paper we examine three different strategies of modeling $f_{j,A}(\theta; t, \Y(t))$. Let $[t_1, t_{z+1}]$ be an interval on the real line and $T_i = [t_i, t_{i+1})$ be a subset of the partition $\cup_{i=1}^z=[t_1, t_{z+1}]$ with $t_i < t_{i+1}$ for all $i = 1, 2, \dots, z$.   
-\begin{enumerate}
-\item The fraction is stepwise defined according to the time $t$. No additional compartments are used.
-In this setup we associate $z$ parameters $\theta_i \in [0,1]$  to the $z$ intervals $T_i$. We assume in our model that we start with the vaccination from the very beginning and therefore set $t_1 = 0$. At each time $t_i$ the policy maker decide which fraction of the vaccine is assigned to country A up to time $t_{i+1}$. The resulting function is a stepwise function that takes the the value $\theta_i$ in the interval $[t_i, t_{i+1})$ such that
-\begin{align*}
-f_{j,A}(\theta; t) = \theta_i \quad \forall t \in  T_i
-\end{align*}
-\input{tikz/stepwise}
-We can interpret this approach as follows: Policy makers determine a fraction that is allocated to country A for a fixed decision period, evaluate, and then adjust before the next decision period begins.
-
-\item The fraction follows a cubic hermite spline $S(\theta; t)$ of order three that is transformed via a sigmoid function to obtain values between zero and one. No additional compartments are used. 
-Following this approach we associate each Polynomial $P_{i}(\theta; t)$ with the subset $T_i$. On the contrary to the previous approach, the rate of vaccine is not determined in each subinterval by a fixed constant value but by a polynomial of order three. For the cubic hermite splines each polynomial $P_{i}(\theta; t)$ is of degree three and can be defined by the basis polynomials $b_1(t) = 2t^3 - 3t^2 +1, b_2(t) = t^3 - 2t^2 +t, b_3(t) = -2t^3 + 3t^2$ and
-$b_4(t) = t^3 - t^2$, the infimum ($t_i$) and supremum ($t_{i+1}$) of $T_i$ and specified values of $P_{i}(\theta; t_i) = \theta_i$, $P_{i+1}(\theta; t_{i+1})=\theta_{i+1}$ and its derivatives $P'_{i}(\theta; t_i)$, $P'_{i}(\theta; t_{i+1})$.\\
-To compute the derivatives we use finite differences with one-sided approximations at the boundaries $t_1$ and $t_{z+1}$
-\begin{align*}
-P'_{1}(\theta; t_1) &\approx \frac{P_{2}(\theta; t_2) - P_{1}(\theta; t_1)}{t_2 - t_1} \notag \\
-P'_{i}(\theta; t_i) &\approx \frac{1}{2}\left[\frac{P_{i+1}(\theta; t_{i+1}) - P_{i}(\theta; t_i)}{t_{i+1} - t_i} + \frac{P_{i}(\theta; t_{i}) - P_{i-1}(\theta; t_{i-1})}{t_{i} - t_{i-1}} \right] \notag \\
-P'_{z}(\theta; t_{z+1}) &\approx \frac{P_{z+1}(\theta; t_{z+1}) - P_{z}(\theta; t_z)}{t_{z+1} - t_z}
-\end{align*}
-For $t \in T_i$ let $t' = (t-t_i)/(t_{i+1} - t_i)$. Then the polynomial $P_{i}(\theta; t) $ is given by 
-\begin{align*}
-P_{i}(\theta; t) &= b_1(t') \overbrace{P_{i}(\theta; t_i)}^{\theta_i} + b_2(t') (t_{i+1} - t_i) P'_{i}(\theta; t_i) \notag \\& \quad + b_3(t') \underbrace{P_{i+1}(\theta; t_{i+1})}_{\theta_{i+1}} + b_4(t') (t_{i+1} - t_i) P'_{i}(\theta; t_{i+1})
-\end{align*}
-$P_{i}(\theta; t)$ depends on $\theta_i$ and $\theta_{i+1}$ through the functional values and the derivatives at the boundaries.  \\
-To ensure that the fractions stay between zero and one, we apply a sigmoid transformation of the polynomials such that the fraction of vaccine $j$ that is allocated to country $A$ can be written as
+\section{Optimal vaccine allocation}\label{sec:vaccine_allocation}
+We denote the number of vaccination shots of type $U_l$ available at time $t$ in country $j$ by $W_{l,j}(t)$ and the total number number of vaccine $l$ by $W_l(t) = W_{l,A}(t) + W_{l,B}(t)$. $W_{l,j}(t)$ is fully exogenous in our model and based on the true number of COVID-19 vaccine doses allocated to Germany. \textbf{In contrast to other models this is exogenous}
+We assume that all doses of vaccines are immediately vaccinated. Thus, it must hold that 
 \begin{align}
-f_{j,A}(\theta; t) =  \frac{1}{1 + \exp{(-P_{i}(\theta_i; t))}} \quad \forall t \in T_i. 
+\label{eq:vaccine_country}
+W_{l,j}(t) &= \phi_{t, l, j} \cdot \num(\neg X_D, C_j, U_0)  . 
 \end{align}
-Note that $S(\theta; t)$ is continuous by construction, the sigmoid function $\sigma(\cdot)$ is continuous and thus the composition $\sigma(S(\theta; t))$ is also continuous.
+Which is to say that the total number of vaccine $l$ at $t$ must equal the number of individuals vaccinated with $l$ at $t$. As opposed to other models (\textbf{cite}), we do not directly optimize the vaccination rates but rather the fraction of vaccines that are allocated to a certain country. Let $f_{l}(\theta_l; t)$, with $f_{l}: \R^{z} \times [0, \tau] \to [0,1]$, be the function that defines the fraction of vaccine $l$ allocated to country $A$. The fraction depends on the time $t$ and a parameter vector $\theta_l \in \R^{z}$ that defines the form of $f_{l}(\theta_l; t)$. The fractions enter the model through the vaccination rates. The total number of doses of vaccine $l$ assigned to country $j$ equals the total number of doses times the fraction of vaccine $l$ allocated to country $j$ $W_{l,A}(t) = f_{l}(\theta_l; t) W_l(t)$ and $W_{l,B}(t) = \left[1 - f_{l}(\theta_l; t)\right] W_l(t)$. Combining this with Equation \eqref{eq:vaccine_country} yields for the vaccination rates
+\begin{align*}
+\phi_{l,A} &= \frac{ f_{l}(\theta_l; t) W_{l}(t)}{\num(\neg X_D, C_A, U_0) } \notag \\
+\phi_{l,B} &= \frac{\left[1 - f_{l}(\theta_l; t)\right]  W_{l}(t)}{\num(\neg X_D, C_B, U_0)}.
+\end{align*}
+Given a specific functional form of $f_{l}$, choosing a specific $\bar{\theta}_l \in  \R^z$ is called a \textit{strategy} for vaccine $l$. A \textit{vaccination strategy} $\bar \Theta = \begin{pmatrix}
+\bar \theta_1 \\ \bar \theta_2
+\end{pmatrix}$ is a collection of strategies defined for both vaccines $l$. 
+
+If $\bar{\Theta}$ is the solution to the minimization problem 
+    \begin{argmini!}|l|
+	  {\Theta \in \R^{2z}}{\num(X_D) \notag}{}{}
+	  \addConstraint{\nu_{l,A}}{=\frac{ f_{l}(\theta_l; t) W_{l}(t) \tag{C.1}}{\num(\neg X_D, C_A, U_0) } \quad}{\textrm{for } l \in \{1,2\}}
+	  \addConstraint{\nu_{l,B}}{= \frac{\left[1 - f_{l}(\theta_l; t)\right]  W_{l}(t)}{\num(\neg X_D, C_B, U_0)} \tag{C.2}\quad}{\textrm{for } l \in \{1,2\}}
+	  \addConstraint{W_l(t)}{= w_l(t)\tag{C.3}}{\textrm{for } l \in \{1,2\}}
+	  \addConstraint{Y(0)}{= Y_0 \tag{C.4}}{} 
+	  \addConstraint{\Theta} {= \begin{pmatrix}
+\theta_1 \\ \theta_2
+\end{pmatrix} \tag{C.5}}{}
+	  \addConstraint{}{\beta, \eta, \gamma, \delta_{k,l}, \omega_{k,l}, \vect{M}\tag{C.6}}{}
+     \end{argmini!}
+we call it \textit{optimal vaccination strategy} with respect to the given minimization problem. The given problem is specified through the vaccination rates $(C.1)/(C.2)$, the exogenous inflow of vaccines $(C.3)$, the initial conditions of the ODE system $(C.4)$, and the fixed parameters introduced in Chapter \ref{sec:model} $(C.6)$. Note that our objective is the total number of deceased individuals. Other objectives, like the total number of infectious individuals or some combination of both, could be considered as well. We decided to choose the total number of deaths such that the death protection parameters $\omega_{k,l}$ influence the solution. \textbf{Quelle vaccine gegen schwere erkrankungen}. However, we include sensitivity checks using the total number of infectious individuals as objective function. \\
+
+
+In this paper we examine three different functional forms of $f_{l}$. Each form is parameterized via $\theta_l$. 1) $f_{l}$ is a stepwise function, 2) $f_{l}$ is a logistically transformed third order spline function, and 3) $f_{l}$ is a neural network. To define the functional forms, we subdivide the interval $[0,\tau]$ into a partition $0=t_0 < t_1 < \dots < t_z = \tau$. Let $T_i = [t_{i-1}, t_{i})$, for $i = 1, \dots, z$, be the corresponding intervals of the tagged partition. We label $T_i$ as the $i$-th decision period. \\   
+
+\textbf{Stepwise.} The functional form of $f_{l}$ is a stepwise function. In this world, policy makers determine a fraction that is allocated to country A for a fixed decision period $T_i$, evaluate, and then adjust before the next decision period $T_{i+1}$ begins. 
+We subdivide $\theta_l = \begin{pmatrix}
+\theta_{l,1}  & \theta_{l,2} & \dots & \theta_{l,z} \end{pmatrix}'$ such that $\theta_{l,i} \in [0,1]$ is the fraction of vaccine $l$ that is assigned to country A if $t \in T_i$. The resulting stepwise functions are determined by
+\begin{align*}
+f_l(t) = \theta_{l,i} \quad \forall t \in T_i
+\end{align*}
+%\[ f_{l}(\theta; t) = \begin{cases} 
+%      \theta_{l,1} & \textrm{if } t \in T_1 \\
+%      \theta_{l,i} & \textrm{if } t \in T_i \\
+%      \theta_{l,z} & \textrm{if } t \in T_z 
+%   \end{cases}
+%\] 
+In \ref{fig:stepwise} we show an exemplary vaccination strategy for vaccine $l$.
+\input{tikz/stepwise}
+Note that the COVID-19 vaccine allocation is a special case of a step function, where $\theta_{l;1}= \theta_{l,2} = \hdots = \theta_{l,z}=y_0(\neg X_D, C_l)/y_0(\neg X_D)$, assuming that the allocations are not adjusted for small changes in the population sizes over the course of the pandemic.\\
+
+\textbf{Splines.} Policy makers decide on a flexible fraction, which is depending on $t$, assigned to each country.  By using polynomials, rather than constant functions in the stepwise approach, we allow for more complex policy decisions within one decision period $T_i$. However, one should note that this exercise is rather theoretical and aims to show what strategies could be achieved theoretically. Figure \ref{fig:splines} shows an exemplary spline and how it is shrinked into the unit interval via the logistic function.
 \input{tikz/splines}
 
-\item The fraction is determined by a neural network. 
-\end{enumerate}    
+$f_{l}$ follows a spline $S(t)$ of order three that is transformed via the logistic function $\sigma(x)$ to obtain values between zero and one.
+\begin{align}
+f_{l}(\theta; t) =  \frac{1}{1 + \exp{(-P_{l,i}(t))}} \quad \forall t \in T_i. 
+\end{align}
+$P_{l,i}(t) \in \R_3(t)$ is a polynomial from the third order polynomial ring over the real numbers. We chose $P_{l,i}(t)$ to be in cubic hermite form, such that we can parameterize it by specifying the polynomial values at the boundaries 
+\begin{align}
+\label{eq:splines_bound_theta}
+P_{l,i}(t_{i-1}) =& \theta_{l, i-1} \\
+P_{l,i}(t_{i})=& \theta_{l,i} \notag
+\end{align}
+and using finite differences as approximations of the derivatives $P_{l,i}'(t)$. To compute the approximations, we use central finite differences and forward as well as backward finite differences at the respective boundaries $t_0$ and $t_{z}$
+\begin{align}
+\label{eq:finite_differences}
+P'_{l,1}(t_0) &\approx \frac{P_{l,1}(t_1) - P_{l,1}(t_0)}{t_1 - t_0} \\
+P'_{l,i}(t_{i-1}) &\approx \frac{1}{2}\left[\frac{P_{l,i}(t_{i}) - P_{l,i}(t_{i-1})}{t_{i} - t_{i-1}} + \frac{P_{l,i-1}(t_{i-1}) - P_{l,i-1}( t_{i-2})}{t_{i-1} - t_{i-2}} \right] \notag \\
+P'_{l,z}(t_{z}) &\approx \frac{P_{l,z}(t_{z}) - P_{l,z}(t_{z-1})}{t_{z} - t_{z-1}} \notag 
+\end{align}
+Let $t' = (t-t_{i-1})/(t_{i} - t_{i-1})$. The polynomial $P_{l,i}(t) $ is given as a linear combination of four basis polynomials  $B_1(t), B_2(t), B_3(t), B_4(t) \in \R_3(t)$ with the boundary values of the polynomial and its derivative
+\begin{align}
+P_{l,i}(t) &= B_1(t') \overbrace{P_{l,i}(t_{i-1})}^{\theta_{l,i-1}} + B_2(t') (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3(t') \underbrace{P_{l,i}(t_{i})}_{\theta_{l,i}} + B_4(t') (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \quad \forall t \in T_i. \notag
+\end{align}
+The scalars are dependent on the parameter vector $\theta_l$ through \eqref{eq:splines_bound_theta} and \eqref{eq:finite_differences}. The basis polynomials are defined by$B_1(t) = 2t^3 - 3t^2 +1, B_2(t) = t^3 - 2t^2 +t, B_3(t) = -2t^3 + 3t^2$ and $B_4(t) = t^3 - t^2$. We show subsequently that they indeed form a basis of $\R_3(t)$. Showing the basis property aims to proof that the four polynomials span $\R_3(t)$ and we therefore do not exclude any polynomials from the space of policies that could be implemented.
+\begin{theorem}
+$B_1(t), B_2(t), B_3(t), B_4(t) \in \R_3(t)$ form a polynomial basis of $\R_3(t)$.
+\end{theorem}
+\begin{proof}
+We need to show that the four polynomials are linearly independent. We do so by writing the polynomials in vector form, collect them in a matrix and show that this matrix has full rank. 
+\begin{align*}
+\begin{pmatrix}
+2 & 1 & -2 & 1\\
+-3 & -2 & 3 & -1 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\Leftrightarrow
+\begin{pmatrix}
+0 & 0 & -2 & 1\\
+0 & 0 & 1 & -1 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\Leftrightarrow
+\begin{pmatrix}
+0 & 0 & 0 & -1\\
+0 & 0 & 1 & -1 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\Leftrightarrow
+\begin{pmatrix}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\end{align*}
+Since $B_1(t), B_2(t), B_3(t), B_4(t)$ are four linearly independent polynomials of degree 3, they form a basis of $\R_3(t)$. 
+\end{proof} 
 
+\textbf{Neural network.} 
+
+ 

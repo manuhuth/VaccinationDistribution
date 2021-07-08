@@ -11,13 +11,13 @@ def model_vaccination_create_sbml(
     virus_states=["virW", "virM"],
     areas=["countryA", "CountryB"],
     species_comp=["susceptible", "infectious", "recovered", "dead"],
-    vaccinated_compartments=["susceptible", "recovered"],
+    vaccinated_compartments=["susceptible", "infectious", "recovered"],
     omega_matrix=np.array([[0.5, 0.6], [0.5, 0.6]]),
     delta_matrix=np.array([[0.5, 0.6], [0.5, 0.6]]),
     eta_vector=np.array([[1, 1.3]]),
     single_parameter={
         "lambda": 0.01,
-        "p": 0.1,
+        "prob_deceasing": 0.1,
         "gamma": 0.5,
         "beta": 2,
     },
@@ -197,7 +197,7 @@ def model_vaccination_create_sbml(
     else:
         parameter_rules_all = {**parameter_rules, **nu_rules}
 
-    rate_rules = {"time_rule": {"parameter_id": "t", "formula": "1"}}
+    #rate_rules = {"time_rule": {"parameter_id": "t", "formula": "1"}}
 
     model_input_dictionary = write_entities_to_dict(
         compartments=compartments,
@@ -206,7 +206,7 @@ def model_vaccination_create_sbml(
         reactions=reactions,
         assignments=assignments,
         parameter_rules=parameter_rules_all,
-        rate_rules=rate_rules,
+        rate_rules=None,
         splines=splines,
     )
 
@@ -307,13 +307,13 @@ def get_all_individuals_to_be_vaccinated(
     for index_compartments in vaccinated_compartments:
         for index_virus in virus_states:
             for index_areas in areas:
-                if index_compartments == "susceptible":
-                    state = (
-                        f"{index_compartments}_{index_areas}_{non_vaccination_state}"
-                    )
-                else:
+                if index_compartments != "susceptible":
                     state = f"{index_compartments}_{index_areas}_{non_vaccination_state}_{index_virus}"
-                vaccinated_individuals = vaccinated_individuals + "+" + state
+                    vaccinated_individuals = vaccinated_individuals + "+" + state
+    
+    for index_areas in areas:
+        state = (f"susceptible_{index_areas}_{non_vaccination_state}")
+        vaccinated_individuals = vaccinated_individuals + "+" + state        
 
     return vaccinated_individuals
 
@@ -555,10 +555,10 @@ def create_parameters_model(
             "value": single_parameter["lambda"],
             "constant": parameters_constant,
         },
-        "p": {"value": single_parameter["p"], "constant": parameters_constant},
+        "prob_deceasing": {"value": single_parameter["prob_deceasing"], "constant": parameters_constant},
         "gamma": {"value": single_parameter["gamma"], "constant": parameters_constant},
         "beta": {"value": single_parameter["beta"], "constant": parameters_constant},
-        "t": {"value": 0, "constant": False},
+        #"t": {"value": 0, "constant": False},
     }
 
     total_numb_vacc = {}
@@ -725,12 +725,12 @@ def create_dead_recover_reactions_model(
                 dead_recover_reactions[key_recover] = {
                     "reactants": {f"{numb_infected}": 1},
                     "products": {f"{numb_recovered}": 1},
-                    "formula": f" (1 - (1 - {omega_term}) * p) * lambda1 * {numb_infected}",
+                    "formula": f" (1 - (1 - {omega_term}) * prob_deceasing) * lambda1 * {numb_infected}",
                 }
                 dead_recover_reactions[key_death] = {
                     "reactants": {f"{numb_infected}": 1},
                     "products": {f"{numb_dead}": 1},
-                    "formula": f"(1 - {omega_term}) * p * lambda1 * {numb_infected}",
+                    "formula": f"(1 - {omega_term}) * prob_deceasing * lambda1 * {numb_infected}",
                 }
     return dead_recover_reactions
 

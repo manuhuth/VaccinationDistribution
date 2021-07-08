@@ -1,0 +1,1 @@
+#define observable_deaths y[0]

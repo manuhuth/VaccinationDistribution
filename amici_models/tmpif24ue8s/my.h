@@ -1,0 +1,1 @@
+#define mobservable_deaths my[0]

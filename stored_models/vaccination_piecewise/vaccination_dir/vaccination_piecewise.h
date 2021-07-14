@@ -15,11 +15,11 @@ class Solver;
 
 namespace model_vaccination_piecewise {
 
-extern std::array<const char*, 112> parameterNames;
+extern std::array<const char*, 110> parameterNames;
 extern std::array<const char*, 0> fixedParameterNames;
 extern std::array<const char*, 42> stateNames;
 extern std::array<const char*, 12> observableNames;
-extern std::array<const char*, 112> parameterIds;
+extern std::array<const char*, 110> parameterIds;
 extern std::array<const char*, 0> fixedParameterIds;
 extern std::array<const char*, 42> stateIds;
 extern std::array<const char*, 12> observableIds;
@@ -143,7 +143,7 @@ class Model_vaccination_piecewise : public amici::Model_ODE {
               42,                                     // ubw
               42,                                     // lbw
               amici::SecondOrderMode::none,                                  // o2mode
-              std::vector<realtype>{0.01, 0.1, 0.5, 2.0, 0.5, 0.5, 0.6, 0.6, 0.5, 0.5, 0.6, 0.6, 1.0, 1.3, 200000.0, 0.0, 0.0, 200000.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 14.0, 28.0, 42.0, 56.0, 70.0, 84.0, 98.0, 112.0, 126.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.001, 0.001, 1.0},       // dynamic parameters
+              std::vector<realtype>{0.01, 0.1, 0.5, 2.0, 0.5, 0.5, 0.6, 0.6, 0.5, 0.5, 0.6, 0.6, 1.0, 1.3, 200000.0, 0.0, 0.0, 200000.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 100.0, 100.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 14.0, 28.0, 42.0, 56.0, 70.0, 84.0, 98.0, 112.0, 126.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0002, 0.0002, 1.0},       // dynamic parameters
               std::vector<realtype>{}, // fixedParameters
               std::vector<int>{},                          // plist
               std::vector<realtype>(42, 0.0),   // idlist

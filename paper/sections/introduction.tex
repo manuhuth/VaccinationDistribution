@@ -15,4 +15,7 @@ countries can decide to not take vaccine -> would be in our case assignment of z
 
 
 
-general model description: how do we deal with vaccines (most important), vaccination during infection, no vaccination during infection \href{https://www.cdc.gov/vaccines/covid-19/info-by-product/clinical-considerations.html}{see here} (US Center for Disease Control), no reinfections, no births and other deaths
+general model description: how do we deal with vaccines (most important), vaccination during infection, no vaccination during infection \href{https://www.cdc.gov/vaccines/covid-19/info-by-product/clinical-considerations.html}{see here} (US Center for Disease Control), no reinfections, no births and other deaths\\
+
+
+The aim of a Stochastic Simulation algorithm (SSA) is to provide a computational model that allows for stochastic reactions. They can be classified as exact and approximate SSAs. Exact algorithms, like the Gillespie-Algorithm \citep{Gillespie.1977}, do not group reactions together but model them one after another. Approximate algorithms, like $\tau-leaping$ \citep{Gillespie.2001}, group reactions together and update the propensities within a larger interval $\tau$. Thus, approximate algorithms might have an advantage when it comes to speed. However, by updating the propensities less often, we lose some accuracy. %For speed purposes, we decided to implement the $\tau$-leaping algorithm with efficient step size selection as in \cite{Cao.2006}. \textbf{or stochastic Euler} \\

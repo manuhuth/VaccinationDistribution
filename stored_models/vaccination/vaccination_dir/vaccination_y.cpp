@@ -39,7 +39,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/((std::pow(0.36787944123356736, spline_countryA_vac1) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     y[1] = (1 - 1/(std::pow(0.36787944123356736, spline_countryA_vac1) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -69,7 +69,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     y[2] = ((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -99,7 +99,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/((std::pow(0.36787944123356736, spline_countryA_vac2) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     y[3] = (1 - 1/(std::pow(0.36787944123356736, spline_countryA_vac2) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -129,7 +129,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     y[4] = 1.0/(std::pow(0.36787944123356736, spline_countryA_vac1) + 1);
     y[5] = 1 - 1/(std::pow(0.36787944123356736, spline_countryA_vac1) + 1);
@@ -165,7 +165,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(std::pow(0.36787944123356736, spline_countryA_vac1) + 1);
     y[11] = ((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -195,7 +195,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(std::pow(0.36787944123356736, spline_countryA_vac2) + 1);
     y[12] = (1 - 1/(std::pow(0.36787944123356736, spline_countryA_vac1) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -225,7 +225,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
     y[13] = (1 - 1/(std::pow(0.36787944123356736, spline_countryA_vac2) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -255,7 +255,7 @@ void y_vaccination(realtype *y, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
 }
 

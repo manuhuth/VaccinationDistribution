@@ -139,8 +139,8 @@
       <parameter id="vaccine_supply_par_vac2_xx8" name="vaccine_supply_par_vac2_xx8" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac2_xx9" name="vaccine_supply_par_vac2_xx9" value="0" units="dimensionless" constant="true"/>
       <parameter id="distance_countryA_countryA" name="distance_countryA_countryA" value="1" units="dimensionless" constant="true"/>
-      <parameter id="distance_countryA_countryB" name="distance_countryA_countryB" value="0.001" units="dimensionless" constant="true"/>
-      <parameter id="distance_countryB_countryA" name="distance_countryB_countryA" value="0.001" units="dimensionless" constant="true"/>
+      <parameter id="distance_countryA_countryB" name="distance_countryA_countryB" value="0.0002" units="dimensionless" constant="true"/>
+      <parameter id="distance_countryB_countryA" name="distance_countryB_countryA" value="0.0002" units="dimensionless" constant="true"/>
       <parameter id="distance_countryB_countryB" name="distance_countryB_countryB" value="1" units="dimensionless" constant="true"/>
       <parameter id="xx0" value="0" constant="true"/>
       <parameter id="xx1" value="14" constant="true"/>
@@ -595,7 +595,7 @@
               </apply>
             </piece>
             <otherwise>
-              <cn type="integer"> 0 </cn>
+              <ci> vaccine_supply_par_vac1_xx9 </ci>
             </otherwise>
           </piecewise>
         </math>
@@ -748,7 +748,7 @@
               </apply>
             </piece>
             <otherwise>
-              <cn type="integer"> 0 </cn>
+              <ci> vaccine_supply_par_vac2_xx9 </ci>
             </otherwise>
           </piecewise>
         </math>

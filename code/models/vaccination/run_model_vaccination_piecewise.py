@@ -23,7 +23,7 @@ import pypesto.optimize as optimize
 import pypesto.visualize as visualize
 
 
-first_time = True
+first_time = False
 # --------------------------Create Model--------------------------------------
 model_name = "vaccination_piecewise"
 path_sbml = "stored_models/vaccination_piecewise/" + model_name
@@ -35,11 +35,11 @@ distances = general_set_up()["distances"]
 species_comp = general_set_up()["species_compartments"]
 
 length_decision_period = 14
-number_decision_periods = 11
+number_decision_periods = 10
 first_vaccination_period = 0
 n_intervals = 6000
 
-xx_list = ["xx" + str(i) for i in (range(number_decision_periods-1))]
+xx_list = ["xx" + str(i) for i in (range(number_decision_periods))]
 
 xx_params = {}
 period = 0
@@ -146,7 +146,7 @@ for index_areas_row in areas:
             index_areas_row, index_areas_col
         ]
 
-vaccine_supply_parameter_values = create_inflow_from_data()
+vaccine_supply_parameter_values = create_inflow_from_data(number_decision_periods=11)
 vaccine_supply_parameter_strings = [
     x for x in model.getParameterNames() if "vaccine_supply" in x
 ]
@@ -182,11 +182,6 @@ model_results_current = run_model(
     number_intervals=n_intervals,
 )
 
-df_current = model_results_current
-states_current = df_current["states"]
-trajectory_current = {
-    "states": states_current,
-}
 
 df_current = model_results_current
 states_current = df_current["states"]
@@ -269,10 +264,26 @@ def func_to_optimize_max(theta):
 
     return float(value)
 
+def func_to_optimize_unrestricted(theta):
+    deceased_A, deceased_B = criterion(
+        theta=theta,
+        model=model,
+        solver=solver,
+        set_fixed_parameter=set_fixed_parameter,
+        set_start_parameter=start_parameter_two(),
+        yy_names=yy_names_str,
+        current_deceased_A=current_deceased_A,
+        current_deceased_B=current_deceased_B,
+    )
+
+    value = deceased_A + deceased_B
+
+    return float(value)
+
 np.random.seed(12345)
 lower_bound = 0.00000001
 upper_bound = 0.99999999
-n_multi = 100
+n_multi = 50
 start_matrix = np.array(np.repeat(np.nan, len(areas) * number_decision_periods))
 success_values = []
 k = 0
@@ -332,6 +343,20 @@ visualize.waterfall(results_max)
 df_results_max = results_max.optimize_result.as_dataframe()
 theta_optimal_max = df_results_max.iloc[0]["x"]
 
+np.random.seed(123456)
+objective_unrestricted = pypesto.Objective(fun=func_to_optimize_unrestricted)
+problem_unrestricted = pypesto.Problem(objective=objective_unrestricted, lb=lb, ub=ub)
+
+results_unrestricted = optimize.minimize(
+    problem=problem_unrestricted,
+    optimizer=optimizer,
+    n_starts=n_multi,
+    history_options=history_options,
+    #engine=engine,
+)
+df_results_unrestricted = results_unrestricted.optimize_result.as_dataframe()
+theta_optimal_unrestricted = df_results_unrestricted.iloc[0]["x"]
+
 # ------------------------Run Optimum-----------------------------------------
 yy_optimal = dict(zip(yy_names_str, theta_optimal_max))
 
@@ -353,14 +378,9 @@ trajectory_optimal = {
 }
 
 # -----------run seperated-----------------------------------------------------
-yy_seperated_wild = np.repeat(float(1), len(yy_names_str) / 2)
-yy_seperated_mutant = np.repeat(float(0), len(yy_names_str) / 2)
-yy_seperated_pw = np.concatenate(
-    (yy_seperated_wild, yy_seperated_mutant)
-)
-yy_seperated = dict(zip(yy_names_str, yy_seperated_pw))
-set_parameter_seperated = {**set_fixed_parameter, **yy_seperated}
-model_results_seperated = run_model(
+yy_unrestricted = dict(zip(yy_names_str, theta_optimal_unrestricted))
+set_parameter_seperated = {**set_fixed_parameter, **yy_unrestricted}
+model_results_unrestricted = run_model(
     model=model,
     solver=solver,
     periods=1,
@@ -370,23 +390,23 @@ model_results_seperated = run_model(
     number_intervals=n_intervals,
 )
 
-df_seperated = model_results_seperated
-states_seperated = df_seperated["states"]
-trajectory_seperated = {
-    "states": states_seperated,
+df_unrestricted= model_results_unrestricted
+states_unrestricted = df_unrestricted["states"]
+trajectory_unrestricted= {
+    "states": states_unrestricted,
 }
 
 
 # ------------Compare specifications-------------------------------------------
 seperated_deceased_A = get_sum_of_states(
     model,
-    trajectory_seperated,
+    trajectory_unrestricted,
     state_type=[var_interest, "countryA"],
     final_amount=True,
 )
 seperated_deceased_B = get_sum_of_states(
     model,
-    trajectory_seperated,
+    trajectory_unrestricted,
     state_type=[var_interest, "countryB"],
     final_amount=True,
 )
@@ -442,8 +462,9 @@ vac2_B_optimal = get_sum_of_states(
 
 dict_out = {
     "df_optimal_results": df_results_max,
+    "df_unrestricted_results" : df_results_unrestricted,
     "model_optimal": model_results_optimal,
-    "model_seperated": model_results_seperated,
+    "model_seperated": model_results_unrestricted,
     "model_current": model_results_current,
     "compare_total": print_compare_total,
     "compare_A": print_compare_A,
@@ -451,7 +472,8 @@ dict_out = {
     "model_directory": model_directory,
     "model_name": model_name,
     "path_sbml": path_sbml,
-    "time_points" : model.getTimepoints()
+    "time_points" : model.getTimepoints(),
+    "type" : "piecewise",
 }
 
 model_out = {"state_names" : model.getStateNames(),

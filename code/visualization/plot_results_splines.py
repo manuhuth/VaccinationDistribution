@@ -42,8 +42,8 @@ model = model_solver["model"]
 observables = model.getObservableNames()
 
 # ------------plots_model------------------------------------------------------
-ylim_infectious = [0, 2.5 * 10 ** 7]
-colors = ["C2", "C3"]
+ylim_infectious = [0, 1.5 * 10 ** 7]
+colors = ["C0", "C1"]
 trajectory_states_optimal = model_optimal["states"]
 trajectory_observables_optimal = model_optimal["observables"]
 
@@ -110,13 +110,16 @@ fig_obs, ax_obs = plot_observables(
     # set_off_scientific_notation=True,
     decimal_floats=1,
     time_name="t",
-    title="Vaccine wild type (Pareto optimal)",
-    ylabel="Total amount",
+    title="Vaccine mRNA (Pareto optimal)",
+    ylabel="Doses per day",
     xlabel="Days",
     colors=colors,
     custom_label=["Country A", "Country B"],
-    legend_next_to_plot=False,
+    ylim = [0, 1.4 *10**6],
+    legend_next_to_plot=True,
 )
+
+fig_obs.savefig(plot_path + "observables_quantity_vac1", bbox_inches="tight")
 
 fig_obs, ax_obs = plot_observables(
     results=model_optimal,
@@ -125,13 +128,17 @@ fig_obs, ax_obs = plot_observables(
     # set_off_scientific_notation=True,
     decimal_floats=1,
     time_name="t",
-    title="Vaccine mutant (Pareto optimal)",
-    ylabel="Total amount",
+    title="Vaccine vector (Pareto optimal)",
+    ylabel="Doses per day",
     xlabel="Days",
     colors=colors,
     custom_label=["Country A", "Country B"],
-    legend_next_to_plot=False,
+    ylim = [0, 1.4 *10**6],
+    legend_next_to_plot=True,
 )
+
+fig_obs.savefig(plot_path + "observables_quantity_vac2", bbox_inches="tight")
+
 
 # Proportion_observables
 fig_obs, ax_obs = plot_observables(
@@ -145,7 +152,7 @@ fig_obs, ax_obs = plot_observables(
     ylabel="Fraction",
     xlabel="Days",
     colors=colors,
-    custom_label=["Vaccine wild type", "Vaccine mutant"],
+    custom_label=["Vaccine mRNA", "Vaccine vector"],
     legend_next_to_plot=False,
 )
 
@@ -319,3 +326,40 @@ fig, ax = plot_states(
 )
 # ax.get_legend().remove()
 fig.savefig(plot_path + "infectious_B_current", bbox_inches="tight")
+
+###########################################################################
+fig_obs, ax_obs = plot_observables(
+    results=model_seperated,
+    time = time_points,
+    observable_ids=['quantity_countryA_vac1', 'quantity_countryB_vac1'],
+    # set_off_scientific_notation=True,
+    decimal_floats=1,
+    time_name="t",
+    title="Vaccine mRNA (Unrestricted)",
+    ylabel="Doses per day",
+    xlabel="Days",
+    colors=colors,
+    custom_label=["Country A", "Country B"],
+    ylim = [0, 1.4 *10**6],
+    legend_next_to_plot=True,
+)
+
+fig_obs.savefig(plot_path + "observables_quantity_vac1_unrestricted", bbox_inches="tight")
+
+fig_obs, ax_obs = plot_observables(
+    results=model_seperated,
+    time = time_points,
+    observable_ids=['quantity_countryA_vac2', 'quantity_countryB_vac2'],
+    # set_off_scientific_notation=True,
+    decimal_floats=1,
+    time_name="t",
+    title="Vaccine vector (Unrestricted)",
+    ylabel="Doses per day",
+    xlabel="Days",
+    colors=colors,
+    custom_label=["Country A", "Country B"],
+    ylim = [0, 1.4 *10**6],
+    legend_next_to_plot=True,
+)
+
+fig_obs.savefig(plot_path + "observables_quantity_vac2_unrestricted", bbox_inches="tight")

@@ -279,7 +279,7 @@ def get_piecewise_formula_xx_period(vaccine, xx):
         domain = f"((time >= {xx[index]}) && (time < {xx[index + 1]})),"
         parameter = f"vaccine_supply_par_{vaccine}_{xx[index]},"
         formula += parameter + domain
-    formula += "0)"
+    formula += f"vaccine_supply_par_{vaccine}_{xx[len(xx)-1]})"
 
     return formula
 

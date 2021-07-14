@@ -50,7 +50,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 0) ? (
    0
@@ -88,7 +88,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 0) ? (
    0
@@ -144,7 +144,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 0) ? (
    0
@@ -182,7 +182,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 57:
@@ -222,7 +222,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 14) ? (
    0
@@ -260,7 +260,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 14) ? (
    0
@@ -316,7 +316,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 14) ? (
    0
@@ -354,7 +354,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 58:
@@ -394,7 +394,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 28) ? (
    0
@@ -432,7 +432,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 28) ? (
    0
@@ -488,7 +488,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 28) ? (
    0
@@ -526,7 +526,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 59:
@@ -566,7 +566,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 42) ? (
    0
@@ -604,7 +604,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 42) ? (
    0
@@ -660,7 +660,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 42) ? (
    0
@@ -698,7 +698,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 60:
@@ -738,7 +738,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 56) ? (
    0
@@ -776,7 +776,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 56) ? (
    0
@@ -832,7 +832,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 56) ? (
    0
@@ -870,7 +870,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 61:
@@ -910,7 +910,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 70) ? (
    0
@@ -948,7 +948,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 70) ? (
    0
@@ -1004,7 +1004,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 70) ? (
    0
@@ -1042,7 +1042,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 62:
@@ -1082,7 +1082,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 84) ? (
    0
@@ -1120,7 +1120,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 84) ? (
    0
@@ -1176,7 +1176,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 84) ? (
    0
@@ -1214,7 +1214,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 63:
@@ -1254,7 +1254,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 98) ? (
    0
@@ -1292,7 +1292,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 98) ? (
    0
@@ -1348,7 +1348,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 98) ? (
    0
@@ -1386,7 +1386,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 64:
@@ -1426,7 +1426,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 112) ? (
    0
@@ -1464,7 +1464,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 112) ? (
    0
@@ -1520,7 +1520,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 112) ? (
    0
@@ -1558,7 +1558,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 65:
@@ -1598,7 +1598,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = ((t < 126) ? (
    0
@@ -1636,7 +1636,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[4] = ((t < 126) ? (
    0
@@ -1692,7 +1692,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             dydp[10] = ((t < 126) ? (
    0
@@ -1730,182 +1730,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))));
             break;
         case 66:
-            dydp[0] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
-   1
-)
-: (
-   0
-)))*((t >= xx0 && t < xx1) ? (
-   vaccine_supply_par_vac1_xx0
-)
-: ((t >= xx1 && t < xx2) ? (
-   vaccine_supply_par_vac1_xx1
-)
-: ((t >= xx2 && t < xx3) ? (
-   vaccine_supply_par_vac1_xx2
-)
-: ((t >= xx3 && t < xx4) ? (
-   vaccine_supply_par_vac1_xx3
-)
-: ((t >= xx4 && t < xx5) ? (
-   vaccine_supply_par_vac1_xx4
-)
-: ((t >= xx5 && t < xx6) ? (
-   vaccine_supply_par_vac1_xx5
-)
-: ((t >= xx6 && t < xx7) ? (
-   vaccine_supply_par_vac1_xx6
-)
-: ((t >= xx7 && t < xx8) ? (
-   vaccine_supply_par_vac1_xx7
-)
-: ((t >= xx8 && t < xx9) ? (
-   vaccine_supply_par_vac1_xx8
-)
-: (
-   0
-))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
-            dydp[1] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
-   -1
-)
-: (
-   0
-)))*((t >= xx0 && t < xx1) ? (
-   vaccine_supply_par_vac1_xx0
-)
-: ((t >= xx1 && t < xx2) ? (
-   vaccine_supply_par_vac1_xx1
-)
-: ((t >= xx2 && t < xx3) ? (
-   vaccine_supply_par_vac1_xx2
-)
-: ((t >= xx3 && t < xx4) ? (
-   vaccine_supply_par_vac1_xx3
-)
-: ((t >= xx4 && t < xx5) ? (
-   vaccine_supply_par_vac1_xx4
-)
-: ((t >= xx5 && t < xx6) ? (
-   vaccine_supply_par_vac1_xx5
-)
-: ((t >= xx6 && t < xx7) ? (
-   vaccine_supply_par_vac1_xx6
-)
-: ((t >= xx7 && t < xx8) ? (
-   vaccine_supply_par_vac1_xx7
-)
-: ((t >= xx8 && t < xx9) ? (
-   vaccine_supply_par_vac1_xx8
-)
-: (
-   0
-))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
-            dydp[4] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
-   1
-)
-: (
-   0
-)));
-            dydp[5] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
-   -1
-)
-: (
-   0
-)));
-            dydp[8] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
-   1
-)
-: (
-   0
-)))*((t >= xx0 && t < xx1) ? (
-   vaccine_supply_par_vac1_xx0
-)
-: ((t >= xx1 && t < xx2) ? (
-   vaccine_supply_par_vac1_xx1
-)
-: ((t >= xx2 && t < xx3) ? (
-   vaccine_supply_par_vac1_xx2
-)
-: ((t >= xx3 && t < xx4) ? (
-   vaccine_supply_par_vac1_xx3
-)
-: ((t >= xx4 && t < xx5) ? (
-   vaccine_supply_par_vac1_xx4
-)
-: ((t >= xx5 && t < xx6) ? (
-   vaccine_supply_par_vac1_xx5
-)
-: ((t >= xx6 && t < xx7) ? (
-   vaccine_supply_par_vac1_xx6
-)
-: ((t >= xx7 && t < xx8) ? (
-   vaccine_supply_par_vac1_xx7
-)
-: ((t >= xx8 && t < xx9) ? (
-   vaccine_supply_par_vac1_xx8
-)
-: (
-   0
-))))))))));
-            dydp[10] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
-   -1
-)
-: (
-   0
-)))*((t >= xx0 && t < xx1) ? (
-   vaccine_supply_par_vac1_xx0
-)
-: ((t >= xx1 && t < xx2) ? (
-   vaccine_supply_par_vac1_xx1
-)
-: ((t >= xx2 && t < xx3) ? (
-   vaccine_supply_par_vac1_xx2
-)
-: ((t >= xx3 && t < xx4) ? (
-   vaccine_supply_par_vac1_xx3
-)
-: ((t >= xx4 && t < xx5) ? (
-   vaccine_supply_par_vac1_xx4
-)
-: ((t >= xx5 && t < xx6) ? (
-   vaccine_supply_par_vac1_xx5
-)
-: ((t >= xx6 && t < xx7) ? (
-   vaccine_supply_par_vac1_xx6
-)
-: ((t >= xx7 && t < xx8) ? (
-   vaccine_supply_par_vac1_xx7
-)
-: ((t >= xx8 && t < xx9) ? (
-   vaccine_supply_par_vac1_xx8
-)
-: (
-   0
-))))))))));
-            break;
-        case 67:
             dydp[2] = ((t < 0) ? (
    0
 )
@@ -1942,7 +1770,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 0) ? (
    0
@@ -1980,7 +1808,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 0) ? (
    0
@@ -2036,7 +1864,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 0) ? (
    0
@@ -2074,10 +1902,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 68:
+        case 67:
             dydp[2] = ((t < 14) ? (
    0
 )
@@ -2114,7 +1942,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 14) ? (
    0
@@ -2152,7 +1980,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 14) ? (
    0
@@ -2208,7 +2036,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 14) ? (
    0
@@ -2246,10 +2074,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 69:
+        case 68:
             dydp[2] = ((t < 28) ? (
    0
 )
@@ -2286,7 +2114,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 28) ? (
    0
@@ -2324,7 +2152,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 28) ? (
    0
@@ -2380,7 +2208,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 28) ? (
    0
@@ -2418,10 +2246,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 70:
+        case 69:
             dydp[2] = ((t < 42) ? (
    0
 )
@@ -2458,7 +2286,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 42) ? (
    0
@@ -2496,7 +2324,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 42) ? (
    0
@@ -2552,7 +2380,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 42) ? (
    0
@@ -2590,10 +2418,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 71:
+        case 70:
             dydp[2] = ((t < 56) ? (
    0
 )
@@ -2630,7 +2458,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 56) ? (
    0
@@ -2668,7 +2496,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 56) ? (
    0
@@ -2724,7 +2552,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 56) ? (
    0
@@ -2762,10 +2590,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 72:
+        case 71:
             dydp[2] = ((t < 70) ? (
    0
 )
@@ -2802,7 +2630,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 70) ? (
    0
@@ -2840,7 +2668,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 70) ? (
    0
@@ -2896,7 +2724,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 70) ? (
    0
@@ -2934,10 +2762,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 73:
+        case 72:
             dydp[2] = ((t < 84) ? (
    0
 )
@@ -2974,7 +2802,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 84) ? (
    0
@@ -3012,7 +2840,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 84) ? (
    0
@@ -3068,7 +2896,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 84) ? (
    0
@@ -3106,10 +2934,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 74:
+        case 73:
             dydp[2] = ((t < 98) ? (
    0
 )
@@ -3146,7 +2974,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 98) ? (
    0
@@ -3184,7 +3012,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 98) ? (
    0
@@ -3240,7 +3068,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 98) ? (
    0
@@ -3278,10 +3106,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 75:
+        case 74:
             dydp[2] = ((t < 112) ? (
    0
 )
@@ -3318,7 +3146,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 112) ? (
    0
@@ -3356,7 +3184,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 112) ? (
    0
@@ -3412,7 +3240,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 112) ? (
    0
@@ -3450,10 +3278,10 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 76:
+        case 75:
             dydp[2] = ((t < 126) ? (
    0
 )
@@ -3490,7 +3318,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = ((t < 126) ? (
    0
@@ -3528,7 +3356,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[6] = ((t < 126) ? (
    0
@@ -3584,7 +3412,7 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             dydp[11] = ((t < 126) ? (
    0
@@ -3622,550 +3450,354 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))));
             break;
-        case 77:
-            dydp[2] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
+        case 86:
+            dydp[0] = ((t >= xx0 && t < xx1) ? (
    1
 )
 : (
    0
-)))*((t >= xx0 && t < xx1) ? (
-   vaccine_supply_par_vac2_xx0
+))*((t < 0) ? (
+   0
 )
-: ((t >= xx1 && t < xx2) ? (
-   vaccine_supply_par_vac2_xx1
+: ((t < 14) ? (
+   proportion_par_countryA_vac1_0
 )
-: ((t >= xx2 && t < xx3) ? (
-   vaccine_supply_par_vac2_xx2
+: ((t < 28) ? (
+   proportion_par_countryA_vac1_14
 )
-: ((t >= xx3 && t < xx4) ? (
-   vaccine_supply_par_vac2_xx3
+: ((t < 42) ? (
+   proportion_par_countryA_vac1_28
 )
-: ((t >= xx4 && t < xx5) ? (
-   vaccine_supply_par_vac2_xx4
+: ((t < 56) ? (
+   proportion_par_countryA_vac1_42
 )
-: ((t >= xx5 && t < xx6) ? (
-   vaccine_supply_par_vac2_xx5
+: ((t < 70) ? (
+   proportion_par_countryA_vac1_56
 )
-: ((t >= xx6 && t < xx7) ? (
-   vaccine_supply_par_vac2_xx6
+: ((t < 84) ? (
+   proportion_par_countryA_vac1_70
 )
-: ((t >= xx7 && t < xx8) ? (
-   vaccine_supply_par_vac2_xx7
+: ((t < 98) ? (
+   proportion_par_countryA_vac1_84
 )
-: ((t >= xx8 && t < xx9) ? (
-   vaccine_supply_par_vac2_xx8
+: ((t < 112) ? (
+   proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac1_126
 )
 : (
    0
-))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
-            dydp[3] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
-   -1
-)
-: (
-   0
-)))*((t >= xx0 && t < xx1) ? (
-   vaccine_supply_par_vac2_xx0
-)
-: ((t >= xx1 && t < xx2) ? (
-   vaccine_supply_par_vac2_xx1
-)
-: ((t >= xx2 && t < xx3) ? (
-   vaccine_supply_par_vac2_xx2
-)
-: ((t >= xx3 && t < xx4) ? (
-   vaccine_supply_par_vac2_xx3
-)
-: ((t >= xx4 && t < xx5) ? (
-   vaccine_supply_par_vac2_xx4
-)
-: ((t >= xx5 && t < xx6) ? (
-   vaccine_supply_par_vac2_xx5
-)
-: ((t >= xx6 && t < xx7) ? (
-   vaccine_supply_par_vac2_xx6
-)
-: ((t >= xx7 && t < xx8) ? (
-   vaccine_supply_par_vac2_xx7
-)
-: ((t >= xx8 && t < xx9) ? (
-   vaccine_supply_par_vac2_xx8
-)
-: (
-   0
-))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
-            dydp[6] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+            dydp[1] = ((t >= xx0 && t < xx1) ? (
    1
 )
 : (
    0
-)));
-            dydp[7] = ((t < 140) ? (
+))*((t < 0) ? (
    0
 )
-: ((t < 154) ? (
-   -1
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac1_126
 )
 : (
    0
-)));
-            dydp[9] = ((t < 140) ? (
-   0
-)
-: ((t < 154) ? (
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+            dydp[8] = ((t >= xx0 && t < xx1) ? (
    1
 )
 : (
    0
-)))*((t >= xx0 && t < xx1) ? (
-   vaccine_supply_par_vac2_xx0
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac1_126
+)
+: (
+   0
+))))))))))));
+            dydp[10] = ((t >= xx0 && t < xx1) ? (
+   1
+)
+: (
+   0
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac1_126
+)
+: (
+   0
+))))))))))));
+            break;
+        case 87:
+            dydp[0] = ((t >= xx0 && t < xx1) ? (
+   0
 )
 : ((t >= xx1 && t < xx2) ? (
-   vaccine_supply_par_vac2_xx1
-)
-: ((t >= xx2 && t < xx3) ? (
-   vaccine_supply_par_vac2_xx2
-)
-: ((t >= xx3 && t < xx4) ? (
-   vaccine_supply_par_vac2_xx3
-)
-: ((t >= xx4 && t < xx5) ? (
-   vaccine_supply_par_vac2_xx4
-)
-: ((t >= xx5 && t < xx6) ? (
-   vaccine_supply_par_vac2_xx5
-)
-: ((t >= xx6 && t < xx7) ? (
-   vaccine_supply_par_vac2_xx6
-)
-: ((t >= xx7 && t < xx8) ? (
-   vaccine_supply_par_vac2_xx7
-)
-: ((t >= xx8 && t < xx9) ? (
-   vaccine_supply_par_vac2_xx8
+   1
 )
 : (
    0
-))))))))));
-            dydp[11] = ((t < 140) ? (
+)))*((t < 0) ? (
    0
 )
-: ((t < 154) ? (
-   -1
+: ((t < 14) ? (
+   proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac1_126
 )
 : (
    0
-)))*((t >= xx0 && t < xx1) ? (
-   vaccine_supply_par_vac2_xx0
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+            dydp[1] = ((t >= xx0 && t < xx1) ? (
+   0
 )
 : ((t >= xx1 && t < xx2) ? (
-   vaccine_supply_par_vac2_xx1
-)
-: ((t >= xx2 && t < xx3) ? (
-   vaccine_supply_par_vac2_xx2
-)
-: ((t >= xx3 && t < xx4) ? (
-   vaccine_supply_par_vac2_xx3
-)
-: ((t >= xx4 && t < xx5) ? (
-   vaccine_supply_par_vac2_xx4
-)
-: ((t >= xx5 && t < xx6) ? (
-   vaccine_supply_par_vac2_xx5
-)
-: ((t >= xx6 && t < xx7) ? (
-   vaccine_supply_par_vac2_xx6
-)
-: ((t >= xx7 && t < xx8) ? (
-   vaccine_supply_par_vac2_xx7
-)
-: ((t >= xx8 && t < xx9) ? (
-   vaccine_supply_par_vac2_xx8
+   1
 )
 : (
    0
-))))))))));
+)))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac1_126
+)
+: (
+   0
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+            dydp[8] = ((t >= xx0 && t < xx1) ? (
+   0
+)
+: ((t >= xx1 && t < xx2) ? (
+   1
+)
+: (
+   0
+)))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac1_126
+)
+: (
+   0
+))))))))))));
+            dydp[10] = ((t >= xx0 && t < xx1) ? (
+   0
+)
+: ((t >= xx1 && t < xx2) ? (
+   1
+)
+: (
+   0
+)))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac1_126
+)
+: (
+   0
+))))))))))));
             break;
         case 88:
-            dydp[0] = ((t >= xx0 && t < xx1) ? (
-   1
-)
-: (
-   0
-))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   proportion_par_countryA_vac1_0
-)
-: ((t < 28) ? (
-   proportion_par_countryA_vac1_14
-)
-: ((t < 42) ? (
-   proportion_par_countryA_vac1_28
-)
-: ((t < 56) ? (
-   proportion_par_countryA_vac1_42
-)
-: ((t < 70) ? (
-   proportion_par_countryA_vac1_56
-)
-: ((t < 84) ? (
-   proportion_par_countryA_vac1_70
-)
-: ((t < 98) ? (
-   proportion_par_countryA_vac1_84
-)
-: ((t < 112) ? (
-   proportion_par_countryA_vac1_98
-)
-: ((t < 126) ? (
-   proportion_par_countryA_vac1_112
-)
-: ((t < 140) ? (
-   proportion_par_countryA_vac1_126
-)
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
-: (
-   0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
-            dydp[1] = ((t >= xx0 && t < xx1) ? (
-   1
-)
-: (
-   0
-))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   1 - proportion_par_countryA_vac1_0
-)
-: ((t < 28) ? (
-   1 - proportion_par_countryA_vac1_14
-)
-: ((t < 42) ? (
-   1 - proportion_par_countryA_vac1_28
-)
-: ((t < 56) ? (
-   1 - proportion_par_countryA_vac1_42
-)
-: ((t < 70) ? (
-   1 - proportion_par_countryA_vac1_56
-)
-: ((t < 84) ? (
-   1 - proportion_par_countryA_vac1_70
-)
-: ((t < 98) ? (
-   1 - proportion_par_countryA_vac1_84
-)
-: ((t < 112) ? (
-   1 - proportion_par_countryA_vac1_98
-)
-: ((t < 126) ? (
-   1 - proportion_par_countryA_vac1_112
-)
-: ((t < 140) ? (
-   1 - proportion_par_countryA_vac1_126
-)
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
-: (
-   0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
-            dydp[8] = ((t >= xx0 && t < xx1) ? (
-   1
-)
-: (
-   0
-))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   proportion_par_countryA_vac1_0
-)
-: ((t < 28) ? (
-   proportion_par_countryA_vac1_14
-)
-: ((t < 42) ? (
-   proportion_par_countryA_vac1_28
-)
-: ((t < 56) ? (
-   proportion_par_countryA_vac1_42
-)
-: ((t < 70) ? (
-   proportion_par_countryA_vac1_56
-)
-: ((t < 84) ? (
-   proportion_par_countryA_vac1_70
-)
-: ((t < 98) ? (
-   proportion_par_countryA_vac1_84
-)
-: ((t < 112) ? (
-   proportion_par_countryA_vac1_98
-)
-: ((t < 126) ? (
-   proportion_par_countryA_vac1_112
-)
-: ((t < 140) ? (
-   proportion_par_countryA_vac1_126
-)
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
-: (
-   0
-)))))))))))));
-            dydp[10] = ((t >= xx0 && t < xx1) ? (
-   1
-)
-: (
-   0
-))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   1 - proportion_par_countryA_vac1_0
-)
-: ((t < 28) ? (
-   1 - proportion_par_countryA_vac1_14
-)
-: ((t < 42) ? (
-   1 - proportion_par_countryA_vac1_28
-)
-: ((t < 56) ? (
-   1 - proportion_par_countryA_vac1_42
-)
-: ((t < 70) ? (
-   1 - proportion_par_countryA_vac1_56
-)
-: ((t < 84) ? (
-   1 - proportion_par_countryA_vac1_70
-)
-: ((t < 98) ? (
-   1 - proportion_par_countryA_vac1_84
-)
-: ((t < 112) ? (
-   1 - proportion_par_countryA_vac1_98
-)
-: ((t < 126) ? (
-   1 - proportion_par_countryA_vac1_112
-)
-: ((t < 140) ? (
-   1 - proportion_par_countryA_vac1_126
-)
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
-: (
-   0
-)))))))))))));
-            break;
-        case 89:
-            dydp[0] = ((t >= xx0 && t < xx1) ? (
-   0
-)
-: ((t >= xx1 && t < xx2) ? (
-   1
-)
-: (
-   0
-)))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   proportion_par_countryA_vac1_0
-)
-: ((t < 28) ? (
-   proportion_par_countryA_vac1_14
-)
-: ((t < 42) ? (
-   proportion_par_countryA_vac1_28
-)
-: ((t < 56) ? (
-   proportion_par_countryA_vac1_42
-)
-: ((t < 70) ? (
-   proportion_par_countryA_vac1_56
-)
-: ((t < 84) ? (
-   proportion_par_countryA_vac1_70
-)
-: ((t < 98) ? (
-   proportion_par_countryA_vac1_84
-)
-: ((t < 112) ? (
-   proportion_par_countryA_vac1_98
-)
-: ((t < 126) ? (
-   proportion_par_countryA_vac1_112
-)
-: ((t < 140) ? (
-   proportion_par_countryA_vac1_126
-)
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
-: (
-   0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
-            dydp[1] = ((t >= xx0 && t < xx1) ? (
-   0
-)
-: ((t >= xx1 && t < xx2) ? (
-   1
-)
-: (
-   0
-)))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   1 - proportion_par_countryA_vac1_0
-)
-: ((t < 28) ? (
-   1 - proportion_par_countryA_vac1_14
-)
-: ((t < 42) ? (
-   1 - proportion_par_countryA_vac1_28
-)
-: ((t < 56) ? (
-   1 - proportion_par_countryA_vac1_42
-)
-: ((t < 70) ? (
-   1 - proportion_par_countryA_vac1_56
-)
-: ((t < 84) ? (
-   1 - proportion_par_countryA_vac1_70
-)
-: ((t < 98) ? (
-   1 - proportion_par_countryA_vac1_84
-)
-: ((t < 112) ? (
-   1 - proportion_par_countryA_vac1_98
-)
-: ((t < 126) ? (
-   1 - proportion_par_countryA_vac1_112
-)
-: ((t < 140) ? (
-   1 - proportion_par_countryA_vac1_126
-)
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
-: (
-   0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
-            dydp[8] = ((t >= xx0 && t < xx1) ? (
-   0
-)
-: ((t >= xx1 && t < xx2) ? (
-   1
-)
-: (
-   0
-)))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   proportion_par_countryA_vac1_0
-)
-: ((t < 28) ? (
-   proportion_par_countryA_vac1_14
-)
-: ((t < 42) ? (
-   proportion_par_countryA_vac1_28
-)
-: ((t < 56) ? (
-   proportion_par_countryA_vac1_42
-)
-: ((t < 70) ? (
-   proportion_par_countryA_vac1_56
-)
-: ((t < 84) ? (
-   proportion_par_countryA_vac1_70
-)
-: ((t < 98) ? (
-   proportion_par_countryA_vac1_84
-)
-: ((t < 112) ? (
-   proportion_par_countryA_vac1_98
-)
-: ((t < 126) ? (
-   proportion_par_countryA_vac1_112
-)
-: ((t < 140) ? (
-   proportion_par_countryA_vac1_126
-)
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
-: (
-   0
-)))))))))))));
-            dydp[10] = ((t >= xx0 && t < xx1) ? (
-   0
-)
-: ((t >= xx1 && t < xx2) ? (
-   1
-)
-: (
-   0
-)))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   1 - proportion_par_countryA_vac1_0
-)
-: ((t < 28) ? (
-   1 - proportion_par_countryA_vac1_14
-)
-: ((t < 42) ? (
-   1 - proportion_par_countryA_vac1_28
-)
-: ((t < 56) ? (
-   1 - proportion_par_countryA_vac1_42
-)
-: ((t < 70) ? (
-   1 - proportion_par_countryA_vac1_56
-)
-: ((t < 84) ? (
-   1 - proportion_par_countryA_vac1_70
-)
-: ((t < 98) ? (
-   1 - proportion_par_countryA_vac1_84
-)
-: ((t < 112) ? (
-   1 - proportion_par_countryA_vac1_98
-)
-: ((t < 126) ? (
-   1 - proportion_par_countryA_vac1_112
-)
-: ((t < 140) ? (
-   1 - proportion_par_countryA_vac1_126
-)
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
-: (
-   0
-)))))))))))));
-            break;
-        case 90:
             dydp[0] = (((t >= xx0 || t >= xx1) && (t >= xx0 || t < xx2) && (t < xx1 || t < xx2)) ? (
    0
 )
@@ -4207,12 +3839,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = (((t >= xx0 || t >= xx1) && (t >= xx0 || t < xx2) && (t < xx1 || t < xx2)) ? (
    0
 )
@@ -4254,12 +3883,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[8] = (((t >= xx0 || t >= xx1) && (t >= xx0 || t < xx2) && (t < xx1 || t < xx2)) ? (
    0
 )
@@ -4301,12 +3927,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[10] = (((t >= xx0 || t >= xx1) && (t >= xx0 || t < xx2) && (t < xx1 || t < xx2)) ? (
    0
 )
@@ -4348,14 +3971,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 91:
+        case 89:
             dydp[0] = (((t >= xx0 || t >= xx1 || t >= xx2) && (t >= xx0 || t >= xx1 || t < xx3) && (t >= xx0 || t < xx2 || t < xx3) && (t < xx1 || t < xx2 || t < xx3)) ? (
    0
 )
@@ -4397,12 +4017,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = (((t >= xx0 || t >= xx1 || t >= xx2) && (t >= xx0 || t >= xx1 || t < xx3) && (t >= xx0 || t < xx2 || t < xx3) && (t < xx1 || t < xx2 || t < xx3)) ? (
    0
 )
@@ -4444,12 +4061,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[8] = (((t >= xx0 || t >= xx1 || t >= xx2) && (t >= xx0 || t >= xx1 || t < xx3) && (t >= xx0 || t < xx2 || t < xx3) && (t < xx1 || t < xx2 || t < xx3)) ? (
    0
 )
@@ -4491,12 +4105,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[10] = (((t >= xx0 || t >= xx1 || t >= xx2) && (t >= xx0 || t >= xx1 || t < xx3) && (t >= xx0 || t < xx2 || t < xx3) && (t < xx1 || t < xx2 || t < xx3)) ? (
    0
 )
@@ -4538,14 +4149,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 92:
+        case 90:
             dydp[0] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4) && (t < xx1 || t < xx2 || t < xx3 || t < xx4)) ? (
    0
 )
@@ -4587,12 +4195,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4) && (t < xx1 || t < xx2 || t < xx3 || t < xx4)) ? (
    0
 )
@@ -4634,12 +4239,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[8] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4) && (t < xx1 || t < xx2 || t < xx3 || t < xx4)) ? (
    0
 )
@@ -4681,12 +4283,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[10] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4) && (t < xx1 || t < xx2 || t < xx3 || t < xx4)) ? (
    0
 )
@@ -4728,14 +4327,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 93:
+        case 91:
             dydp[0] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5)) ? (
    0
 )
@@ -4777,12 +4373,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5)) ? (
    0
 )
@@ -4824,12 +4417,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[8] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5)) ? (
    0
 )
@@ -4871,12 +4461,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[10] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5)) ? (
    0
 )
@@ -4918,14 +4505,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 94:
+        case 92:
             dydp[0] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6)) ? (
    0
 )
@@ -4967,12 +4551,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6)) ? (
    0
 )
@@ -5014,12 +4595,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[8] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6)) ? (
    0
 )
@@ -5061,12 +4639,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[10] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6)) ? (
    0
 )
@@ -5108,14 +4683,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 95:
+        case 93:
             dydp[0] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7)) ? (
    0
 )
@@ -5157,12 +4729,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7)) ? (
    0
 )
@@ -5204,12 +4773,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[8] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7)) ? (
    0
 )
@@ -5251,12 +4817,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[10] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7)) ? (
    0
 )
@@ -5298,14 +4861,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 96:
+        case 94:
             dydp[0] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8)) ? (
    0
 )
@@ -5347,12 +4907,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[1] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8)) ? (
    0
 )
@@ -5394,12 +4951,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[8] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8)) ? (
    0
 )
@@ -5441,12 +4995,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[10] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8)) ? (
    0
 )
@@ -5488,382 +5039,521 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
+: (
+   0
+))))))))))));
+            break;
+        case 95:
+            dydp[0] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t >= xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9)) ? (
+   0
+)
+: (
+   1
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac1_126
 )
 : (
    0
-)))))))))))));
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+            dydp[1] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t >= xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9)) ? (
+   0
+)
+: (
+   1
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac1_126
+)
+: (
+   0
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+            dydp[8] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t >= xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9)) ? (
+   0
+)
+: (
+   1
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac1_126
+)
+: (
+   0
+))))))))))));
+            dydp[10] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t >= xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9)) ? (
+   0
+)
+: (
+   1
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac1_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac1_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac1_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac1_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac1_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac1_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac1_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac1_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac1_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac1_126
+)
+: (
+   0
+))))))))))));
+            break;
+        case 96:
+            dydp[2] = ((t >= xx0 && t < xx1) ? (
+   1
+)
+: (
+   0
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+            dydp[3] = ((t >= xx0 && t < xx1) ? (
+   1
+)
+: (
+   0
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+            dydp[9] = ((t >= xx0 && t < xx1) ? (
+   1
+)
+: (
+   0
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))));
+            dydp[11] = ((t >= xx0 && t < xx1) ? (
+   1
+)
+: (
+   0
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))));
+            break;
+        case 97:
+            dydp[2] = ((t >= xx0 && t < xx1) ? (
+   0
+)
+: ((t >= xx1 && t < xx2) ? (
+   1
+)
+: (
+   0
+)))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+            dydp[3] = ((t >= xx0 && t < xx1) ? (
+   0
+)
+: ((t >= xx1 && t < xx2) ? (
+   1
+)
+: (
+   0
+)))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+            dydp[9] = ((t >= xx0 && t < xx1) ? (
+   0
+)
+: ((t >= xx1 && t < xx2) ? (
+   1
+)
+: (
+   0
+)))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))));
+            dydp[11] = ((t >= xx0 && t < xx1) ? (
+   0
+)
+: ((t >= xx1 && t < xx2) ? (
+   1
+)
+: (
+   0
+)))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))));
             break;
         case 98:
-            dydp[2] = ((t >= xx0 && t < xx1) ? (
-   1
-)
-: (
-   0
-))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   proportion_par_countryA_vac2_0
-)
-: ((t < 28) ? (
-   proportion_par_countryA_vac2_14
-)
-: ((t < 42) ? (
-   proportion_par_countryA_vac2_28
-)
-: ((t < 56) ? (
-   proportion_par_countryA_vac2_42
-)
-: ((t < 70) ? (
-   proportion_par_countryA_vac2_56
-)
-: ((t < 84) ? (
-   proportion_par_countryA_vac2_70
-)
-: ((t < 98) ? (
-   proportion_par_countryA_vac2_84
-)
-: ((t < 112) ? (
-   proportion_par_countryA_vac2_98
-)
-: ((t < 126) ? (
-   proportion_par_countryA_vac2_112
-)
-: ((t < 140) ? (
-   proportion_par_countryA_vac2_126
-)
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
-: (
-   0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
-            dydp[3] = ((t >= xx0 && t < xx1) ? (
-   1
-)
-: (
-   0
-))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   1 - proportion_par_countryA_vac2_0
-)
-: ((t < 28) ? (
-   1 - proportion_par_countryA_vac2_14
-)
-: ((t < 42) ? (
-   1 - proportion_par_countryA_vac2_28
-)
-: ((t < 56) ? (
-   1 - proportion_par_countryA_vac2_42
-)
-: ((t < 70) ? (
-   1 - proportion_par_countryA_vac2_56
-)
-: ((t < 84) ? (
-   1 - proportion_par_countryA_vac2_70
-)
-: ((t < 98) ? (
-   1 - proportion_par_countryA_vac2_84
-)
-: ((t < 112) ? (
-   1 - proportion_par_countryA_vac2_98
-)
-: ((t < 126) ? (
-   1 - proportion_par_countryA_vac2_112
-)
-: ((t < 140) ? (
-   1 - proportion_par_countryA_vac2_126
-)
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
-: (
-   0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
-            dydp[9] = ((t >= xx0 && t < xx1) ? (
-   1
-)
-: (
-   0
-))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   proportion_par_countryA_vac2_0
-)
-: ((t < 28) ? (
-   proportion_par_countryA_vac2_14
-)
-: ((t < 42) ? (
-   proportion_par_countryA_vac2_28
-)
-: ((t < 56) ? (
-   proportion_par_countryA_vac2_42
-)
-: ((t < 70) ? (
-   proportion_par_countryA_vac2_56
-)
-: ((t < 84) ? (
-   proportion_par_countryA_vac2_70
-)
-: ((t < 98) ? (
-   proportion_par_countryA_vac2_84
-)
-: ((t < 112) ? (
-   proportion_par_countryA_vac2_98
-)
-: ((t < 126) ? (
-   proportion_par_countryA_vac2_112
-)
-: ((t < 140) ? (
-   proportion_par_countryA_vac2_126
-)
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
-: (
-   0
-)))))))))))));
-            dydp[11] = ((t >= xx0 && t < xx1) ? (
-   1
-)
-: (
-   0
-))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   1 - proportion_par_countryA_vac2_0
-)
-: ((t < 28) ? (
-   1 - proportion_par_countryA_vac2_14
-)
-: ((t < 42) ? (
-   1 - proportion_par_countryA_vac2_28
-)
-: ((t < 56) ? (
-   1 - proportion_par_countryA_vac2_42
-)
-: ((t < 70) ? (
-   1 - proportion_par_countryA_vac2_56
-)
-: ((t < 84) ? (
-   1 - proportion_par_countryA_vac2_70
-)
-: ((t < 98) ? (
-   1 - proportion_par_countryA_vac2_84
-)
-: ((t < 112) ? (
-   1 - proportion_par_countryA_vac2_98
-)
-: ((t < 126) ? (
-   1 - proportion_par_countryA_vac2_112
-)
-: ((t < 140) ? (
-   1 - proportion_par_countryA_vac2_126
-)
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
-: (
-   0
-)))))))))))));
-            break;
-        case 99:
-            dydp[2] = ((t >= xx0 && t < xx1) ? (
-   0
-)
-: ((t >= xx1 && t < xx2) ? (
-   1
-)
-: (
-   0
-)))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   proportion_par_countryA_vac2_0
-)
-: ((t < 28) ? (
-   proportion_par_countryA_vac2_14
-)
-: ((t < 42) ? (
-   proportion_par_countryA_vac2_28
-)
-: ((t < 56) ? (
-   proportion_par_countryA_vac2_42
-)
-: ((t < 70) ? (
-   proportion_par_countryA_vac2_56
-)
-: ((t < 84) ? (
-   proportion_par_countryA_vac2_70
-)
-: ((t < 98) ? (
-   proportion_par_countryA_vac2_84
-)
-: ((t < 112) ? (
-   proportion_par_countryA_vac2_98
-)
-: ((t < 126) ? (
-   proportion_par_countryA_vac2_112
-)
-: ((t < 140) ? (
-   proportion_par_countryA_vac2_126
-)
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
-: (
-   0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
-            dydp[3] = ((t >= xx0 && t < xx1) ? (
-   0
-)
-: ((t >= xx1 && t < xx2) ? (
-   1
-)
-: (
-   0
-)))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   1 - proportion_par_countryA_vac2_0
-)
-: ((t < 28) ? (
-   1 - proportion_par_countryA_vac2_14
-)
-: ((t < 42) ? (
-   1 - proportion_par_countryA_vac2_28
-)
-: ((t < 56) ? (
-   1 - proportion_par_countryA_vac2_42
-)
-: ((t < 70) ? (
-   1 - proportion_par_countryA_vac2_56
-)
-: ((t < 84) ? (
-   1 - proportion_par_countryA_vac2_70
-)
-: ((t < 98) ? (
-   1 - proportion_par_countryA_vac2_84
-)
-: ((t < 112) ? (
-   1 - proportion_par_countryA_vac2_98
-)
-: ((t < 126) ? (
-   1 - proportion_par_countryA_vac2_112
-)
-: ((t < 140) ? (
-   1 - proportion_par_countryA_vac2_126
-)
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
-: (
-   0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
-            dydp[9] = ((t >= xx0 && t < xx1) ? (
-   0
-)
-: ((t >= xx1 && t < xx2) ? (
-   1
-)
-: (
-   0
-)))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   proportion_par_countryA_vac2_0
-)
-: ((t < 28) ? (
-   proportion_par_countryA_vac2_14
-)
-: ((t < 42) ? (
-   proportion_par_countryA_vac2_28
-)
-: ((t < 56) ? (
-   proportion_par_countryA_vac2_42
-)
-: ((t < 70) ? (
-   proportion_par_countryA_vac2_56
-)
-: ((t < 84) ? (
-   proportion_par_countryA_vac2_70
-)
-: ((t < 98) ? (
-   proportion_par_countryA_vac2_84
-)
-: ((t < 112) ? (
-   proportion_par_countryA_vac2_98
-)
-: ((t < 126) ? (
-   proportion_par_countryA_vac2_112
-)
-: ((t < 140) ? (
-   proportion_par_countryA_vac2_126
-)
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
-: (
-   0
-)))))))))))));
-            dydp[11] = ((t >= xx0 && t < xx1) ? (
-   0
-)
-: ((t >= xx1 && t < xx2) ? (
-   1
-)
-: (
-   0
-)))*((t < 0) ? (
-   0
-)
-: ((t < 14) ? (
-   1 - proportion_par_countryA_vac2_0
-)
-: ((t < 28) ? (
-   1 - proportion_par_countryA_vac2_14
-)
-: ((t < 42) ? (
-   1 - proportion_par_countryA_vac2_28
-)
-: ((t < 56) ? (
-   1 - proportion_par_countryA_vac2_42
-)
-: ((t < 70) ? (
-   1 - proportion_par_countryA_vac2_56
-)
-: ((t < 84) ? (
-   1 - proportion_par_countryA_vac2_70
-)
-: ((t < 98) ? (
-   1 - proportion_par_countryA_vac2_84
-)
-: ((t < 112) ? (
-   1 - proportion_par_countryA_vac2_98
-)
-: ((t < 126) ? (
-   1 - proportion_par_countryA_vac2_112
-)
-: ((t < 140) ? (
-   1 - proportion_par_countryA_vac2_126
-)
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
-: (
-   0
-)))))))))))));
-            break;
-        case 100:
             dydp[2] = (((t >= xx0 || t >= xx1) && (t >= xx0 || t < xx2) && (t < xx1 || t < xx2)) ? (
    0
 )
@@ -5905,12 +5595,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = (((t >= xx0 || t >= xx1) && (t >= xx0 || t < xx2) && (t < xx1 || t < xx2)) ? (
    0
 )
@@ -5952,12 +5639,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[9] = (((t >= xx0 || t >= xx1) && (t >= xx0 || t < xx2) && (t < xx1 || t < xx2)) ? (
    0
 )
@@ -5999,12 +5683,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[11] = (((t >= xx0 || t >= xx1) && (t >= xx0 || t < xx2) && (t < xx1 || t < xx2)) ? (
    0
 )
@@ -6046,14 +5727,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 101:
+        case 99:
             dydp[2] = (((t >= xx0 || t >= xx1 || t >= xx2) && (t >= xx0 || t >= xx1 || t < xx3) && (t >= xx0 || t < xx2 || t < xx3) && (t < xx1 || t < xx2 || t < xx3)) ? (
    0
 )
@@ -6095,12 +5773,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = (((t >= xx0 || t >= xx1 || t >= xx2) && (t >= xx0 || t >= xx1 || t < xx3) && (t >= xx0 || t < xx2 || t < xx3) && (t < xx1 || t < xx2 || t < xx3)) ? (
    0
 )
@@ -6142,12 +5817,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[9] = (((t >= xx0 || t >= xx1 || t >= xx2) && (t >= xx0 || t >= xx1 || t < xx3) && (t >= xx0 || t < xx2 || t < xx3) && (t < xx1 || t < xx2 || t < xx3)) ? (
    0
 )
@@ -6189,12 +5861,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[11] = (((t >= xx0 || t >= xx1 || t >= xx2) && (t >= xx0 || t >= xx1 || t < xx3) && (t >= xx0 || t < xx2 || t < xx3) && (t < xx1 || t < xx2 || t < xx3)) ? (
    0
 )
@@ -6236,14 +5905,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 102:
+        case 100:
             dydp[2] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4) && (t < xx1 || t < xx2 || t < xx3 || t < xx4)) ? (
    0
 )
@@ -6285,12 +5951,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4) && (t < xx1 || t < xx2 || t < xx3 || t < xx4)) ? (
    0
 )
@@ -6332,12 +5995,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[9] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4) && (t < xx1 || t < xx2 || t < xx3 || t < xx4)) ? (
    0
 )
@@ -6379,12 +6039,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[11] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4) && (t < xx1 || t < xx2 || t < xx3 || t < xx4)) ? (
    0
 )
@@ -6426,14 +6083,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 103:
+        case 101:
             dydp[2] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5)) ? (
    0
 )
@@ -6475,12 +6129,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5)) ? (
    0
 )
@@ -6522,12 +6173,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[9] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5)) ? (
    0
 )
@@ -6569,12 +6217,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[11] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5)) ? (
    0
 )
@@ -6616,14 +6261,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 104:
+        case 102:
             dydp[2] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6)) ? (
    0
 )
@@ -6665,12 +6307,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6)) ? (
    0
 )
@@ -6712,12 +6351,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[9] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6)) ? (
    0
 )
@@ -6759,12 +6395,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[11] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6)) ? (
    0
 )
@@ -6806,14 +6439,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 105:
+        case 103:
             dydp[2] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7)) ? (
    0
 )
@@ -6855,12 +6485,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7)) ? (
    0
 )
@@ -6902,12 +6529,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[9] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7)) ? (
    0
 )
@@ -6949,12 +6573,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[11] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7)) ? (
    0
 )
@@ -6996,14 +6617,11 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             break;
-        case 106:
+        case 104:
             dydp[2] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8)) ? (
    0
 )
@@ -7045,12 +6663,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
             dydp[3] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8)) ? (
    0
 )
@@ -7092,12 +6707,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
             dydp[9] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8)) ? (
    0
 )
@@ -7139,12 +6751,9 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))));
+))))))))))));
             dydp[11] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8)) ? (
    0
 )
@@ -7186,12 +6795,175 @@ void dydp_vaccination_piecewise(realtype *dydp, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
+: (
+   0
+))))))))))));
+            break;
+        case 105:
+            dydp[2] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t >= xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9)) ? (
+   0
+)
+: (
+   1
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac2_126
 )
 : (
    0
-)))))))))))));
+))))))))))))/(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0);
+            dydp[3] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t >= xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9)) ? (
+   0
+)
+: (
+   1
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
+            dydp[9] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t >= xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9)) ? (
+   0
+)
+: (
+   1
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))));
+            dydp[11] = (((t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t >= xx8) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t >= xx7 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t >= xx6 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t >= xx5 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t >= xx4 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t >= xx3 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t >= xx2 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t >= xx1 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t >= xx0 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9) && (t < xx1 || t < xx2 || t < xx3 || t < xx4 || t < xx5 || t < xx6 || t < xx7 || t < xx8 || t < xx9)) ? (
+   0
+)
+: (
+   1
+))*((t < 0) ? (
+   0
+)
+: ((t < 14) ? (
+   1 - proportion_par_countryA_vac2_0
+)
+: ((t < 28) ? (
+   1 - proportion_par_countryA_vac2_14
+)
+: ((t < 42) ? (
+   1 - proportion_par_countryA_vac2_28
+)
+: ((t < 56) ? (
+   1 - proportion_par_countryA_vac2_42
+)
+: ((t < 70) ? (
+   1 - proportion_par_countryA_vac2_56
+)
+: ((t < 84) ? (
+   1 - proportion_par_countryA_vac2_70
+)
+: ((t < 98) ? (
+   1 - proportion_par_countryA_vac2_84
+)
+: ((t < 112) ? (
+   1 - proportion_par_countryA_vac2_98
+)
+: ((t < 126) ? (
+   1 - proportion_par_countryA_vac2_112
+)
+: ((t < 140) ? (
+   1 - proportion_par_countryA_vac2_126
+)
+: (
+   0
+))))))))))));
             break;
     }
 }

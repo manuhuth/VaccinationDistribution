@@ -10,8 +10,8 @@
 \hline
 \rule{0pt}{2.6ex}General compartment & $X_i$ &  $i \in \{S, I, R, D\}$ & Individuals can either be Susceptible ($S$), Infectious ($I$), Recovered ($R$) or Deceasesd ($D$). \\
 Country of residence & $C_j$ &  $j \in \{A, B\}$ & Individuals can either live in country A or B. We exclude cross-border movements. \\
-Virus Type & $V_k$ &  $k \in \{W, M\}$ & An infection can either be caused by the wild type ($W$) or the mutant ($M$) virus. This feature has to be understood as \textit{is} or \textit{has been} infected with type $k$. \\
-Vaccine Type & $U_l$ &  $l \in \{0, 1, 2\}$ & An individual can either be vaccinated with vaccine 1 or 2 or being unvaccinated (0). \\
+Virus Type & $V_k$ &  $k \in \{W, M\}$ & An infection can either be caused by the wild type ($W$) or the mutant ($M$) virus. This feature has to be understood, depending on $X_i$, as \textit{is} or \textit{has been} infected with type $k$. \\
+Vaccine Type & $U_l$ &  $l \in \{0, 1, 2\}$ & An individual can either be vaccinated with vaccine 1 or 2 or being unvaccinated ($U_0$). \\
 Placeholder & $F_n$ &  $n \in \mathbb{N}$ & A placeholder that is used to address an arbitrary combination of features. $\set(F_n)$ should be read as the set of a fixed but arbitrary compartment. If we need to distinguish between two arbitrary compartments, we use $F_1$ and $F_2$.\\
 \hline
 \end{tabular}

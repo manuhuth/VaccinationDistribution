@@ -5,7 +5,7 @@ namespace amici {
 
 namespace model_vaccination_piecewise {
 
-std::array<const char*, 112> parameterNames = {
+std::array<const char*, 110> parameterNames = {
     "lambda1",
 "prob_deceasing",
 "gamma",
@@ -72,7 +72,6 @@ std::array<const char*, 112> parameterNames = {
 "proportion_par_countryA_vac1_98",
 "proportion_par_countryA_vac1_112",
 "proportion_par_countryA_vac1_126",
-"proportion_par_countryA_vac1_140",
 "proportion_par_countryA_vac2_0",
 "proportion_par_countryA_vac2_14",
 "proportion_par_countryA_vac2_28",
@@ -83,7 +82,6 @@ std::array<const char*, 112> parameterNames = {
 "proportion_par_countryA_vac2_98",
 "proportion_par_countryA_vac2_112",
 "proportion_par_countryA_vac2_126",
-"proportion_par_countryA_vac2_140",
 "xx0",
 "xx1",
 "xx2",
@@ -184,7 +182,7 @@ std::array<const char*, 12> observableNames = {
 "observable_quantity_countryB_vac2",
 };
 
-std::array<const char*, 112> parameterIds = {
+std::array<const char*, 110> parameterIds = {
     "lambda1",
 "prob_deceasing",
 "gamma",
@@ -251,7 +249,6 @@ std::array<const char*, 112> parameterIds = {
 "proportion_par_countryA_vac1_98",
 "proportion_par_countryA_vac1_112",
 "proportion_par_countryA_vac1_126",
-"proportion_par_countryA_vac1_140",
 "proportion_par_countryA_vac2_0",
 "proportion_par_countryA_vac2_14",
 "proportion_par_countryA_vac2_28",
@@ -262,7 +259,6 @@ std::array<const char*, 112> parameterIds = {
 "proportion_par_countryA_vac2_98",
 "proportion_par_countryA_vac2_112",
 "proportion_par_countryA_vac2_126",
-"proportion_par_countryA_vac2_140",
 "xx0",
 "xx1",
 "xx2",

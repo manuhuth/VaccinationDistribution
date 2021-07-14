@@ -143,6 +143,7 @@ def plot_observables(
     legend_location="upper left",
     colors=None,
     custom_label=None,
+    ylim=None,
 ):
     """Plot trajectories of species. Only a part of species can be addressed
     by using the state_ids parameter.
@@ -217,6 +218,8 @@ def plot_observables(
             )
         ax.set_xlabel(xlabel)
         ax.set_ylabel(ylabel)
+        if ylim is not None:
+            ax.set_ylim(ylim)
         ax.legend()
         ax.set_title(title)
         index_cols += 1

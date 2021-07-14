@@ -1,0 +1,13 @@
+#include "sundials/sundials_types.h"
+
+#include <array>
+#include <algorithm>
+
+namespace amici {
+namespace model_vaccination_neural_network {
+
+
+void dxdotdp_explicit_rowvals_vaccination_neural_network(sunindextype *rowvals){
+}
+} // namespace amici
+} // namespace model_vaccination_neural_network

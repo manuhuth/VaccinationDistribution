@@ -158,7 +158,7 @@ vaccine_supply_parameter_strings = [
 #    float(400000), len(vaccine_supply_parameter_strings)
 #)
 
-vaccine_supply_parameter_values = create_inflow_from_data()
+vaccine_supply_parameter_values = create_inflow_from_data(number_decision_periods = number_yy)
 
 set_vaccine_supply_parameter = dict(
     zip(vaccine_supply_parameter_strings, vaccine_supply_parameter_values)
@@ -190,11 +190,6 @@ model_results_current = run_model(
     number_intervals=n_intervals,
 )
 
-df_current = model_results_current
-states_current = df_current["states"]
-trajectory_current = {
-    "states": states_current,
-}
 
 df_current = model_results_current
 states_current = df_current["states"]
@@ -284,13 +279,30 @@ def func_to_optimize_max(theta):
 
     return float(value)
 
+def func_to_optimize_unrestricted(theta):
+    deceased_A, deceased_B = criterion(
+        theta=theta,
+        model=model,
+        solver=solver,
+        set_fixed_parameter=set_fixed_parameter,
+        set_start_parameter=start_parameter_two(),
+        yy_names=yy_names_str,
+        current_deceased_A=current_deceased_A,
+        current_deceased_B=current_deceased_B,
+    )
+
+    value = deceased_A + deceased_B
+
+    return float(value)
+
 
 np.random.seed(12345)
 lower_bound = 0.00000001
 upper_bound = 0.99999999
-n_multi = 100
+n_multi = 50
 start_matrix = np.array(np.repeat(np.nan, len(areas) * number_yy))
 success_values = []
+successes = 0
 k = 0
 n_rows = 0
 while n_rows < n_multi and k < 10000:
@@ -301,7 +313,8 @@ while n_rows < n_multi and k < 10000:
         start_matrix = np.vstack((start_matrix, candidate))
         success_values.append(cand_value)
         n_rows = start_matrix.shape[0] - 1
-        print("success")
+        successes += 1
+        print(f"success number {successes}")
     print(k)
     k += 1
     
@@ -346,76 +359,23 @@ results_max = optimize.minimize(
 )
 
 visualize.waterfall(results_max)
-
 df_results_max = results_max.optimize_result.as_dataframe()
 theta_optimal_max = df_results_max.iloc[0]["x"]
-#-----------------------Petab-------------------------------------------------
-#import petab
-#import pypesto.petab
-#0. Condition table 
-#parameters_fixed = [x for x in model.getParameterNames() if "yy_country" not in x]
-#parameter_values_fixed = model.getParameters()[0:len(parameters_fixed)]
-#columns_cond = ["conditionId"] + parameters_fixed
-#first_row_cond = ["ordinary"] +  list(parameter_values_fixed) 
 
-#df_cond = pd.DataFrame([first_row_cond], columns=columns_cond)
+np.random.seed(123456)
+objective_unrestricted = pypesto.Objective(fun=func_to_optimize_unrestricted)
+problem_unrestricted = pypesto.Problem(objective=objective_unrestricted, lb=lb, ub=ub)
 
-#1. observable table
-#columns_ot = ["observableId", "observableFormula", "noiseFormula"]
-#substates_d = get_substates(model, ["dead"], include_all=True)
-#string_d = '+'.join(substates_d)
-#obs_id = "observable_deaths"
-#first_row_ot = [obs_id, string_d, 1]
-#df_ot = pd.DataFrame([first_row_ot], columns=columns_ot)
+results_unrestricted = optimize.minimize(
+    problem=problem_unrestricted,
+    optimizer=optimizer,
+    n_starts=n_multi,
+    history_options=history_options,
+    #engine=engine,
+)
+df_results_unrestricted = results_unrestricted.optimize_result.as_dataframe()
+theta_optimal_unrestricted = df_results_unrestricted.iloc[0]["x"]
 
-
-#2. Measurement table
-#columns_mt = ["observableId", "simulationConditionId", "measurement", "time"]
-#first_row_mt = [obs_id, "ordinary", 0, length]
-#df_mt = pd.DataFrame([first_row_mt], columns=columns_mt)
-
-#3 Parameter table
-#columns_pt = ["parameterId","parameterScale","lowerBound", "upperBound", "nominalValue", "estimate"]
-
-#col_parameterId = yy_names_str
-#col_parameterScale = len(yy_names_str)*["lin"]
-#col_lb = np.repeat(lower_bound, len(yy_names_str))
-#col_ub = np.repeat(upper_bound, len(yy_names_str))
-#col_est = np.repeat(1, len(yy_names_str))
-#col_nominal = np.repeat(0, len(yy_names_str))
-
-#df_pt = pd.DataFrame(np.array([col_parameterId, col_parameterScale, col_lb, col_ub, col_nominal, col_est]).T, columns=columns_pt) 
-
-##save as TSVs
-#path_tsv = "stored_models/vaccination/"
-#path_cond = path_tsv + "cond_table.tsv"
-#df_cond.to_csv(path_cond, sep="\t", index=False)
-
-#path_ot = path_tsv + "ot_table.tsv"
-#df_ot.to_csv(path_ot, sep="\t", index=False)
-
-#path_mt = path_tsv + "mt_table.tsv"
-#df_mt.to_csv(path_mt, sep="\t", index=False)
-
-#path_pt = path_tsv + "pt_table.tsv"
-#df_pt.to_csv(path_pt, sep="\t", index=False)
-
-#petab analysis
-
-#TODO try to use longer petab import with model
-#yaml_config = path_tsv + "vaccination.yaml"
-#importer = pypesto.petab.PetabImporter.from_yaml(yaml_config)
-#problem = importer.create_problem()
-#objective = problem.objective
-#ret = objective(problem.x_nominal_free_scaled, sensi_orders=(0,1))
-#optimizer = optimize.ScipyOptimizer()
-
-#engine = pypesto.engine.SingleCoreEngine()
-#engine = pypesto.engine.MultiProcessEngine()
-
-# do the optimization
-#result = optimize.minimize(problem=problem, optimizer=optimizer,
-#                           n_starts=2, engine=engine)
 
 # ------------------------Run Optimum-----------------------------------------
 transformed_theta_optimal = np.log(theta_optimal_max / (1 - theta_optimal_max))
@@ -436,46 +396,43 @@ trajectory_states_optimal = model_results_optimal["states"]
 trajectory_optimal = {
     "states": trajectory_states_optimal,
 }
+#dict(zip(model.getParameterNames(), model.getParameters()))
+# ------------------------Run unrestricted----------------------------------------
+transformed_theta_unrestricted = np.log(theta_optimal_unrestricted / (1 - theta_optimal_unrestricted))
+yy_optimal_unrestricted = dict(zip(yy_names_str, transformed_theta_unrestricted))
 
-# -----------run seperated-----------------------------------------------------
-yy_seperated_splines_wild = np.repeat(20.0, len(yy_names_str) / 2)
-yy_seperated_splines_mutant = np.repeat(-20.0, len(yy_names_str) / 2)
-yy_seperated_splines = np.concatenate(
-    (yy_seperated_splines_wild, yy_seperated_splines_mutant)
-)
-yy_seperated = dict(zip(yy_names_str, yy_seperated_splines))
-set_parameter_seperated = {**set_fixed_parameter, **yy_seperated}
-model_results_seperated = run_model(
+set_parameter_unrestricted = {**set_fixed_parameter, **yy_optimal_unrestricted}
+
+model_results_unrestricted = run_model(
     model=model,
     solver=solver,
     periods=1,
     length_periods=length,
     set_start_parameter=set_start_parameter,
-    set_parameter=set_parameter_seperated,
+    set_parameter=set_parameter_unrestricted,
     number_intervals=n_intervals,
 )
-
-df_seperated = model_results_seperated
-states_seperated = df_seperated["states"]
-trajectory_seperated = {
-    "states": states_seperated,
+trajectory_states_unrestricted = model_results_unrestricted["states"]
+trajectory_unrestricted = {
+    "states": trajectory_states_unrestricted,
 }
 
 
+
 # ------------Compare specifications-------------------------------------------
-seperated_deceased_A = get_sum_of_states(
+unrestricted_deceased_A = get_sum_of_states(
     model,
-    trajectory_seperated,
+    trajectory_unrestricted,
     state_type=[var_interest, "countryA"],
     final_amount=True,
 )
-seperated_deceased_B = get_sum_of_states(
+unrestricted_deceased_B = get_sum_of_states(
     model,
-    trajectory_seperated,
+    trajectory_unrestricted,
     state_type=[var_interest, "countryB"],
     final_amount=True,
 )
-seperated_deceased = seperated_deceased_A + seperated_deceased_B
+unrestricted_deceased = unrestricted_deceased_A + unrestricted_deceased_B
 
 
 current_deceased_A = get_sum_of_states(
@@ -504,9 +461,9 @@ optimal_deceased = get_sum_of_states(
     model, trajectory_optimal, state_type=[var_interest], final_amount=True
 )
 
-print_compare_A = f"A: Current strategy: {dead_A_current}; Optimal strategy: {dead_A_optimal}; Seperated strategy: {seperated_deceased_A}"
-print_compare_B = f"B: Current strategy: {dead_B_current}; Optimal strategy: {dead_B_optimal}; Seperated strategy: {seperated_deceased_B}"
-print_compare_total = f"Total: Current strategy: {current_deceased}; Optimal strategy: {optimal_deceased}; Seperated strategy: {seperated_deceased}"
+print_compare_A = f"A: Current strategy: {dead_A_current}; Optimal strategy: {dead_A_optimal}; Unrestricted strategy: {unrestricted_deceased_A}"
+print_compare_B = f"B: Current strategy: {dead_B_current}; Optimal strategy: {dead_B_optimal}; Unrestricted strategy: {unrestricted_deceased_B}"
+print_compare_total = f"Total: Current strategy: {current_deceased}; Optimal strategy: {optimal_deceased}; Unrestricted strategy: {unrestricted_deceased}"
 print(print_compare_total)
 print(print_compare_A)
 print(print_compare_B)
@@ -527,8 +484,9 @@ vac2_B_optimal = get_sum_of_states(
 
 dict_out = {
     "df_optimal_results": df_results_max,
+    "df_unrestricted_results" : df_results_unrestricted,
     "model_optimal": model_results_optimal,
-    "model_seperated": model_results_seperated,
+    "model_seperated": model_results_unrestricted,
     "model_current": model_results_current,
     "compare_total": print_compare_total,
     "compare_A": print_compare_A,
@@ -536,7 +494,8 @@ dict_out = {
     "model_directory": model_directory,
     "model_name": model_name,
     "path_sbml": path_sbml,
-    "time_points" : model.getTimepoints()
+    "time_points" : model.getTimepoints(),
+    "type" : "splines",
 }
 
 model_out = {"state_names" : model.getStateNames(),

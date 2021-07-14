@@ -138,7 +138,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_0) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[99] = susceptible_countryA_vac0*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -168,7 +168,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_1) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[100] = susceptible_countryB_vac0*(1 - 1/(std::pow(0.36787944123356736, spl_0) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -198,7 +198,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[101] = susceptible_countryB_vac0*(1 - 1/(std::pow(0.36787944123356736, spl_1) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -228,7 +228,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[102] = infectious_countryA_vac0_virW*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -258,7 +258,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_0) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[103] = infectious_countryA_vac0_virW*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -288,7 +288,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_1) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[104] = infectious_countryA_vac0_virM*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -318,7 +318,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_0) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[105] = infectious_countryA_vac0_virM*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -348,7 +348,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_1) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[106] = infectious_countryB_vac0_virW*(1 - 1/(std::pow(0.36787944123356736, spl_0) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -378,7 +378,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[107] = infectious_countryB_vac0_virW*(1 - 1/(std::pow(0.36787944123356736, spl_1) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -408,7 +408,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[108] = infectious_countryB_vac0_virM*(1 - 1/(std::pow(0.36787944123356736, spl_0) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -438,7 +438,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[109] = infectious_countryB_vac0_virM*(1 - 1/(std::pow(0.36787944123356736, spl_1) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -468,7 +468,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[110] = recovered_countryA_vac0_virW*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -498,7 +498,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_0) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[111] = recovered_countryA_vac0_virW*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -528,7 +528,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_1) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[112] = recovered_countryA_vac0_virM*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -558,7 +558,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_0) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[113] = recovered_countryA_vac0_virM*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -588,7 +588,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/((std::pow(0.36787944123356736, spl_1) + 1)*(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0));
     w[114] = recovered_countryB_vac0_virW*(1 - 1/(std::pow(0.36787944123356736, spl_0) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -618,7 +618,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[115] = recovered_countryB_vac0_virW*(1 - 1/(std::pow(0.36787944123356736, spl_1) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -648,7 +648,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[116] = recovered_countryB_vac0_virM*(1 - 1/(std::pow(0.36787944123356736, spl_0) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
@@ -678,7 +678,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
     w[117] = recovered_countryB_vac0_virM*(1 - 1/(std::pow(0.36787944123356736, spl_1) + 1))*((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
@@ -708,7 +708,7 @@ void w_vaccination(realtype *w, const realtype t, const realtype *x, const realt
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))/(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0);
 }
 

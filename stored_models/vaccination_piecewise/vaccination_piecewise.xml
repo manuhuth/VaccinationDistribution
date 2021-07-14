@@ -126,7 +126,6 @@
       <parameter id="proportion_par_countryA_vac1_98" name="proportion_par_countryA_vac1_98" value="0" units="dimensionless" constant="true"/>
       <parameter id="proportion_par_countryA_vac1_112" name="proportion_par_countryA_vac1_112" value="0" units="dimensionless" constant="true"/>
       <parameter id="proportion_par_countryA_vac1_126" name="proportion_par_countryA_vac1_126" value="0" units="dimensionless" constant="true"/>
-      <parameter id="proportion_par_countryA_vac1_140" name="proportion_par_countryA_vac1_140" value="0" units="dimensionless" constant="true"/>
       <parameter id="proportion_par_countryA_vac2_0" name="proportion_par_countryA_vac2_0" value="0" units="dimensionless" constant="true"/>
       <parameter id="proportion_par_countryA_vac2_14" name="proportion_par_countryA_vac2_14" value="0" units="dimensionless" constant="true"/>
       <parameter id="proportion_par_countryA_vac2_28" name="proportion_par_countryA_vac2_28" value="0" units="dimensionless" constant="true"/>
@@ -137,7 +136,6 @@
       <parameter id="proportion_par_countryA_vac2_98" name="proportion_par_countryA_vac2_98" value="0" units="dimensionless" constant="true"/>
       <parameter id="proportion_par_countryA_vac2_112" name="proportion_par_countryA_vac2_112" value="0" units="dimensionless" constant="true"/>
       <parameter id="proportion_par_countryA_vac2_126" name="proportion_par_countryA_vac2_126" value="0" units="dimensionless" constant="true"/>
-      <parameter id="proportion_par_countryA_vac2_140" name="proportion_par_countryA_vac2_140" value="0" units="dimensionless" constant="true"/>
       <parameter id="xx0" name="xx0" value="0" units="dimensionless" constant="true"/>
       <parameter id="xx1" name="xx1" value="14" units="dimensionless" constant="true"/>
       <parameter id="xx2" name="xx2" value="28" units="dimensionless" constant="true"/>
@@ -169,8 +167,8 @@
       <parameter id="vaccine_supply_par_vac2_xx8" name="vaccine_supply_par_vac2_xx8" value="0" units="dimensionless" constant="true"/>
       <parameter id="vaccine_supply_par_vac2_xx9" name="vaccine_supply_par_vac2_xx9" value="0" units="dimensionless" constant="true"/>
       <parameter id="distance_countryA_countryA" name="distance_countryA_countryA" value="1" units="dimensionless" constant="true"/>
-      <parameter id="distance_countryA_countryB" name="distance_countryA_countryB" value="0.001" units="dimensionless" constant="true"/>
-      <parameter id="distance_countryB_countryA" name="distance_countryB_countryA" value="0.001" units="dimensionless" constant="true"/>
+      <parameter id="distance_countryA_countryB" name="distance_countryA_countryB" value="0.0002" units="dimensionless" constant="true"/>
+      <parameter id="distance_countryB_countryA" name="distance_countryB_countryA" value="0.0002" units="dimensionless" constant="true"/>
       <parameter id="distance_countryB_countryB" name="distance_countryB_countryB" value="1" units="dimensionless" constant="true"/>
     </listOfParameters>
     <listOfInitialAssignments>
@@ -557,22 +555,6 @@
                 </apply>
               </apply>
             </piece>
-            <piece>
-              <ci> proportion_par_countryA_vac1_140 </ci>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                  <cn type="integer"> 140 </cn>
-                </apply>
-                <apply>
-                  <lt/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                  <cn type="integer"> 154 </cn>
-                </apply>
-              </apply>
-            </piece>
             <otherwise>
               <cn type="integer"> 0 </cn>
             </otherwise>
@@ -747,22 +729,6 @@
                   <lt/>
                   <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
                   <cn type="integer"> 140 </cn>
-                </apply>
-              </apply>
-            </piece>
-            <piece>
-              <ci> proportion_par_countryA_vac2_140 </ci>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                  <cn type="integer"> 140 </cn>
-                </apply>
-                <apply>
-                  <lt/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                  <cn type="integer"> 154 </cn>
                 </apply>
               </apply>
             </piece>
@@ -983,26 +949,6 @@
                 </apply>
               </apply>
             </piece>
-            <piece>
-              <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
-                <ci> proportion_par_countryA_vac1_140 </ci>
-              </apply>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                  <cn type="integer"> 140 </cn>
-                </apply>
-                <apply>
-                  <lt/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                  <cn type="integer"> 154 </cn>
-                </apply>
-              </apply>
-            </piece>
             <otherwise>
               <cn type="integer"> 0 </cn>
             </otherwise>
@@ -1220,26 +1166,6 @@
                 </apply>
               </apply>
             </piece>
-            <piece>
-              <apply>
-                <minus/>
-                <cn type="integer"> 1 </cn>
-                <ci> proportion_par_countryA_vac2_140 </ci>
-              </apply>
-              <apply>
-                <and/>
-                <apply>
-                  <geq/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                  <cn type="integer"> 140 </cn>
-                </apply>
-                <apply>
-                  <lt/>
-                  <csymbol encoding="text" definitionURL="http://www.sbml.org/sbml/symbols/time"> time </csymbol>
-                  <cn type="integer"> 154 </cn>
-                </apply>
-              </apply>
-            </piece>
             <otherwise>
               <cn type="integer"> 0 </cn>
             </otherwise>
@@ -1394,7 +1320,7 @@
               </apply>
             </piece>
             <otherwise>
-              <cn type="integer"> 0 </cn>
+              <ci> vaccine_supply_par_vac1_xx9 </ci>
             </otherwise>
           </piecewise>
         </math>
@@ -1547,7 +1473,7 @@
               </apply>
             </piece>
             <otherwise>
-              <cn type="integer"> 0 </cn>
+              <ci> vaccine_supply_par_vac2_xx9 </ci>
             </otherwise>
           </piecewise>
         </math>

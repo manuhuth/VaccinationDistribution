@@ -40,7 +40,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -74,12 +74,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[2] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -108,7 +105,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -142,12 +139,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[37] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -176,7 +170,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -210,12 +204,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[39] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -244,7 +235,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -278,12 +269,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[72] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -312,7 +300,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -346,12 +334,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[74] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -380,7 +365,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -414,12 +399,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[84] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -448,7 +430,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -482,12 +464,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[86] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -516,7 +495,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -550,12 +529,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[145] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -584,7 +560,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -618,12 +594,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[147] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -652,7 +625,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -686,12 +659,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[157] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -720,7 +690,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -754,12 +724,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[159] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -788,7 +755,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -822,12 +789,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[216] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -856,7 +820,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -890,12 +854,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[218] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -924,7 +885,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -958,12 +919,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[228] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -992,7 +950,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -1026,12 +984,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[230] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -1060,7 +1015,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -1094,12 +1049,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
+))))))))))))/std::pow(infectious_countryA_vac0_virM + infectious_countryA_vac0_virW + recovered_countryA_vac0_virM + recovered_countryA_vac0_virW + susceptible_countryA_vac0, 2);
     dydx[289] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -1128,7 +1080,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -1162,12 +1114,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[291] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -1196,7 +1145,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -1230,12 +1179,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[301] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac1_xx0
 )
@@ -1264,7 +1210,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac1_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac1_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -1298,12 +1244,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac1_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac1_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
     dydx[303] = -((t >= xx0 && t < xx1) ? (
    vaccine_supply_par_vac2_xx0
 )
@@ -1332,7 +1275,7 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
    vaccine_supply_par_vac2_xx8
 )
 : (
-   0
+   vaccine_supply_par_vac2_xx9
 ))))))))))*((t < 0) ? (
    0
 )
@@ -1366,12 +1309,9 @@ void dydx_vaccination_piecewise(realtype *dydx, const realtype t, const realtype
 : ((t < 140) ? (
    1 - proportion_par_countryA_vac2_126
 )
-: ((t < 154) ? (
-   1 - proportion_par_countryA_vac2_140
-)
 : (
    0
-)))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
+))))))))))))/std::pow(infectious_countryB_vac0_virM + infectious_countryB_vac0_virW + recovered_countryB_vac0_virM + recovered_countryB_vac0_virW + susceptible_countryB_vac0, 2);
 }
 
 } // namespace amici

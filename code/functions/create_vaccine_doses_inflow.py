@@ -50,7 +50,7 @@ def create_inflow_from_data(url="https://opendata.ecdc.europa.eu/covid19/vaccine
     linear_pop_scaling = model_population / population_size
     
     df_supply_model = df_periods.groupby("decision_period").sum() / weeks_decision_period / 7 * linear_pop_scaling
-    
+    #df_supply_model = df_supply_model.drop(labels=["index"], axis = 1)
     if format_df == "long":
         df_supply_model = df_supply_model.unstack()
 

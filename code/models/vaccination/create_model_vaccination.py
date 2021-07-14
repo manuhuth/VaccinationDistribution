@@ -661,10 +661,11 @@ def create_rules_vaccination_rate(
                 virus_states=virus_states,
                 areas=[index_areas],
             )
-
+            
             formula = (
                 f"{id_proportion} * {id_number_vaccinations} / ({to_be_vaccinated})"
             )
+
             rules_nu[id_rule] = {"parameter_id": id_nu, "formula": formula}
 
     return rules_nu

@@ -1,6 +1,7 @@
 import pickle
 import pandas as pd
 import numpy as np
+import scipy
 
 from models.vaccination.create_model_vaccination import create_reactions_model
 from models.vaccination.parameter import general_set_up
@@ -154,6 +155,7 @@ def create_stoichimetric_matrix(reactions, species, init=0):
 
 
 S = create_stoichimetric_matrix(reactions, species)
+null_space = scipy.linalg.null_space(S)
 tau = time_points[1] - time_points[0] 
 
 

@@ -1,45 +1,40 @@
 \section{Stochastic model}
 \label{sec:stochastic}
-Within the deterministic model, we have assumed that for each reaction $R_j$, the number of times the reaction happens within one unit of time is deterministic, see Equation \eqref{eq:change_one_unit}. However, it is more likely the these events occur random over time. To account for this, we test our deterministically derived optimal vaccination strategy and test it in a stochastic set-up. \\
+Within the deterministic model, we have assumed that for each reaction $R_j$, the number of times the reaction happens within one unit of time is deterministic, see Equation \eqref{eq:change_one_unit}. However, it is more likely the reactions occur random over time. To account for this, we test our deterministically derived optimal vaccination strategy and test it in a stochastic set-up, where the number of times reaction $R_j$ happens, is a random variable.  \\
 
-\textbf{$\tau$-leaping}. We impose an arbitrary order to all subcompartments. We do so by using n features $F_1, \dots F_n$, such that $\cup_{i=1}^n \set(F_i) = \set()$ and $\set(F_1), \dots, \set(F_n)$ are mutually disjoint. We specify the state of the system in terms of the subcompartments $Y(t) = \begin{pmatrix} \num(F_1) & \num(F_2) & \dots & \num(F_n)\end{pmatrix}'$. Recall that $\vect{S} \in \R^{n \times m}$ is the stoichiometric matrix, as defined in \eqref{eq:ode_system_matrix}, with coefficients $s_{ij}$ and columns $s_{.j}$ and $R_j$, for $j=1, \dots, m$, is the $j$-th reaction. Let $V_{t,j}$ the random variable counting the number of times $R_j$ will fire within the interval $[t, t + \tau)$, for $\tau \in \R_+$. We denote by $V_j$ the random vector collecting the random variables. Dividing the whole period of interest $[0, T]$ in intervals of length $\tau$, the leaping is an iterative update of the discretizised system's state.
+\textbf{$\tau$-leaping}. We impose an arbitrary order to all subcompartments. We do so by using n features $F_1, \dots F_n$, such that $\cup_{i=1}^n \set(F_i) = \set()$ and $\set(F_1), \dots, \set(F_n)$ are mutually disjoint. We specify the state of the system in terms of the subcompartments $Y(t) = \begin{pmatrix} \num(F_1) & \num(F_2) & \dots & \num(F_n)\end{pmatrix}'$. Recall that $\vect{S} \in \R^{n \times m}$ is the stoichiometric matrix, as defined in \eqref{eq:ode_system_matrix}, with coefficients $s_{ij}$ and columns $s_{.j}$. $R_j$, for $j=1, \dots, m$, is the $j$-th reaction. Let $V_{t,j}$ be the random variable counting the number of times $R_j$ will fire within the interval $[t, t + \tau)$, for $\tau \in \R_+$. We denote by $V_t$ the random vector collecting the random variables $V_{t,1}, \hdots, V_{t,m}$. Dividing the whole period of interest $[0, T]$ in intervals of length $\tau$, the leaping is an iterative update of the discretizised system's state
 \begin{align}
 \label{eq:tau_leaping}
 Y(t + \tau) =& Y(t) + \vect{S} V_t.
 \end{align}
-This equation is similar to equation \eqref{eq:sys_change}. Only the number of reactions within a given interval is in \eqref{eq:tau_leaping} random. 
+This equation is the quivalent to equation \eqref{eq:sys_change}, with the only difference that the number of reactions within a given interval is random in Equation \eqref{eq:tau_leaping}. \\
 
-The change in the system's state $\Delta Y(t) = Y(t + \tau) - Y(t)=$ can be written in terms of a linear combination of the columns of $\vect{S}$ with random scalars $K_{t,j}$
+The change in the system's state $\Delta Y(t) = Y(t + \tau) - Y(t)= \vect{S} V_t$ can be written in terms of a linear combination of the columns of $\vect{S}$ with random scalars $K_{t,j}$
 \begin{align}
 \Delta Y(t) = \sum_{j=1}^m K_{t,j} \cdot s_{.j}.
 \end{align}
-$s_{.j}$ consists of the magnitudes of the mass actions for each compartment $i$ according to reaction $R_j$ and therefore indicates how the state of the system changes if reaction $R_j$ happens. $K_{t,j}$ is the number of occurences of reaction $R_j$. Thus, the product is the system's change due to $R_j$. Aggregating over all reactions yields the total change of the system $R_j$, similar to the deterministic equation \eqref{eq:sys_change}.\\  
+$s_{.j}$ consists of the stoichiometry for each compartment $i$ according to reaction $R_j$ and therefore indicates how the state of the system changes if reaction $R_j$ happens. $K_{t,j}$ is the number of occurences of reaction $R_j$. Thus, the product is the system's change due to $R_j$. Aggregating over all reactions yields the total change of the system $R_j$, similar to the deterministic equation \eqref{eq:sys_change}.\\  
 
 So far we have not specified the distribution of $K_t$. We are interested in the conditional joint probability distribution $\prob_t(K_{t,1} = k_{t,1}, \dots, K_{t,m} = k_{t,m}|\tau)$ of the random vector $K_t = \begin{pmatrix}
-K_{t,1}, \dots, K_{t,m} \end{pmatrix}'$ conditioned on the state of the system and a fixed interval size. Recall that we have defined $\prob_t$ to be the conditional distribution with respect to the state of the system and we therefore omit to write it explicitly in the condition statement. Assuming independence, we bring the problem down to specifying the margins. Let $a_j(y)$ be the propensity function $\prob_t(K_{t,j}=1|\tau=1)$ of the $j$-th reaction with respect to the state of the system $Y(t)=y$. We assume that for infinitesimal small $dt$
+K_{t,1}, \dots, K_{t,m} \end{pmatrix}'$ conditioned on the state of the system and a fixed interval size. Recall that we have defined $\prob_t$ to be the conditional probability with respect to the state of the system and we therefore omit to write the condition explicitly within as condition statement. Assuming independence of all $K_{t, 1},\hdots, K_{t, m}$, we simplify the problem to specifying the marginal distributions. Let $a_j(y)$ be the propensity function $\prob_t(K_{t,j}=1|\tau=1)$ of the $j$-th reaction with respect to the state of the system $Y(t)=y$. We assume that for infinitesimal small $dt$
 \begin{align}
 \prob_t(K_{t,j} = 1|\tau = dt) = a_j(y) \cdot dt,
 \end{align}
 is the probability that $R_j$ fires once within the interval $[t, t+dt)$ and $\left(K_{t,j}|Y(t), \tau =dt \right)$ is Bernoulli $\mathrm{Ber}(a_j(y) \cdot dt)$ distributed. The Bernoulli assumption is justified by choosing $dt$ infinitesimal small, such that $R_j$ fires at most once almost surely.
 
-If we assume that $a_j(y)$ is constant within $[t, t+\tau)$, we can partition the interval in $\frac{\tau}{dt}$ subintervals with length $dt$. Note that for simplicitly we assume that $\frac{\tau}{dt}$ is an integer. In each of these subintervals $\left(K_{t+s \cdot dt,j}|Y(t), \tau =dt\right)$, for $s=0, 1, \dots, \frac{\tau}{dt} - 1$, is Bernoulli $\mathrm{Ber}(a_j(y) \cdot dt)$ distributed and thus the sum
-\begin{align*}
+For simplicitly we assume that $\frac{\tau}{dt}$ is an integer. If we assume that $a_j(y)$ is constant within $[t, t+\tau)$, we can partition the interval in $\frac{\tau}{dt}$ subintervals with length $dt$. In each of these subintervals the conditional random variable is Bernoulli distributed $\left(K_{t+s \cdot dt,j}|Y(t), \tau =dt\right) \sim \mathrm{Ber}(a_j(y) \cdot dt)$ for $s=0, 1, \dots, \frac{\tau}{dt} - 1$. Thus, the sum
+\begin{align}
 \sum_{s=0}^{\frac{\tau}{dt}-1} \left(K_{t+s \cdot dt, j} | Y(t), \tau = dt\right) \sim \textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right)
-\end{align*}
-follows a binomial distribution. The practical problem of this Binomial distribution is that sampling from it requires to define a value for $dt$. By definition $dt$ is infinitesimal small, such that we actually aim for $dt \to 0$. The literature has found a solution to circumvent by breaking the problem down to draw from a Poisson random variable that can be specified by $\tau$ and $a_j(y)$.
+\end{align}
+follows a binomial distribution. The practical problem of this Binomial distribution is that sampling from it requires to define a value for $dt$. By definition $dt$ is infinitesimal small, such that we actually aim for $dt \to 0$. Fortunately, $dt \to 0$ leads to a Poisson random variable that can be specified by the known $\tau$ and $a_j(y)$.
 \begin{theorem}
 $\textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right) \xrightarrow{d} \textrm{Po}(a_j(y) \cdot \tau)$ if $dt \to 0$.
 \end{theorem}
 \begin{proof}
-Let $p_n$ be a sequence with $\lim_{n \to \infty} p_n = 0$. We first show that if $\lambda'=n \cdot p_n$ is constant, $n \to \infty$ and $p_n \to 0$, a general Binomial random variable $\textrm{B}(n, p_n)$ converges in distribution to a Poisson random variable $\textrm{Po}(\lambda')$. Note that this proof is in essence just a restatement of the Poisson limit theorem of \cite{Poisson.1835}.
-\begin{align*}
-\lim_{n \to \infty} \binom{n'}{k} p^k_n (1-p_n)^{n-k} &= \lim_{n \to \infty} \frac{n \cdot (n-1) \cdot \hdots \cdot (n-k+1)}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
-&= \lim_{n \to \infty} \frac{n^k + O(n^{k-1})}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
-&= \frac{\left(\lambda'\right)^k}{k!} \exp{(-\lambda')}
-\end{align*}
-Note that by definition $\tau$ is fixed and by assumption $a_i(y)$ is constant within $[t, t+\tau)$. Thus, $\lim_{dt \to 0} \frac{\tau}{dt} = \infty$, $\lim_{dt \to 0} a_i(y) \cdot dt = 0$ and $\frac{\tau}{dt} \cdot a_i(y) \cdot dt = \tau \cdot a_i(y)$. Using the convergence property mentioned above yields the result.
+The proof is moved to the Appendix \ref{A:convergence_distribution}
 \end{proof}
-The $\tau$- leaping algorithm we use is the stochastic Euler algorithm with fixed step-size since we use a fixed step-size within the deterministic model. \\
+
+The $\tau$- leaping algorithm we use is the stochastic Euler algorithm with fixed step-size. We use a fixed step-size since we have a predefined step-size within the deterministic model and to test the deterministically derived vaccination strategies properly, we decided to use the same step-size for the stochastic model. The algorithm requires the initialization of the system $Y(0)$ and specifying the stoichiometry. Within the update steps, it mainly exploits Equation \eqref{eq:tau_leaping}.\\
 
 \begin{algorithm}[H]
  \caption{Stochastic Euler algorithm}

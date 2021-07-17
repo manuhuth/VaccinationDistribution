@@ -12,7 +12,7 @@ plt.rc('text', usetex=True)
 plt.rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 plt.rcParams['axes.facecolor'] = "#E6E6E6"
 
-inflow = create_inflow_from_data(number_decision_periods = 11, format_df = "wide")
+inflow = create_inflow_from_data(number_decision_periods = 10, format_df = "wide")
 
 
 fig, ax = plt.subplots()
@@ -22,7 +22,7 @@ color = ["steelblue", "coral"]
 linestyle = ["solid", "dashed"]
 
 for index in range(len(vaccines)):
-    ax.plot(np.linspace(0, 20, 6006), np.repeat(inflow[vaccines[index]], 546)/10**6,
+    ax.plot(np.linspace(0, 20, 6000), np.repeat(inflow[vaccines[index]], 600)/10**6,
             color = color[index], label = label[index], linestyle=linestyle[index],)
 
 ax.spines["top"].set_alpha(0)

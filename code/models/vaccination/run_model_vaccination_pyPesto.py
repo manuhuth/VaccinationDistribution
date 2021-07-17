@@ -158,7 +158,7 @@ vaccine_supply_parameter_strings = [
 #    float(400000), len(vaccine_supply_parameter_strings)
 #)
 
-vaccine_supply_parameter_values = create_inflow_from_data(number_decision_periods = number_yy)
+vaccine_supply_parameter_values = create_inflow_from_data(number_decision_periods = number_yy-1)
 
 set_vaccine_supply_parameter = dict(
     zip(vaccine_supply_parameter_strings, vaccine_supply_parameter_values)

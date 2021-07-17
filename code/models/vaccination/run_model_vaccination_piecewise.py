@@ -146,7 +146,7 @@ for index_areas_row in areas:
             index_areas_row, index_areas_col
         ]
 
-vaccine_supply_parameter_values = create_inflow_from_data(number_decision_periods=11)
+vaccine_supply_parameter_values = create_inflow_from_data(number_decision_periods=10)
 vaccine_supply_parameter_strings = [
     x for x in model.getParameterNames() if "vaccine_supply" in x
 ]

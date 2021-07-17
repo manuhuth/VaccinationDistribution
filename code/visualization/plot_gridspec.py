@@ -1,6 +1,5 @@
 import pickle
 
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 plt.style.use('default')
@@ -14,13 +13,6 @@ plt.rc('text', usetex=True)
 plt.rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"]
 plt.rcParams['axes.facecolor'] = "#E6E6E6"
 
-from matplotlib.ticker import FormatStrFormatter
-from mpl_toolkits.mplot3d import Axes3D
-
-from visualization.model_results import plot_states
-from visualization.model_results import plot_observables
-from visualization.model_results import get_substates
-from visualization.model_results import get_observables_by_name
 
 from functions.run_sbml import get_model_and_solver_from_sbml
 
@@ -29,7 +21,7 @@ type_optim = "splines"
 # ----------Load optimization data---------------------------------------------
 load = "/home/manuel/Documents/VaccinationDistribution/code/objects/output_" + type_optim + ".pkl"
 with open(
-    "/home/manuel/Documents/VaccinationDistribution/code/objects/output_splines.pkl",
+    load,
     "rb",
 ) as input:
     dict_out = pickle.load(input)
@@ -215,8 +207,6 @@ def plot_gridspec(y, time, title = "Amount of vaccine doses (in mil.)",
     
     return fig, axes
 
-plot_path = "/home/manuel/Documents/VaccinationDistribution/paper/images/splines_"
-
 
 
 
@@ -323,7 +313,7 @@ path_vaccine = plot_path +  "infectious"
 plot_gridspec(y=y, time=np.array(time_points)/7.0, title = "Number of infectious individuals (in mil.)",
                     legend_next_to_plot = True,
                     legend_location = 'lower center',
-                    ylim = [0,11],
+                    ylim = [0,25],
                     xlim = None,
                     bbox = (0.515, -0.05),
                     line_thickness = 0.6,
@@ -341,19 +331,19 @@ plot_gridspec(y=y, time=np.array(time_points)/7.0, title = "Number of infectious
 #Plot absolute number of deceased individuals 
 color ="steelblue"
 tw11 = {"y" : (model_optimal["states"]["dead_countryA_vac2_virW"] + model_optimal["states"]["dead_countryA_vac2_virM"]+model_optimal["states"]["dead_countryA_vac1_virW"] + model_optimal["states"]["dead_countryA_vac1_virM"]+model_optimal["states"]["dead_countryA_vac0_virW"] + model_optimal["states"]["dead_countryA_vac0_virM"])/10**6,
-        "label" : "Deceased", "color" : color, "linestyle" : "dotted", "ylim" : [0, 1.1], "ylabel" : ""}
+        "label" : "Deceased", "color" : color, "linestyle" : "dotted", "ylim" : [0, 2.0], "ylabel" : ""}
 tw1 = {"first" : tw11}
 
 tw21 = {"y" : (model_unrestricted["states"]["dead_countryA_vac2_virW"] + model_unrestricted["states"]["dead_countryA_vac2_virM"]+model_unrestricted["states"]["dead_countryA_vac1_virW"] + model_unrestricted["states"]["dead_countryA_vac1_virM"]+model_unrestricted["states"]["dead_countryA_vac0_virW"] + model_unrestricted["states"]["dead_countryA_vac0_virM"])/10**6,
-        "label" : "Deceased", "color" : color, "linestyle" : "dotted", "ylim" : [0, 1.1], "ylabel" : "Deceased"}
+        "label" : "Deceased", "color" : color, "linestyle" : "dotted", "ylim" : [0, 2.0], "ylabel" : "Deceased"}
 tw2 = {"first" : tw21}
 
 tw31 = {"y" : (model_optimal["states"]["dead_countryB_vac2_virW"] + model_optimal["states"]["dead_countryB_vac2_virM"]+model_optimal["states"]["dead_countryB_vac1_virW"] + model_optimal["states"]["dead_countryB_vac1_virM"]+model_optimal["states"]["dead_countryB_vac0_virW"] + model_optimal["states"]["dead_countryB_vac0_virM"])/10**6, 
-        "label" : "Deceased", "color" : color, "linestyle" : "dotted", "ylim" : [0, 1.1], "ylabel" : ""}
+        "label" : "Deceased", "color" : color, "linestyle" : "dotted", "ylim" : [0, 2.0], "ylabel" : ""}
 tw3 = {"first" : tw31}
 
 tw41 = {"y" : (model_unrestricted["states"]["dead_countryB_vac2_virW"] + model_unrestricted["states"]["dead_countryB_vac2_virM"]+model_unrestricted["states"]["dead_countryB_vac1_virW"] + model_unrestricted["states"]["dead_countryB_vac1_virM"]*model_unrestricted["states"]["dead_countryB_vac0_virW"] + model_unrestricted["states"]["dead_countryB_vac0_virM"])/10**6,
-        "label" : "Deceased", "color" : color, "linestyle" : "dotted", "ylim" : [0, 1.1], "ylabel" : "Deceased"}
+        "label" : "Deceased", "color" : color, "linestyle" : "dotted", "ylim" : [0, 2.0], "ylabel" : "Deceased"}
 tw4 = {"first" : tw41}
 
 twin_axes = [tw1, tw2, tw3, tw4]
@@ -363,7 +353,7 @@ path_vaccine = plot_path +  "infectious_dead"
 plot_gridspec(y=y, time=np.array(time_points)/7.0, title = "Number of infectious and deceased individuals (in mil.)",
                     legend_next_to_plot = True,
                     legend_location = 'lower center',
-                    ylim = [0,11],
+                    ylim = [0,25],
                     xlim = None,
                     bbox = (0.515, -0.05),
                     line_thickness = 0.6,

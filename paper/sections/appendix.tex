@@ -1,0 +1,132 @@
+\appendix
+\section{Appendix}
+
+\subsection{Calculations and proofs}
+
+\subsubsection{Meeting probabilities}
+\label{A:meeting_prob}
+Using Bayes formula, we can rewrite the conditional probability as follows
+\begin{align}
+\label{eq:cond_meeting_prob}
+\prob_t(i_2 \in \set(X_S, C_j, F_2)|i_1 \in \set(\neg X_D, C_A)) &= \prob_t(i_2 \in \set(\neg X_D, C_j, F_2) | i_1 \in \set(\neg X_D, C_A) )   \\
+& \quad \cdot \prob_t(i_2 \in \set(X_S) | i_1 \in \set(\neg X_D, C_A), i_2 \in \set(\neg X_D, C_j, F_2) ) \notag \\
+&= \prob_t(i_2 \in \set(\neg X_D, C_j, F_2) | i_1 \in \set(\neg X_D, C_A) )  \notag \\
+& \quad \cdot \prob_t(i_2 \in \set(X_S)|i_2 \in \set(\neg X_D, C_j, F_2)  \notag
+\end{align} 
+We use the relative number of susceptible individuals $\set(X_S, C_j, F_2)$ across all individuals of $\set(\neg X_D, C_j, F_2)$ as approximation of the probability at the second line of the right-hand side 
+\begin{align}
+ \prob_t(i_2 \in \set(X_S, F_2)|i_2 \in \set(\neg X_D, C_j, F_2) ) = \frac{\num(X_S, C_j, F_2)}{\num(\neg X_D, C_j, F_2)}.
+\end{align}
+
+To account for the origin of $i_1$ within the first line of the right hand-side, we distinguish between the cases where $i_2 \in \set(C_A)$ and $i_2 \in \set(C_B)$. Assume that $i_2 \in \set(X_S, C_B, F_2)$. If there were no spatial effects to influence the cross-border meeting frequency we would use the unconditional probability 
+\begin{align}
+\prob_t(i_2 \in \set(\neg X_D, C_j, F_2)) = \frac{\num(\neg X_D, C_j, F_2)}{ \num(\neg X_D)}.   
+\end{align}
+To account for the spatial effects, we introduce a penalty function $b: \R_+ \to [0,1]$ that depends on the distances between both countries $d(A, B)$
+\begin{align}
+\label{eq:prob_cross_border}
+\prob_t(i_2 \in \set(\neg X_D, C_B, F_2) | i_1 \in \set(\neg X_D, C_A) ) = \prob_t\left(i_2 \in \set(\neg X_D, C_B, F_2)\right) \cdot b(d(A, B)),
+\end{align}
+
+Yielding
+\begin{align}
+\label{eq:cond_meeting_prob_b}
+\prob_t(i_2 \in \set(X_S, C_B, F_2)|i_1 \in \set(\neg X_D, C_A)) &= \frac{\num(X_S, C_j, F_2)}{\num(\neg X_D)} \cdot b(d(A, B))
+\end{align} 
+
+
+\subsubsection{Well-conditioning of Polynomial basis}
+\label{A:well_conditioning}
+First note that $B_1(0) = 1$ and $B_2(0), B_3(0), B_4(0) = 0$. Furthermore, $B_1(1), B_2(1), B_4(1) = 0$ and $B_3(1) = 1$. We first compute the function values at the boundaries $t_{i-1}$ and $t_i$.
+\begin{align*}
+P_{l,i}(t_{i-1}) &= B_1(0) P_{l,i}(t_{i-1}) + B_2(0) (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3(0) P_{l,i}(t_{i}) + B_4(0) (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\
+&=  1 \cdot P_{l,i}(t_{i-1}) + 0 \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + 0 \cdot P_{l,i}(t_{i}) + 0 \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i})\\
+&= P_{l,i}(t_{i-1}) 
+\end{align*}
+\begin{align*}
+P_{l,i}(t_{i}) &= B_1(1) P_{l,i}(t_{i-1}) + B_2(1) (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3(1) P_{l,i}(t_{i}) + B_4(1) (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\ 
+&= 0 \cdot P_{l,i}(t_{i-1}) + 0 \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + 1 \cdot  P_{l,i}(t_{i}) + 0 \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i})  \\
+&= P_{l,i}(t_{i})
+\end{align*}
+
+The derivatives of the basis polynomials are 
+\begin{align*}
+B_1'(t) &= 6t^2 - 6t \\
+B_2'(t) &= 3t^2 - 4t + 1 \\
+B_3'(t) &= -6t^2 + 6t \\
+B_4'(t) &= 3t^2 - 2t
+\end{align*}
+with $B_1(0)'=B_3(0)'=B_4(0)'=0$ and $B_2(t)'=\frac{1}{t_i - t_{i-1}}$. Moreover, $B_1'(1)'= B_2(1)'=B_3(1)'=0$ and $B_4(1)'=\frac{1}{t_i - t_{i-1}}$. The derivative of the polynomial is simply
+\begin{align*}
+P_{l,i}'(t) &= B_1'(t') P_{l,i}(t_{i-1}) + B_2'(t') (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3'(t') P_{l,i}(t_{i}) + B_4'(t') (t_{i} - t_{i-1}) P'_{l,i}(t_{i})
+\end{align*}
+and therefore
+\begin{align*}
+P_{l,i}'(t_{i-1}) &= B_1'(0) P_{l,i}(t_{i-1}) + B_2'(0) (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3'(0) P_{l,i}(t_{i}) + B_4'(0) (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\
+&= 0 \cdot P_{l,i}(t_{i-1}) + \frac{1}{t_i - t_{i-1}} \cdot(t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + 0 \cdot P_{l,i}(t_{i}) + 0 \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\
+&=  P'_{l,i}(t_{i-1})
+\end{align*}
+and 
+
+\begin{align*}
+P_{l,i}'(t_{i-1}) &= B_1'(1) P_{l,i}(t_{i-1}) + B_2'(1) (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3'(1) P_{l,i}(t_{i}) + B_4'(1) (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\
+&= 0 \cdot P_{l,i}(t_{i-1}) + 0 \cdot(t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + 0 \cdot P_{l,i}(t_{i}) + \frac{1}{t_i - t_{i-1}} \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\
+&=  P'_{l,i}(t_{i})
+\end{align*}
+
+
+
+\subsubsection{Polynomial Basis}
+\label{A:polynomial_basis}
+\begin{theorem}
+$B_1(t), B_2(t), B_3(t), B_4(t) \in \R_3(t)$ form a polynomial basis of $\R_3(t)$.
+\end{theorem}
+\begin{proof}
+We need to show that the four polynomials are linearly independent. We do so by writing the polynomials in vector form, collect them in a matrix and show that this matrix has full rank. 
+\begin{align*}
+\begin{pmatrix}
+2 & 1 & -2 & 1\\
+-3 & -2 & 3 & -1 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\Leftrightarrow
+\begin{pmatrix}
+0 & 0 & -2 & 1\\
+0 & 0 & 1 & -1 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\Leftrightarrow
+\begin{pmatrix}
+0 & 0 & 0 & -1\\
+0 & 0 & 1 & -1 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\Leftrightarrow
+\begin{pmatrix}
+0 & 0 & 0 & 1\\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+\end{pmatrix}
+\end{align*}
+Since $B_1(t), B_2(t), B_3(t), B_4(t)$ are four linearly independent polynomials of degree 3, they form a basis of $\R_3(t)$. 
+\end{proof} 
+
+
+\subsubsection{Convergence in distribution}
+\label{A:convergence_distribution}
+\begin{theorem}
+$\textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right) \xrightarrow{d} \textrm{Po}(a_j(y) \cdot \tau)$ if $dt \to 0$.
+\end{theorem}
+\begin{proof}
+Let $p_n$ be a sequence with $\lim_{n \to \infty} p_n = 0$. We first show that if $\lambda'=n \cdot p_n$ is constant, $n \to \infty$ and $p_n \to 0$, a general Binomial random variable $\textrm{B}(n, p_n)$ converges in distribution to a Poisson random variable $\textrm{Po}(\lambda')$. Note that this proof is in essence just a restatement of the Poisson limit theorem of \cite{Poisson.1835}.
+\begin{align*}
+\lim_{n \to \infty} \binom{n'}{k} p^k_n (1-p_n)^{n-k} &= \lim_{n \to \infty} \frac{n \cdot (n-1) \cdot \hdots \cdot (n-k+1)}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
+&= \lim_{n \to \infty} \frac{n^k + O(n^{k-1})}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
+&= \frac{\left(\lambda'\right)^k}{k!} \exp{(-\lambda')}
+\end{align*}
+Note that by definition $\tau$ is fixed and by assumption $a_i(y)$ is constant within $[t, t+\tau)$. Thus, $\lim_{dt \to 0} \frac{\tau}{dt} = \infty$, $\lim_{dt \to 0} a_i(y) \cdot dt = 0$ and $\frac{\tau}{dt} \cdot a_i(y) \cdot dt = \tau \cdot a_i(y)$. Using the convergence property mentioned above yields the result.
+\end{proof}

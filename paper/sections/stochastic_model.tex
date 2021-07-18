@@ -1,4 +1,4 @@
-\section{Stochastic model}
+\subsection{Stochastic model}
 \label{sec:stochastic}
 Within the deterministic model, we have assumed that for each reaction $R_j$, the number of times the reaction happens within one unit of time is deterministic, see Equation \eqref{eq:change_one_unit}. However, it is more likely the reactions occur random over time. To account for this, we test our deterministically derived optimal vaccination strategy and test it in a stochastic set-up, where the number of times reaction $R_j$ happens, is a random variable.  \\
 
@@ -43,10 +43,11 @@ The $\tau$- leaping algorithm we use is the stochastic Euler algorithm with fixe
  Initialize $Y(0) = Y_0, t=0,$ and set fixed $\tau, \vect{S}$\;
  \While{$t < T$}{
   Set y = Y(t)\;
-  Draw $K_{t,j} \sim \text{Po}(a_j(y) \tau ) $ for all $j = 1, \dots, m$ \;
+  Update $a_j = a_j(y)$ for all $j = 1,\dots, m$ \;
+  Draw $K_{t,j} \sim \text{Po}(a_j \tau ) $ for all $j = 1, \dots, m$ \;
    Compute $Y(t+\tau) = Y(t) + \vect{S} K_t$\;
    Store $Y(t+\tau)$ \;
-   Update $a_j = a_j(Y(t + \tau))$ for all $j = 1, \dots, m$ \;
+    
    Update $t = t + \tau$\;
  }
 

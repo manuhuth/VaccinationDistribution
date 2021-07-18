@@ -38,108 +38,79 @@ Note that this estimate is rather conservative since we do not take commuters an
 
 \textbf{Length of decision periods}. We set the length of the whole decision period to $T=140$ and subdivide the length of each decision interval $\mathcal{T}_i$ to 14 days. \\
 
-\textbf{Vaccine inflow}. The daily vaccine inflow $W_l(t)$ is computed using EU data of the vaccine inflow taken from the open source data bank of the \cite{ECDC.2021}. The data reports the weekly inflow of vaccines for all countries within the EU. We accumulate the numbers of Corminarty and Spikevax to compute the total numbers of mRNA vaccines and accumulate the total numbers of Vaxzevria and Janssen to compute the total numbers of vector vaccines per week. We scale this number down to our model's population size by dividing it through the total number of EU habitants and multiplictae it by the number of individuals in our model. We subsequently accumulate the vaccines within each $14$-day interval $\mathcal{T}_i$ and divide this number by 14 to get the average number of vaccine doses inflow per vaccine and day. Thus, the inflow per day of each vaccine is constant within each interval $\mathcal{T}_i$ but varies across intervals and vaccines.
+\textbf{Vaccine inflow}. Figure \ref{fig:available_vaccine} depicts the inflow of both vaccines. The daily vaccine inflow $W_l(t)$ is computed using EU data of the vaccine inflow taken from the open source data bank of the \cite{ECDC.2021}. The data reports the weekly inflow of vaccines for all countries within the EU. We accumulate the numbers of Corminarty and Spikevax to compute the total numbers of mRNA vaccines and accumulate the total numbers of Vaxzevria and Janssen to compute the total numbers of vector vaccines per week. We scale this number down to our model's population size by dividing it through the total number of EU habitants and multiplictae it by the number of individuals in our model. We subsequently accumulate the vaccines within each $14$-day interval $\mathcal{T}_i$ and divide this number by 14 to get the average number of vaccine doses inflow per vaccine and day. Thus, the inflow per day of each vaccine is constant within each interval $\mathcal{T}_i$ but varies across intervals and vaccines yielding the stepwise functions in Figure \ref{fig:available_vaccine}. 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.7]{images/available_vaccine.png}\\
 \begin{flushleft}
-\scriptsize{Note:}
+\scriptsize{Note: } 
 \end{flushleft}
-\caption{Vaccines}
+\caption{Time course of exogenous vaccine inflow.}
 \label{fig:available_vaccine}
 \end{figure}
 
-\subsection{Simulations}
-We use Python and mainly its libraries libSBML \citep{Bornstein.2008} and AMICI \citep{Frohlich.2020} to implement our models. pyPESTO \citep{pyPESTO} is our main tool for optimization. To minimize the optimization problem, we use the L-BFGS-B algorithm \citep{Zhu.1997} for which pyPESTO uses Scipy's \citep{scipy.2020} implementation. For each optimization we run a muli-start using 50 starts and choose the corresponding vaccination strategy that minimizes the objective. For each start, we draw uncorrelated start parameters $\theta_{l,i} \sim \mathcal{U}(0,1)$. In the case of Pareto optimal constraints, we only accept a starting vector $\Theta$ if the Pareto constraints $C.7$ and $C.8$ are satisfied. Otherwise we reject it and draw a new sample until 50 starts are reached.
+Overall, the inflow increases over time. This is due to the improvement of manufacturer infrastructure over the time course of the pandemic in the real-world.
 
-\textbf{optimal results splines}
-fractions in appendix
+
+\subsection{Deterministic simulations}
+We use Python and mainly its libraries libSBML \citep{Bornstein.2008} and AMICI \citep{Frohlich.2020} to implement our models. pyPESTO \citep{pyPESTO} is our main tool for optimization. To minimize the optimization problem, we use the L-BFGS-B algorithm \citep{Zhu.1997} for which pyPESTO uses Scipy's \citep{scipy.2020} implementation. For each optimization we run a muli-start using 50 starts and choose the corresponding vaccination strategy that minimizes the objective. We provide waterfall plots for the piecewise constant and the spline optimization within the Appendix \ref{A:waterfall} in Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines_waterfall}. For each start, we draw uncorrelated start parameters $\theta_{l,i} \sim \mathcal{U}(0,1)$. In the case of Pareto optimal constraints, we only accept a starting vector $\Theta$ if the Pareto constraints $C.5$ and $C.6$ are satisfied. Otherwise we reject it and draw a new sample until 50 starts are reached.\\
+
+The results using a piecewise constant form and a spline as functional form of $f_l$ yielded almost the same results regarding the trajectories of deceased and infected individuals. Obtaining nearly the same results enhances the robustness of our findings. However, we refrain from showing twice the same results and move the results from the piecewise constant approach to the Appendix \ref{A:piecewise}.  
+
+\subsubsection*{Splines}
+Figure \ref{fig:results_splines_numbers} provides a visualization of our core results for the number of deceased individuals using splines as functional form $f_l$. We show the results for the current strategy (first row), the Pareto optimal strategy (second row), and the unrestricted strategy (third row) and split up the numbers of deceased individuals with respect to their country of origin. Both optimized strategies outperform the current strategy. This is plausible since within the optimized strategies, the model states are taken into account, whereas the current strategy is a pre-allocation that does not take model dynamics into account. The unrestricted strategy also outperforms the Pareto optimal strategy, which comes by nature of the optimization specification as they are in essence the same optimization problem but the Pareto parameter space is restricted by two the Pareto conditions $C.5$ and $C.6$. 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.8]{images/piecewise_vaccine_total_quantity.png}\\
+\includegraphics[scale=0.75]{images/splines_percentage_deviation.png}\\
 \begin{flushleft}
-\scriptsize{Note:}
+\scriptsize{Note: The numbers within the boxes indicate the number of deceased individuals in million with respect to the respective country and strategy. Numbers at the x-axis represent the total number of deceased individuals within one country. The percentage numbers indicate the change relative to the optimal strategy, e.g. $-5\%$ indicates that by implementing the Pareto strategy 5\% less individuals died in comparison to the current strategy.}
 \end{flushleft}
-\caption{Vaccines}
-\label{fig:results_piecewise_allocation}
+\caption{Number of deceased individuals simulated using cubic hermite splines.}
+\label{fig:results_splines_numbers}
 \end{figure}
 
-same for infectious individuals
+The unrestricted strategy yields a reduction in deaths by around 17\%, relative to the current strategy. However, given full knowledge of the outcome, policy makers in country B would not agree to implement this strategy due to the increase of around 320,000 deaths in country B. The Pareto strategy yields the same death cases in country B as the current strategy. However, at the same time, death cases in country A can be reduced by around 130,000, yielding an overall improvement of around 5\% relative to the current strategy. Thus, the Pareto optimal strategy might be approved by both countries as an overall improvement to society. \\
+
+Figure \ref{fig:results_splines_allocation} depicts the corresponding doses of vaccine inflow. We show the results for the three strategies (columns) and split up the results by countries (rows). The current strategy numbers are, due to the equi-allocation, 50\% of the total inflow of each vaccine. Most strikingly, the unrestricted strategy only assigns vaccines to country B between the 5th and the 9th week, as well as at the start and the last periods. The period between the 5th and the 9th week is where the number of infectious cases increases exponentially within country B, see Figure \ref{fig:results_splines_infectious_dead}.
+The vaccine shortage in country B partly explains the large number in death cases in country B which we find in Figure \ref{fig:results_splines_numbers}. On the contrary, the Pareto strategy assigns much more doses to country B, especially at the end of the decision horizon. As seen in Figure \ref{fig:results_splines_numbers}, this comes with the cost of more deaths in country A compared to the unrestricted strategy.
+
+With respect to the current strategy, we observe that the optimized strategies are very different from the current strategy. This is highlighted within plot \ref{fig:results_splines_allocation_fractions} in the Appendix \ref{A:fractions}, where we plot the course of the functions $f_l$. 
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.8]{images/piecewise_infectious_dead.png}\\
+\includegraphics[scale=0.85]{images/splines_vaccine_total_quantity.png}\\
 \begin{flushleft}
-\scriptsize{Note:}
-\end{flushleft}
-\caption{Vaccines}
-\label{fig:results_piecewise_infectious_dead}
-\end{figure}
-
-
-waterfall
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.6]{images/piecewise_waterfall.png}\\
-\begin{flushleft}
-\scriptsize{Note:}
-\end{flushleft}
-\caption{Vaccines}
-\label{fig:results_piecewise_waterfall}
-\end{figure}
-
-
-%\textbf{Optimal results piecewise}
-%one plot like in orchestra presentation
-%top left, -> total number of assigned, top right fraction, bottom left unvaccinated infectious A; bottom right unvaccinated infectious B;use gs.subplots https://matplotlib.org/devdocs/gallery/subplots_axes_and_figures/subplots_demo.html
-
-same for unrestricted
-waterfall plots for both;
-4 best strategies for both
-
-
-table comparing three variants (see orchestra presentation)
-\input{tables/results_splines}
-
-
-
-\textbf{optimal results splines}
-fractions in appendix
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.8]{images/splines_vaccine_total_quantity.png}\\
-\begin{flushleft}
-\scriptsize{Note:}
+\scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
+Every curve is the product of a piecewise constant vaccine inflow and a spline. Thus, the lines appear to be discontinuous piecewise polynomials. 
 \end{flushleft}
 \caption{Vaccines}
 \label{fig:results_splines_allocation}
 \end{figure}
 
-same for infectious individuals
+In Figure \ref{fig:results_splines_infectious_dead}, we trace out the trajectories of the number of infectious and deceased individuals according to the respective strategies (columns) and countries (rows). Regardless of the strategy, only the mutant spreads in country B. This is due to the initial allocation of ten mutant infected individuals in country B and ten wild type infected individuals in country A and the higher infectiousness of the mutant. The mutant is 20\% more infectious than the wild type. Thus, the wild type has no chance to spread in country B via cross-border infections. On the contrary, country A has to deal with both variants due to the cross-border infections. The unrestricted strategy is able to keep infections in country A below 2 million, whereas the Pareto strategy and the current strategy experience more than 7 million cases. 
+
+
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.8]{images/splines_infectious_dead.png}\\
+\includegraphics[scale=0.85]{images/splines_infectious_dead.png}\\
 \begin{flushleft}
-\scriptsize{Note:}
+\scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Every vaccine is indicated by its color that is used throughout the paper. The left y-axis is used for the number of infectious individuals (solid green and dashed red curves). The right y-axis corresponds to the number of deceased individuals (dotted blue line). Both viruses are associated with the color we have used throughout the paper. 
 \end{flushleft}
 \caption{Vaccines}
 \label{fig:results_splines_infectious_dead}
 \end{figure}
 
 
-waterfall
-\begin{figure}[h!]
-\centering
-\includegraphics[scale=0.6]{images/splines_waterfall.png}\\
-\begin{flushleft}
-\scriptsize{Note:}
-\end{flushleft}
-\caption{Vaccines}
-\label{fig:results_splines_waterfall}
-\end{figure}
 
-table comparing three variants (see orchestra presentation);
+\clearpage
+\subsection{Policy test with stochastic model}
+for splines:\\
+2 dimensional histograms (one country at each axes); for each policy in subplots.\\
++ maybe plots of infectious trajectories (very thin lines)
 
-\subsubsection{Test with stochastic set-up}
+
+
+for piecewise:\\
+same but appendix
 
 
 

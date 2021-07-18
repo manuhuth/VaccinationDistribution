@@ -1,8 +1,100 @@
 \appendix
 \section{Appendix}
 
-\subsection{Calculations and proofs}
+\subsection{Additional Figures}
+We plot Figures that enhance our line of argumentation but would disturb the train of reading within the main section.
+\subsubsection{Piecewise constant results}
+\label{A:piecewise}
+Figure \ref{fig:results_piecewise_numbers} provides a visualization of our core results for the number of deceased individuals using piecewise constant vaccination channels as functional form $f_l$. The values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_numbers}.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.65]{images/piecewise_percentage_deviation.png}\\
+\begin{flushleft}
+\scriptsize{Note: The numbers within the boxes indicate the number of deceased individuals in million with respect to the respective country and strategy. Numbers at the x-axis represent the total number of deceased individuals within one country. The percentage numbers indicate the change relative to the optimal strategy, e.g. $-5\%$ indicates that by implementing the Pareto strategy 5\% less individuals died in comparison to the current strategy.}
+\end{flushleft}
+\caption{Simulation results for piecewise constant vaccination strategies.}
+\label{fig:results_piecewise_numbers}
+\end{figure}
 
+Figure \ref{fig:results_piecewise_allocation} depicts the optimal doses of vaccine inflow using piecewise constant vaccination channels as functional form $f_l$. As for the number of deceased individuals, the values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_allocation}.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.65]{images/piecewise_vaccine_total_quantity.png}\\
+\begin{flushleft}
+\scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
+Every curve is the product of a piecewise constant vaccine inflow and a spline. Thus, the lines appear to be discontinuous piecewise polynomials. 
+\end{flushleft}
+\caption{Vaccines}
+\label{fig:results_piecewise_allocation}
+\end{figure}
+
+In Figure \ref{fig:results_piecewise_infectious_dead}, we trace out the trajectories of the number of infectious and deceased individuals according to the respective strategies (columns) and countries (rows). The values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_infectious_dead}.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.65]{images/piecewise_infectious_dead.png}\\
+\begin{flushleft}
+\scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Every vaccine is indicated by its color that is used throughout the paper. The left y-axis is used for the number of infectious individuals (solid green and dashed red curves). The right y-axis corresponds to the number of deceased individuals (dotted blue line). Both viruses are associated with the color we have used throughout the paper. 
+\end{flushleft}
+\caption{Vaccines}
+\label{fig:results_piecewise_infectious_dead}
+\end{figure}
+
+\clearpage
+\subsubsection{Vaccination allocation fractions}
+\label{A:fractions}
+
+Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f_l$ over the whole deciison period using a piecewise vaccination channel. Figure \ref{fig:results_splines_allocation_fractions} depicts the respective values for the spline vaccination channels. The values are the quotient of the curve of the vacicne inflow in \ref{fig:available_vaccine} and the optimal total number of vaccine doses inflow in Figure \ref{fig:results_piecewise_allocation} and Figure \ref{fig:results_splines_allocation}.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.85]{images/piecewise_vaccine_fractions.png}\\
+\begin{flushleft}
+\scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
+\end{flushleft}
+\caption{Vaccines}
+\label{fig:results_piecewise_allocation_fractions}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.85]{images/splines_vaccine_fractions.png}\\
+\begin{flushleft}
+\scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
+\end{flushleft}
+\caption{Vaccines}
+\label{fig:results_splines_allocation_fractions}
+\end{figure}
+
+\clearpage
+\subsubsection{Waterfall plots of optimization}
+\label{A:waterfall}
+Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines_waterfall} show the 20 best optima of the multi-start optimization runs. We find that the descend is rather continuous and the optimal values are obtained only once. Hence, it might be possible to find even lower values using more multi-start runs.
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.53]{images/piecewise_waterfall.png}\\
+\begin{flushleft}
+\scriptsize{Note:} Values are relative to the start yielding the lowest optimal minimum value. Only the best 20 starts are used to increase readability. 
+\end{flushleft}
+\caption{Waterfall plot of the 20 best multi-start runs using piecewise constant functions.}
+\label{fig:results_piecewise_waterfall}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.53]{images/splines_waterfall.png}\\
+\begin{flushleft}
+\scriptsize{Note:} Values are relative to the start yielding the lowest optimal minimum value. Only the best 20 starts are used to increase readability. 
+\end{flushleft}
+\caption{Waterfall plot of the 20 best multi-start runs using splines.}
+\label{fig:results_splines_waterfall}
+\end{figure}
+
+
+\clearpage
+\subsection{Calculations and proofs}
+We provide calculations and proofs that enhance our line of argumentation but would disturb the train of reading within the main section.
 \subsubsection{Meeting probabilities}
 \label{A:meeting_prob}
 Using Bayes formula, we can rewrite the conditional probability as follows
@@ -35,7 +127,7 @@ Yielding
 \end{align} 
 
 
-\subsubsection{Well-conditioning of Polynomial basis}
+\subsubsection{Well-conditioning of the Polynomial basis}
 \label{A:well_conditioning}
 First note that $B_1(0) = 1$ and $B_2(0), B_3(0), B_4(0) = 0$. Furthermore, $B_1(1), B_2(1), B_4(1) = 0$ and $B_3(1) = 1$. We first compute the function values at the boundaries $t_{i-1}$ and $t_i$.
 \begin{align*}
@@ -67,11 +159,10 @@ P_{l,i}'(t_{i-1}) &= B_1'(0) P_{l,i}(t_{i-1}) + B_2'(0) (t_{i} - t_{i-1}) P'_{l,
 &=  P'_{l,i}(t_{i-1})
 \end{align*}
 and 
-
 \begin{align*}
 P_{l,i}'(t_{i-1}) &= B_1'(1) P_{l,i}(t_{i-1}) + B_2'(1) (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3'(1) P_{l,i}(t_{i}) + B_4'(1) (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\
 &= 0 \cdot P_{l,i}(t_{i-1}) + 0 \cdot(t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + 0 \cdot P_{l,i}(t_{i}) + \frac{1}{t_i - t_{i-1}} \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\
-&=  P'_{l,i}(t_{i})
+&=  P'_{l,i}(t_{i}).
 \end{align*}
 
 
@@ -124,7 +215,7 @@ $\textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right) \xrightarrow{d} \textrm
 \begin{proof}
 Let $p_n$ be a sequence with $\lim_{n \to \infty} p_n = 0$. We first show that if $\lambda'=n \cdot p_n$ is constant, $n \to \infty$ and $p_n \to 0$, a general Binomial random variable $\textrm{B}(n, p_n)$ converges in distribution to a Poisson random variable $\textrm{Po}(\lambda')$. Note that this proof is in essence just a restatement of the Poisson limit theorem of \cite{Poisson.1835}.
 \begin{align*}
-\lim_{n \to \infty} \binom{n'}{k} p^k_n (1-p_n)^{n-k} &= \lim_{n \to \infty} \frac{n \cdot (n-1) \cdot \hdots \cdot (n-k+1)}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
+\lim_{n \to \infty} \binom{n}{k} p^k_n (1-p_n)^{n-k} &= \lim_{n \to \infty} \frac{n \cdot (n-1) \cdot \hdots \cdot (n-k+1)}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
 &= \lim_{n \to \infty} \frac{n^k + O(n^{k-1})}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
 &= \frac{\left(\lambda'\right)^k}{k!} \exp{(-\lambda')}
 \end{align*}

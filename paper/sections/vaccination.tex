@@ -71,7 +71,8 @@ the optimal strategy is Pareto optimal and we call it \textit{Pareto optimal vac
 As objective we choose the total number of deceased individuals. Other objectives like the total number of infectious individuals, or some combination of both, could be considered as well. We decided to choose the total number of deaths such that the death protection parameters $\omega_{k,l}$ influence the solution. \\
 
 \subsection{Functional form of the vaccine allocation}
-We examine two functional forms of $f_{l}$. First, $f_{l}$ is a stepwise function. Second, $f_{l}$ is a logistically transformed third order spline function. Both forms can be parameterized using the parameter vector $\theta_l$.
+We examine two functional forms of $f_{l}$. First, $f_{l}$ is a stepwise function. Second, $f_{l}$ is a logistically transformed third order spline function. Both forms can be parameterized using the parameter vector $\theta_l$. Both forms do not yield constructive vaccination strategies since we do not link the vaccine allocation directly to the state of the model but rather optimize over time dependent parameter.\\
+
 To define the functional forms, we subdivide the interval $[0,T]$ into a tagged partition $0=t_0 < t_1 < \dots < t_z = T$. Let $\mathcal{T}_i = [t_{i-1}, t_{i})$, for $i = 1, \dots, z$, be the corresponding intervals of the tagged partition. We label $\mathcal{T}$ as the $i$-\textit{th decision period}. To be more precise on the functional form of $f_l$, we subdivide the parameter vector into its components $\theta_l = \begin{pmatrix}
 \theta_{l,1}  & \theta_{l,2} & \dots & \theta_{l,z} \end{pmatrix}'$. \\
 
@@ -94,7 +95,7 @@ Note that the current EU strategy is a special case of a step function that has 
 \begin{flushleft}
 \scriptsize{\textit{Note}: Examples of a piecewise vaccine allocation in orange and a spline allocation in blue. The first graph depicts the values of the spline and the second graph shows the corresponding transformed function that maps the values into the unit interval. The third graph shows a different approach using a piecewise constant function. Decision intervals have a duration of 2 weeks.}
 \end{flushleft}
-\caption{Exemplary vaccination strategies.}
+\caption{Exemplary vaccination strategies for country A.}
 \label{fig:examples}
 \end{figure}
 

@@ -15,8 +15,8 @@ plt.rcParams['axes.facecolor'] = "#E6E6E6"
 
 
 #piecewise linear
-pl = np.random.uniform(0,1,20)
-pl_grid = np.repeat(pl, 6000/20)
+pl = np.random.uniform(0,1,10)
+pl_grid = np.repeat(pl, 6000/10)
 
 #spline
 np.random.seed(1234)
@@ -51,7 +51,7 @@ for index in range(len(axes)):
     ax.spines["right"].set_alpha(0)
     ax.spines["left"].set_alpha(0)
     ax.grid(alpha=0.6)
-    ax.set_xticks(np.linspace(0, 20, 5))
+    ax.set_xticks(np.linspace(0, 20, 6))
     ax.set_title(title[index])
     if index == 1:
         #ax.set_yticklabels([])

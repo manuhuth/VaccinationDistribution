@@ -6,10 +6,9 @@
 - try deterministic rule for noise models
 - sensitivity: hyperbolic tangent vs logistic
 - give more application specific intuition within the methodology section
-- compute null space (flux vectors)
 
 ##Schedule
-- Write more empirical model
+- explain deterministic algorithm
 - write not so empirical model that shows higher impact (one vaccine per virus); more theoretical exercise
 
 

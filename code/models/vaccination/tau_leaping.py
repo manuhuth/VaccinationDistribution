@@ -9,21 +9,41 @@ from models.vaccination.create_model_vaccination import b_distance_function
 from models.vaccination.create_model_vaccination import create_rules_vaccination_rate
 from models.vaccination.create_model_vaccination import get_all_individuals_to_be_vaccinated
 
-with open(
-    "/home/manuel/Documents/VaccinationDistribution/code/objects/output_model_props.pkl",
-    "rb",
-) as input:
-    model_out = pickle.load(input)
+
+function = "splines"
+model_type = "optimal"
+
+if model_type == "splines":
+    with open(
+        "/home/manuel/Documents/VaccinationDistribution/code/objects/output_model_props.pkl",
+        "rb",
+    ) as input:
+        model_out = pickle.load(input)
+        
+    with open(
+        "/home/manuel/Documents/VaccinationDistribution/code/objects/output_splines.pkl",
+        "rb",
+    ) as input:
+        dict_out = pickle.load(input)
+else:
+    with open(
+        "/home/manuel/Documents/VaccinationDistribution/code/objects/output_model_props_piecewise.pkl",
+        "rb",
+    ) as input:
+        model_out = pickle.load(input)
+        
+    with open(
+        "/home/manuel/Documents/VaccinationDistribution/code/objects/output_piecewise.pkl",
+        "rb",
+    ) as input:
+        dict_out = pickle.load(input)    
     
-with open(
-    "/home/manuel/Documents/VaccinationDistribution/code/objects/output_splines.pkl",
-    "rb",
-) as input:
-    dict_out = pickle.load(input)
+    
+    
 df_optimal_results = dict_out["df_optimal_results"]
-model_optimal = dict_out["model_optimal"]
-model_seperated = dict_out["model_seperated"]
-model_current = dict_out["model_current"]
+
+model_object = dict_out[f"model_{model_type}"]
+
 time_points = dict_out["time_points"]
 
 vaccination_states = ["vac0", "vac1", "vac2"]
@@ -73,7 +93,7 @@ reactions = create_reactions_model(
 #                                  "countryB_vac2" : np.repeat(0.5, 10),
 #                                  "time" : np.linspace(0, (len(supply_1.values())-1)*14, len(supply_1.values()))})
 
-vaccine_supply_df = model_optimal["observables"][["observable_quantity_countryA_vac1", "observable_quantity_countryA_vac2", "observable_quantity_countryB_vac1", "observable_quantity_countryB_vac2"]]
+vaccine_supply_df = model_object["observables"][["observable_quantity_countryA_vac1", "observable_quantity_countryA_vac2", "observable_quantity_countryB_vac1", "observable_quantity_countryB_vac2"]]
 vaccine_supply_df["time"] = time_points
 
 def round_to_base(x, base=14):
@@ -172,12 +192,17 @@ def run_tau_leaping(seed, S, model_out, nu_parameter, time_points, formulas):
         propensities = np.repeat(np.nan, len(formulas.keys()))
         num = 0
         for index in formulas.keys():
-            propensities[num] = eval(formulas[index]) * tau
+            prop_value = eval(formulas[index]) * tau
+            if prop_value > 0:
+                propensities[num] = prop_value
+            else:
+                propensities[num] = 10**-10
             num += 1
             
         numb_reactions = np.random.poisson(propensities)
         
         Y_new = Y.iloc[period] + S @ numb_reactions
+        Y_new[Y_new < 0] = 0
         Y.loc[period + 1] = Y_new
         
     return Y
@@ -187,39 +212,69 @@ def run_tau_leaping_parallel(seed):
 
 #np.random.seed(123)
 #results2 = {}
-#for run in range(2):
-#    results2[f"run{run}"] = run_tau_leaping(S, model_out, nu_parameter, time_points, formulas)
-
+#seed = 1
+#for run in range(500):
+#    print(f"Run: {run}")
+#    results2[f"run{run}"] = run_tau_leaping(seed, S, model_out, nu_parameter, time_points, formulas)
+#    seed += 1
 
 import multiprocessing as mp
-processes = mp.cpu_count()  # Specify number of processes here 
-p = mp.Pool(processes)
-results = p.map(run_tau_leaping_parallel, range(100))
-p.close()
+import tqdm
+with mp.Pool() as p:
+    results = list(tqdm.tqdm(p.imap_unordered(run_tau_leaping_parallel, range(500)), total=500))
+
+path =  f"/home/manuel/Documents/VaccinationDistribution/code/objects/output_stochastic_{function}_{model_type}_rawSim" + ".pkl"
+with open(
+   path,
+    "wb",
+) as output:
+    out = results
+    pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
 
 
-from visualization.model_results import plot_states
-from visualization.model_results import get_substates
-substates_optimal_A = get_substates(
-    model=model, substrings=["vac0", "infectious", "countryA"], include_all=True
-)
-ylim_infectious = [0, 2.5 * 10 ** 7]
-colors = ["C2", "C3"]
-fig, ax = plot_states(
-    results=results[2],
-    state_ids=substates_optimal_A,
-    time = time_points,
-    time_name="t",
-    title="Unvaccinated infectious individuals (A) (Pareto optimal)",
-    colors=["C2", "C3"],
-    xlabel="Days",
-    ylabel="Number of individuals",
-    custom_label=["Virus wild type", "Virus mutant"],
-    ylim=ylim_infectious,
-    legend_next_to_plot=False,
-)
 
+def sum_states(df, names):
+    for name in names:
+        columns = [col for col in df.columns if all(x in col for x in names)]
+    df_reduced = df[columns]
+    result = df_reduced @ np.repeat(1, df_reduced.shape[1])
+    
+    return result
 
+def sum_over_all(results, names, end_sum = True, list_input = True):
+    
+    output = []
+    if list_input is True:
+        iterate = results
+    else:
+        iterate = results.keys()
+    for key in iterate:
+        df = results[key]
+        values = sum_states(df, names)
+    
+        if end_sum is True:
+            output.append(list(values)[-1])
+        else:
+            output.append(values)
+    if end_sum is False:
+        colnames = ["run" + str(i) for i in (range(len(output)))]
+        output = pd.DataFrame(np.array(output).transpose(), columns = colnames)
+    return output
+
+# run for both countries
+countries = {}
+for country in ["countryA", "countryB"]:
+    names = ["dead", "countryA"]
+    output_df = sum_over_all(results, names, end_sum = False, list_input = True)  
+    countries[country] = output_df
+    path =  f"/home/manuel/Documents/VaccinationDistribution/code/objects/output_stochastic_{function}_{model_type}_{country}" + ".pkl"
+    with open(
+       path,
+        "wb",
+    ) as output:
+        out = output_df
+        pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
+    
 
 
 

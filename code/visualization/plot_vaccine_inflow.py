@@ -33,7 +33,7 @@ ax.grid(alpha=0.6)
 ax.set_xticks(np.linspace(0, 20, 6))
 ax.set_xlabel("Weeks")
 ax.set_ylabel("Available vaccine doses")
-ax.set_title("Total available vaccine doses (in mil.)")
+ax.set_title("Total available vaccine doses in million")
 
 bbox = (0.515, -0.22)
 legend_location = 'lower center'

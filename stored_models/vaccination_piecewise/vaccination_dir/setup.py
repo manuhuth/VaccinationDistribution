@@ -5,14 +5,17 @@ import sys
 from typing import List
 
 from amici import amici_path, hdf5_enabled, compiledWithOpenMP
-from amici.custom_commands import (set_compiler_specific_extension_options,
-                                   compile_parallel)
-from amici.setuptools import (get_blas_config,
-                              get_hdf5_config,
-                              add_coverage_flags_if_required,
-                              add_debug_flags_if_required,
-                              add_openmp_flags,
-                              )
+from amici.custom_commands import (
+    set_compiler_specific_extension_options,
+    compile_parallel,
+)
+from amici.setuptools import (
+    get_blas_config,
+    get_hdf5_config,
+    add_coverage_flags_if_required,
+    add_debug_flags_if_required,
+    add_openmp_flags,
+)
 from setuptools import find_packages, setup, Extension
 from setuptools.command.build_ext import build_ext
 
@@ -22,17 +25,17 @@ class ModelBuildExt(build_ext):
 
     def build_extension(self, ext):
         # Work-around for compiler-specific build options
-        set_compiler_specific_extension_options(
-            ext, self.compiler.compiler_type)
-
+        set_compiler_specific_extension_options(ext, self.compiler.compiler_type)
 
         # Monkey-patch compiler instance method for parallel compilation
         #  except for Windows, where this seems to be incompatible with
         #  providing swig files. Not investigated further...
-        if sys.platform != 'win32':
+        if sys.platform != "win32":
             import distutils.ccompiler
+
             self.compiler.compile = compile_parallel.__get__(
-                self.compiler, distutils.ccompiler.CCompiler)
+                self.compiler, distutils.ccompiler.CCompiler
+            )
 
         build_ext.build_extension(self, ext)
 
@@ -42,15 +45,17 @@ class ModelBuildExt(build_ext):
         Overrides horribly outdated distutils function."""
 
         from amici.swig import find_swig
+
         return find_swig()
 
 
 def get_model_sources() -> List[str]:
     """Get list of source files for the amici base library"""
     import glob
-    model_sources = glob.glob('*.cpp')
+
+    model_sources = glob.glob("*.cpp")
     try:
-        model_sources.remove('main.cpp')
+        model_sources.remove("main.cpp")
     except ValueError:
         pass
     return model_sources
@@ -60,7 +65,7 @@ def get_amici_libs() -> List[str]:
     """
     Get list of libraries for the amici base library
     """
-    return ['amici', 'sundials', 'suitesparse']
+    return ["amici", "sundials", "suitesparse"]
 
 
 def get_extension() -> Extension:
@@ -80,64 +85,69 @@ def get_extension() -> Extension:
     h5pkgcfg = get_hdf5_config()
 
     blaspkgcfg = get_blas_config()
-    linker_flags.extend(blaspkgcfg.get('extra_link_args', []))
+    linker_flags.extend(blaspkgcfg.get("extra_link_args", []))
 
-    libraries = [*get_amici_libs(), *blaspkgcfg['libraries']]
+    libraries = [*get_amici_libs(), *blaspkgcfg["libraries"]]
     if hdf5_enabled:
-        libraries.extend(['hdf5_hl_cpp', 'hdf5_hl', 'hdf5_cpp', 'hdf5'])
+        libraries.extend(["hdf5_hl_cpp", "hdf5_hl", "hdf5_cpp", "hdf5"])
 
     sources = [os.path.join("swig", "vaccination_piecewise.i"), *get_model_sources()]
 
     # compiler and linker flags for libamici
-    if 'AMICI_CXXFLAGS' in os.environ:
-        cxx_flags.extend(os.environ['AMICI_CXXFLAGS'].split(' '))
-    if 'AMICI_LDFLAGS' in os.environ:
-        linker_flags.extend(os.environ['AMICI_LDFLAGS'].split(' '))
+    if "AMICI_CXXFLAGS" in os.environ:
+        cxx_flags.extend(os.environ["AMICI_CXXFLAGS"].split(" "))
+    if "AMICI_LDFLAGS" in os.environ:
+        linker_flags.extend(os.environ["AMICI_LDFLAGS"].split(" "))
 
     # Make boost return Nan/inf
     # instead of raising std::domain_error / std::overflow_error
-    cxx_flags.extend([
-        "-DBOOST_MATH_OVERFLOW_ERROR_POLICY=ignore_error",
-        "-DBOOST_MATH_POLE_ERROR_POLICY=ignore_error",
-        "-DBOOST_MATH_DOMAIN_ERROR_POLICY=ignore_error",
-    ])
+    cxx_flags.extend(
+        [
+            "-DBOOST_MATH_OVERFLOW_ERROR_POLICY=ignore_error",
+            "-DBOOST_MATH_POLE_ERROR_POLICY=ignore_error",
+            "-DBOOST_MATH_DOMAIN_ERROR_POLICY=ignore_error",
+        ]
+    )
 
     ext_include_dirs = [
         os.getcwd(),
-        os.path.join(amici_path, 'include'),
+        os.path.join(amici_path, "include"),
         os.path.join(amici_path, "ThirdParty", "gsl"),
         os.path.join(amici_path, "ThirdParty", "sundials", "include"),
         os.path.join(amici_path, "ThirdParty", "SuiteSparse", "include"),
-        *h5pkgcfg['include_dirs'],
-        *blaspkgcfg['include_dirs']
+        *h5pkgcfg["include_dirs"],
+        *blaspkgcfg["include_dirs"],
     ]
 
     ext_library_dirs = [
-        *h5pkgcfg['library_dirs'],
-        *blaspkgcfg['library_dirs'],
-        os.path.join(amici_path, 'libs')
+        *h5pkgcfg["library_dirs"],
+        *blaspkgcfg["library_dirs"],
+        os.path.join(amici_path, "libs"),
     ]
 
     # Build shared object
     ext = Extension(
-        'vaccination_piecewise._vaccination_piecewise',
+        "vaccination_piecewise._vaccination_piecewise",
         sources=sources,
         include_dirs=ext_include_dirs,
         libraries=libraries,
         library_dirs=ext_library_dirs,
         swig_opts=[
-            '-c++', '-modern', '-outdir', 'vaccination_piecewise',
-            '-I%s' % os.path.join(amici_path, 'swig'),
-            '-I%s' % os.path.join(amici_path, 'include'),
+            "-c++",
+            "-modern",
+            "-outdir",
+            "vaccination_piecewise",
+            "-I%s" % os.path.join(amici_path, "swig"),
+            "-I%s" % os.path.join(amici_path, "include"),
         ],
         extra_compile_args=cxx_flags,
-        extra_link_args=linker_flags
+        extra_link_args=linker_flags,
     )
 
     # see `set_compiler_specific_extension_options`
-    ext.extra_compile_args_mingw32 = ['-std=c++14']
-    ext.extra_compile_args_unix = ['-std=c++14']
-    ext.extra_compile_args_msvc = ['/std:c++14']
+    ext.extra_compile_args_mingw32 = ["-std=c++14"]
+    ext.extra_compile_args_unix = ["-std=c++14"]
+    ext.extra_compile_args_msvc = ["/std:c++14"]
 
     return ext
 
@@ -148,35 +158,35 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 MODEL_EXT = get_extension()
 
 CLASSIFIERS = [
-    'Development Status :: 3 - Alpha',
-    'Intended Audience :: Science/Research',
-    'Operating System :: POSIX :: Linux',
-    'Operating System :: MacOS :: MacOS X',
-    'Programming Language :: Python',
-    'Programming Language :: C++',
-    'Topic :: Scientific/Engineering :: Bio-Informatics',
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
 
 CMDCLASS = {
     # For parallel compilation and custom swig finder
-    'build_ext': ModelBuildExt,
+    "build_ext": ModelBuildExt,
 }
 
 # Install
 setup(
-    name='vaccination_piecewise',
+    name="vaccination_piecewise",
     cmdclass=CMDCLASS,
-    version='0.1.0',
-    description='AMICI-generated module for model vaccination_piecewise',
-    url='https://github.com/AMICI-dev/AMICI',
-    author='model-author-todo',
-    author_email='model-author-todo',
+    version="0.1.0",
+    description="AMICI-generated module for model vaccination_piecewise",
+    url="https://github.com/AMICI-dev/AMICI",
+    author="model-author-todo",
+    author_email="model-author-todo",
     # license = 'BSD',
     ext_modules=[MODEL_EXT],
     packages=find_packages(),
-    install_requires=['amici==0.11.6'],
-    extras_require={'wurlitzer': ['wurlitzer']},
-    python_requires='>=3.7',
+    install_requires=["amici==0.11.6"],
+    extras_require={"wurlitzer": ["wurlitzer"]},
+    python_requires=">=3.7",
     package_data={},
     zip_safe=False,
     include_package_data=True,

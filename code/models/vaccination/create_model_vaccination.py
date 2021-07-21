@@ -197,7 +197,7 @@ def model_vaccination_create_sbml(
     else:
         parameter_rules_all = {**parameter_rules, **nu_rules}
 
-    #rate_rules = {"time_rule": {"parameter_id": "t", "formula": "1"}}
+    # rate_rules = {"time_rule": {"parameter_id": "t", "formula": "1"}}
 
     model_input_dictionary = write_entities_to_dict(
         compartments=compartments,
@@ -310,10 +310,10 @@ def get_all_individuals_to_be_vaccinated(
                 if index_compartments != "susceptible":
                     state = f"{index_compartments}_{index_areas}_{non_vaccination_state}_{index_virus}"
                     vaccinated_individuals = vaccinated_individuals + "+" + state
-    
+
     for index_areas in areas:
-        state = (f"susceptible_{index_areas}_{non_vaccination_state}")
-        vaccinated_individuals = vaccinated_individuals + "+" + state        
+        state = f"susceptible_{index_areas}_{non_vaccination_state}"
+        vaccinated_individuals = vaccinated_individuals + "+" + state
 
     return vaccinated_individuals
 
@@ -555,10 +555,13 @@ def create_parameters_model(
             "value": single_parameter["lambda"],
             "constant": parameters_constant,
         },
-        "prob_deceasing": {"value": single_parameter["prob_deceasing"], "constant": parameters_constant},
+        "prob_deceasing": {
+            "value": single_parameter["prob_deceasing"],
+            "constant": parameters_constant,
+        },
         "gamma": {"value": single_parameter["gamma"], "constant": parameters_constant},
         "beta": {"value": single_parameter["beta"], "constant": parameters_constant},
-        #"t": {"value": 0, "constant": False},
+        # "t": {"value": 0, "constant": False},
     }
 
     total_numb_vacc = {}
@@ -661,7 +664,7 @@ def create_rules_vaccination_rate(
                 virus_states=virus_states,
                 areas=[index_areas],
             )
-            
+
             formula = (
                 f"{id_proportion} * {id_number_vaccinations} / ({to_be_vaccinated})"
             )

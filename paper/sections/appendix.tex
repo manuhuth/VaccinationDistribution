@@ -1,4 +1,5 @@
 \appendix
+\pagenumbering{Roman}
 \section{Appendix}
 
 \subsection{Additional Figures}
@@ -25,7 +26,7 @@ Figure \ref{fig:results_piecewise_allocation} depicts the optimal doses of vacci
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
 Every curve is the product of a piecewise constant vaccine inflow and a spline. Thus, the lines appear to be discontinuous piecewise polynomials. 
 \end{flushleft}
-\caption{Vaccines}
+\caption{Number of allocated vaccine doses.}
 \label{fig:results_piecewise_allocation}
 \end{figure}
 
@@ -37,7 +38,7 @@ In Figure \ref{fig:results_piecewise_infectious_dead}, we trace out the trajecto
 \begin{flushleft}
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Every vaccine is indicated by its color that is used throughout the paper. The left y-axis is used for the number of infectious individuals (solid green and dashed red curves). The right y-axis corresponds to the number of deceased individuals (dotted blue line). Both viruses are associated with the color we have used throughout the paper. 
 \end{flushleft}
-\caption{Vaccines}
+\caption{Number of infectious individuals}
 \label{fig:results_piecewise_infectious_dead}
 \end{figure}
 
@@ -45,14 +46,14 @@ In Figure \ref{fig:results_piecewise_infectious_dead}, we trace out the trajecto
 \subsubsection{Vaccination allocation fractions}
 \label{A:fractions}
 
-Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f_l$ over the whole deciison period using a piecewise vaccination channel. Figure \ref{fig:results_splines_allocation_fractions} depicts the respective values for the spline vaccination channels. The values are the quotient of the curve of the vacicne inflow in \ref{fig:available_vaccine} and the optimal total number of vaccine doses inflow in Figure \ref{fig:results_piecewise_allocation} and Figure \ref{fig:results_splines_allocation}.
+Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f_l$ over the whole decison period using a piecewise vaccination channel. Figure \ref{fig:results_splines_allocation_fractions} depicts the respective values for the spline vaccination channels. The values are the quotient of the curve of the vacicne inflow in \ref{fig:available_vaccine} and the optimal total number of vaccine doses inflow in Figure \ref{fig:results_piecewise_allocation} and Figure \ref{fig:results_splines_allocation}.
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.85]{images/piecewise_vaccine_fractions.png}\\
 \begin{flushleft}
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
 \end{flushleft}
-\caption{Vaccines}
+\caption{Fractions of vaccines}
 \label{fig:results_piecewise_allocation_fractions}
 \end{figure}
 
@@ -62,7 +63,7 @@ Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f
 \begin{flushleft}
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
 \end{flushleft}
-\caption{Vaccines}
+\caption{Fractions of vaccines}
 \label{fig:results_splines_allocation_fractions}
 \end{figure}
 
@@ -91,6 +92,92 @@ Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines
 \label{fig:results_splines_waterfall}
 \end{figure}
 
+\clearpage
+\subsubsection{Simulated distribution of number of deceased individuals}
+\label{A:simulated_distr}
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.65]{images/piecewise_stochastic_histogram.png}\\
+\begin{flushleft}
+\scriptsize{Note:} Dotted lines are sample means. The total number of deceased individuals of a strategy is the sum of the respective number of deaths in in country A and country B. We draw 500 samples per strategy. 
+\end{flushleft}
+\caption{Stochastically observed frequencies (Piecewise)}
+\label{fig:results_piecewise_stochastic_histogram}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.85]{images/piecewise_stochastic_infectious.png}\\
+\begin{flushleft}
+\scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. The thin blue lines depict all 500 simulations of the stochastic algorithm using the respective strategy. The dashed red depicts the respective infections within the deterministic model. 
+\end{flushleft}
+\caption{Number of infectious individuals using Stochastic simulations}
+\label{fig:results_piecewise_infectious_dead_stochastic}
+\end{figure}
+
+
+
+
+
+
+\begin{figure}[h!]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/splines_stochastic_histogram_deceased_unrestricted.png}
+         \caption{Unrestricted strategy}
+         \label{fig:2d_unrestricted}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/splines_stochastic_histogram_deceased_optimal.png}
+         \caption{Pareto optimal strategy}
+         \label{fig:2d_optimal}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/splines_stochastic_histogram_deceased_current.png}
+         \caption{Current strategy}
+         \label{fig:2d_current}
+     \end{subfigure}
+\begin{flushleft}
+\scriptsize{Note:} Purple temperature boxes indicate the joint frequencies. Histograms on top are the histograms corresponding to country B and histograms at the right-hand side are the histograms corresponding to country A. Histograms are computed using 500 simulations of the stochastic model using the Policies derived from splines. 
+\end{flushleft}
+        \caption{Frequencies of number of deceased individuals using strategies derived from splines}
+        \label{fig:histograms} 
+\end{figure}
+
+\begin{figure}[h!]
+     \centering
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/piecewise_stochastic_histogram_deceased_unrestricted.png}
+         \caption{Unrestricted strategy}
+         \label{fig:2d_unrestricted_piecewise}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/piecewise_stochastic_histogram_deceased_optimal.png}
+         \caption{Pareto optimal strategy}
+         \label{fig:2d_optimal_piecewise}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.49\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{images/piecewise_stochastic_histogram_deceased_current.png}
+         \caption{Current strategy}
+         \label{fig:2d_piecewise}
+     \end{subfigure}
+\begin{flushleft}
+\scriptsize{Note:} Purple temperature boxes indicate the joint frequencies. Histograms on top are the histograms corresponding to country B and histograms at the right-hand side are the histograms corresponding to country A. Histograms are computed using 500 simulations of the stochastic model using the Policies derived from splines. 
+\end{flushleft}
+        \caption{Frequencies of number of deceased individuals using strategies derived from piecewise vaccination channels}
+        \label{fig:histograms_piecewise} 
+\end{figure}
 
 \clearpage
 \subsection{Calculations and proofs}
@@ -100,7 +187,7 @@ We provide calculations and proofs that enhance our line of argumentation but wo
 Using Bayes formula, we can rewrite the conditional probability as follows
 \begin{align}
 \label{eq:cond_meeting_prob}
-\prob_t(i_2 \in \set(X_S, C_j, F_2)|i_1 \in \set(\neg X_D, C_A)) &= \prob_t(i_2 \in \set(\neg X_D, C_j, F_2) | i_1 \in \set(\neg X_D, C_A) )   \\
+&\quad \   \prob_t(i_2 \in \set(X_S, C_j, F_2)|i_1 \in \set(\neg X_D, C_A)) \\ &= \prob_t(i_2 \in \set(\neg X_D, C_j, F_2) | i_1 \in \set(\neg X_D, C_A) )  \notag \\
 & \quad \cdot \prob_t(i_2 \in \set(X_S) | i_1 \in \set(\neg X_D, C_A), i_2 \in \set(\neg X_D, C_j, F_2) ) \notag \\
 &= \prob_t(i_2 \in \set(\neg X_D, C_j, F_2) | i_1 \in \set(\neg X_D, C_A) )  \notag \\
 & \quad \cdot \prob_t(i_2 \in \set(X_S)|i_2 \in \set(\neg X_D, C_j, F_2)  \notag
@@ -127,7 +214,7 @@ Yielding
 \end{align} 
 
 
-\subsubsection{Well-conditioning of the Polynomial basis}
+\subsubsection{Well-conditioning of the polynomial basis}
 \label{A:well_conditioning}
 First note that $B_1(0) = 1$ and $B_2(0), B_3(0), B_4(0) = 0$. Furthermore, $B_1(1), B_2(1), B_4(1) = 0$ and $B_3(1) = 1$. We first compute the function values at the boundaries $t_{i-1}$ and $t_i$.
 \begin{align*}
@@ -165,13 +252,26 @@ P_{l,i}'(t_{i-1}) &= B_1'(1) P_{l,i}(t_{i-1}) + B_2'(1) (t_{i} - t_{i-1}) P'_{l,
 &=  P'_{l,i}(t_{i}).
 \end{align*}
 
+\subsubsection{Convergence in distribution}
+\label{A:convergence_distribution}
+%\begin{theorem}
+%$\textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right) \xrightarrow{d} \textrm{Po}(a_j(y) \cdot \tau)$ if $dt \to 0$.
+%\end{theorem}
+\Poisson*
+\begin{proof}
+Let $p_n$ be a sequence with $\lim_{n \to \infty} p_n = 0$. We first show that if $\lambda'=n \cdot p_n$ is constant, $n \to \infty$ and $p_n \to 0$, a general Binomial random variable $\textrm{B}(n, p_n)$ converges in distribution to a Poisson random variable $\textrm{Po}(\lambda')$. Note that this proof is in essence just a restatement of the Poisson limit theorem of \cite{Poisson.1835}.
+\begin{align*}
+\lim_{n \to \infty} \binom{n}{k} p^k_n (1-p_n)^{n-k} &= \lim_{n \to \infty} \frac{n \cdot (n-1) \cdot \hdots \cdot (n-k+1)}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
+&= \lim_{n \to \infty} \frac{n^k + O(n^{k-1})}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
+&= \frac{\left(\lambda'\right)^k}{k!} \exp{(-\lambda')}
+\end{align*}
+Note that by definition $\tau$ is fixed and by assumption $a_i(y)$ is constant within $[t, t+\tau)$. Thus, $\lim_{dt \to 0} \frac{\tau}{dt} = \infty$, $\lim_{dt \to 0} a_i(y) \cdot dt = 0$ and $\frac{\tau}{dt} \cdot a_i(y) \cdot dt = \tau \cdot a_i(y)$. Using the convergence property mentioned above yields the result.
+\end{proof}
 
 
-\subsubsection{Polynomial Basis}
+\subsubsection{Polynomial basis}
 \label{A:polynomial_basis}
-\begin{theorem}
-$B_1(t), B_2(t), B_3(t), B_4(t) \in \R_3(t)$ form a polynomial basis of $\R_3(t)$.
-\end{theorem}
+\Basis*
 \begin{proof}
 We need to show that the four polynomials are linearly independent. We do so by writing the polynomials in vector form, collect them in a matrix and show that this matrix has full rank. 
 \begin{align*}
@@ -205,19 +305,3 @@ We need to show that the four polynomials are linearly independent. We do so by 
 \end{align*}
 Since $B_1(t), B_2(t), B_3(t), B_4(t)$ are four linearly independent polynomials of degree 3, they form a basis of $\R_3(t)$. 
 \end{proof} 
-
-
-\subsubsection{Convergence in distribution}
-\label{A:convergence_distribution}
-\begin{theorem}
-$\textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right) \xrightarrow{d} \textrm{Po}(a_j(y) \cdot \tau)$ if $dt \to 0$.
-\end{theorem}
-\begin{proof}
-Let $p_n$ be a sequence with $\lim_{n \to \infty} p_n = 0$. We first show that if $\lambda'=n \cdot p_n$ is constant, $n \to \infty$ and $p_n \to 0$, a general Binomial random variable $\textrm{B}(n, p_n)$ converges in distribution to a Poisson random variable $\textrm{Po}(\lambda')$. Note that this proof is in essence just a restatement of the Poisson limit theorem of \cite{Poisson.1835}.
-\begin{align*}
-\lim_{n \to \infty} \binom{n}{k} p^k_n (1-p_n)^{n-k} &= \lim_{n \to \infty} \frac{n \cdot (n-1) \cdot \hdots \cdot (n-k+1)}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
-&= \lim_{n \to \infty} \frac{n^k + O(n^{k-1})}{k!} \left(\frac{\lambda'}{n} \right)^k \left(1-\frac{\lambda'}{n} \right)^{n-k} \\
-&= \frac{\left(\lambda'\right)^k}{k!} \exp{(-\lambda')}
-\end{align*}
-Note that by definition $\tau$ is fixed and by assumption $a_i(y)$ is constant within $[t, t+\tau)$. Thus, $\lim_{dt \to 0} \frac{\tau}{dt} = \infty$, $\lim_{dt \to 0} a_i(y) \cdot dt = 0$ and $\frac{\tau}{dt} \cdot a_i(y) \cdot dt = \tau \cdot a_i(y)$. Using the convergence property mentioned above yields the result.
-\end{proof}

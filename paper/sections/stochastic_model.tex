@@ -1,22 +1,26 @@
 \subsection{Stochastic model}
 \label{sec:stochastic}
-Within the deterministic model, we have assumed that for each reaction $R_j$, the number of times the reaction happens within one unit of time is deterministic, see Equation \eqref{eq:change_one_unit}. However, it is more likely the reactions occur random over time. To account for this, we test our deterministically derived optimal vaccination strategy and test it in a stochastic set-up, where the number of times reaction $R_j$ happens, is a random variable.  \\
 
-\textbf{$\tau$-leaping}. We impose an arbitrary order to all subcompartments. We do so by using n features $F_1, \dots F_n$, such that $\cup_{i=1}^n \set(F_i) = \set()$ and $\set(F_1), \dots, \set(F_n)$ are mutually disjoint. We specify the state of the system in terms of the subcompartments $Y(t) = \begin{pmatrix} \num(F_1) & \num(F_2) & \dots & \num(F_n)\end{pmatrix}'$. Recall that $\vect{S} \in \R^{n \times m}$ is the stoichiometric matrix, as defined in \eqref{eq:ode_system_matrix}, with coefficients $s_{ij}$ and columns $s_{.j}$. $R_j$, for $j=1, \dots, m$, is the $j$-th reaction. Let $V_{t,j}$ be the random variable counting the number of times $R_j$ will fire within the interval $[t, t + \tau)$, for $\tau \in \R_+$. We denote by $V_t$ the random vector collecting the random variables $V_{t,1}, \hdots, V_{t,m}$. Dividing the whole period of interest $[0, T]$ in intervals of length $\tau$, the leaping is an iterative update of the discretizised system's state
+
+The aim of a Stochastic Simulation algorithm (SSA) is to provide a computational model that allows for stochastic reactions. They can be classified as exact and approximate SSAs. Exact algorithms, like the Gillespie-Algorithm \citep{Gillespie.1977} model the duration between a reaction happens as random. Approximate algorithms, like $\tau-leaping$ \citep{Gillespie.2001}, group reactions together and use the numbe rof times a reaction happens within one interval as random factor. Thus, approximate algorithms might have an advantage when it comes to speed. However, by updating the propensities less often, we lose some accuracy.\\ %For speed purposes, we decided to implement the $\tau$-leaping algorithm with efficient step size selection as in \cite{Cao.2006}. \textbf{or stochastic Euler} \\
+
+Within the deterministic model, we have assumed that for each reaction $R_j$, the number of times the reaction happens within one unit of time is deterministic, see Equation \eqref{eq:change_one_unit}. However, it is more likely the reactions occur randomly over time. To account for this, we test our deterministically derived optimal vaccination strategy and test it in a stochastic set-up, where the number of times reaction $R_j$ happens, is a random variable.  \\
+
+\textbf{$\tau$-leaping}. We impose an arbitrary order on all subcompartments. We do so by using n features $F_1, \dots F_n$, such that $\cup_{i=1}^n \set(F_i) = \set()$ and $\set(F_1), \dots, \set(F_n)$ are mutually disjoint. We specify the state of the system in terms of the subcompartments $Y(t) = \begin{pmatrix} \num(F_1) & \num(F_2) & \dots & \num(F_n)\end{pmatrix}'$. Recall that $\vect{S} \in \R^{n \times m}$ is the stoichiometric matrix, as defined in \eqref{eq:ode_system_matrix}, with coefficients $s_{ij}$ and columns $s_{.j}$. $R_j$, for $j=1, \dots, m$, is the $j$-th reaction. Let $V_{t,j}$ be the random variable counting the number of times $R_j$ will fire within the interval $[t, t + \tau)$, for $\tau \in \R_+$. We denote by $V_t$ the random vector collecting the random variables $V_{t,1}, \hdots, V_{t,m}$. Dividing the whole period of interest $[0, T]$ in intervals of length $\tau$, the leaping is an iterative update of the discretized system's state
 \begin{align}
 \label{eq:tau_leaping}
 Y(t + \tau) =& Y(t) + \vect{S} V_t.
 \end{align}
-This equation is the quivalent to equation \eqref{eq:sys_change}, with the only difference that the number of reactions within a given interval is random in Equation \eqref{eq:tau_leaping}. \\
+This equation is the equivalent to equation \eqref{eq:sys_change}, with the only difference that the number of reactions within a given interval are random in Equation \eqref{eq:tau_leaping}. \\
 
 The change in the system's state $\Delta Y(t) = Y(t + \tau) - Y(t)= \vect{S} V_t$ can be written in terms of a linear combination of the columns of $\vect{S}$ with random scalars $K_{t,j}$
 \begin{align}
 \Delta Y(t) = \sum_{j=1}^m K_{t,j} \cdot s_{.j}.
 \end{align}
-$s_{.j}$ consists of the stoichiometry for each compartment $i$ according to reaction $R_j$ and therefore indicates how the state of the system changes if reaction $R_j$ happens. $K_{t,j}$ is the number of occurences of reaction $R_j$. Thus, the product is the system's change due to $R_j$. Aggregating over all reactions yields the total change of the system $R_j$, similar to the deterministic equation \eqref{eq:sys_change}.\\  
+$s_{.j}$ consists of the stoichiometry for each compartment $i$ according to reaction $R_j$ and therefore indicates how the state of the system changes if reaction $R_j$ happens. $K_{t,j}$ is the number of occurrences of reaction $R_j$. Thus, the product is the system's change due to $R_j$. Aggregating over all reactions yields the total change of the system $R_j$, similar to the deterministic equation \eqref{eq:sys_change}.\\  
 
 So far we have not specified the distribution of $K_t$. We are interested in the conditional joint probability distribution $\prob_t(K_{t,1} = k_{t,1}, \dots, K_{t,m} = k_{t,m}|\tau)$ of the random vector $K_t = \begin{pmatrix}
-K_{t,1}, \dots, K_{t,m} \end{pmatrix}'$ conditioned on the state of the system and a fixed interval size. Recall that we have defined $\prob_t$ to be the conditional probability with respect to the state of the system and we therefore omit to write the condition explicitly within as condition statement. Assuming independence of all $K_{t, 1},\hdots, K_{t, m}$, we simplify the problem to specifying the marginal distributions. Let $a_j(y)$ be the propensity function $\prob_t(K_{t,j}=1|\tau=1)$ of the $j$-th reaction with respect to the state of the system $Y(t)=y$. We assume that for infinitesimal small $dt$
+K_{t,1}, \dots, K_{t,m} \end{pmatrix}'$ conditioned on the state of the system and a fixed interval size. Recall that we have defined $\prob_t$ to be the conditional probability with respect to the state of the system and, therefore, we omit to write the condition explicitly within as condition statement. Assuming independence of all $K_{t, 1},\hdots, K_{t, m}$, we simplify the problem to specifying the marginal distributions. Let $a_j(y)$ be the propensity function $\prob_t(K_{t,j}=1|\tau=1)$ of the $j$-th reaction with respect to the state of the system $Y(t)=y$. We assume that for infinitesimal small $dt$
 \begin{align}
 \prob_t(K_{t,j} = 1|\tau = dt) = a_j(y) \cdot dt,
 \end{align}
@@ -26,15 +30,15 @@ For simplicitly we assume that $\frac{\tau}{dt}$ is an integer. If we assume tha
 \begin{align}
 \sum_{s=0}^{\frac{\tau}{dt}-1} \left(K_{t+s \cdot dt, j} | Y(t), \tau = dt\right) \sim \textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right)
 \end{align}
-follows a binomial distribution. The practical problem of this Binomial distribution is that sampling from it requires to define a value for $dt$. By definition $dt$ is infinitesimal small, such that we actually aim for $dt \to 0$. Fortunately, $dt \to 0$ leads to a Poisson random variable that can be specified by the known $\tau$ and $a_j(y)$.
+follows a binomial distribution. The practical problem of this Binomial distribution is that sampling from it requires to define a value for $dt$. By definition, $dt$ is infinitesimally  small, such that we aim for $dt \to 0$. Fortunately, $dt \to 0$ leads to a Poisson random variable that can be specified by the known $\tau$ and $a_j(y)$.
 \begin{theorem}
 $\textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right) \xrightarrow{d} \textrm{Po}(a_j(y) \cdot \tau)$ if $dt \to 0$.
 \end{theorem}
 \begin{proof}
-The proof is moved to the Appendix \ref{A:convergence_distribution}
+The proof is moved to Appendix \ref{A:convergence_distribution}
 \end{proof}
 
-The $\tau$- leaping algorithm we use is the stochastic Euler algorithm with fixed step-size. We use a fixed step-size since we have a predefined step-size within the deterministic model and to test the deterministically derived vaccination strategies properly, we decided to use the same step-size for the stochastic model. The algorithm requires the initialization of the system $Y(0)$ and specifying the stoichiometry. Within the update steps, it mainly exploits Equation \eqref{eq:tau_leaping}.\\
+The $\tau$- leaping algorithm we use is the stochastic Euler algorithm with fixed step size. We use a fixed step-size since we have a predefined step-size within the deterministic model and to test the deterministically derived vaccination strategies properly, we decided to use the same step-size for the stochastic model. The algorithm requires the initialization of the system $Y(0)$ and specifying the stoichiometry. Within the update steps, it mainly exploits Equation \eqref{eq:tau_leaping}.\\
 
 \begin{algorithm}[H]
  \caption{Stochastic Euler algorithm}

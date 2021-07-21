@@ -12,7 +12,7 @@ def run_model(
     set_parameter,
     set_initials_zero=True,
     number_intervals=1000,
-    gradient = False,
+    gradient=False,
 ):
     """
     Parameters
@@ -191,7 +191,7 @@ def create_observables_vaccination_rates(
                     f"observable_{name_parameter}_{index_areas}_{index_vaccinations}"
                 )
                 formula = f"{name_parameter}_{index_areas}_{index_vaccinations}"
-    
+
                 observables[observable_id] = {"name": formula, "formula": formula}
 
     return observables
@@ -270,6 +270,6 @@ def run_model_once(model, solver, timepoints, set_parameter=None):
             model.setParameterByName(keys, set_parameter[keys])
 
     model.setTimepoints(timepoints)
-    rdata = amici.runAmiciSimulation(model, solver)      
+    rdata = amici.runAmiciSimulation(model, solver)
 
     return rdata

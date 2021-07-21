@@ -47,18 +47,18 @@ colors = ["C0", "C1"]
 trajectory_states_optimal = model_optimal["states"]
 trajectory_observables_optimal = model_optimal["observables"]
 
-#A_peak_vacM = trajectory_states_optimal.iloc[
+# A_peak_vacM = trajectory_states_optimal.iloc[
 #    trajectory_states_optimal["infectious_countryA_vac0_virM"].idxmax()
-#]["amici_t"]
-#A_peak_vacW = trajectory_states_optimal.iloc[
+# ]["amici_t"]
+# A_peak_vacW = trajectory_states_optimal.iloc[
 #    trajectory_states_optimal["infectious_countryA_vac0_virW"].idxmax()
-#]["amici_t"]
-#B_peak_vacM = trajectory_states_optimal.iloc[
+# ]["amici_t"]
+# B_peak_vacM = trajectory_states_optimal.iloc[
 #    trajectory_states_optimal["infectious_countryB_vac0_virM"].idxmax()
-#]["amici_t"]
-#B_peak_vacW = trajectory_states_optimal.iloc[
+# ]["amici_t"]
+# B_peak_vacW = trajectory_states_optimal.iloc[
 #    trajectory_states_optimal["infectious_countryB_vac0_virW"].idxmax()
-#]["amici_t"]
+# ]["amici_t"]
 
 observables_names_nu_optimal = get_observables_by_name(
     observables, substrings=["nu_", "countryA"], include_all=True
@@ -73,7 +73,7 @@ observables_names_quantity_optimal = get_observables_by_name(
 
 plot_observables(
     results=model_optimal,
-    time = time_points,
+    time=time_points,
     # set_off_scientific_notation=True,
     observable_ids=observables_names_nu_optimal,
     time_name="t",
@@ -90,7 +90,7 @@ plot_observables(
 
 plot_observables(
     results=model_optimal,
-    time = time_points,
+    time=time_points,
     observable_ids=["pline_countryA_vac1", "pline_countryA_vac2"],
     # set_off_scientific_notation=True,
     decimal_floats=4,
@@ -105,8 +105,8 @@ plot_observables(
 # observables
 fig_obs, ax_obs = plot_observables(
     results=model_optimal,
-    time = time_points,
-    observable_ids=['quantity_countryA_vac1', 'quantity_countryB_vac1'],
+    time=time_points,
+    observable_ids=["quantity_countryA_vac1", "quantity_countryB_vac1"],
     # set_off_scientific_notation=True,
     decimal_floats=1,
     time_name="t",
@@ -115,7 +115,7 @@ fig_obs, ax_obs = plot_observables(
     xlabel="Days",
     colors=colors,
     custom_label=["Country A", "Country B"],
-    ylim = [0, 1.4 *10**6],
+    ylim=[0, 1.4 * 10 ** 6],
     legend_next_to_plot=True,
 )
 
@@ -123,8 +123,8 @@ fig_obs.savefig(plot_path + "observables_quantity_vac1", bbox_inches="tight")
 
 fig_obs, ax_obs = plot_observables(
     results=model_optimal,
-    time = time_points,
-    observable_ids=['quantity_countryA_vac2', 'quantity_countryB_vac2'],
+    time=time_points,
+    observable_ids=["quantity_countryA_vac2", "quantity_countryB_vac2"],
     # set_off_scientific_notation=True,
     decimal_floats=1,
     time_name="t",
@@ -133,7 +133,7 @@ fig_obs, ax_obs = plot_observables(
     xlabel="Days",
     colors=colors,
     custom_label=["Country A", "Country B"],
-    ylim = [0, 1.4 *10**6],
+    ylim=[0, 1.4 * 10 ** 6],
     legend_next_to_plot=True,
 )
 
@@ -143,7 +143,7 @@ fig_obs.savefig(plot_path + "observables_quantity_vac2", bbox_inches="tight")
 # Proportion_observables
 fig_obs, ax_obs = plot_observables(
     results=model_optimal,
-    time = time_points,
+    time=time_points,
     observable_ids=observables_names_proportion_optimal,
     # set_off_scientific_notation=True,
     decimal_floats=1,
@@ -173,7 +173,7 @@ substates_optimal_A = get_substates(
 fig, ax = plot_states(
     results=model_optimal["states"],
     state_ids=substates_optimal_A,
-    time = time_points,
+    time=time_points,
     time_name="t",
     title="Unvaccinated infectious individuals (A) (Pareto optimal)",
     colors=["C2", "C3"],
@@ -194,7 +194,7 @@ substates_optimal_B = get_substates(
 
 fig, ax = plot_states(
     results=model_optimal["states"],
-    time = time_points,
+    time=time_points,
     state_ids=substates_optimal_B,
     time_name="t",
     title="Unvaccinated infectious individuals (B) (Pareto optimal)",
@@ -215,7 +215,7 @@ substates_optimal_A = get_substates(
 
 fig, ax = plot_states(
     results=model_optimal["states"],
-    time = time_points,
+    time=time_points,
     state_ids=substates_optimal_A,
     time_name="t",
     title="Unvaccinated infectious individuals (A) (Pareto optimal)",
@@ -245,7 +245,7 @@ substates_optimal_B = get_substates(
 
 fig, ax = plot_states(
     results=model_optimal["states"],
-    time = time_points,
+    time=time_points,
     state_ids=substates_optimal_B,
     time_name="t",
     title="Unvaccinated infectious individuals (B) (Pareto optimal)",
@@ -271,7 +271,7 @@ fig.savefig(plot_path + "unvaccinated_B", bbox_inches="tight")
 # plot seperated
 fig_obs, ax_obs = plot_observables(
     results=model_current,
-    time = time_points,
+    time=time_points,
     observable_ids=observables_names_proportion_optimal,
     set_off_scientific_notation=True,
     decimal_floats=4,
@@ -292,7 +292,7 @@ substates_optimal_A = get_substates(
 
 fig, ax = plot_states(
     results=model_current["states"],
-    time = time_points,
+    time=time_points,
     state_ids=substates_optimal_A,
     time_name="t",
     title="Unvaccinated infectious individuals (A) (Current)",
@@ -313,7 +313,7 @@ substates_optimal_B = get_substates(
 
 fig, ax = plot_states(
     results=model_current["states"],
-    time = time_points,
+    time=time_points,
     state_ids=substates_optimal_B,
     time_name="t",
     title="Unvaccinated infectious individuals (B) (Current)",
@@ -330,8 +330,8 @@ fig.savefig(plot_path + "infectious_B_current", bbox_inches="tight")
 ###########################################################################
 fig_obs, ax_obs = plot_observables(
     results=model_seperated,
-    time = time_points,
-    observable_ids=['quantity_countryA_vac1', 'quantity_countryB_vac1'],
+    time=time_points,
+    observable_ids=["quantity_countryA_vac1", "quantity_countryB_vac1"],
     # set_off_scientific_notation=True,
     decimal_floats=1,
     time_name="t",
@@ -340,16 +340,18 @@ fig_obs, ax_obs = plot_observables(
     xlabel="Days",
     colors=colors,
     custom_label=["Country A", "Country B"],
-    ylim = [0, 1.4 *10**6],
+    ylim=[0, 1.4 * 10 ** 6],
     legend_next_to_plot=True,
 )
 
-fig_obs.savefig(plot_path + "observables_quantity_vac1_unrestricted", bbox_inches="tight")
+fig_obs.savefig(
+    plot_path + "observables_quantity_vac1_unrestricted", bbox_inches="tight"
+)
 
 fig_obs, ax_obs = plot_observables(
     results=model_seperated,
-    time = time_points,
-    observable_ids=['quantity_countryA_vac2', 'quantity_countryB_vac2'],
+    time=time_points,
+    observable_ids=["quantity_countryA_vac2", "quantity_countryB_vac2"],
     # set_off_scientific_notation=True,
     decimal_floats=1,
     time_name="t",
@@ -358,8 +360,10 @@ fig_obs, ax_obs = plot_observables(
     xlabel="Days",
     colors=colors,
     custom_label=["Country A", "Country B"],
-    ylim = [0, 1.4 *10**6],
+    ylim=[0, 1.4 * 10 ** 6],
     legend_next_to_plot=True,
 )
 
-fig_obs.savefig(plot_path + "observables_quantity_vac2_unrestricted", bbox_inches="tight")
+fig_obs.savefig(
+    plot_path + "observables_quantity_vac2_unrestricted", bbox_inches="tight"
+)

@@ -1,5 +1,5 @@
 \section{Optimal vaccine allocation}\label{sec:vaccine_allocation}
-The exercise to allocate vaccines across countries raises the need to specify the number of available vaccine shots. We see the number of available vaccines at any time $t$ as exogenous and calibrate it based on the true number of COVID-19 vaccines that have been allocated to the EU.
+The exercise to allocate vaccines across countries raises the need to specify the number of available vaccine shots. We define the number of available vaccines at any time $t$ as exogenous and calibrate it based on the true number of COVID-19 vaccines that have been allocated to the EU within the start of 2021 and mid July 2021.
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{images/overview_vaccine_inflow.png}\\
@@ -10,7 +10,7 @@ The exercise to allocate vaccines across countries raises the need to specify th
 \label{fig:model_vaccine_allocation}
 \end{figure}
 
-Let $W_{l,j}(t)$ be the number of vaccination shots of vaccine $l$ available at time $t$ in country $j$ and $W_l(t) = W_{l,A}(t) + W_{l,B}(t)$ be the the total number of available vaccine $l$ shots at $t$. We assume that all vaccine shots are vaccinated immediately.
+Let $W_{l,j}(t)$ be the number of vaccination shots of vaccine $l$ available at time $t$ in country $j$ and $W_l(t) = W_{l,A}(t) + W_{l,B}(t)$ be the total number of available vaccine shots of vaccine $l$ at $t$. We assume that all vaccine shots are vaccinated immediately.
 \begin{assumption}
 \label{ass:vacc_immediately}
 The total number of vaccine $l$ available in country $j$ equals the number of vaccinated individuals for all $t \in [0, T]$. 
@@ -19,37 +19,37 @@ The total number of vaccine $l$ available in country $j$ equals the number of va
 W_{l,j}(t) &= \phi_{l, j} \cdot \num(\neg X_D, C_j, U_0)  . 
 \end{align}
 \end{assumption}
-\noindent In the real-world, vaccinations take around 2 weeks to yield full protection \citep{cdc.2021}. With this regard, our model can be interpreted such that the number of lately vaccinated individuals is actually the number of individuals that lately received full protection by the vaccine. The vaccination constant would then be the constant defining the reaction of becoming protected. \\
+\noindent Within the real world, vaccinations take around 2 weeks to yield full protection \citep{cdc.2021}. With this regard, our model can be interpreted such that the number of lately vaccinated individuals is the number of individuals that lately received full protection by the vaccine. The vaccination constant would then be the constant defining the reaction of becoming protected. \\
 
 At each point in time $t$, country A receives a fraction $f_{l}(\theta_l; t)$, with $f_{l}: \R^{z} \times [0, \tau] \to [0,1]$, of vaccine $W_l$. The fraction depends on the time $t$ and a parameter vector $\theta_l \in \R^{z}$ that parameterizes $f_{l}(\theta_l; t)$.\\
 
 We assume that all vaccines stay within the two countries and no vaccines are wasted
 \begin{assumption}
 \label{ass:no_waste}
-The total number of vaccine shots of country $j$ is equal to the number shots assigned to it
+The total number of vaccine shots of country $j$ is equal to the number of shots assigned to it
 \begin{align}
 \label{eq:vaccine_frac}
 W_{l,A}(t) &= f_{l}(\theta_l; t) W_l(t) \\
 W_{l,B}(t) &= \left[1 - f_{l}(\theta_l; t)\right] W_l(t) \notag.
 \end{align}
 \end{assumption}
-\noindent We use Assumption \ref{ass:vacc_immediately}, Assumption \ref{ass:no_waste}, and solve for the vaccination constants. They depend on the vaccine inflow, the fraction of vaccine assigned to the respective country, and the total numbers of individuals that potentially can be vaccinated within the country
+\noindent We use Assumption \ref{ass:vacc_immediately}, Assumption \ref{ass:no_waste}, and solve for the vaccination constants. They depend on the vaccine inflow, the fraction of vaccines assigned to the respective country, and the total numbers of individuals that potentially can be vaccinated within the country
 \begin{align*}
 \phi_{l,A} &= \frac{ f_{l}(\theta_l; t) W_{l}(t)}{\num(\neg X_D, C_A, U_0) } \notag \\
 \phi_{l,B} &= \frac{\left[1 - f_{l}(\theta_l; t)\right]  W_{l}(t)}{\num(\neg X_D, C_B, U_0)}.
 \end{align*}
-Note that the vaccination constant is actually not a constant since it depends on time dependent parameters. This is, however, just a naming convention has no further implications for our model.
+Note that the vaccination constant is actually not a constant since it depends on time dependent parameters. This is, however, just a naming convention that has no further implications for our model.
 
 \subsection{Objective function}
 Given a functional form of $f_{l}$, a specific $\bar{\theta}_l \in  \R^z$ is called a \textit{strategy} for vaccine $l$. A \textit{vaccination strategy} $\bar \Theta = \begin{pmatrix}
 \bar \theta_1 \\ \bar \theta_2
-\end{pmatrix}$ is a collection of strategies defined for both vaccines $l$. We label the strategy $\Theta_{EU}$ that assigns the relative population size of country A to be the fraction of vaccines assigned to country A,
+\end{pmatrix}$ is a collection of strategies defined for both vaccines. We label the strategy $\Theta_{EU}$ that assigns the relative population size of country A to be the fraction of vaccines assigned to country A,
 \begin{align}
 f_l(\theta_{EU}, t) = \frac{y_0(\neg X_D, C_A)}{y_0(\neg X_D)},
 \end{align}
-as \textit{current EU strategy} or \textit{current strategy} \citep{ec.2021}. Within the real-world, member states of the EU can refrain from buying their whole quantity and therefore other member states can decide to buy it. We account for this implicitly within our optimization. Since every allocation can be seen as a case where one country waives its right for a certain amount of shots. However, further research could concern incorporating a more game theoretical approach of competing countries.\\
+as \textit{current EU strategy} or \textit{current strategy} \citep{ec.2021}. Within the real world, member states of the EU can refrain from buying their whole quantity and therefore other member states can decide to buy it. We account for this implicitly within our optimization, since every allocation can be seen as a case where one country waives its right for a certain amount of vaccine doses. \\ %However, further research could concern incorporating a more game-theoretical approach of competing countries.\\
 
-We denote the number of deceased individuals in country A, conditioned on the current strategy, by $y_T(X_D, C_A; \Theta_{EU})$ and the corresponding number in country B by $y_T(X_D, C_B; \Theta_{EU})$.  We use this strategy as baseline case to examine how we can improve using an optimal strategy. An optimal strategy $\Theta^*$ is the solution to the minimization problem
+We denote the number of deceased individuals in country A, conditioned on the current strategy, by $y_T(X_D, C_A; \Theta_{EU})$ and the corresponding number in country B by $y_T(X_D, C_B; \Theta_{EU})$.  We use this strategy as a baseline case to examine how we can improve using an optimal strategy. An optimal strategy $\Theta^*$ is the solution to the minimization problem
     \begin{argmini!}|l|
 	  {\Theta \in \R^{2z}}{y_T(X_D) \notag}{}{}
 	  \addConstraint{\phi_{l,A}}{=\frac{ f_{l}(\theta_l; t) W_{l}(t) \tag{C.1}}{\num(\neg X_D, C_A, U_0) } \quad}{\textrm{for } l \in \{1,2\}}
@@ -59,24 +59,24 @@ We denote the number of deceased individuals in country A, conditioned on the cu
 \end{pmatrix}' \tag{C.3}}{}
 	  \addConstraint{}{\beta, \eta, \gamma, \delta_{k,l}, \omega_{k,l}, Y(0), W_{l}(t) \tag{C.4}}{}
      \end{argmini!}
-and we call it \textit{optimal vaccination strategy} with respect to the given minimization problem. Conditions $C.1$, $C.2$, and $C.3$ indicate how the parameter vector $\Theta$ affects the model. $C.4$ specifies that all exogenous parameters are set to a constant value or exogenous function.
+and we call it an \textit{optimal vaccination strategy} for the given minimization problem. Conditions $C.1$, $C.2$, and $C.3$ indicate how the parameter vector $\Theta$ affects the model. $C.4$ specifies that all exogenous parameters are set to a constant value or exogenous function.
 
 If additionally constraints $C.5$ and $C.6$ are satisfied, 
 \begin{align}
 y_T(X_D, C_A) &< y_T(X_D, C_A; \Theta_{EU}) \tag{C.5} \\
 y_T(X_D, C_B) &< y_T(X_D, C_B; \Theta_{EU}) \tag{C.6}
 \end{align}
-the optimal strategy is Pareto optimal and we call it \textit{Pareto optimal vaccination strategy}. The Pareto optimality conditions ensure that both countries have less deceased individuals as within the current strategy. Taking the perspective that both countries can veto against strategies, non Pareto optimal strategies might not be implementable since no country would agree to deviate from the current strategy if it experiences more deceased individuals with the new strategy.\\
+the optimal strategy is Pareto optimal and we call it \textit{Pareto optimal vaccination strategy}. The Pareto optimality conditions ensure that both countries have fewer deceased individuals as within the current strategy. Taking the perspective that both countries can veto against strategies, non-Pareto optimal strategies might not be implementable since no country would agree to deviate from the current strategy if it experiences more deceased individuals with the new strategy.\\
 
-As objective we choose the total number of deceased individuals. Other objectives like the total number of infectious individuals, or some combination of both, could be considered as well. We decided to choose the total number of deaths such that the death protection parameters $\omega_{k,l}$ influence the solution. \\
+We follow \cite{Bertsimas.2020} and choose the total number of deceased individuals as objective. We decided to do so such that the death protection parameters $\omega_{k,l}$ influence the solution. Other objectives like the total number of infectious individuals, some combination of both, or ab objective that takes long-term measures into account could be considered as well.  \\
 
 \subsection{Functional form of the vaccine allocation}
-We examine two functional forms of $f_{l}$. First, $f_{l}$ is a stepwise function. Second, $f_{l}$ is a logistically transformed third order spline function. Both forms can be parameterized using the parameter vector $\theta_l$. Both forms do not yield constructive vaccination strategies since we do not link the vaccine allocation directly to the state of the model but rather optimize over time dependent parameter.\\
+We examine two functional forms of $f_{l}$. First, $f_{l}$ is a stepwise function. Second, $f_{l}$ is a logistically transformed third-order spline function. Both forms can be parameterized using the parameter vector $\theta_l$. Both forms do not yield constructive vaccination strategies since we do not link the vaccine allocation directly to the state of the model but rather optimize over time-dependent parameters.\\
 
 To define the functional forms, we subdivide the interval $[0,T]$ into a tagged partition $0=t_0 < t_1 < \dots < t_z = T$. Let $\mathcal{T}_i = [t_{i-1}, t_{i})$, for $i = 1, \dots, z$, be the corresponding intervals of the tagged partition. We label $\mathcal{T}$ as the $i$-\textit{th decision period}. To be more precise on the functional form of $f_l$, we subdivide the parameter vector into its components $\theta_l = \begin{pmatrix}
 \theta_{l,1}  & \theta_{l,2} & \dots & \theta_{l,z} \end{pmatrix}'$. \\
 
-\textbf{Stepwise.} In this world, policy makers determine a fraction that is allocated to country A for a fixed decision period $\mathcal{T}_i$, evaluate, and then adjust before the next decision period $T_{i+1}$ begins. In Figure \ref{fig:examples} we show an exemplary vaccination strategy for vaccine $l$.
+In a world with a piecewise constant vaccination channel, policymakers determine a fraction that is allocated to country A for a fixed decision period $\mathcal{T}_i$, evaluate, and then adjust before the next decision period $T_{i+1}$ begins. In Figure \ref{fig:examples} we show an exemplary vaccination strategy for vaccine $l$.
 
 In mathematical terms, every $\theta_{l,i} \in [0,1]$ is assigned to an interval $\mathcal{T}_i$. The parameters $\theta_{l,i}$ are in this case the fractions of vaccines assigned to country A.
 \begin{align}
@@ -99,44 +99,44 @@ Note that the current EU strategy is a special case of a step function that has 
 \label{fig:examples}
 \end{figure}
 
-\textbf{Splines.} In this world, policy makers decide on the start and end values of the vaccine allocations within each interval $\mathcal{T}_i$. Given the boundary values, one polynomial for each interval $\mathcal{T}_i$ is computed, and logistically transformed to meet the unit interval domain of the fractions. By using polynomials, rather than constant functions, we allow for more complex policy decisions within one decision period $\mathcal{T}_i$ since fluctuations within one decision period can be taken into account. However, one should note that this exercise is rather theoretical and aims to show what strategies could be achieved theoretically.
+In a world with splines vaccination channel, policymakers decide on the start and end values of the vaccine allocations within each interval $\mathcal{T}_i$. Given the boundary values, one polynomial for each interval $\mathcal{T}_i$ is computed and logistically transformed to meet the unit interval domain of the fractions. By using polynomials, rather than constant functions, we allow for more complex policy decisions within one decision period $\mathcal{T}_i$ since fluctuations within one decision period can be taken into account. However, one should note that this exercise is rather theoretical and aims to show what strategies could be achieved theoretically.
 
 We use splines instead of a global polynomial interpolation since they are practical with respect to construction and global interpolations might suffer from undesired properties, as in Runge's phenomenon \citep{Runge.1901}.\\
  
 %\input{tikz/splines}
-Figure \ref{fig:examples} shows an exemplary spline and how it is shrinked via the logistic function $\sigma(x)$ into the unit interval, via the logistic function, $\sigma(x)$ to obtain values between zero and one.  %Within the sensitivity analysis we use the hyperbolic tangent function $\tanh(x)$ to examine if the functional choice of the transformation changes our results.
-Given a polynomial from the third order polynomial ring over the real numbers $P_{l,i}(t) \in \R_3(t)$, the fraction is mathematically described by the composition of the polynomial and the logistic function
+Figure \ref{fig:examples} shows an exemplary spline and how it is shrunk into the unit interval via the logistic function. %Within the sensitivity analysis we use the hyperbolic tangent function $\tanh(x)$ to examine if the functional choice of the transformation changes our results.
+Given a polynomial from the third-order polynomial ring over the real numbers $P_{l,i}(t) \in \R_3(t)$, the fraction is mathematically described by the composition of the polynomial and the logistic function
 \begin{align}
 f_{l}(\theta; t) =  \frac{1}{1 + \exp{(-P_{l,i}(t))}} \quad \forall t \in \mathcal{T}_i. 
 \end{align}
 
-We chose $P_{l,i}(t)$ to be in cubic hermite form. The name cubic arises from the condition that every $P_{l,i}(t)$ is maximal a third-order polynomial. The name hermite indicates that the derivatives at the boundaries $P'_{l,i}(t_{i-1})$ are computed using finite differences. We use central finite differences and forward as well as backward finite differences at the respective boundaries $t_0$ and $t_{z}$
+We choose $P_{l,i}(t)$ to be in cubic Hermite form. The name cubic arises from the condition that every $P_{l,i}(t)$ is maximal a third-order polynomial. The name Hermite indicates that the derivatives at the boundaries $P'_{l,i}(t_{i-1})$ are approximated using finite differences. We use central finite differences for non-boundary values and forward as well as backward finite differences at the respective boundaries $t_0$ and $t_{z}$
 \begin{align}
 \label{eq:finite_differences}
 P'_{l,1}(t_0) &\approx \frac{P_{l,1}(t_1) - P_{l,1}(t_0)}{t_1 - t_0} \\
 P'_{l,i}(t_{i-1}) &\approx \frac{1}{2}\left[\frac{P_{l,i}(t_{i}) - P_{l,i}(t_{i-1})}{t_{i} - t_{i-1}} + \frac{P_{l,i-1}(t_{i-1}) - P_{l,i-1}( t_{i-2})}{t_{i-1} - t_{i-2}} \right] \notag \\
-P'_{l,z}(t_{z}) &\approx \frac{P_{l,z}(t_{z}) - P_{l,z}(t_{z-1})}{t_{z} - t_{z-1}} \notag 
-\end{align}. 
+P'_{l,z}(t_{z}) &\approx \frac{P_{l,z}(t_{z}) - P_{l,z}(t_{z-1})}{t_{z} - t_{z-1}} \notag .
+\end{align}
 
-If we have the two functional values at the boundaries and approximations for their derivatives, we have four conditions to specify the polynomial of order three. Thus, we can parameterize the splines by specifying the polynomial values at the boundaries 
+Armed with the two functional values at the boundaries and approximations for their derivatives, we have four conditions to specify the polynomial of order three. Thus, we can parameterize the splines by specifying the polynomial values at the boundaries in terms of $\theta_l$ by setting the function values at the boundaries equal to the respective coefficient 
 \begin{align}
 \label{eq:splines_bound_theta}
 P_{l,i}(t_{i-1}) &= \theta_{l, i-1} \\
-P_{l,i}(t_{i}) &= \theta_{l,i} \notag
+P_{l,i}(t_{i}) &= \theta_{l,i} \notag.
 \end{align}
 
-The polynomial $P_{l,i}(t) $ is given as a linear combination of four basis polynomials  $B_1(t), B_2(t), B_3(t), B_4(t) \in \R_3(t)$ with the boundary values of the polynomial and its derivative. Let $t' = (t-t_{i-1})/(t_{i} - t_{i-1})$ for $t \in \mathcal{T}_i$ and
+The polynomial $P_{l,i}(t) $ is given as a linear combination of four basis polynomials  $B_1(t)$, $B_2(t)$, $B_3(t)$ and $B_4(t) \in \R_3(t)$ with the boundary values of the polynomial and its derivative. Let $t' = (t-t_{i-1})/(t_{i} - t_{i-1})$ for $t \in \mathcal{T}_i$ and
 \begin{align}
 P_{l,i}(t) &= B_1(t') \overbrace{P_{l,i}(t_{i-1})}^{\theta_{l,i-1}} + B_2(t') (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3(t') \underbrace{P_{l,i}(t_{i})}_{\theta_{l,i}} + B_4(t') (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \quad \forall t \in \mathcal{T}_i. \notag
 \end{align}
-The scalars of the linear combination are dependent on the parameter vector $\theta_l$ through \eqref{eq:finite_differences} and \eqref{eq:splines_bound_theta}. The basis polynomials are defined by $B_1(t) = 2t^3 - 3t^2 +1, B_2(t) = t^3 - 2t^2 +t, B_3(t) = -2t^3 + 3t^2$ and $B_4(t) = t^3 - t^2$. Note that the imposed structure of $P_{l,i}(t)$ is well-defined, which can be verified by evaluating the polynomial and its derivative at the boundaries $t_{i-1}$ and $t_i$. We provide the calculations in the appendix \ref{A:well_conditioning}.
+The scalars of the linear combination are dependent on the parameter vector $\theta_l$ through \eqref{eq:finite_differences} and \eqref{eq:splines_bound_theta}. The basis polynomials are defined by $B_1(t) = 2t^3 - 3t^2 +1, B_2(t) = t^3 - 2t^2 +t, B_3(t) = -2t^3 + 3t^2$ and $B_4(t) = t^3 - t^2$. Note that the imposed structure of $P_{l,i}(t)$ is well-defined, which can be verified by evaluating the polynomial and its derivative at the boundaries $t_{i-1}$ and $t_i$. We provide the calculations in Appendix \ref{A:well_conditioning}.
 
-We show that the basis polynomials indeed form a basis of $\R_3(t)$. Showing the basis property proves that the four polynomials span $\R_3(t)$ and we therefore do not exclude any polynomials from the space of policies that could be implemented.
-\begin{theorem}
+We show that the basis polynomials indeed form a basis of $\R_3(t)$. Showing the basis property proves that the four polynomials span $\R_3(t)$ and, therefore, we do not exclude any polynomials from the space of policies that could be implemented.
+\begin{restatable}{theorem}{Basis}
 $B_1(t), B_2(t), B_3(t), B_4(t) \in \R_3(t)$ form a polynomial basis of $\R_3(t)$.
-\end{theorem}
+\end{restatable}
 \begin{proof}
-The proof is moved to the Appendix \ref{A:polynomial_basis}.
+The proof is moved to Appendix \ref{A:polynomial_basis}.
 \end{proof} 
 
 

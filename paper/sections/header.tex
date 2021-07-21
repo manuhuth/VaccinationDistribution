@@ -22,12 +22,14 @@
 \usepackage{endnotes}
 \usepackage{natbib}
 \usepackage{optidef}
+\usepackage{thmtools,thm-restate} %tmove theorems such that they do not change number in appendix
+
 \usepackage{comment}
 \usepackage{graphicx,caption}% ,subfigure} use subcaption instead, see below
-\usepackage{subfig}
+\usepackage{subcaption}
+%\usepackage{subfig}
 \usepackage{rotating}
 \usepackage[allcolors=black]{hyperref}
-\hypersetup{colorlinks=false, urlcolor=black}
 \usepackage[latin1]{inputenc} % Zeichencodierung
 \usepackage[T1]{fontenc} % Zeichencodierung
 \usepackage{pdflscape}
@@ -48,7 +50,7 @@
 \def\@biblabel#1{\hspace*{-\labelsep}}
 \makeatother
 \geometry{left=3cm,right=2cm,top=2cm,bottom=2cm}
-\hypersetup{colorlinks, linkcolor=black, citecolor=black, urlcolor=blue}
+\hypersetup{colorlinks, linkcolor=black, citecolor=black, urlcolor=black}
 %\usepackage{cite} % ohne eckige Klammer in Text
 %\usepackage[noadjust]{cite} % ohne eckige Klammer in Text
 % \renewcommand\citeleft{}%

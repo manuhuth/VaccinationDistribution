@@ -61,7 +61,6 @@ def plot_states(
     else:
         df_trajectories = results
 
-
     if state_ids is None:
         states = df_trajectories.columns
     else:

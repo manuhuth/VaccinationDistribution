@@ -32,7 +32,7 @@ def fixed_parameter():
 
 def parameters_vaccine_one():
     parameter = {
-        "omega_vac1_virW": 0.99,  # if 1, vaccine1 gives full death protection against wild type if infected 
+        "omega_vac1_virW": 0.99,  # if 1, vaccine1 gives full death protection against wild type if infected
         "delta_vac1_virW": 0.94,  # if 1, vaccine1 gives full infection protection against wild type https://www.nejm.org/doi/full/10.1056/nejmoa2034577, https://www.mdpi.com/2076-393X/9/1/30/pdf
         "omega_vac1_virM": 0.99,  # if 1, vaccine1 gives full death protection against mutant type if infected
         "delta_vac1_virM": 0.9,  # if 1, vaccine1 gives full infection protection against mutant type

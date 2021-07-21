@@ -44,9 +44,9 @@ xx_list = ["xx" + str(i) for i in (range(number_decision_periods))]
 xx_params = {}
 period = 0
 for index in xx_list:
-    xx_params[index] = {"value" : period, "constant" : True }
+    xx_params[index] = {"value": period, "constant": True}
     period += 14
-    
+
 vaccination_states_removed = [
     x for x in vaccination_states if x != non_vaccination_state
 ]
@@ -80,8 +80,11 @@ additional_parameters_pw = create_parameters_piecewise(
 )
 
 
-
-additional_parameters = {**additional_parameters_pw, **xx_params, **parameter_vacc_supply}
+additional_parameters = {
+    **additional_parameters_pw,
+    **xx_params,
+    **parameter_vacc_supply,
+}
 
 model_vaccination_create_sbml(
     path=path_sbml,
@@ -113,7 +116,11 @@ for index_area in areas:
         observables_vaccinated_vacc[name] = {"name": name, "formula": formula}
 
 
-observables = {**observables_nu, **observables_proportion, **observables_vaccinated_vacc }
+observables = {
+    **observables_nu,
+    **observables_proportion,
+    **observables_vaccinated_vacc,
+}
 
 model_directory = "stored_models/" + model_name + "/vaccination_dir"
 
@@ -161,12 +168,12 @@ set_fixed_parameter = {
     **distance_parameters,
     **set_vaccine_supply_parameter,
 }
-#------------------------------run current------------------------------------
+# ------------------------------run current------------------------------------
 areas_without_last = [x for x in areas if x != areas[-1]]
 yy_names_str = []
 for index_vaccines in vaccination_states_removed:
     for index in range(number_decision_periods):
-         yy_names_str.append(f"proportion_par_countryA_{index_vaccines}_{index*14}")
+        yy_names_str.append(f"proportion_par_countryA_{index_vaccines}_{index*14}")
 
 yy_current_par = np.repeat(0.5, len(yy_names_str))
 yy_current = dict(zip(yy_names_str, yy_current_par))
@@ -201,12 +208,18 @@ current_deceased_B = get_sum_of_states(
 xx = np.linspace(0, length_decision_period, number_decision_periods)
 large_value = 10 ** 15
 
+
 def criterion(
-    theta, model, solver, set_fixed_parameter, set_start_parameter, yy_names, current_deceased_A,
+    theta,
+    model,
+    solver,
+    set_fixed_parameter,
+    set_start_parameter,
+    yy_names,
+    current_deceased_A,
     current_deceased_B,
 ):
 
-    
     set_proportions = dict(zip(yy_names, theta))
 
     set_parameter = {**set_fixed_parameter, **set_proportions}
@@ -256,13 +269,14 @@ def func_to_optimize_max(theta):
 
     if (percentage_A > 1) or (percentage_B > 1):
         value = large_value
-        #value = deceased_A + deceased_B
+        # value = deceased_A + deceased_B
     else:
         value = deceased_A + deceased_B
 
     # value = np.max([percentage_A, percentage_B])
 
     return float(value)
+
 
 def func_to_optimize_unrestricted(theta):
     deceased_A, deceased_B = criterion(
@@ -280,6 +294,7 @@ def func_to_optimize_unrestricted(theta):
 
     return float(value)
 
+
 np.random.seed(12345)
 lower_bound = 0.00000001
 upper_bound = 0.99999999
@@ -289,7 +304,9 @@ success_values = []
 k = 0
 n_rows = 0
 while n_rows < n_multi and k < 10000:
-    candidate = np.random.uniform(lower_bound, upper_bound, len(areas) * number_decision_periods)
+    candidate = np.random.uniform(
+        lower_bound, upper_bound, len(areas) * number_decision_periods
+    )
     cand_value = func_to_optimize_max(candidate)
 
     if cand_value < large_value:
@@ -299,19 +316,25 @@ while n_rows < n_multi and k < 10000:
         print("success")
     print(k)
     k += 1
-    
+
 
 start_matrix = np.delete(start_matrix, (0), axis=0)
 from pypesto import Objective, FD
+
 objective = pypesto.Objective(fun=func_to_optimize_max)
 
+
 def obj_func(theta):
-    
-    grad = pypesto.FD(objective, method="central").get_grad(x=np.repeat(0.4, len(yy_names_str)))
-    hess = pypesto.FD(objective, method="forward").get_hess(x=np.repeat(0.4, len(yy_names_str)))
-    
+
+    grad = pypesto.FD(objective, method="central").get_grad(
+        x=np.repeat(0.4, len(yy_names_str))
+    )
+    hess = pypesto.FD(objective, method="forward").get_hess(
+        x=np.repeat(0.4, len(yy_names_str))
+    )
+
     return [func_to_optimize_max(theta=theta), grad, hess]
-    #return np.array([func_to_optimize_max(theta=theta)])
+    # return np.array([func_to_optimize_max(theta=theta)])
 
 
 objective2 = pypesto.Objective(fun=func_to_optimize_max, grad=True, hess=True)
@@ -319,15 +342,15 @@ objective3 = pypesto.Objective(fun=obj_func, grad=True, hess=True)
 
 number_vaccines = len(vaccination_states) - 1
 
-lb = np.repeat(lower_bound, 2*number_decision_periods)
-ub = np.repeat(upper_bound, 2*number_decision_periods)
+lb = np.repeat(lower_bound, 2 * number_decision_periods)
+ub = np.repeat(upper_bound, 2 * number_decision_periods)
 
 
 history_options = pypesto.HistoryOptions(trace_record=True)
 
 
-#problem = pypesto.Problem(objective=objective3, lb=lb, ub=ub, x_guesses=start_matrix)
-#optimizer = optimize.FidesOptimizer(options={"fatol" : 1})
+# problem = pypesto.Problem(objective=objective3, lb=lb, ub=ub, x_guesses=start_matrix)
+# optimizer = optimize.FidesOptimizer(options={"fatol" : 1})
 problem = pypesto.Problem(objective=objective, lb=lb, ub=ub, x_guesses=start_matrix)
 optimizer = optimize.ScipyOptimizer("L-BFGS-B")
 
@@ -352,7 +375,7 @@ results_unrestricted = optimize.minimize(
     optimizer=optimizer,
     n_starts=n_multi,
     history_options=history_options,
-    #engine=engine,
+    # engine=engine,
 )
 df_results_unrestricted = results_unrestricted.optimize_result.as_dataframe()
 theta_optimal_unrestricted = df_results_unrestricted.iloc[0]["x"]
@@ -390,9 +413,9 @@ model_results_unrestricted = run_model(
     number_intervals=n_intervals,
 )
 
-df_unrestricted= model_results_unrestricted
+df_unrestricted = model_results_unrestricted
 states_unrestricted = df_unrestricted["states"]
-trajectory_unrestricted= {
+trajectory_unrestricted = {
     "states": states_unrestricted,
 }
 
@@ -462,7 +485,7 @@ vac2_B_optimal = get_sum_of_states(
 
 dict_out = {
     "df_optimal_results": df_results_max,
-    "df_unrestricted_results" : df_results_unrestricted,
+    "df_unrestricted_results": df_results_unrestricted,
     "model_optimal": model_results_optimal,
     "model_seperated": model_results_unrestricted,
     "model_current": model_results_current,
@@ -472,15 +495,16 @@ dict_out = {
     "model_directory": model_directory,
     "model_name": model_name,
     "path_sbml": path_sbml,
-    "time_points" : model.getTimepoints(),
-    "type" : "piecewise",
+    "time_points": model.getTimepoints(),
+    "type": "piecewise",
 }
 
-model_out = {"state_names" : model.getStateNames(),
-             "initial_states" : model.getInitialStates(),
-             "par_magnitude" : model.getParameters(),
-             "par_names" : model.getParameterNames()
-             }
+model_out = {
+    "state_names": model.getStateNames(),
+    "initial_states": model.getInitialStates(),
+    "par_magnitude": model.getParameters(),
+    "par_names": model.getParameterNames(),
+}
 
 
 with open(
@@ -489,7 +513,7 @@ with open(
 ) as output:
     out = dict_out
     pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
-    
+
 with open(
     "/home/manuel/Documents/VaccinationDistribution/code/objects/output_model_props_piecewise.pkl",
     "wb",

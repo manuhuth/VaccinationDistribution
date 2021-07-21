@@ -51,14 +51,14 @@ parameters = {**parameters_vaccine_two(), **start_parameter_two(), **fixed_param
 
 
 number_vacc_supply_decision_periods = 1
-xx_list = ["xx" + str(i) for i in (range(number_vacc_supply_decision_periods-1))]
+xx_list = ["xx" + str(i) for i in (range(number_vacc_supply_decision_periods - 1))]
 
 xx_params = {}
 period = 0
 for index in xx_list:
-    xx_params[index] = {"value" : period, "constant" : True }
+    xx_params[index] = {"value": period, "constant": True}
     period += 14
-    
+
 vaccination_states_removed = [
     x for x in vaccination_states if x != non_vaccination_state
 ]
@@ -73,64 +73,76 @@ parameter_vacc_supply = create_parameters_piecewise_vaccine_supply(
 )
 
 
-vaccination_parameters = ["proportion_countryA_vac1",
-                          "proportion_countryA_vac2"]
+vaccination_parameters = ["proportion_countryA_vac1", "proportion_countryA_vac2"]
 
 
-#inputs = list({**species, **parameters}.keys())
-inputs = choose_paras = ["infectious_countryA_vac0_virW", 'infectious_countryA_vac0_virM',
-                "infectious_countryA_vac0_virW", 'infectious_countryA_vac0_virM',
-                'susceptible_countryA_vac0','susceptible_countryB_vac0', "beta", "eta_virM",
-                "omega_vac1_virW", "omega_vac2_virW", "delta_vac1_virW", "delta_vac2_virW",
-                "omega_vac1_virM", "omega_vac2_virM", "delta_vac1_virM", "delta_vac2_virM", "prob_deceasing"]
+# inputs = list({**species, **parameters}.keys())
+inputs = choose_paras = [
+    "infectious_countryA_vac0_virW",
+    "infectious_countryA_vac0_virM",
+    "infectious_countryA_vac0_virW",
+    "infectious_countryA_vac0_virM",
+    "susceptible_countryA_vac0",
+    "susceptible_countryB_vac0",
+    "beta",
+    "eta_virM",
+    "omega_vac1_virW",
+    "omega_vac2_virW",
+    "delta_vac1_virW",
+    "delta_vac2_virW",
+    "omega_vac1_virM",
+    "omega_vac2_virM",
+    "delta_vac1_virM",
+    "delta_vac2_virM",
+    "prob_deceasing",
+]
 
 activation_function = "tanh"
 depth = 5
 width = np.array(np.repeat(6, depth))
 
 
-def get_parameter_and_rules_NN(vaccination_parameters, inputs,
-                               activation_function, depth, width):
+def get_parameter_and_rules_NN(
+    vaccination_parameters, inputs, activation_function, depth, width
+):
 
     width = np.append(width, len(vaccination_parameters))
     par_layer = {}
-    for index_depth in range(depth+1):
+    for index_depth in range(depth + 1):
         for index_width in range(width[index_depth]):
             name = f"L{index_depth}{index_width}"
-            par_layer[name] = {"value" : 0, "constant" : False}
-            
+            par_layer[name] = {"value": 0, "constant": False}
+
     par_inner_prod = {}
     for index_depth in range(depth):
         for index_width in range(width[index_depth]):
-            for index_width_next in range(width[index_depth+1]):
+            for index_width_next in range(width[index_depth + 1]):
                 current_layer = f"L{index_depth}{index_width}"
                 next_layer = f"L{index_depth+1}{index_width_next}"
                 name = f"w_{current_layer}_{next_layer}"
-                par_inner_prod[name] = {"value" : 0, "constant" : True}
-            
+                par_inner_prod[name] = {"value": 0, "constant": True}
+
     rules = {}
-    for index_depth in range(1, depth+1):
+    for index_depth in range(1, depth + 1):
         for index_width in range(width[index_depth]):
             formula = f"{activation_function}("
-            for index_width_prev in range(width[index_depth-1]):
+            for index_width_prev in range(width[index_depth - 1]):
                 current_layer = f"L{index_depth}{index_width}"
                 prev_layer = f"L{index_depth-1}{index_width_prev}"
                 w = f"w_{prev_layer}_{current_layer}"
                 formula += f"+ {prev_layer} * {w} "
-            formula +=  ")"
+            formula += ")"
             rule_name = f"rule_{current_layer}"
-            
-            rules[rule_name] = {"parameter_id" : current_layer, "formula": formula}
-    
-    
-    
+
+            rules[rule_name] = {"parameter_id": current_layer, "formula": formula}
+
     par_w_first = {}
     for index_width in range(width[0]):
         for index_inputs in inputs:
             layer = f"L0{index_width}"
             name = f"w_{index_inputs}_{layer}"
-            par_w_first[name] = {"value" : 0,  "constant" : True}
-            
+            par_w_first[name] = {"value": 0, "constant": True}
+
     rules_first = {}
     for index_width in range(width[0]):
         formula = f"{activation_function}("
@@ -140,31 +152,41 @@ def get_parameter_and_rules_NN(vaccination_parameters, inputs,
             formula += f"+ {index_inputs}*{w}"
         formula += ")"
         rule_name = f"rule_{index_width}"
-        rules_first[rule_name] = {"parameter_id" : layer, "formula": formula}
-        
+        rules_first[rule_name] = {"parameter_id": layer, "formula": formula}
+
     rules_vaccines = {}
-    
-    for index_width in range(width[-1]): 
+
+    for index_width in range(width[-1]):
         fraction = vaccination_parameters[index_width]
         formula = f"L{depth}{index_width}"
         name = f"rules_{fraction}"
-        rules_vaccines[name] = {"parameter_id" : fraction,
-                          "formula": formula}
-    
-    rules_vaccines["rules_proportion_countryB_vac1"] = {"parameter_id" : "proportion_countryB_vac1", "formula" : "1 -proportion_countryA_vac1"}
-    rules_vaccines["rules_proportion_countryB_vac2"] = {"parameter_id" : "proportion_countryB_vac2", "formula" : "1 -proportion_countryA_vac2"}
-    
+        rules_vaccines[name] = {"parameter_id": fraction, "formula": formula}
+
+    rules_vaccines["rules_proportion_countryB_vac1"] = {
+        "parameter_id": "proportion_countryB_vac1",
+        "formula": "1 -proportion_countryA_vac1",
+    }
+    rules_vaccines["rules_proportion_countryB_vac2"] = {
+        "parameter_id": "proportion_countryB_vac2",
+        "formula": "1 -proportion_countryA_vac2",
+    }
+
     all_parameter = {**par_layer, **par_inner_prod, **par_w_first}
     all_rules = {**rules, **rules_first, **rules_vaccines}
 
-    return {"parameters" : all_parameter, "rules" : all_rules } 
-    
-
-pars_rules = get_parameter_and_rules_NN(vaccination_parameters, inputs,
-                               activation_function, depth, width)
+    return {"parameters": all_parameter, "rules": all_rules}
 
 
-additional_parameters = {**xx_params, **parameter_vacc_supply, **pars_rules["parameters"]}
+pars_rules = get_parameter_and_rules_NN(
+    vaccination_parameters, inputs, activation_function, depth, width
+)
+
+
+additional_parameters = {
+    **xx_params,
+    **parameter_vacc_supply,
+    **pars_rules["parameters"],
+}
 additional_rules = {**pars_rules["rules"], **vaccine_supply_rules}
 
 
@@ -237,7 +259,9 @@ set_fixed_parameter = {
 parameter_optimization = [x for x in model.getParameterNames() if "w" in x]
 
 
-dict_try = dict(zip(parameter_optimization, np.random.uniform(0,1, len(parameter_optimization))))
+dict_try = dict(
+    zip(parameter_optimization, np.random.uniform(0, 1, len(parameter_optimization)))
+)
 
 set_parameter_current = {**set_fixed_parameter, **dict_try}
 
@@ -253,7 +277,7 @@ model_results_current = run_model(
 current_deceased_A = 1205808.9050508724
 current_deceased_B = 1369784.521203611
 
-#-----------------optimize--------------------------------------------------------
+# -----------------optimize--------------------------------------------------------
 def criterion(
     theta,
     model,
@@ -264,7 +288,6 @@ def criterion(
     current_deceased_A,
     current_deceased_B,
 ):
-
 
     set_proportions = dict(zip(yy_names, theta))
     set_fixed_parameter = {**set_fixed_parameter, **parameters_vaccine_two()}
@@ -348,19 +371,24 @@ while n_rows < n_multi and k < 10000:
     print(k)
     k += 1
 
-test2 = dict(zip(model.getParameterNames(), model.getParameters()))    
+test2 = dict(zip(model.getParameterNames(), model.getParameters()))
 
 start_matrix = np.delete(start_matrix, (0), axis=0)
 
 objective = pypesto.Objective(fun=func_to_optimize_max)
 
+
 def obj_func(theta):
-    
-    grad = pypesto.FD(objective, method="central").get_grad(x=np.repeat(0.4, len(len(parameter_optimization))))
-    hess = pypesto.FD(objective, method="forward").get_hess(x=np.repeat(0.4, len(len(parameter_optimization))))
-    
+
+    grad = pypesto.FD(objective, method="central").get_grad(
+        x=np.repeat(0.4, len(len(parameter_optimization)))
+    )
+    hess = pypesto.FD(objective, method="forward").get_hess(
+        x=np.repeat(0.4, len(len(parameter_optimization)))
+    )
+
     return [func_to_optimize_max(theta=theta), grad, hess]
-    #return np.array([func_to_optimize_max(theta=theta)])
+    # return np.array([func_to_optimize_max(theta=theta)])
 
 
 objective2 = pypesto.Objective(fun=func_to_optimize_max, grad=True, hess=True)
@@ -376,9 +404,11 @@ history_options = pypesto.HistoryOptions(trace_record=True)
 engine = pypesto.engine.MultiProcessEngine()
 engine.n_procs = 8
 
-#problem = pypesto.Problem(objective=objective3, lb=lb, ub=ub, x_guesses=start_matrix)
-#optimizer = optimize.FidesOptimizer(options={"fatol" : 1})
-problem = pypesto.Problem(objective=objective, lb=lb, ub=ub)#, x_guesses=start_matrix)
+# problem = pypesto.Problem(objective=objective3, lb=lb, ub=ub, x_guesses=start_matrix)
+# optimizer = optimize.FidesOptimizer(options={"fatol" : 1})
+problem = pypesto.Problem(
+    objective=objective, lb=lb, ub=ub
+)  # , x_guesses=start_matrix)
 optimizer = optimize.ScipyOptimizer("L-BFGS-B")
 
 results_max = optimize.minimize(
@@ -386,11 +416,10 @@ results_max = optimize.minimize(
     optimizer=optimizer,
     n_starts=n_multi,
     history_options=history_options,
-    #engine=engine,
+    # engine=engine,
 )
 
 visualize.waterfall(results_max)
 
 df_results_max = results_max.optimize_result.as_dataframe()
 theta_optimal_max = df_results_max.iloc[0]["x"]
-

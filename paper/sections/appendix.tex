@@ -6,18 +6,18 @@
 We plot Figures that enhance our line of argumentation but would disturb the train of reading within the main section.
 \subsubsection{Piecewise constant results}
 \label{A:piecewise}
-Figure \ref{fig:results_piecewise_numbers} provides a visualization of our core results for the number of deceased individuals using piecewise constant vaccination channels as functional form $f_l$. The values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_numbers}.
+Figure \ref{fig:results_piecewise_numbers} provides a visualization of our core results for the number of deceased individuals using piecewise constant vaccination channels as functional form of $f_l$. The values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_numbers}. Even the percentage improvement of the unrestricted and the Pareto strategy equal the numbers from the spline analysis. Since the current strategy is no affected by the type of the vaccination channel, it yields the exact same results as within Figure \ref{fig:results_splines_numbers}. For the optimized strategies numbers are slightly shifted between countries, such that country A experiences between 10,000-30,000 more and country B fewer deaths. 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.65]{images/piecewise_percentage_deviation.png}\\
 \begin{flushleft}
 \scriptsize{Note: The numbers within the boxes indicate the number of deceased individuals in million with respect to the respective country and strategy. Numbers at the x-axis represent the total number of deceased individuals within one country. The percentage numbers indicate the change relative to the optimal strategy, e.g. $-5\%$ indicates that by implementing the Pareto strategy 5\% less individuals died in comparison to the current strategy.}
 \end{flushleft}
-\caption{Simulation results for piecewise constant vaccination strategies.}
+\caption{Number of deceased individuals by country (Stepwise)}
 \label{fig:results_piecewise_numbers}
 \end{figure}
 
-Figure \ref{fig:results_piecewise_allocation} depicts the optimal doses of vaccine inflow using piecewise constant vaccination channels as functional form $f_l$. As for the number of deceased individuals, the values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_allocation}.\\
+Figure \ref{fig:results_piecewise_allocation} depicts the optimal doses of vaccine inflow using piecewise constant vaccination channels as functional form of $f_l$. As for the number of deceased individuals, the values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_allocation}. We observe the same strategy for the unrestricted strategy, that nearly assigns no vaccine to country B but only between week 5-9. However, the peak is not as large as in Figure \ref{fig:results_splines_allocation}. As opposed to Figure \ref{fig:results_splines_allocation}, there is no allocation of vaccines to country B at the very beginning, which could explain the higher number of death cases in country B using the stepwise vaccination channel. \\
 
 \begin{figure}[h!]
 \centering
@@ -26,7 +26,7 @@ Figure \ref{fig:results_piecewise_allocation} depicts the optimal doses of vacci
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
 Every curve is the product of a piecewise constant vaccine inflow and a spline. Thus, the lines appear to be discontinuous piecewise polynomials. 
 \end{flushleft}
-\caption{Number of allocated vaccine doses.}
+\caption{Number of allocated vaccine doses (Stepwise)}
 \label{fig:results_piecewise_allocation}
 \end{figure}
 
@@ -38,7 +38,7 @@ In Figure \ref{fig:results_piecewise_infectious_dead}, we trace out the trajecto
 \begin{flushleft}
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Every vaccine is indicated by its color that is used throughout the paper. The left y-axis is used for the number of infectious individuals (solid green and dashed red curves). The right y-axis corresponds to the number of deceased individuals (dotted blue line). Both viruses are associated with the color we have used throughout the paper. 
 \end{flushleft}
-\caption{Number of infectious individuals}
+\caption{Number of infectious individuals (Stepwise)}
 \label{fig:results_piecewise_infectious_dead}
 \end{figure}
 
@@ -53,7 +53,7 @@ Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f
 \begin{flushleft}
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
 \end{flushleft}
-\caption{Fractions of vaccines}
+\caption{Fractions of vaccines (Stepwise)}
 \label{fig:results_piecewise_allocation_fractions}
 \end{figure}
 
@@ -63,7 +63,7 @@ Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f
 \begin{flushleft}
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. Both vaccines are indicated by their colors that are used throughout the paper. 
 \end{flushleft}
-\caption{Fractions of vaccines}
+\caption{Fractions of vaccines (Splines)}
 \label{fig:results_splines_allocation_fractions}
 \end{figure}
 
@@ -77,7 +77,7 @@ Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines
 \begin{flushleft}
 \scriptsize{Note:} Values are relative to the start yielding the lowest optimal minimum value. Only the best 20 starts are used to increase readability. 
 \end{flushleft}
-\caption{Waterfall plot of the 20 best multi-start runs using piecewise constant functions.}
+\caption{Waterfall plot of the 20 best multi-start runs (Stepwise)}
 \label{fig:results_piecewise_waterfall}
 \end{figure}
 
@@ -88,13 +88,15 @@ Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines
 \begin{flushleft}
 \scriptsize{Note:} Values are relative to the start yielding the lowest optimal minimum value. Only the best 20 starts are used to increase readability. 
 \end{flushleft}
-\caption{Waterfall plot of the 20 best multi-start runs using splines.}
+\caption{Waterfall plot of the 20 best multi-start runs (Splines)}
 \label{fig:results_splines_waterfall}
 \end{figure}
 
 \clearpage
 \subsubsection{Simulated distribution of number of deceased individuals}
 \label{A:simulated_distr}
+
+Figure \ref{fig:results_piecewise_stochastic_histogram} plots the results for the number of deceased individuals using piecewise constant vaccination channels. We decided to remove it from the main text since the results resemble the results from the spline vaccination channel within Figure \ref{fig:results_splines_stochastic_histogram} in the main section.
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.65]{images/piecewise_stochastic_histogram.png}\\
@@ -105,6 +107,7 @@ Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines
 \label{fig:results_piecewise_stochastic_histogram}
 \end{figure}
 
+Figure \ref{fig:results_piecewise_infectious_dead_stochastic} plots the total number of infectious individuals simulated using the stochastic model. We decided to remove it from the main text since the results resemble the results from the spline vaccination channel within Figure \ref{fig:results_splines_infectious_dead_stochastic} in the main section.\\
 
 \begin{figure}[h!]
 \centering
@@ -112,15 +115,12 @@ Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines
 \begin{flushleft}
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. The thin blue lines depict all 500 simulations of the stochastic algorithm using the respective strategy. The dashed red depicts the respective infections within the deterministic model. 
 \end{flushleft}
-\caption{Number of infectious individuals using Stochastic simulations}
+\caption{Number of infectious individuals using Stochastic simulations (Stepwise)}
 \label{fig:results_piecewise_infectious_dead_stochastic}
 \end{figure}
 
-
-
-
-
-
+Figures \ref{fig:histograms_piecewise}  and \ref{fig:histograms_piecewise} depict the 2-dimensional, as well as the marginal, histograms of the number of deceased individuals with respect to the countries. As for the results shown within the main section, the results are qualitatively highly similar. It is striking that for the unrestricted case, the case with the fewest deaths, points seem to fluctuate more random around the center point mass as for the Pareto optimal and the current strategy. For the current strategy and the optimal strategy the reasoning might be that, just by chance, some simulated pandemics result in overall more deaths and therefore both countries have increased numbers in death cases. However, the same reasoning could apply for the unrestricted strategy that shows no linear correlation.
+Further research is needed to examine if this patterns occurred randomly and if no what the cause is.
 \begin{figure}[h!]
      \centering
      \begin{subfigure}[b]{0.49\textwidth}
@@ -146,7 +146,7 @@ Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines
 \begin{flushleft}
 \scriptsize{Note:} Purple temperature boxes indicate the joint frequencies. Histograms on top are the histograms corresponding to country B and histograms at the right-hand side are the histograms corresponding to country A. Histograms are computed using 500 simulations of the stochastic model using the Policies derived from splines. 
 \end{flushleft}
-        \caption{Frequencies of number of deceased individuals using strategies derived from splines}
+        \caption{Frequencies of number of deceased individuals using strategies (Splines)}
         \label{fig:histograms} 
 \end{figure}
 
@@ -175,7 +175,7 @@ Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines
 \begin{flushleft}
 \scriptsize{Note:} Purple temperature boxes indicate the joint frequencies. Histograms on top are the histograms corresponding to country B and histograms at the right-hand side are the histograms corresponding to country A. Histograms are computed using 500 simulations of the stochastic model using the Policies derived from splines. 
 \end{flushleft}
-        \caption{Frequencies of number of deceased individuals using strategies derived from piecewise vaccination channels}
+        \caption{Frequencies of number of deceased individuals using strategies (Stepwise)}
         \label{fig:histograms_piecewise} 
 \end{figure}
 

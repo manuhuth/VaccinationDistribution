@@ -22,7 +22,7 @@ plt.rcParams["axes.facecolor"] = "#E6E6E6"
 
 from functions.run_sbml import get_model_and_solver_from_sbml
 
-type_optim = "splines"
+type_optim = "piecewise"
 if type_optim == "piecewise":
     plot_name = "Piecewise constant"
 else:
@@ -113,11 +113,11 @@ def plot_gridspec(
         ax = axes[index]
         y_i = y[index]
         count = 0
-        for index2 in y_i.keys():
+        for index2 in list(y_i.keys()):
             y_plot = y_i[index2]
             if not ("linewidth" in y_plot):
                 y_plot["linewidth"] = 1.5
-            if count == 1 or count == 0:  # index2 == "z_deterministic":
+            if count == 0 or count ==1 or  index2 == "z_deterministic":
                 ax.plot(
                     time,
                     y_plot["y"],
@@ -384,7 +384,7 @@ path_vaccine = plot_path + "vaccine_total_quantity"
 plot_gridspec(
     y=y,
     time=np.array(time_points) / 7.0,
-    title=f"Amount of vaccine doses in million ({plot_name })",
+    title=f"Amount of vaccine doses in million",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 1.4],
@@ -495,7 +495,7 @@ path_vaccine = plot_path + "vaccine_fractions"
 plot_gridspec(
     y=y,
     time=np.array(time_points) / 7.0,
-    title=f"Fraction of vaccine doses ({plot_name})",
+    title=f"Fraction of vaccine doses",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 1.1],
@@ -620,7 +620,7 @@ path_vaccine = plot_path + "infectious"
 plot_gridspec(
     y=y,
     time=np.array(time_points) / 7.0,
-    title=f"Number of infectious individuals in million ({plot_name })",
+    title=f"Number of infectious individuals in million",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 27],
@@ -756,7 +756,7 @@ path_vaccine = plot_path + "infectious_dead"
 plot_gridspec(
     y=y,
     time=np.array(time_points) / 7.0,
-    title=f"Number of infectious and deceased individuals in million ({plot_name})",
+    title=f"Number of infectious and deceased individuals in million",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 27],
@@ -1036,7 +1036,7 @@ if type_optim == "piecewise":
     fig, ax = survey(
         results,
         category_names,
-        f"Number of deceased individuals in million ({plot_name})",
+        f"Number of deceased individuals in million",
     )
     path_wf = plot_path + "percentage_deviation"
     fig.savefig(path_wf, bbox_inches="tight")
@@ -1157,7 +1157,7 @@ else:
     fig, ax = survey(
         results,
         category_names,
-        f"Number of deceased individuals in million ({plot_name})",
+        f"Number of deceased individuals in million",
     )
     path_wf = plot_path + "percentage_deviation"
     fig.savefig(path_wf, bbox_inches="tight")

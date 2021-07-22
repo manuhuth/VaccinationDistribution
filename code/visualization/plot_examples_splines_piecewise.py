@@ -33,14 +33,14 @@ x_grid = np.linspace(0, 20, 6000)
 spline_values = spline(x_grid)
 fractions = 1.0 / (1.0 + np.exp(-np.array(spline_values)))
 
-y_plot = [spline_values, fractions, pl_grid]
-label = ["Spline value", "$f_l$", "$f_l$"]
+y_plot = [pl_grid, spline_values, fractions]
+label = ["$f_l$", "Spline value", "$f_l$"]
 title = [
+    "Stepwise function",
     "Cubic Hermite spline",
     "Logistically transformed cubic Hermite spline",
-    "Stepwise function",
 ]
-color = ["steelblue", "steelblue", "coral"]
+color = ["coral", "steelblue", "steelblue"]
 
 
 fig, ax_g = plt.subplots(3)
@@ -63,7 +63,7 @@ for index in range(len(axes)):
     if index == 1:
         # ax.set_yticklabels([])
         ax.yaxis.set_ticks_position("none")
-    if index in [1, 2]:
+    if index in [0, 2]:
         ax.set_ylim(0, 1)
 
 fig.tight_layout()

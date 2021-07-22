@@ -48,14 +48,14 @@ def get_input_dicts(names, results_type, deterministic):
             "linewidth": 0.2,
         }
 
-        if deterministic is not None:
-            dict_optimal["a_deterministic"] = {
-                "y": deterministic,
-                "label": "Deterministic",
-                "color": "firebrick",
-                "linestyle": "--",
-                "linewidth": 1.5,
-            }
+    if deterministic is not None:
+        dict_optimal["z_deterministic"] = {
+            "y": deterministic,
+            "label": "Deterministic",
+            "color": "firebrick",
+            "linestyle": "--",
+            "linewidth": 1.5,
+        }
     return dict_optimal
 
 
@@ -155,7 +155,7 @@ path_vaccine = plot_path + "_infectious"
 plot_gridspec(
     y=y,
     time=time,
-    title="Number of infectious individuals in million (Piecewise)",
+    title="Number of infectious individuals in million",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 35],

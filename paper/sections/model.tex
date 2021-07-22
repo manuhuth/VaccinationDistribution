@@ -175,7 +175,7 @@ We use $F_1, F_2$ to indicate that the reactions differ with respect to not expl
 \end{align*}
 In the following, we elaborate on how to define the components of the \textit{infections per day}, the \textit{vaccine modifiers}, and the \textit{compartment adjustments}.\\
 
-To compute the infections per day we use the average number of contacts between infectious and susceptible individuals, and multiply it with the proportion of individuals that become infected while meeting an infectious individual.
+To compute the infections per day, we use the average number of contacts between infectious and susceptible individuals, and multiply it with the proportion of individuals that become infected while meeting an infectious individual.
 
 Let $c \in R_+$ be the average number of contacts per individual and day and $\alpha \in [0,1]$ be the proportion of susceptible individuals that become infected if they meet a wild type infected individual without any vaccination of both individuals. Let $\eta \in (1, 1/\alpha]$ be the factor with which the mutant is more infectious than the wild type. Then $\beta = \alpha c$ is the average number of individuals infected per day by $i_1$ if $i_1 \in \set(X_I, V_w, U_0)$. If $i_1 \in \set(X_I, V_M, U_0)$, the average infected number increases to $\eta \beta$. We label $\beta$ as \textit{baseline infection constant} since it covers the most basic case where the reaction happens between an unvaccinated susceptible individual and an unvaccinated wild type infected individual. \\
 
@@ -237,7 +237,7 @@ To ensure readability we refrain from writing down all exact infections but they
 \begin{flushleft}
 \scriptsize{\textit{Note}: Solid lines indicate transition paths. Shots below a compartment indicate that individuals from this compartment are vaccinated. Viruses below a compartment indicate that this compartment is infectious with the respective virus type. The letters in the top right corner of each compartment indicate the country of residence of individuals within the compartment. The formulas on top of the solid lines indicate the respective reaction constant.}
 \end{flushleft}
-\caption{Structure of recoveries and deaths}
+\caption{Recoveries and deaths structure}
 \label{fig:model_recoveries}
 \end{figure}
 Figure \ref{fig:model_recoveries} depicts the dynamics of the recoveries and deaths. The general reactions are defined by one infectious reactant and one product
@@ -270,7 +270,7 @@ If the infectious individuals are vaccinated, they are less likely to decease \c
 \begin{flushleft}
 \scriptsize{\textit{Note}: Solid lines indicate transition paths. Shots below a compartment indicate that individuals from this compartment are vaccinated with the respective vaccine. Viruses below a compartment indicate that this compartment is infectious. The letters in the top right corner of each compartment indicate the country of residence of individuals within the compartment. The formulas next to the solid lines indicate the respective reaction constant.}
 \end{flushleft}
-\caption{Structure of vaccinations}
+\caption{Vaccination structure}
 \label{fig:model_vaccination_ov}
 \end{figure}
 Figure \ref{fig:model_vaccination_ov} depicts the vaccination dynamics. We allow for vaccinations of susceptible, recovered and, deceased individuals. We vaccinate susceptible individuals to protect them from becoming infected. We vaccinate infectious individuals to account for asymptomatic cases \citep{Byambasuren.2020} and recovered individuals to account for the vaccine doses taken by them. The latter are vaccinated within the real world to increase their immunity \citep{Skelly.2021}. \\

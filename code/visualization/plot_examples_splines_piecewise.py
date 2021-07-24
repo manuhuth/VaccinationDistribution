@@ -20,13 +20,14 @@ plt.rcParams["axes.facecolor"] = "#E6E6E6"
 
 
 # piecewise linear
+np.random.seed(1234)
 pl = np.random.uniform(0, 1, 10)
 pl_grid = np.repeat(pl, 6000 / 10)
 
 # spline
-np.random.seed(1234)
+
 x = np.linspace(0, 20, 21)
-y = np.random.uniform(-8, 8, 21)
+y = np.random.uniform(-5, 5.2, 21)
 y_df = np.gradient(y)
 spline = CubicHermiteSpline(x, y, y_df)
 x_grid = np.linspace(0, 20, 6000)

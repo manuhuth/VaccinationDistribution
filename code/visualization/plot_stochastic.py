@@ -17,9 +17,10 @@ plt.rcParams.update(
         "grid.color": "white",
     }
 )
+
 plt.rcParams["lines.linewidth"] = 1.5
 plt.rc("text", usetex=True)
-plt.rcParams["text.latex.preamble"] = [r"\usepackage{amsmath}"]
+plt.rcParams["text.latex.preamble"] = [r"\usepackage{cmbright}"]
 plt.rcParams["axes.facecolor"] = "#E6E6E6"
 
 
@@ -59,7 +60,7 @@ def get_input_dicts(names, results_type, deterministic):
     return dict_optimal
 
 
-function = "splines"
+function = "piecewise"
 # model_type = "current"
 
 plot_path = (
@@ -155,7 +156,7 @@ path_vaccine = plot_path + "_infectious"
 plot_gridspec(
     y=y,
     time=time,
-    title="Number of infectious individuals in million",
+    title="Number of infectious individuals in millions",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 35],
@@ -251,7 +252,7 @@ def plot_2d_historgam(
     x,
     y,
     path,
-    title="Number of deceased individuals in million",
+    title="Number of deceased individuals in millions",
     xlabel="Country B",
     ylabel="Country A",
     fontsize=20,
@@ -486,7 +487,7 @@ legend = fig.legend(
 )
 frame = legend.get_frame()
 frame.set_linewidth(0)
-ax.set_xlabel("Total number of deceased individuals in million")
+ax.set_xlabel("Total number of deceased individuals in millions")
 ax.set_ylabel("Absolute frequency")
 ax.spines["top"].set_alpha(0)
 # ax.spines["bottom"].set_alpha(0)

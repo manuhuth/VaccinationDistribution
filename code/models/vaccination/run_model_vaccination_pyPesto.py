@@ -492,6 +492,257 @@ vac1_B_optimal = get_sum_of_states(
 vac2_B_optimal = get_sum_of_states(
     model, trajectory_optimal, state_type=["vac2", "countryB"], final_amount=True
 )
+#-----------------Sensitivity of distance--------------------------------------
+import multiprocessing as mp
+import tqdm
+
+lower_bound = 0.00000001
+upper_bound = 0.99999999
+n_multi = 2
+
+def sensitivity_parallel(distance):
+    d_dict = {'gamma' : distance}
+    #d_dict = {'distance_countryA_countryB':distance, 'distance_countryB_countryA' : distance}
+
+    set_fixed_parameter_sens = {**set_fixed_parameter, **d_dict}
+    
+    set_parameter_current = {**set_fixed_parameter_sens, **yy_current}
+    
+    model_results_current = run_model(
+        model=model,
+        solver=solver,
+        periods=1,
+        length_periods=length,
+        set_start_parameter=set_start_parameter,
+        set_parameter=set_parameter_current,
+        number_intervals=n_intervals,
+    )
+    
+    
+    df_current = model_results_current
+    states_current = df_current["states"]
+    trajectory_current = {
+        "states": states_current,
+    }
+    var_interest = "dead"
+    current_deceased_A = get_sum_of_states(
+        model, trajectory_current, state_type=[var_interest, "countryA"], final_amount=True
+    )
+    current_deceased_B = get_sum_of_states(
+        model, trajectory_current, state_type=[var_interest, "countryB"], final_amount=True
+    )
+    
+    def func_to_optimize_max_sensitivity(theta):
+        deceased_A, deceased_B = criterion(
+            theta=theta,
+            model=model,
+            solver=solver,
+            set_fixed_parameter=set_fixed_parameter,
+            set_start_parameter=start_parameter_two(),
+            yy_names=yy_names_str,
+            current_deceased_A=current_deceased_A,
+            current_deceased_B=current_deceased_B,
+        )
+        
+        percentage_A = deceased_A / current_deceased_A
+        percentage_B = deceased_B / current_deceased_B
+    
+        if (percentage_A > 1) or (percentage_B > 1):
+            value = large_value
+            # value = deceased_A + deceased_B
+        else:
+            value = deceased_A + deceased_B
+    
+        return float(value)
+    
+    def func_to_optimize_unrestricted_sensitivity(theta):
+        deceased_A, deceased_B = criterion(
+            theta=theta,
+            model=model,
+            solver=solver,
+            set_fixed_parameter=set_fixed_parameter_sens,
+            set_start_parameter=start_parameter_two(),
+            yy_names=yy_names_str,
+            current_deceased_A=current_deceased_A,
+            current_deceased_B=current_deceased_B,
+        )
+    
+        value = deceased_A + deceased_B
+    
+        return float(value)
+    
+    
+    start_matrix = np.array(np.repeat(np.nan, len(areas) * number_yy))
+    success_values = []
+    successes = 0
+    k = 0
+    n_rows = 0
+    while n_rows < n_multi and k < 100:
+        candidate = np.random.uniform(lower_bound, upper_bound, len(areas) * number_yy)
+        cand_value = func_to_optimize_max_sensitivity(candidate)
+    
+        if cand_value < large_value:
+            start_matrix = np.vstack((start_matrix, candidate))
+            success_values.append(cand_value)
+            n_rows = start_matrix.shape[0] - 1
+            successes += 1
+            #print(f"success number {successes}")
+        #print(k)
+        k += 1
+    
+    
+    start_matrix = np.delete(start_matrix, (0), axis=0)
+    objective = pypesto.Objective(fun=func_to_optimize_max_sensitivity)
+   
+    #number_vaccines = len(vaccination_states) - 1
+    number_parameters = len(yy_names_str)
+    lb = np.repeat(lower_bound, number_parameters)
+    ub = np.repeat(upper_bound, number_parameters)
+    
+
+    optimizer = optimize.ScipyOptimizer("L-BFGS-B")  
+    history_options = pypesto.HistoryOptions(trace_record=True)
+    if successes != 0:
+        problem = pypesto.Problem(objective=objective, lb=lb, ub=ub, x_guesses=start_matrix)
+
+        
+        results_max = optimize.minimize(
+            problem=problem,
+            optimizer=optimizer,
+            n_starts=n_multi,
+            history_options=history_options,
+            # engine=engine,
+        )
+        
+        df_results_max = results_max.optimize_result.as_dataframe()
+        theta_optimal_max = df_results_max.iloc[0]["x"]
+        transformed_theta_optimal = np.log(theta_optimal_max / (1 - theta_optimal_max))
+        yy_optimal = dict(zip(yy_names_str, transformed_theta_optimal))
+        
+        set_parameter = {**set_fixed_parameter_sens, **yy_optimal}
+        
+        model_results_optimal = run_model(
+            model=model,
+            solver=solver,
+            periods=1,
+            length_periods=length,
+            set_start_parameter=set_start_parameter,
+            set_parameter=set_parameter,
+            number_intervals=n_intervals,
+        )
+        trajectory_states_optimal = model_results_optimal["states"]
+        trajectory_optimal = {
+            "states": trajectory_states_optimal,
+        }
+        dead_A_optimal = get_sum_of_states(
+                model, trajectory_optimal, state_type=[var_interest, "countryA"], final_amount=True
+        )
+        dead_B_optimal = get_sum_of_states(
+                model, trajectory_optimal, state_type=[var_interest, "countryB"], final_amount=True
+        )
+    else: 
+        dead_A_optimal = current_deceased_A
+        dead_B_optimal = current_deceased_B
+    
+    objective_unrestricted_sensitivity = pypesto.Objective(fun=func_to_optimize_unrestricted_sensitivity)
+    problem_unrestricted = pypesto.Problem(objective=objective_unrestricted_sensitivity, lb=lb, ub=ub)
+    
+    results_unrestricted = optimize.minimize(
+        problem=problem_unrestricted,
+        optimizer=optimizer,
+        n_starts=n_multi,
+        history_options=history_options,
+        # engine=engine,
+    )
+    df_results_unrestricted = results_unrestricted.optimize_result.as_dataframe()
+    theta_optimal_unrestricted = df_results_unrestricted.iloc[0]["x"]
+    
+    
+    # dict(zip(model.getParameterNames(), model.getParameters()))
+    # ------------------------Run unrestricted----------------------------------------
+    transformed_theta_unrestricted = np.log(
+        theta_optimal_unrestricted / (1 - theta_optimal_unrestricted)
+    )
+    yy_optimal_unrestricted = dict(zip(yy_names_str, transformed_theta_unrestricted))
+    
+    set_parameter_unrestricted = {**set_fixed_parameter_sens, **yy_optimal_unrestricted}
+    
+    model_results_unrestricted = run_model(
+        model=model,
+        solver=solver,
+        periods=1,
+        length_periods=length,
+        set_start_parameter=set_start_parameter,
+        set_parameter=set_parameter_unrestricted,
+        number_intervals=n_intervals,
+    )
+    trajectory_states_unrestricted = model_results_unrestricted["states"]
+    trajectory_unrestricted = {
+        "states": trajectory_states_unrestricted,
+    }
+
+    
+    unrestricted_deceased_A = get_sum_of_states(
+        model,
+        trajectory_unrestricted,
+        state_type=[var_interest, "countryA"],
+        final_amount=True,
+    )
+    unrestricted_deceased_B = get_sum_of_states(
+        model,
+        trajectory_unrestricted,
+        state_type=[var_interest, "countryB"],
+        final_amount=True,
+    )
+    if dead_A_optimal > current_deceased_A or dead_B_optimal > current_deceased_B:
+        dead_A_optimal = current_deceased_A
+        dead_B_optimal = current_deceased_B
+    
+    out = {"distance" : distance,
+           "A_pareto" : dead_A_optimal,
+           "B_pareto" : dead_B_optimal,
+           "A_unrestricted" : unrestricted_deceased_A,
+           "B_unrestricted" : unrestricted_deceased_B,
+           "A_current" : current_deceased_A,
+           "B_current" : current_deceased_B,
+          }
+
+    
+    return out
+
+distances = np.linspace(0, 1, 30)
+np.random.seed(12345)
+with mp.Pool() as p:
+    results = list(
+        tqdm.tqdm(
+            p.imap_unordered(sensitivity_parallel, distances), total=len(distances)
+        )
+    )
+
+df = pd.DataFrame(columns = list(results[0].keys()))
+
+for index in range(0, len(results)):
+    
+    dict_ = results[index]
+    df.loc[index] = dict_.values()
+    
+
+with open(
+    "/home/manuel/Documents/VaccinationDistribution/code/objects/output_splines_sensitivity_gamma.pkl",
+    "wb",
+) as output:
+    out = df
+    pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)   
+    
+
+
+
+
+
+
+
+
+#---------------------------------------------------------------------------------------------
 
 
 dict_out = {

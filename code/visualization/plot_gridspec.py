@@ -16,7 +16,7 @@ plt.rcParams.update(
 )
 plt.rcParams["lines.linewidth"] = 1.5
 plt.rc("text", usetex=True)
-plt.rcParams["text.latex.preamble"] = [r"\usepackage{amsmath}"]
+plt.rcParams["text.latex.preamble"] = [r"\usepackage{cmbright}"]
 plt.rcParams["axes.facecolor"] = "#E6E6E6"
 
 
@@ -117,7 +117,7 @@ def plot_gridspec(
             y_plot = y_i[index2]
             if not ("linewidth" in y_plot):
                 y_plot["linewidth"] = 1.5
-            if count == 0 or count ==1 or  index2 == "z_deterministic":
+            if count == 0 or count == 1  or index2 == "z_deterministic":
                 ax.plot(
                     time,
                     y_plot["y"],
@@ -384,7 +384,7 @@ path_vaccine = plot_path + "vaccine_total_quantity"
 plot_gridspec(
     y=y,
     time=np.array(time_points) / 7.0,
-    title=f"Amount of vaccine doses in million",
+    title=f"Amount of vaccine doses in millions",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 1.4],
@@ -620,7 +620,7 @@ path_vaccine = plot_path + "infectious"
 plot_gridspec(
     y=y,
     time=np.array(time_points) / 7.0,
-    title=f"Number of infectious individuals in million",
+    title=f"Number of infectious individuals in millions",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 27],
@@ -756,7 +756,7 @@ path_vaccine = plot_path + "infectious_dead"
 plot_gridspec(
     y=y,
     time=np.array(time_points) / 7.0,
-    title=f"Number of infectious and deceased individuals in million",
+    title=f"Number of infectious and deceased individuals in millions",
     legend_next_to_plot=True,
     legend_location="lower center",
     ylim=[0, 27],
@@ -1036,7 +1036,7 @@ if type_optim == "piecewise":
     fig, ax = survey(
         results,
         category_names,
-        f"Number of deceased individuals in million",
+        f"Number of deceased individuals in millions",
     )
     path_wf = plot_path + "percentage_deviation"
     fig.savefig(path_wf, bbox_inches="tight")
@@ -1157,7 +1157,7 @@ else:
     fig, ax = survey(
         results,
         category_names,
-        f"Number of deceased individuals in million",
+        f"Number of deceased individuals in millions",
     )
     path_wf = plot_path + "percentage_deviation"
     fig.savefig(path_wf, bbox_inches="tight")

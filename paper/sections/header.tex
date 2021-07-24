@@ -23,7 +23,14 @@
 \usepackage{natbib}
 \usepackage{optidef}
 \usepackage{thmtools,thm-restate} %tmove theorems such that they do not change number in appendix
+\usepackage[toc,page]{appendix}
 
+\usepackage{etoolbox}
+\appto\appendix{\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}}
+
+% reinstate the correct level for list of tables and figures
+\appto\listoffigures{\addtocontents{lof}{\protect\setcounter{tocdepth}{2}}}
+\appto\listoftables{\addtocontents{lot}{\protect\setcounter{tocdepth}{2}}}
 \usepackage{comment}
 \usepackage{graphicx,caption}% ,subfigure} use subcaption instead, see below
 \usepackage{subcaption}

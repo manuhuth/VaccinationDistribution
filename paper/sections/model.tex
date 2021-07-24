@@ -1,6 +1,6 @@
 \section{Model}
 \label{sec:model}
-We subdivide the classic SIRD compartments Susceptible ($S$), Infectious ($I$), Recovered ($R$) and Deceased ($D$), into sub-compartments allowing for heterogeneous areas of residence and vaccination states as well as infections by different virus types. Figure \ref{fig:model} illustrates the general model. Individuals either live in country $A$ or country $B$. They are non-vaccinated $U_0$, vaccinated with vaccine one $U_1$ or vaccinated with vaccine two $U_2$. Vaccine $U_1$ represents the messenger ribonucleic acid (mRNA) vaccines and vaccine $U_2$ represents the vector vaccines. We assume that one vaccination shot is sufficient to get the full protection of vaccine $U_l$. Further, we introduce two virus types. A wild type $V_W$ that serves as baseline variant and a more infectious mutant variant $V_M$.\\
+We subdivide the classic SIRD compartments Susceptible ($S$), Infectious ($I$), Recovered ($R$) and Deceased ($D$), into sub-compartments allowing for heterogeneous areas of residence and vaccination states as well as infections with different virus types. Figure \ref{fig:model} illustrates the general model. Individuals either live in country $A$ or country $B$. They are non-vaccinated $U_0$, vaccinated with vaccine one $U_1$ or vaccinated with vaccine two $U_2$. Vaccine $U_1$ represents the messenger ribonucleic acid (mRNA) vaccines and vaccine $U_2$ represents the vector vaccines. We assume that one vaccination shot is sufficient to get the full protection of vaccine $U_1$ or $U_2$. Further, we introduce two virus types. A wild type $V_W$ that serves as baseline variant and a more infectious mutant variant $V_M$.\\
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{images/vaccination_pp_blue_orange.png}\\
@@ -11,9 +11,9 @@ We subdivide the classic SIRD compartments Susceptible ($S$), Infectious ($I$), 
 \label{fig:model}
 \end{figure}
 
-To describe our model we denote every sub-group of individuals by a set $\set(F_n)$, where $F_n$ is a placeholder for features that the individuals (elements) within the set $\set$ share and $t$ denotes the time at which the set is evaluated. We illustrate the features $F_n$ in the following by providing examples. Let $X_i$ for $i \in \{S, I, R, D \}$ indicate to which general compartment an individual belongs, then, $\set(X_S)$ is the set of all susceptible individuals and $\set(X_I)$ is the set of all infectious individuals at $t$. If we want to distinguish not only between general compartments but additionally between countries of residence, we use the feature $C_j$ for $j \in \{A, B\}$ to indicate that the country of residence is $j$. $\set(X_S, C_A)$ is the set of all susceptible individuals of country A and $\set(X_S, C_B)$ of country B. Analogously, $\set(V_k)$ is the set of all individuals infected with virus $k$ and $\set(U_l)$ is the set of all individuals with vaccination status $l$.\\
+To describe our model, we denote every sub-group of individuals by a set $\set(F_i)$, where $F_i$ is a placeholder for features that the individuals (elements) within the set $\set$ share and $t$ denotes the time at which the set is evaluated. We illustrate the features $F_i$ in the following by providing examples. Let $X_h$ for $h \in \{S, I, R, D \}$ indicate to which general compartment an individual belongs, then, $\set(X_S)$ is the set of all susceptible individuals and $\set(X_I)$ is the set of all infectious individuals at $t$. If we want to distinguish not only between general compartments but additionally between countries of residence, we use the feature $C_j$ for $j \in \{A, B\}$ to indicate that the country of residence is $j$. $\set(X_S, C_A)$ is the set of all susceptible individuals of country A and $\set(X_S, C_B)$ of country B. Analogously, $\set(V_k)$ is the set of all individuals infected with virus $k$ and $\set(U_l)$ is the set of all individuals with vaccination status $l$.\\
 
-We can link sets with the common set operators, e.g. $\set(X_S, C_A) \cup \set(X_S, C_B) = \set(x_S)$ or $\set(X_S) \cap \set(X_I) = \emptyset$. The negation operator $\neg$ is used to indicate that a certain feature applies for all but the specified compartment, e.g. $\set(\neg X_D)$ is the set of all alive individuals. The cardinality $|\cdot|$ represents the respective number of individuals in a set, e.g. $|\set(X_S)|$ equals the number of all susceptible individuals. To shorthand notation, we define $\num(F_i) = |\set(F_i)|$ as the number of individuals within the set $\set(F_n)$. By definition, $\set() = \cup_{i \in \{ S, I, R,D\}} \set(X_i)$ is the set of all individuals. Table \ref{tab:features} gives an overview of all features. \\
+We can link sets with the common set operators, e.g. $\set(X_S, C_A) \cup \set(X_S, C_B) = \set(X_S)$ or $\set(X_S) \cap \set(X_I) = \emptyset$. The negation operator $\neg$ is used to indicate that a certain feature applies for all but the specified compartment, e.g. $\set(\neg X_D)$ is the set of all alive individuals. The cardinality $|\cdot|$ represents the respective number of individuals in a set, e.g. $|\set(X_S)|$ equals the number of all susceptible individuals. To shorthand notation, we define $\num(F_i) = |\set(F_i)|$ as the number of individuals within the set $\set(F_i)$. By definition, $\set() = \cup_{h \in \{ S, I, R,D\}} \set(X_h)$ is the set of all individuals. Table \ref{tab:features} gives an overview of all features. \\
 \input{tables/feature_description}
 
 We impose a set of assumptions to the compartments in order to rule out undesired cases within the model.
@@ -46,7 +46,7 @@ Let $\set(F_1), \dots, \set(F_n)$ be $n$ pairwise disjoint sets such that their 
 \end{align}
 where $\nu_{ij} \in \mathbb{N}_0$ and $\mu_{ij} \in \mathbb{N}_0$ are called stoichiometric coefficients. If a compartment $\set(F_i)$ is not a reactant or product within reaction $R_j$, the respective stoichiometric coefficients $\nu_{ij}, \mu_{ij}$ are set to zero. $\nu_{ij}$ describes how much of species $\set(F_i)$ is consumed and $\mu_{ij}$ how much is produced within reaction $R_j$. The difference $\mu_{ij} - \nu_{ij}$ is the total change of $\num(F_i)$ due to one reaction $R_j$.\\
 
-We are not only interested in how one reaction (e.g. one infection, one vaccination, etc.) influences the state of the system but rather how often this happens within an interval $[t, t+\tau]$, for $\tau \in \R_+$. If we restrict us to the case $\tau = 1$, the latter is described according to the law of mass action by
+We are not only interested in how one reaction (e.g. one infection, one vaccination, etc.) influences the state of the system but rather how often this happens within an interval $[t, t+\tau]$ for $\tau \in \R_+$. If we restrict us to the case $\tau = 1$, the latter is described according to the law of mass action by
 \begin{align}
 \label{eq:change_one_unit}
 v_{t,j} = r_j  \prod_{i=1}^n \num(F_i)^{\mu_{ij}},
@@ -60,7 +60,7 @@ y_{t+\tau}(F_i) - \num(F_i) = \sum_{j=1}^m (\mu_{ij} - \nu_{ij}) v_{t,j} \tau.
 \end{align}
 As outlined above, $(\mu_{ij} - \nu_{ij})$ is the stoichiometry that specifies how one reaction influences the system, and $v_{t,j} \tau$ is the number of times reaction $R_j$ happens within the interval $[t, t+\tau]$. Therefore, the product is the influence of $R_j$ on $\num(F_i)$ within $[t, t+\tau]$. Summed over all reactions, this yields the change of $\num(F_i)$. 
 
-We divide both sides of \eqref{eq:sys_change} by $\tau$, let $\tau \to 0$ and plug in \eqref{eq:change_one_unit} to obtain the ordinary differential equation
+We divide both sides of Equation \eqref{eq:sys_change} by $\tau$, let $\tau \to 0$ and plug in Equation \eqref{eq:change_one_unit} to obtain the ordinary differential equation
 \begin{align}
 \der(F_i) = \sum_{j=1}^m \left[(\mu_{ij} - \nu_{ij}) \underbrace{r_j  \prod_{k=1}^n \num(F_k)^{\mu_{kj}}}_{v_{t,j}} \right].
 \end{align}
@@ -76,14 +76,14 @@ We write down the equations for all compartments in matrix form to obtain the sy
 \end{pmatrix}}_{\vect{S}} \cdot
 \underbrace{\begin{pmatrix}
 v_{t,1} \\ \vdots \\ v_{t,m}
-\end{pmatrix}}_{v_t}
+\end{pmatrix}}_{v_t}.
 \end{align}
 If we additionally fix the initial condition $Y(0) = Y_0$, the problem becomes an initial value problem. 
 %For ODE system's it is common to elaborate on the steady-state of the system. Note that \eqref{eq:ode_system_matrix} is a linear mapping in $v$ for which we can compute the kernel $\mathcal{K}=\left\{v \in \R^m | \vect{S} \cdot v = 0 \in \R^n  \right\}$. Each element of the kernel represents a state where $Y(t)=0$ and therefore the system is in a steady- state. If the pandemic reaches a state such that $v \in \mathcal{K}$, we would be stuck there.  \\
 We use AMICI \citep{Frohlich.2021} to solve the initial value problem via simulations. AMICI provides the Python interface to interact with the SUNDIALS \citep{Hindmarsh.2005} solvers. We choose the Backward Differentiation Formulas (BDF) methods implemented in SUNDIALS for our implementation  of the initial value problem. The BDF, as all numerical solvers we are aware of, discretizes the ODE system to simulate it. Let $\tau_t \in \R_+$ be a varying step size and $q \in \mathbb{N}$ be the order of the BDF. For coefficients $a_k\in \R$ and $b \in \R_+$, the BDF-q is  
 \begin{align}
 \label{eq:BDF}
-Y(t) = \sum_{k=1}^q a_{t,k} Y(t - \sum_{i=1}^k \tau_{t-i} ) + \tau_t b_t \underbrace{\dot{Y}(t)}_{\vect{S} v_t}
+Y(t) = \sum_{k=1}^q a_{t,k} Y(t - \sum_{i=1}^k \tau_{t-i} ) + \tau_t b_t \underbrace{\dot{Y}(t)}_{\vect{S} v_t}.
 \end{align}
 The function value $Y(t)$ is a linear combination of the last $q$ simulated function values and its derivative. In Equation \eqref{eq:sys_change}, the baseline function value to determine the next value is the previous function value. In Equation \eqref{eq:BDF}, the baseline function value is the weighted sum of the previous $q$ function values. To account for this, the increase of the tangent $\tau_t \dot{Y}(t)$ is corrected by a factor $b_t$ that accounts for the incorporation of the $q$ last function values.
 
@@ -92,21 +92,21 @@ Since $v_t$ depends on $Y_t$ through Equation \eqref{eq:change_one_unit}, Equati
 \subsection{Stochastic model}
 \label{sec:stochastic}
 We use the stochastic equivalent of our model to test how the derived strategies perform under uncertainty. \cite{Gillespie.1977} proposed an algorithm modeling the duration between reactions as random variables that are dependent on the system's state. After one reaction fired, the state is updated and the time to the next period is drawn from the random variable. Hence, every probability distribution is based on the latest state of the system and the algorithm is therefore classified as \textit{exact}.  
-On the contrary, approximate algorithms, like $\tau-leaping$ \citep{Gillespie.2001}, group reactions together and use the number of times a reaction happens within an interval as a random variable. However, the reactions within one interval almost surely do not happen at the exact same time. Therefore, the true probability distributions of the second and subsequent reactions, within the interval, must change with respect to the outcome of the first reaction. By simulating all reactions at once, approximate algorithms do not account for this update of the probability distributions. 
+On the contrary, approximate algorithms, like $\tau-leaping$ \citep{Gillespie.2001}, group reactions together and use the number of times a reaction happens within an interval as a random variable. However, the reactions within one interval almost surely do not happen at the exact same time. Therefore, the true probability distributions of the second and subsequent reactions, within the interval, must change with respect to the outcome of the previous reactions. By simulating all reactions at once, approximate algorithms do not account for this update of the probability distributions. 
 The drawback of approximation can be justified by a speed-up of approximation methods that are due to fewer function evaluations. Since our model includes a large number of reactions, we decided to use the approximate method and subsequently dive into the math of it \citep{Gillespie.2001}.\\
 
 %Within the deterministic model, we have assumed that for each reaction $R_j$, the number of times the reaction happens within one unit of time is deterministic, see Equation \eqref{eq:change_one_unit}. However, it is more likely the reactions occur randomly over time. To account for this, we test our deterministically derived optimal vaccination strategy and test it in a stochastic set-up, where the number of times reaction $R_j$ happens, is a random variable.  \\
 
-We impose an arbitrary order on all subcompartments. We do so by expressing all compartments by n features $F_1, \dots F_n$ such that $\cup_{i=1}^n \set(F_i) = \set()$ and $\set(F_1), \dots, \set(F_n)$ are mutually disjoint. We specify the state of the system in terms of the compartments $Y(t) = \begin{pmatrix} \num(F_1) & \num(F_2) & \dots & \num(F_n)\end{pmatrix}'$. Recall that $\vect{S} \in \R^{n \times m}$ is the stoichiometric matrix, as defined in \eqref{eq:ode_system_matrix}, with coefficients $s_{ij}$ and columns $s_{.j}$. $R_j$ for $j=1, \dots, m$, is the $j$-th reaction. Let $K_{t,j}$ be the random variable counting the number of times $R_j$ will fire within the interval $[t, t + \tau)$ for $\tau \in \R_+$. We denote by $K_t$ the random vector collecting the random variables $K_{t,1}, \hdots, K_{t,m}$. Dividing the whole period of interest $[0, T]$ in intervals of length $\tau$, the algorithm is an iterative update of the discretized system's state
+We impose an arbitrary order on all subcompartments. We do so by expressing all compartments by n features $F_1, \dots F_n$ such that $\cup_{i=1}^n \set(F_i) = \set()$ and $\set(F_1), \dots, \set(F_n)$ are mutually disjoint. We specify the state of the system in terms of the compartments $Y(t) = \begin{pmatrix} \num(F_1) & \num(F_2) & \dots & \num(F_n)\end{pmatrix}'$. Recall that $\vect{S} \in \R^{n \times m}$ is the stoichiometric matrix, as defined in Equation \eqref{eq:ode_system_matrix}, with coefficients $s_{ij}$ and columns $s_{.j}$. $R_j$ for $j=1, \dots, m$, is the $j$-th reaction. Let $K_{t,j}$ be the random variable counting the number of times $R_j$ will fire within the interval $[t, t + \tau)$ for $\tau \in \R_+$. We denote by $K_t$ the random vector collecting the random variables $K_{t,1}, \hdots, K_{t,m}$. Dividing the whole period of interest $[0, T]$ in intervals of length $\tau$, the algorithm is an iterative update of the discretized system's state
 \begin{align}
 \label{eq:tau_leaping}
 Y(t + \tau) =& Y(t) + \vect{S} K_t.
 \end{align}
-Equation \eqref{eq:tau_leaping} is the equivalent of equation \eqref{eq:sys_change}, with the only difference that the number of reactions within a given interval are random in Equation \eqref{eq:tau_leaping}. Making use of the latter equation, the change in the system's state $\Delta Y(t) = Y(t + \tau) - Y(t)= \vect{S} K_t$ can be expressed in terms of a linear combination of the columns of $\vect{S}$ with random scalars $K_{t,j}$
+Equation \eqref{eq:tau_leaping} is the equivalent of Equation \eqref{eq:sys_change}, with the only difference that the number of reactions within a given interval are random in Equation \eqref{eq:tau_leaping}. Making use of the latter equation, the change in the system's state $\Delta Y(t) = Y(t + \tau) - Y(t)= \vect{S} K_t$ can be expressed in terms of a linear combination of the columns of $\vect{S}$ with random scalars $K_{t,j}$
 \begin{align}
 \Delta Y(t) = \sum_{j=1}^m K_{t,j} \cdot s_{.j}.
 \end{align}
-$s_{.j}$ consists of the stoichiometry for each compartment $i$ according to reaction $R_j$ and therefore indicates how the state of the system changes if reaction $R_j$ happens. $K_{t,j}$ is the number of occurrences of reaction $R_j$. Thus, the product is the system's change due to $R_j$. Aggregating over all reactions $R_j$, this yields the total change of the system, similar to the deterministic equation \eqref{eq:sys_change}.\\  
+$s_{.j}$ consists of the stoichiometry for each compartment $\set(F_i)$ according to reaction $R_j$ and therefore indicates how the state of the system changes if reaction $R_j$ happens. $K_{t,j}$ is the number of occurrences of reaction $R_j$. Thus, the product is the system's change due to $R_j$. Aggregating over all reactions $R_j$, this yields the total change of the system, similar to the deterministic Equation \eqref{eq:sys_change}.\\  
 
 So far, we have not specified the distribution of $K_t$. We are interested in the conditional joint probability distribution $\prob_t(K_{t,1} = k_{t,1}, \dots, K_{t,m} = k_{t,m}|\tau)$ of the random vector $K_t = \begin{pmatrix}
 K_{t,1}, \dots, K_{t,m} \end{pmatrix}'$ conditioned on the state of the system and a fixed interval size $\tau$. We define $\prob_t$ to be the conditional probability with respect to the state of the system and, therefore, we omit to write the condition explicitly within the condition statement. We assume independence of all $K_{t, 1},\hdots, K_{t, m}$ such that the problem simplifies to determine the marginal distributions. Let $a_j(y) = \prob_t(K_{t,j}=1|\tau=1)$ be the propensity function of the $j$-th reaction with respect to the state of the system $Y(t)=y$. We assume that for infinitesimal small $dt$
@@ -115,7 +115,7 @@ K_{t,1}, \dots, K_{t,m} \end{pmatrix}'$ conditioned on the state of the system a
 \end{align}
 is the probability that $R_j$ fires once within the interval $[t, t+dt)$ and $\left(K_{t,j}|Y(t), \tau =dt \right)$ is Bernoulli $\mathrm{Ber}(a_j(y) \cdot dt)$ distributed. The Bernoulli assumption is justified by choosing $dt$ infinitesimally small, such that $R_j$ fires at most once almost surely.
 
-For simplicity we assume that $\frac{\tau}{dt}$ is an integer. If we assume that $a_j(y)$ is constant within $[t, t+\tau)$, we can partition the interval in $\frac{\tau}{dt}$ subintervals with length $dt$. In each of these subintervals the conditional random variable is Bernoulli distributed $\left(K_{t+s \cdot dt,j}|Y(t), \tau =dt\right) \sim \mathrm{Ber}(a_j(y) \cdot dt)$ for $s=0, 1, \dots, \frac{\tau}{dt} - 1$. Thus, the sum
+For simplicity, we assume that $\frac{\tau}{dt}$ is an integer. If we assume that $a_j(y)$ is constant within $[t, t+\tau)$, we can partition the interval in $\frac{\tau}{dt}$ subintervals with length $dt$. In each of these subintervals the conditional random variable is Bernoulli distributed $\left(K_{t+s \cdot dt,j}|Y(t), \tau =dt\right) \sim \mathrm{Ber}(a_j(y) \cdot dt)$ for $s=0, 1, \dots, \frac{\tau}{dt} - 1$. Thus, the sum
 \begin{align}
 \sum_{s=0}^{\frac{\tau}{dt}-1} \left(K_{t+s \cdot dt, j} | Y(t), \tau = dt\right) \sim \textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right)
 \end{align}
@@ -149,7 +149,7 @@ Armed with the probability distribution of the reactions and an update rule for 
 
 
 \subsection{Reactions}
-From a chemical reaction network's point of view, our model can be divided into four major groups of reactions: 1. Infections, 2. Recoveries and Deaths, and 3. Vaccinations. We group recoveries and deaths since their reactions have the same structure. Subsequently, we state the general and explicit reactions. We define the reactants, products, stoichiometric coefficients, and reaction constants such that the ODE system \eqref{eq:ode_system_matrix} is determined. Further, we emphasize the reaction constants since they incorporate most of the parameterization into our model.
+From a chemical reaction network's point of view, our model can be divided into three major groups of reactions: 1. Infections, 2. Recoveries and Deaths, and 3. Vaccinations. We group recoveries and deaths since their reactions have the same structure. Subsequently, we state the general and explicit reactions. We define the reactants, products, stoichiometric coefficients, and reaction constants such that the ODE system \eqref{eq:ode_system_matrix} is determined. Further, we emphasize the reaction constants since they incorporate most of the parameterization into our model.
 
 
 \subsubsection{Infections}
@@ -169,7 +169,7 @@ In chemical terms, one infectious and one susceptible compartment serve as react
 \label{eq:general_infection}
 \num(x_I, F_1) + \num(x_S, F_2) \longrightarrow \num(X_I, F_1) + \num(X_I, F_2).
 \end{align}
-We use $F_1, F_2$ to indicate that the reactions differ with respect to not explicitly mentioned features, e.g. vaccinated individuals have a lower risk of becoming infected or transmitting the virus, the mutant virus is more infectious, and cross-border infections are scaled by a factor to make them comparatively rare events. If $F_1 \neq F_2$, the stoichiometric coefficients are one. If $F_1=F_2$, they are one for the reactants but two for the product, which is in this case only one compartment. We incorporate the additional features, represented by $F_1$ and $F_2$, into the reaction constants, which we label as \textit{infection constants}
+We use $F_1, F_2$ to indicate that the reactions differ with respect to not explicitly mentioned features, e.g. vaccinated individuals have a lower risk of becoming infected or transmitting the virus, the mutant virus is more infectious, and cross-border infections are scaled by a factor to make them comparatively rare events. If $F_1 \neq F_2$, the stoichiometric coefficients are one. If $F_1=F_2$, they are one for the reactants but two for the product, which is in this case only one compartment. We incorporate the additional features, represented by $F_1$ and $F_2$, into the reaction constants, which we label as \textit{infection constants} and define as
 \begin{align*}
 \text{infection constant} = \text{infections per day} \times \text{vaccine modifier} \times \text{compartment adjustment}.
 \end{align*}
@@ -212,9 +212,9 @@ Let the reactants be the compartments $\set(X_{I}, C_A, V_W, U_0)$ and $\set(X_{
 \begin{align}
 \num(X_{I}, C_A, V_W, U_0) + \num(X_{S}, C_B, U_0) &\xrightarrow{ r_{j_1}} \num(X_{I}, C_A, V_W, U_0) + \num(X_{I}, C_B, V_W, U_0),
 \end{align}
-where $r_{j_1}$ denotes the infection rate. To account for the infections per day, we use the baseline infection constant $\beta$ since the infectious compartment is infected with the wild type. The susceptible and the infectious compartments are unvaccinated. Therefore, we do not multiply with a vaccine modifier. The compartments are, however, from different countries. We therefore adjust by multiplying with $\frac{\num(X_S, C_j, F_2)}{\num(\neg X_D)} \cdot b(d(A, B))$
+where $r_{j_1}$ denotes the infection rate. To account for the infections per day, we use the baseline infection constant $\beta$ since the infectious compartment is infected with the wild type. The susceptible and the infectious compartments are unvaccinated. Therefore, we do not multiply with a vaccine modifier. The compartments are, however, from different countries. We therefore adjust by multiplying with $\frac{\num(X_S, C_B, F_2)}{\num(\neg X_D)} \cdot b(d(A, B))$
 \begin{align}
-r_{j_1} = \beta \cdot \frac{\num(X_S, C_j, F_2)}{\num(\neg X_D)} \cdot b(d(A, B))
+r_{j_1} = \beta \cdot \frac{\num(X_S, C_B, F_2)}{\num(\neg X_D)} \cdot b(d(A, B))
 \end{align}
 \end{example}
 
@@ -224,9 +224,9 @@ For the second example, we consider vaccinated and mutant infected compartments 
 \num(X_{I}, C_A, V_M, U_1) + \num(X_{S}, C_B, U_2) &\xrightarrow{ r_{j_2}} \num(X_{I}, C_A, V_M, U_1) + \num(X_{I}, C_B, V_M, U_2).
 \end{align}
 
-Since the infectious individual is infected with the mutant, we multiply the baseline infection constant with $\eta$. Since the infectious compartment is vaccinated, we multiply the constant with $(1-\gamma)$. Since the susceptible compartment is vaccinated with vaccine $U_2$, we multiply the infection constant with $1-\delta_{M,2}$. The compartments are from different countries. We therefore adjust by multiplying with $\frac{\num(X_S, C_j, F_2)}{\num(\neg X_D)} \cdot b(d(A, B))$
+Since the infectious individual is infected with the mutant, we multiply the baseline infection constant with $\eta$. Since the infectious compartment is vaccinated, we multiply the constant with $(1-\gamma)$. Since the susceptible compartment is vaccinated with vaccine $U_2$, we multiply the infection constant with $1-\delta_{M,2}$. The compartments are from different countries. We therefore adjust by multiplying with $\frac{\num(X_S, C_B, F_2)}{\num(\neg X_D)} \cdot b(d(A, B))$
 \begin{align}
-r_{j_2} = (1-\delta_{M,2}) (1-\gamma) \eta \beta  \frac{\num(X_S, C_j, F_2)}{\num(\neg X_D)} \cdot b(d(A, B)).
+r_{j_2} = (1-\delta_{M,2}) (1-\gamma) \eta \beta  \frac{\num(X_S, C_B, F_2)}{\num(\neg X_D)} \cdot b(d(A, B)).
 \end{align}
 \end{example}
 
@@ -256,13 +256,13 @@ The explicit reactions for unvaccinated individuals are for $j \in \{A, B\}$ and
     \set(X_I, C_j, V_k, U_0) &\xrightarrow{p \lambda} \set(X_D,C_j, V_k, U_0)  \\
     \set(X_I, C_j, V_k, U_0) &\xrightarrow{(1-p) \lambda} \set(X_R,C_j, V_k, U_0) \notag
 \end{align}
-$1/\lambda$ is the average duration an individual spends within $\set(X_I, F_1)$. We have implicitly assumed that this time is the same for dying and recovering individuals, which might not be accurate in real-world examples since dying individuals have more severe cases and heavier viral loads, such that they stay infectious longer. However, incorporating separated average durations would raise the need for more compartments. Since we allow for vaccinations of recovered and infectious individuals, we assume that this simplification is negligible. Moreover, note that $p$ does not depend on the virus type. The virus type therefore only influences the number of infections but not the probability of dying for infected individuals. According to \cite{Davies.2021}, this assumption might be violated due to higher mortality of mutants. However, we do so since the difference is rather small and we want to keep our model simple. \\
+$1/\lambda$ is the average duration an individual spends within $\set(X_I, F_1)$. We have implicitly assumed that this time is the same for dying and recovering individuals, which might not be accurate in real-world examples since dying individuals have more severe cases and heavier viral loads, such that they stay infectious longer. However, incorporating separated average durations would raise the need for more compartments. Since we allow for vaccinations of recovered and infectious individuals, faster transmissions to the recovered compartments do not bias the vaccine allocation. Therefore, we assume that this simplification is negligible. Moreover, note that $p$ does not depend on the virus type. The virus type therefore only influences the number of infections but not the probability of dying for infected individuals. According to \cite{Davies.2021}, this assumption might be violated due to higher mortality of mutants. However, we do so since the difference is rather small and we want to keep our model simple. \\
 
 
 If the infectious individuals are vaccinated, they are less likely to decease \citep{Tenforde.2021, Voysey.2021}. To account for this reduction in the fraction that transmits to the deceased state, we introduce the parameters $\omega_{k,l} \in [0,1]$ for $k \in \{W, M\}$ and $l \in \{1,2\}$. We use $p \omega_{k,l}$ as a new probability of dying due to being infected with virus $k$ after being vaccinated with vaccine $l$. $\omega_{k,l}$ is thus the reduction in the probability of dying. The corresponding reactions for vaccinated individuals are for $j \in \{A, B\}, k \in \{W, M\}$ and $l \in \{1,2\}$
 \begin{align}
     \set(X_I, C_j, V_k, U_l) &\xrightarrow{p \omega_{k,l} \lambda} \set(X_D,C_j, V_k, U_l) \\
-    \set(X_I, C_j, V_k, U_l) &\xrightarrow{(1-p \omega_{k,l}) \lambda} \set(X_R,C_j, V_k, U_l) \notag
+    \set(X_I, C_j, V_k, U_l) &\xrightarrow{(1-p \omega_{k,l}) \lambda} \set(X_R,C_j, V_k, U_l) \notag.
 \end{align}
 
 \subsubsection{Vaccination}
@@ -275,14 +275,14 @@ If the infectious individuals are vaccinated, they are less likely to decease \c
 \caption{Vaccination structure}
 \label{fig:model_vaccination_ov}
 \end{figure}
-Figure \ref{fig:model_vaccination_ov} depicts the vaccination dynamics. We allow for vaccinations of susceptible, recovered, and deceased individuals. We vaccinate susceptible individuals to protect them from becoming infected. We vaccinate infectious individuals to account for asymptomatic cases \citep{Byambasuren.2020} and recovered individuals to account for the vaccine doses taken by them. The latter are vaccinated within the real world to increase their immunity \citep{Skelly.2021}. \\
+Figure \ref{fig:model_vaccination_ov} depicts the vaccination dynamics. We allow for vaccinations of susceptible, recovered, and deceased individuals. We vaccinate susceptible individuals to protect them from becoming infected. We vaccinate infectious individuals to account for asymptomatic cases \citep{Byambasuren.2020} that receive the vaccine in the real world. Adding asymptomatic infectious compartments would make the model more realistic but increases the number of compartments by 36. We therefore decided to refrain from incorporating it but remark that this could be subject to further research. We vaccinate recovered individuals to consider the vaccine doses taken by them. The latter are vaccinated within the real world to increase their immunity \citep{Skelly.2021}. Since we use real-world vaccine inflow, we found it plausible to incorporate vaccinations of recovered individuals into our model.\\
 
-Let $\phi_{l,j} \in \R_+$ be the vaccination constant of vaccine $l$ in country $j$ at time $t$. The vaccination constant of one vaccine is assumed to be equal for all vaccination subcompartments of $S, I,R$ within one country, indicating that the decision to vaccinate an individual is independent of whether the individual is susceptible, infectious, or recovered.  The corresponding reactions are for $j \in \{A,B\}$, $k \in \{W,M\}$ and $l \in \{1,2\}$
+Let $\phi_{l,j} \in \R_+$ be the vaccination constant of vaccine $l$ in country $j$ at time $t$. The vaccination constant of a vaccine is assumed to be equal for all vaccination subcompartments of $S, I,R$ within one country, indicating that the decision to vaccinate an individual is independent of whether the individual is susceptible, infectious, or recovered.  The corresponding reactions are for $j \in \{A,B\}$, $k \in \{W,M\}$ and $l \in \{1,2\}$
 \begin{align}
 \set(X_S, C_j, U_0) &\xrightarrow{\phi_{l, j}} \set(X_S, C_j, U_l)  \\
 \set(X_I, C_j, V_k, U_0) &\xrightarrow{\phi_{l,j}} \set(X_I, C_j, V_k, U_l) \notag \\
 \set(X_R, C_j, V_k, U_0) &\xrightarrow{\phi_{l,j}} \set(X_R, C_j, V_k, U_l). \notag
 \end{align}
-The vaccination constant is determined by the implemented vaccination policy. How the vaccination constant is derived given a vaccination policy, we explain in Chapter \ref{sec:vaccine_allocation}.
+The vaccination constant is determined by the implemented vaccination strategy. How the vaccination constant is derived given a vaccination strategy, we explain in Chapter \ref{sec:vaccine_allocation}.
 
 

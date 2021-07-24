@@ -7,7 +7,7 @@
 \contentsline {figure}{\numberline {5}{\ignorespaces Vaccine inflow and allocation across countries\relax }}{20}{figure.caption.23}%
 \contentsline {figure}{\numberline {6}{\ignorespaces Exemplary vaccination strategies with respect to the two vaccination channels\relax }}{24}{figure.caption.36}%
 \contentsline {figure}{\numberline {7}{\ignorespaces Time course of exogenous vaccine inflow\relax }}{30}{figure.caption.38}%
-\contentsline {figure}{\numberline {8}{\ignorespaces Number of deceased individuals by country (splines)\relax }}{31}{figure.caption.39}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Number of deceased individuals by country (splines)\relax }}{32}{figure.caption.39}%
 \contentsline {figure}{\numberline {9}{\ignorespaces Number of allocated vaccine doses (splines)\relax }}{33}{figure.caption.40}%
 \contentsline {figure}{\numberline {10}{\ignorespaces Number of infectious individuals (splines)\relax }}{34}{figure.caption.41}%
 \contentsline {figure}{\numberline {11}{\ignorespaces Stochastically observed frequencies (splines)\relax }}{35}{figure.caption.42}%
@@ -22,6 +22,6 @@
 \contentsline {figure}{\numberline {20}{\ignorespaces Fractions of vaccines (splines)\relax }}{VII}{figure.caption.52}%
 \contentsline {figure}{\numberline {21}{\ignorespaces Waterfall plot of the 20 best multi-start runs (splines)\relax }}{VIII}{figure.caption.53}%
 \contentsline {figure}{\numberline {22}{\ignorespaces Stochastically observed frequencies (stepwise)\relax }}{IX}{figure.caption.54}%
-\contentsline {figure}{\numberline {23}{\ignorespaces Number of infectious individuals using Stochastic simulations (stepwise)\relax }}{X}{figure.caption.55}%
+\contentsline {figure}{\numberline {23}{\ignorespaces Number of infectious individuals using stochastic simulations (stepwise)\relax }}{X}{figure.caption.55}%
 \contentsline {figure}{\numberline {24}{\ignorespaces Frequencies of number of deceased individuals (splines)\relax }}{XI}{figure.caption.56}%
 \contentsline {figure}{\numberline {25}{\ignorespaces Frequencies of number of deceased individuals (stepwise)\relax }}{XII}{figure.caption.57}%

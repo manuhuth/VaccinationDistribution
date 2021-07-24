@@ -18,7 +18,7 @@ In Figure \ref{fig:sensitivity}, we examine the influence of the parameter that 
 \label{fig:sensitivity}
 \end{figure}
 
-We see as major takeaway from Figure \ref{fig:sensitivity} that the optimal strategies only outperform the current strategy for low values of $b(d(A,B))$. This could indicate that no improvement is possible, if cross-border encounters happen frequently. This might be explained by the fact that individuals are likely to become infected from individuals of both countries such that the allocation of a fixed amount of vaccine doses cannot protect a certain country. This seems plausible and we it as a proof of concept. However, simulations using mire multi-starts might be necessary to fully examine the patterns.
+We see as major takeaway from Figure \ref{fig:sensitivity} that the optimal strategies only outperform the current strategy for low values of $b(d(A,B))$. This could indicate that no improvement is possible, if cross-border encounters happen frequently. This might be explained by the fact that for high values of $b(d(A,B))$, individuals are likely to become infected from individuals of both countries such that the allocation of a fixed amount of vaccine doses cannot protect a certain country. This seems plausible and we see it as a proof of concept. However, simulations using more multi-starts might be necessary to fully examine the patterns.
 
 %We observe for country A that there is a steep increase in the death cases if we increase the distance function for all three strategies. This can be attributed to increased case numbers of the mutant type in country A, which is only present in country B at the beginning but spills over further for high values of $b(d(A,B))$. However, this increase saturates fast and seems to converge to a maximum. This could be the point where only the mutant spreads and, thus, a lower distance has almost no influence on the death cases anymore. In line with the findings for country A are the results for country B. Since the wild-type spreads more in country B for high $b(d(A,B))$ as for low values, the numbers decrease. However, the decrease is not as steep as the increase in country A.  
 
@@ -27,7 +27,7 @@ We see as major takeaway from Figure \ref{fig:sensitivity} that the optimal stra
 \subsubsection{Sensitivity of the mutant infectiousness}
 \label{A:eta}
 
-We trace out the effect of the infectiousness of the mutant type in Figure \ref{fig:sensitivity_eta}. As expected, the number of deaths increases with a more infectious mutant. Most strikingly, it seems that there is only a corridor around the interval $\eta \in [1.15, 1.4]$ where an Pareto improvement is possible. We hypothesize that for $\eta \in [1, 1.15)$ The effect of the higher mutant-infectiousness is negligible and for $\eta \in (1.4, 2]$ the effect is too severe, such that both countries experience a similar amount of deaths which cannot be influenced by the vaccine allocation. The latter is enhanced by the finding that for high values of $\eta$, country A and country B have similar number of deaths for the Pareto and the current strategy.
+We trace out the effect of the infectiousness of the mutant type in Figure \ref{fig:sensitivity_eta}. As expected, the number of deaths increases with a more infectious mutant. Most strikingly, it seems that there is only a corridor around the interval $\eta \in [1.15, 1.4]$ where a Pareto improvement is possible. We hypothesize that for $\eta \in [1, 1.15)$ the effect of the higher mutant-infectiousness is negligible and for $\eta \in (1.4, 2]$ the effect is too severe, such that both countries experience a similar amount of deaths which cannot be influenced by the vaccine allocation. The latter is enhanced by the finding that for high values of $\eta$, country A and country B have similar numbers of deaths for the Pareto and the current strategy.
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.59]{images/sensitivity_eta.png}
@@ -44,7 +44,7 @@ We trace out the effect of the infectiousness of the mutant type in Figure \ref{
 \label{A:gamma}
 In Figure \ref{fig:sensitivity_gamma}, we depict the sensitivity of number of deaths with respect to the parameter $\gamma$. Recall that $\gamma$ is the reduction of transmitting the virus if an individual is vaccinated. 
 
-We find that the order of the strategies does not change over the whole range of $\gamma$. The number of death cases decreases nearly linear for the Pareto optimal and the current strategy but the decrease is rather small. This might be explained by the small number of individuals that become infected if they are vaccinated such that the influence of the not transmitting the virus does not influence the model severely. For the unrestricted optimal strategy, we observe peeks which could occur by chance due to the random draws of the starting values for the optimization. Further research is needed to fully answer why these peeks occur.
+We find that the order of the strategies does not change over the whole range of $\gamma$. The number of death cases decreases nearly linear for the Pareto optimal and the current strategy but the decrease is rather small. This might be explained by the small number of individuals that become infected if they are vaccinated such that the influence of the not transmitting the virus does not influence the model severely. For the unrestricted optimal strategy, we observe peeks which could occur by chance due to the random draws of the starting values for the optimization. However, further research is needed to fully answer why these peeks occur.
 
 
 \begin{figure}[h!]
@@ -75,7 +75,7 @@ Figure \ref{fig:results_piecewise_numbers} provides a visualization of the core 
 \caption{Number of deceased individuals by country (stepwise)}
 \label{fig:results_piecewise_numbers}
 \end{figure}
-Figure \ref{fig:results_piecewise_allocation} depicts the optimal doses of vaccine inflow using piecewise constant vaccination channels as functional form of $f_l$. As for the number of deceased individuals, the values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_allocation}. Especially, we observe the pattern for the unrestricted strategy, which assigns only assigns vaccine doses to country B between week 5 to 9. %However, the peak is not as large as in Figure \ref{fig:results_splines_allocation}. As opposed to Figure \ref{fig:results_splines_allocation}, there is no allocation of vaccines to country B at the very beginning, which could explain the higher number of death cases in country B using the stepwise vaccination channel. \\
+Figure \ref{fig:results_piecewise_allocation} depicts the optimal doses of vaccine inflow using piecewise constant vaccination channels as functional form of $f_l$. As for the number of deceased individuals, the values do qualitatively not differ from the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_allocation}. Especially, we observe the pattern for the unrestricted strategy, which only assigns vaccine doses to country B between week 5 to 9. %However, the peak is not as large as in Figure \ref{fig:results_splines_allocation}. As opposed to Figure \ref{fig:results_splines_allocation}, there is no allocation of vaccines to country B at the very beginning, which could explain the higher number of death cases in country B using the stepwise vaccination channel. \\
 
 \begin{figure}[h!]
 \centering
@@ -87,7 +87,7 @@ Every curve is the product of a piecewise constant vaccine inflow and a spline. 
 \caption{Number of allocated vaccine doses (stepwise)}
 \label{fig:results_piecewise_allocation}
 \end{figure}
-In Figure \ref{fig:results_piecewise_infectious_dead}, we trace out the trajectories of the number of infectious and deceased individuals according to the respective strategies (columns) and countries (rows). The values do qualitatively not differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_infectious_dead}.\\
+In Figure \ref{fig:results_piecewise_infectious_dead}, we trace out the trajectories of the number of infectious and deceased individuals according to the respective strategies (columns) and countries (rows). The values do not qualitatively differ form the corresponding spline values depicted in the main text in Figure \ref{fig:results_splines_infectious_dead}.\\
 
 \begin{figure}[h!]
 \centering
@@ -103,7 +103,7 @@ In Figure \ref{fig:results_piecewise_infectious_dead}, we trace out the trajecto
 \subsubsection{Vaccination allocation fractions}
 \label{A:fractions}
 
-Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f_l$ over the whole decison period using a piecewise vaccination channel. Figure \ref{fig:results_splines_allocation_fractions} sgows the respective values for the spline vaccination channels. The values are the quotient of the curve of the vacicne inflow in \ref{fig:available_vaccine} and the optimal total number of vaccine doses inflow in Figure \ref{fig:results_piecewise_allocation} and Figure \ref{fig:results_splines_allocation}. The current strategy allocates half of the available vaccine doses each country.
+Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f_l$ over the whole decison period using a piecewise vaccination channel. Figure \ref{fig:results_splines_allocation_fractions} shows the respective values for the spline vaccination channels. The values are the quotient of the curve of the vaccine inflow in Figure \ref{fig:available_vaccine} and the optimal total number of vaccine doses inflow in Figure \ref{fig:results_piecewise_allocation} and Figure \ref{fig:results_splines_allocation}. The current strategy allocates half of the available vaccine doses to each country.
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.75]{images/piecewise_vaccine_fractions.png}\\
@@ -128,7 +128,7 @@ Figure \ref{fig:results_piecewise_allocation_fractions} depicts the course of $f
 \subsubsection{Waterfall plots of optimization}
 \label{A:waterfall}
 
-Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines_waterfall} show the ordered 20 multi-start runs with the lowest optima of all 50 runs. We only show 20 runs to increase readability of the plot. We find that the descend of the ordered function values is does not contain many jumps and the optimal values are obtained only once. Hence, it might be possible to find even lower values using more multi-start runs.
+Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines_waterfall} show the ordered 20 multi-start runs with the lowest optima of all 50 runs. We only show 20 runs to increase readability of the plot. We find that the descend of the ordered function values does not contain many jumps and the optimal values are obtained only once. Hence, it might be possible to find even lower values using more multi-start runs.
 
 
 \begin{figure}[h!]
@@ -163,7 +163,7 @@ Figure \ref{fig:results_piecewise_waterfall} and Figure \ref{fig:results_splines
 \subsubsection{Simulated distribution of number of deceased individuals}
 \label{A:simulated_distr}
 
-Figure \ref{fig:results_piecewise_stochastic_histogram} depicts the results for the number of deceased individuals using piecewise constant vaccination channels. We decided to remove it from the main text since the results resemble the results from the spline vaccination channel within Figure \ref{fig:results_splines_stochastic_histogram} in the main section.
+Figure \ref{fig:results_piecewise_stochastic_histogram} depicts the results for the number of deceased individuals using piecewise constant vaccination channels. We decided to remove it from the main text since the results resemble the results from the spline vaccination channel in Figure \ref{fig:results_splines_stochastic_histogram} in the main section.
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.65]{images/piecewise_stochastic_histogram.png}\\
@@ -182,12 +182,12 @@ Figure \ref{fig:results_piecewise_infectious_dead_stochastic} plots the total nu
 \begin{flushleft}
 \scriptsize{Note:} Every column represents one vaccination strategy and every row represents one country. The thin blue lines depict all 500 simulations of the stochastic algorithm using the respective strategy. The dashed red depicts the respective infections within the deterministic model. 
 \end{flushleft}
-\caption{Number of infectious individuals using Stochastic simulations (stepwise)}
+\caption{Number of infectious individuals using stochastic simulations (stepwise)}
 \label{fig:results_piecewise_infectious_dead_stochastic}
 \end{figure}
 \newpage
-Figures \ref{fig:histograms}  and \ref{fig:histograms_piecewise} depict the 2-dimensional, as well as the marginal, histograms of the number of deceased individuals with respect to the countries. As for the results shown within the main section, the results are qualitatively highly similar. It is striking that for the unrestricted case, the case with the fewest deaths, points seem to fluctuate more random around the center point mass as for the Pareto optimal and the current strategy. For the current strategy and the optimal strategy the reasoning might be that, just by chance, some simulated pandemics result in overall more deaths and therefore both countries have increased numbers in death cases. However, the same reasoning could apply for the unrestricted strategy that shows no linear correlation.
-Further research is needed to examine if this patterns occurred randomly and if no what the cause is.
+Figures \ref{fig:histograms}  and \ref{fig:histograms_piecewise} depict the 2-dimensional, as well as the marginal, histograms of the number of deceased individuals with respect to the countries. As for the results shown within the main section, the results are qualitatively highly similar. It is striking that for the unrestricted case, the case with the fewest deaths, points seem to fluctuate more random around the center point mass than for the Pareto optimal and the current strategy. For the current strategy and the optimal strategy the reasoning might be that, just by chance, some simulated pandemics result in overall more deaths and therefore both countries have increased numbers in death cases. However, the same reasoning could apply for the unrestricted strategy that shows no linear correlation.
+Further research is needed to examine if this patterns occurred randomly.
 \begin{figure}[h!]
      \centering
      \begin{subfigure}[b]{0.49\textwidth}
@@ -274,8 +274,7 @@ To account for the spatial effects, we introduce a penalty function $b: \R_+ \to
 \label{eq:prob_cross_border}
 \prob_t(i_2 \in \set(\neg X_D, C_B, F_2) | i_1 \in \set(\neg X_D, C_A) ) = \prob_t\left(i_2 \in \set(\neg X_D, C_B, F_2)\right) \cdot b(d(A, B)),
 \end{align}
-
-Yielding
+yielding
 \begin{align}
 \label{eq:cond_meeting_prob_b}
 \prob_t(i_2 \in \set(X_S, C_B, F_2)|i_1 \in \set(\neg X_D, C_A)) &= \frac{\num(X_S, C_j, F_2)}{\num(\neg X_D)} \cdot b(d(A, B))
@@ -284,7 +283,7 @@ Yielding
 
 \subsubsection{Well-conditioning of the polynomial basis}
 \label{A:well_conditioning}
-First note that $B_1(0) = 1$ and $B_2(0), B_3(0), B_4(0) = 0$. Furthermore, $B_1(1), B_2(1), B_4(1) = 0$ and $B_3(1) = 1$. We first compute the function values at the boundaries $t_{i-1}$ and $t_i$.
+The basis polynomials are defined by $B_1(t) = 2t^3 - 3t^2 +1, B_2(t) = t^3 - 2t^2 +t, B_3(t) = -2t^3 + 3t^2$ and $B_4(t) = t^3 - t^2$. First note that $B_1(0) = 1$ and $B_2(0), B_3(0), B_4(0) = 0$. Furthermore, $B_1(1), B_2(1), B_4(1) = 0$ and $B_3(1) = 1$. We first compute the function values at the boundaries $t_{i-1}$ and $t_i$.
 \begin{align*}
 P_{l,i}(t_{i-1}) &= B_1(0) P_{l,i}(t_{i-1}) + B_2(0) (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + B_3(0) P_{l,i}(t_{i}) + B_4(0) (t_{i} - t_{i-1}) P'_{l,i}(t_{i}) \\
 &=  1 \cdot P_{l,i}(t_{i-1}) + 0 \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i-1})  \\& \quad + 0 \cdot P_{l,i}(t_{i}) + 0 \cdot (t_{i} - t_{i-1}) P'_{l,i}(t_{i})\\

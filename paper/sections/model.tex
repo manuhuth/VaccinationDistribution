@@ -18,27 +18,27 @@ We can link sets with the common set operators, e.g. $\set(X_S, C_A) \cup \set(X
 
 We impose a set of assumptions to the compartments in order to rule out undesired cases within the model.
 \begin{assumption}\label{ass:model}
-For all $t,r \in \R_+$, $k \in \{W,M\}$ and $s \in [-t, \infty)$ let
+For all $t,r \in \R_+$, $k \in \{W,M\}$ and $w \in [-t, \infty)$ let
 \begin{align*}
 \tag{\ref{ass:model}.1} 
 \label{eq:no_reinfections}
 \set(X_I, V_k) \cap \mathcal{C}_{t+r}(X_S) &= \emptyset \\
 \tag{\ref{ass:model}.2} 
 \label{eq:no_double_vaccinations}
-\set(U_1) \cap \mathcal{C}_{t+s}(U_2) &= \emptyset \\
+\set(U_1) \cap \mathcal{C}_{t+w}(U_2) &= \emptyset \\
 \tag{\ref{ass:model}.3} 
 \label{eq:no_cross_border_mobility}
-\set(C_A) \cap \mathcal{C}_{t+s}(C_B) &= \emptyset  \\
+\set(C_A) \cap \mathcal{C}_{t+w}(C_B) &= \emptyset  \\
 \set(X_S, V_k) &= \emptyset
 \tag{\ref{ass:model}.4}
 \label{eq:no_susceptible_infections}
 \end{align*}
 \end{assumption}
 \noindent Assumption \ref{eq:no_reinfections} rules out reinfections such that an individual that has been infected once cannot become reinfected after it had recovered. According to \cite{Roy.2020}, there is evidence that recovered individuals cannot become reinfected but reinfections cannot be ruled out fully. However, the number of reinfected individuals might be negligible, therefore, we do not incorporate reinfections to keep our model parsimonious. Assumption \ref{eq:no_double_vaccinations} implies that an individual only receives one type of vaccine. Receiving one vaccination shot in our model implies that an individual is fully protected according to the vaccine properties, which eliminates the need for a second shot for the same individual. Assumption \ref{eq:no_cross_border_mobility} rules out permanent cross-country movements of individuals. We do so since  permanent movements should not be a main driver of the pandemic but would require to incorporate more compartments. We refrain from incorporating permanent cross-country movements to keep our model parsimonious. We include cross-border infections by classifying a fraction of infections as cross-border infections.
-Assumption \ref{eq:no_susceptible_infections} ensures that susceptible individuals cannot be associated with any type of virus since they have not been infected yet.
+Assumption \ref{eq:no_susceptible_infections} ensures that susceptible individuals cannot be associated with any type of virus. We do so since they have not been infected yet and therefore cannot be classified to one of the two viruses.
 
 \subsection{Deterministic model}
-We use a compartment SIRD model to simulate the pandemic, which is based on a system of ordinary differential equations (ODEs). We see every subcompartment as its own chemical species and each transmission, e.g. vaccinations, infections, recoveries, and deaths, as a chemical reaction. Thus, our system becomes a chemical reaction network. To make this thesis self-contained, we explain how the dynamics of a chemical reaction network are modeled using ODEs. We can limit ourselves to the case of irreversible reactions since recovered and deceased individuals cannot become infectious again, and infectious individuals recover but cannot become susceptible. \\
+We use a compartment SIRD model to simulate the pandemic, which is based on a system of ordinary differential equations (ODEs). We see every subcompartment as its own chemical species and each transition, e.g. vaccinations, infections, recoveries, and deaths, as a chemical reaction. Thus, our system becomes a chemical reaction network. To make this thesis self-contained, we explain how the dynamics of a chemical reaction network are modeled using ODEs. We can limit ourselves to the case of irreversible reactions since recovered and deceased individuals cannot become infectious again, and infectious individuals recover but cannot become susceptible. \\
 
 Let $\set(F_1), \dots, \set(F_n)$ be $n$ pairwise disjoint sets such that their union comprises all individuals $\cup_{i=1}^n \set(F_i) = \set()$. Every irreversible reaction $R_j$ for $j = 1, \dots, m$, can be expressed as reaction of all compartments
 \begin{align}
@@ -91,7 +91,7 @@ Since $v_t$ depends on $Y_t$ through Equation \eqref{eq:change_one_unit}, Equati
  
 \subsection{Stochastic model}
 \label{sec:stochastic}
-We use the stochastic equivalent of our model to test how the derived strategies perform under uncertainty. \cite{Gillespie.1977} proposed an algorithm modeling the duration between reactions as random variables that are dependent on the system's state. After one reaction fired, the state is updated and the time to the next period is drawn from the random variable. Hence, every probability distribution is based on the latest state of the system and the algorithm is therefore classified as \textit{exact}.  
+We use the stochastic equivalent of our model to test how the derived strategies perform under uncertainty. \cite{Gillespie.1977} proposed an algorithm modeling the duration between reactions as random variables that are dependent on the system's state. After one reaction fired, the state is updated and the time to the next period is drawn from the random variable with updated probability distribution. Hence, every probability distribution is based on the latest state of the system and the algorithm is therefore classified as \textit{exact}.  
 On the contrary, approximate algorithms, like $\tau-leaping$ \citep{Gillespie.2001}, group reactions together and use the number of times a reaction happens within an interval as a random variable. However, the reactions within one interval almost surely do not happen at the exact same time. Therefore, the true probability distributions of the second and subsequent reactions, within the interval, must change with respect to the outcome of the previous reactions. By simulating all reactions at once, approximate algorithms do not account for this update of the probability distributions. 
 The drawback of approximation can be justified by a speed-up of approximation methods that are due to fewer function evaluations. Since our model includes a large number of reactions, we decided to use the approximate method and subsequently dive into the math of it \citep{Gillespie.2001}.\\
 
@@ -126,9 +126,7 @@ $\textrm{B}\left(\frac{\tau}{dt}, a_j(y) \cdot dt\right) \xrightarrow{d} \textrm
 \begin{proof}
 The proof is moved to Appendix \ref{A:convergence_distribution}
 \end{proof}
-
-Armed with the probability distribution of the reactions and an update rule for the states in Equation \eqref{eq:tau_leaping}, we can write down the algorithm explicitly. 
-
+Armed with the probability distribution of the reactions and an update rule for the states in Equation \eqref{eq:tau_leaping}, we can write down the algorithm explicitly. \\
 \begin{algorithm}[H]
  \caption{$\tau$-leaping}
  \label{Algo:stochastic}
@@ -162,14 +160,14 @@ From a chemical reaction network's point of view, our model can be divided into 
 \caption{Infection structure}
 \label{fig:model_infections}
 \end{figure}
-Figure \ref{fig:model_infections} depicts the structure of the transmissions from the susceptible to the infectious compartments. Every infectious individual $i_1 \in \set(x_I)$ can infect a susceptible individual $i_2 \in \set(x_S)$ regardless of their countries of residence. However, we account for the higher chance of becoming infected by an individual from the same country by reducing the influence of the infectious compartments from another country via the reaction constants. \\
+Figure \ref{fig:model_infections} depicts the structure of the transitions from the susceptible to the infectious compartments. Every infectious individual $i_1 \in \set(x_I)$ can infect a susceptible individual $i_2 \in \set(x_S)$ regardless of their countries of residence. However, we account for the higher chance of becoming infected by an individual from the same country by reducing the influence of the infectious compartments from another country via the reaction constants. \\
 
 In chemical terms, one infectious and one susceptible compartment serve as reactants and yield two infectious compartments that might be subdivided by further features as products
 \begin{align}
 \label{eq:general_infection}
 \num(x_I, F_1) + \num(x_S, F_2) \longrightarrow \num(X_I, F_1) + \num(X_I, F_2).
 \end{align}
-We use $F_1, F_2$ to indicate that the reactions differ with respect to not explicitly mentioned features, e.g. vaccinated individuals have a lower risk of becoming infected or transmitting the virus, the mutant virus is more infectious, and cross-border infections are scaled by a factor to make them comparatively rare events. If $F_1 \neq F_2$, the stoichiometric coefficients are one. If $F_1=F_2$, they are one for the reactants but two for the product, which is in this case only one compartment. We incorporate the additional features, represented by $F_1$ and $F_2$, into the reaction constants, which we label as \textit{infection constants} and define as
+We use $F_1, F_2$ to indicate that the reactions differ with respect to not explicitly mentioned features, e.g. vaccinated individuals have a lower risk of becoming infected or transitioning the virus, the mutant virus is more infectious, and cross-border infections are scaled by a factor to make them comparatively rare events. If $F_1 \neq F_2$, the stoichiometric coefficients are one. If $F_1=F_2$, they are one for the reactants but two for the product, which is in this case only one compartment. We incorporate the additional features, represented by $F_1$ and $F_2$, into the reaction constants, which we label as \textit{infection constants} and define as
 \begin{align*}
 \text{infection constant} = \text{infections per day} \times \text{vaccine modifier} \times \text{compartment adjustment}.
 \end{align*}
@@ -189,7 +187,7 @@ So far, we have only defined the average number of contacts per day $c$ of an in
 
 We assume that the vaccination status, the type of virus infection, and the exact general compartment ($X_S, X_I, X_R$) of $i_1$ are independent of $\prob_t(i_2 \in \set(X_S, C_j, F_2)) $. Thus, the problem facilitates to find $\prob_t(i_2 \in \set(X_S, F_2) | i_1 \in \set(\neg X_D, C_{j'}))$. 
 %This is to express the probability that the individual that can be infected ($i_2$) is susceptible, unvaccinated, and from area two given that individual $i_1$ is infected with the wild type, unvaccinated, and from area one. 
-This independence assumption of the vaccination status implies that for a given number of encounters, an unvaccinated individual $i_1$ does not change her contact habits compared to her counterfactual vaccinated self. Note that this does not mean that we assume that vaccinated and unvaccinated individuals have the same average number of contacts, since the probabilities are defined conditionally that an encounter occurs, but rather implies that she does not meet more vaccinated individuals than her unvaccinated counterfactual. Differences in the average number of contacts between vaccinated and unvaccinated individuals can be incorporated implicitly via the vaccination parameter $\delta_{k,l}$. To facilitate notation, we subsequently take the perspective that the infectious individual lives in country A. However, the same math applies to country B. We provide a detailed derivation of the probabilities within Appendix \ref{A:meeting_prob}.
+This independence assumption of the vaccination status implies that for a given number of encounters, an unvaccinated individual $i_1$ does not change her contact habits compared to her counterfactual vaccinated self. Note that this does not mean that we assume that vaccinated and unvaccinated individuals have the same average number of contacts, since the probabilities are defined conditionally that an encounter occurs, but rather implies that, proportionally, she does not meet more vaccinated individuals than her unvaccinated counterfactual. Differences in the average number of contacts between vaccinated and unvaccinated individuals can be incorporated implicitly via the vaccination parameter $\delta_{k,l}$. To facilitate notation, we subsequently take the perspective that the infectious individual lives in country A. However, the same math applies to country B. We provide a detailed derivation of the probabilities within Appendix \ref{A:meeting_prob}.
 \begin{align}
 \label{eq:cond_meeting_prob}
 \prob_t(i_2 \in \set(X_S, C_j, F_2)|i_1 \in \set(\neg X_D, C_A)) &= \begin{cases} 
@@ -230,7 +228,7 @@ r_{j_2} = (1-\delta_{M,2}) (1-\gamma) \eta \beta  \frac{\num(X_S, C_B, F_2)}{\nu
 \end{align}
 \end{example}
 
-To ensure readability, we refrain from writing down all exact infections but they can be derived as shown in the two examples.
+To ensure readability, we refrain from writing down all exact infections but they can be derived as shown in the two examples and are depicted in Figure \ref{fig:model_infections}.
 
 \subsubsection{Recoveries and deaths}
 \begin{figure}[h!]
@@ -239,7 +237,7 @@ To ensure readability, we refrain from writing down all exact infections but the
 \begin{flushleft}
 \scriptsize{\textit{Note}: Solid lines indicate transition paths. Shots below a compartment indicate that individuals from this compartment are vaccinated. Viruses below a compartment indicate that this compartment is infectious with the respective virus type. The letters in the top right corner of each compartment indicate the country of residence of individuals within the compartment. The formulas on top of the solid lines indicate the respective reaction constant.}
 \end{flushleft}
-\caption{Recoveries and deaths structure}
+\caption{Recovery and death structure}
 \label{fig:model_recoveries}
 \end{figure}
 Figure \ref{fig:model_recoveries} depicts the dynamics of the recoveries and deaths. The general reactions are defined by one infectious reactant and one product
@@ -248,18 +246,18 @@ Figure \ref{fig:model_recoveries} depicts the dynamics of the recoveries and dea
     \set(X_I, F_1) & \longrightarrow  \set(X_D, F_1) \\
     \set(X_I, F_1) & \longrightarrow  \set(X_R, F_1). \notag
 \end{align}
-The reaction number is the product of the average number of individuals transmitting out of the infectious compartment $\set(X_I, F_1)$ and the fraction of individuals that transmit to the product compartment, either $\set(X_D, F_1)$ or $\set(X_R, F_1)$. \\
+The change in mass of the reactants (decrease) and the products (increase) is the product of the average number of individuals transitioning out of the infectious compartment $\set(X_I, F_1)$ and the fraction of individuals that transition to the product compartment, either $\set(X_D, F_1)$ or $\set(X_R, F_1)$. \\
 
-Let $\lambda \in \R_+$ be the average number of individuals that transmit out of $\set(X_I, F_1)$. We assume that a constant fraction $p \in [0,1]$ of these individuals dies. Hence, $p\lambda$ individuals transmit to the deceased and $(1-p)\lambda$ individuals transmit to the recovered state. 
+Let $\lambda \in \R_+$ be the average number of individuals that transition out of $\set(X_I, F_1)$. We assume that a constant fraction $p \in [0,1]$ of these individuals dies. Hence, $p\lambda$ individuals transition to the deceased and $(1-p)\lambda$ individuals transition to the recovered state. 
 The explicit reactions for unvaccinated individuals are for $j \in \{A, B\}$ and $k \in \{W, M\}$
 \begin{align}
     \set(X_I, C_j, V_k, U_0) &\xrightarrow{p \lambda} \set(X_D,C_j, V_k, U_0)  \\
     \set(X_I, C_j, V_k, U_0) &\xrightarrow{(1-p) \lambda} \set(X_R,C_j, V_k, U_0) \notag
 \end{align}
-$1/\lambda$ is the average duration an individual spends within $\set(X_I, F_1)$. We have implicitly assumed that this time is the same for dying and recovering individuals, which might not be accurate in real-world examples since dying individuals have more severe cases and heavier viral loads, such that they stay infectious longer. However, incorporating separated average durations would raise the need for more compartments. Since we allow for vaccinations of recovered and infectious individuals, faster transmissions to the recovered compartments do not bias the vaccine allocation. Therefore, we assume that this simplification is negligible. Moreover, note that $p$ does not depend on the virus type. The virus type therefore only influences the number of infections but not the probability of dying for infected individuals. According to \cite{Davies.2021}, this assumption might be violated due to higher mortality of mutants. However, we do so since the difference is rather small and we want to keep our model simple. \\
+$1/\lambda$ is the average duration an individual spends within $\set(X_I, F_1)$. We have implicitly assumed that this time is the same for dying and recovering individuals, which might not be accurate in real-world examples since dying individuals have more severe cases and heavier viral loads, such that they stay infectious longer. However, incorporating separated average durations would raise the need for more compartments. Since we allow for vaccinations of recovered and infectious individuals, slower transitions to the recovered compartments do not bias the vaccine allocation. Therefore, we assume that this simplification is negligible. Moreover, note that $p$ does not depend on the virus type. The virus type therefore only influences the number of infections but not the probability of dying for infected individuals. According to \cite{Davies.2021}, this assumption might be violated due to higher mortality of mutants. However, we do so since the difference is rather small and we want to keep our model simple. \\
 
 
-If the infectious individuals are vaccinated, they are less likely to decease \citep{Tenforde.2021, Voysey.2021}. To account for this reduction in the fraction that transmits to the deceased state, we introduce the parameters $\omega_{k,l} \in [0,1]$ for $k \in \{W, M\}$ and $l \in \{1,2\}$. We use $p \omega_{k,l}$ as a new probability of dying due to being infected with virus $k$ after being vaccinated with vaccine $l$. $\omega_{k,l}$ is thus the reduction in the probability of dying. The corresponding reactions for vaccinated individuals are for $j \in \{A, B\}, k \in \{W, M\}$ and $l \in \{1,2\}$
+If the infectious individuals are vaccinated, they are less likely to decease \citep{Tenforde.2021, Voysey.2021}. To account for this reduction in the fraction that transitions to the deceased state, we introduce the parameters $\omega_{k,l} \in [0,1]$ for $k \in \{W, M\}$ and $l \in \{1,2\}$. We use $p \omega_{k,l}$ as a new probability of dying due to being infected with virus $k$ after being vaccinated with vaccine $l$. $\omega_{k,l}$ is thus the reduction in the probability of dying. The corresponding reactions for vaccinated individuals are for $j \in \{A, B\}, k \in \{W, M\}$ and $l \in \{1,2\}$
 \begin{align}
     \set(X_I, C_j, V_k, U_l) &\xrightarrow{p \omega_{k,l} \lambda} \set(X_D,C_j, V_k, U_l) \\
     \set(X_I, C_j, V_k, U_l) &\xrightarrow{(1-p \omega_{k,l}) \lambda} \set(X_R,C_j, V_k, U_l) \notag.

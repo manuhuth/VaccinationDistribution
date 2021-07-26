@@ -2,11 +2,11 @@
 \setcounter {tocdepth}{2}
 \contentsline {figure}{\numberline {1}{\ignorespaces Model structure\relax }}{4}{figure.caption.4}%
 \contentsline {figure}{\numberline {2}{\ignorespaces Infection structure\relax }}{12}{figure.caption.14}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Recoveries and deaths structure\relax }}{16}{figure.caption.21}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Recovery and death structure\relax }}{16}{figure.caption.21}%
 \contentsline {figure}{\numberline {4}{\ignorespaces Vaccination structure\relax }}{18}{figure.caption.22}%
 \contentsline {figure}{\numberline {5}{\ignorespaces Vaccine inflow and allocation across countries\relax }}{20}{figure.caption.23}%
 \contentsline {figure}{\numberline {6}{\ignorespaces Exemplary vaccination strategies with respect to the two vaccination channels\relax }}{24}{figure.caption.36}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Time course of exogenous vaccine inflow\relax }}{30}{figure.caption.38}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Time course of exogenous vaccine inflow\relax }}{31}{figure.caption.38}%
 \contentsline {figure}{\numberline {8}{\ignorespaces Number of deceased individuals by country (splines)\relax }}{32}{figure.caption.39}%
 \contentsline {figure}{\numberline {9}{\ignorespaces Number of allocated vaccine doses (splines)\relax }}{33}{figure.caption.40}%
 \contentsline {figure}{\numberline {10}{\ignorespaces Number of infectious individuals (splines)\relax }}{34}{figure.caption.41}%

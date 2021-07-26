@@ -7,11 +7,11 @@
 \contentsline {subsubsection}{\numberline {2.3.1}Infections}{11}{subsubsection.2.3.1}%
 \contentsline {subsubsection}{\numberline {2.3.2}Recoveries and deaths}{16}{subsubsection.2.3.2}%
 \contentsline {subsubsection}{\numberline {2.3.3}Vaccination}{18}{subsubsection.2.3.3}%
-\contentsline {section}{\numberline {3}Optimal vaccine allocation}{19}{section.3}%
+\contentsline {section}{\numberline {3}Optimal vaccine allocation}{20}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Objective function}{21}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Vaccine allocation channels}{23}{subsection.3.2}%
 \contentsline {section}{\numberline {4}Simulation and optimization}{26}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Calibration}{26}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.1}Calibration}{27}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Deterministic simulations}{30}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Policy test with stochastic model}{35}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Conclusion}{36}{section.5}%

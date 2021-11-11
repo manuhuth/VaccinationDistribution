@@ -12,18 +12,18 @@ from models.vaccination.create_model_vaccination import (
 )
 
 
-function = "piecewise"
-model_type = "unrestricted"
+function = "splines"
+model_type = "current"
 
 if model_type == "splines":
     with open(
-        "/home/manuel/Documents/VaccinationDistribution/code/objects/output_model_props.pkl",
+        "/home/manuel/Documents/VaccinationDistribution/code/objects/output_model_props_toy.pkl",
         "rb",
     ) as input:
         model_out = pickle.load(input)
 
     with open(
-        "/home/manuel/Documents/VaccinationDistribution/code/objects/output_splines.pkl",
+        "/home/manuel/Documents/VaccinationDistribution/code/objects/output_splines_toy.pkl",
         "rb",
     ) as input:
         dict_out = pickle.load(input)
@@ -263,7 +263,7 @@ with mp.Pool() as p:
     )
 
 path = (
-    f"/home/manuel/Documents/VaccinationDistribution/code/objects/output_stochastic_{function}_{model_type}_rawSim"
+    f"/home/manuel/Documents/VaccinationDistribution/code/objects/output_stochastic_{function}_{model_type}_rawSim_toy"
     + ".pkl"
 )
 with open(

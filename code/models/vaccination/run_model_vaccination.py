@@ -27,8 +27,6 @@ from functions.vaccine_proportions import create_spline_parameters
 from functions.vaccine_proportions import create_spline_transformation_rules
 from functions.vaccine_proportions import create_one_minus_rules_splines
 
-import matplotlib.pyplot as plt
-
 first_time = False
 # --------------------------Create Model--------------------------------------
 model_name = "vaccination"

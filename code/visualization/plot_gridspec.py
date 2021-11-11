@@ -12,6 +12,7 @@ plt.rcParams.update(
         "font.family": "sans-serif",
         "font.sans-serif": ["Helvetica"],
         "grid.color": "white",
+        "font.weight": "bold",
     }
 )
 plt.rcParams["lines.linewidth"] = 1.5
@@ -22,7 +23,8 @@ plt.rcParams["axes.facecolor"] = "#E6E6E6"
 
 from functions.run_sbml import get_model_and_solver_from_sbml
 
-type_optim = "piecewise"
+type_optim = "splines"
+
 if type_optim == "piecewise":
     plot_name = "Piecewise constant"
 else:
@@ -57,7 +59,10 @@ print(compare_B)
 
 # ------Set plot path----------------------------------------------------------
 plot_path = (
-    "/home/manuel/Documents/VaccinationDistribution/paper/images/" + type_method + "_"
+    "/home/manuel/Documents/VaccinationDistribution/paper/images/"
+    + "toy_"
+    + type_method
+    + "_"
 )
 
 model_solver = model_and_solver = get_model_and_solver_from_sbml(
@@ -117,7 +122,7 @@ def plot_gridspec(
             y_plot = y_i[index2]
             if not ("linewidth" in y_plot):
                 y_plot["linewidth"] = 1.5
-            if count == 0 or count == 1  or index2 == "z_deterministic":
+            if count == 0 or count == 1 or index2 == "z_deterministic":
                 ax.plot(
                     time,
                     y_plot["y"],
@@ -759,7 +764,7 @@ plot_gridspec(
     title=f"Number of infectious and deceased individuals in millions",
     legend_next_to_plot=True,
     legend_location="lower center",
-    ylim=[0, 27],
+    ylim=[0, 30],
     xlim=None,
     bbox=(0.515, -0.05),
     line_thickness=0.6,
@@ -965,6 +970,7 @@ if type_optim == "piecewise":
             bbox_to_anchor=(0.22, -0.13),
             loc="lower left",
             fontsize="small",
+            frameon=False,
         )
         ax.spines["top"].set_alpha(0)
         ax.spines["bottom"].set_alpha(0)
@@ -1080,12 +1086,15 @@ else:
                     ha="center",
                     va="center",
                     color=text_color,
+                    size=12,
+                    fontweight="bold",
                 )
         ax.legend(
             ncol=len(category_names),
             bbox_to_anchor=(0.22, -0.13),
             loc="lower left",
             fontsize="small",
+            frameon=False,
         )
         ax.spines["top"].set_alpha(0)
         ax.spines["bottom"].set_alpha(0)
@@ -1093,17 +1102,18 @@ else:
         ax.spines["left"].set_alpha(0)
         ax.grid(alpha=0)
         ax.set_title(title)
-        end_values = np.round(
-            [
-                np.round(unrestricted_deceased_A / 10 ** 6, 2)
-                + np.round(unrestricted_deceased_B / 10 ** 6, 2),
-                np.round(dead_A_optimal / 10 ** 6, 2)
-                + np.round(dead_B_optimal / 10 ** 6, 2),
-                np.round(current_deceased_A / 10 ** 6, 2)
-                + np.round(current_deceased_B / 10 ** 6, 2),
-            ],
-            2,
+
+        unre = np.round(unrestricted_deceased_A / 10 ** 6, 2) + np.round(
+            unrestricted_deceased_B / 10 ** 6, 2
         )
+        pareto = np.round(dead_A_optimal / 10 ** 6, 2) + np.round(
+            dead_B_optimal / 10 ** 6, 2
+        )
+        current = np.round(current_deceased_A / 10 ** 6, 2) + np.round(
+            current_deceased_B / 10 ** 6, 2
+        )
+        end_values = np.round([unre, pareto, current], 2)
+
         ax.xaxis.set_ticks(end_values)
         ax.vlines(
             end_values[0], ymin=-0.5, ymax=0.25, color="dimgrey", linestyle="dotted"
@@ -1121,23 +1131,23 @@ else:
         # ax.text(2.01, -1.03, f"{int(np.round(1.86/2.23 - 1,2)*100)}\%")
         ax.annotate(
             "",
-            xy=(0.826, 0.16),
+            xy=(0.67, 0.16),
             xycoords="axes fraction",
             xytext=(1, 0.16),
             arrowprops=dict(arrowstyle="->", color="black"),
         )
-        ax.text(1.95, 0.055, f"{int(np.round(1.86/2.23 - 1,2)*100)}\%")
+        ax.text(2.05, 0.055, f"{int(np.round(unre/current - 1, 2)*100)}\%")
         # ax.annotate('', xy=(2.12/2.23, -0.12), xycoords='axes fraction', xytext=(1, -0.12),
         #        arrowprops=dict(arrowstyle="->", color='black'))
         # ax.text(2.15, -0.8, f"{int(np.round(2.12/2.23 - 1,2)*100)}\%")
         ax.annotate(
             "",
-            xy=(0.94, 0.49),
+            xy=(0.875, 0.49),
             xycoords="axes fraction",
             xytext=(1, 0.49),
             arrowprops=dict(arrowstyle="->", color="black"),
         )
-        ax.text(2.138, 1.043, f"{int(np.round(2.12/2.23 - 1,2)*100)}\%")
+        ax.text(2.35, 1.043, f"{int(np.round(pareto/current - 1, 2)*100)}\%")
 
         return fig, ax
 

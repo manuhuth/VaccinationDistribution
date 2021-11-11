@@ -15,6 +15,7 @@ def create_sbml_file(
     parameter_rules=None,
     rate_rules=None,
     splines=None,
+    events=None,
 ):
     """Create SBML object for given inputs. Function does not save the file.
     Saving is done by :func:`write_dict_to_sbml_file`.
@@ -102,6 +103,11 @@ def create_sbml_file(
         for keys in rate_rule_identifier:
             create_parameter_rate_rule(model=model, rule_id=keys, **rate_rules[keys])
 
+    if events is not None:
+        events_identifier = events.keys()
+        for keys in events_identifier:
+            create_event(model=model, event_id=keys, **events[keys])
+
     return document
 
 
@@ -111,7 +117,7 @@ def create_cubic_hermite_spline(
     spline = CubicHermiteSpline(
         sbmlId=parameter_name,
         x=time_symbol,
-        xx=xx_names,  # make to xx_names. If we want to optimize over xx's as well
+        xx=xx_names,
         yy=yy_names,
     )
 
@@ -163,6 +169,7 @@ def write_entities_to_dict(
     parameter_rules=None,
     rate_rules=None,
     splines=None,
+    events=None,
 ):
     """
     Transforms inputs to dictionaries with the entities as keys and the
@@ -226,6 +233,9 @@ def write_entities_to_dict(
 
     if splines is not None:
         output["splines"] = splines
+
+    if events is not None:
+        output["events"] = events
 
     return output
 
@@ -611,3 +621,72 @@ def create_parameter_rate_rule(model, parameter_id, formula, rule_id, rule_name=
     parameter_rule.setMath(math_ast)
 
     return parameter_rule
+
+
+def create_event(
+    model,
+    trigger_formula,
+    assignee_id,
+    assign_formula,
+    trigger_init=False,
+    event_id=None,
+    event_name=None,
+):
+    """
+    Creates new event for libsbml.Model.
+
+    Parameters
+    ----------
+    model : libsbml.Model
+        Model for which species will be created.
+
+    trigger_formula : str
+        Formula must be a valid sbml formula expression, e.g. 'geq(time, t_0)'.
+
+    assignee_id : str
+        Name of compartment or parameter.
+
+    assign_formula: str
+        Formula that assigns values to the compartment or parameter. Formula
+        must be a valid sbml formula expression, e.g. '1' means that the
+        respective compartment size or parameter is set to one.
+
+    trigger_init: bool
+        Should set initial value.
+
+    event_id : str
+        Id of the event.
+
+    event_name : str
+        Name of the event
+
+    Returns
+    -------
+    parameter_rule : libsbml.AssignmentRule
+        Rule defined for the parameter.
+    """
+    if event_id is None:
+        event_id = assignee_id
+
+    if event_name is None:
+        event_name = event_id
+
+    event = model.createEvent()
+
+    event.setId(event_id)
+    event.setName(event_name)
+    event.setUseValuesFromTriggerTime(True)
+
+    trigger = event.createTrigger()
+    math_ast = libsbml.parseL3Formula(trigger_formula)
+
+    trigger.setMath(math_ast)
+    trigger.setInitialValue(trigger_init)
+    trigger.persistent = True
+
+    assignment = event.createEventAssignment()
+    assignment.setVariable(assignee_id)
+    math_ast = libsbml.parseL3Formula(assign_formula)
+    assignment.setMath(math_ast)
+
+    return event

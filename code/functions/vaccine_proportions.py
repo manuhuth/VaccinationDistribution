@@ -3,9 +3,9 @@ import numpy as np
 from sympy import symbols
 from amici.splines import UniformGrid
 
-from models.vaccination.create_model_vaccination import get_all_species_alive
-from models.vaccination.create_model_vaccination import get_all_species_alive_area
-from models.vaccination.create_model_vaccination import create_species_model
+from functions.tools import get_all_species_alive
+from functions.tools import get_all_species_alive_area
+from functions.tools import create_species_model
 
 
 def create_spline(area, vaccine, stop, length):
@@ -53,6 +53,51 @@ def create_spline(area, vaccine, stop, length):
     return splines
 
 
+def create_spline_R_value(area, stop, length):
+    """Generate dictionary with information for the spline.
+    Spline is associated to a vaccine and an area.
+
+    Parameters
+    ----------
+    area : str
+        Name of area for which spline is created.
+
+    vaccine : str
+        Name of vaccine for which spline is created.
+
+    stop : int
+        Last period for the uniform grid on which the spline is computed.
+
+    length : int
+        Number of intervalss on which the spline is computed.
+
+    Returns
+    -------
+    splines : dict
+        Dicitionary containing the information of the spline.
+    """
+    xx = UniformGrid(start=0, stop=stop, length=length)
+    yy_names = []
+    xx_names = []
+
+    for index in range(length):
+        yy_names.append(symbols(f"yR0_{area}_{index}"))
+        xx_names.append(symbols(f"xx_R0_{index}"))
+
+    yy = np.repeat(0, length)
+    splines = {
+        f"R0_modifier_{area}": {
+            "time_symbol": "time",
+            "xx": xx,
+            "yy": yy,
+            "xx_names": xx_names,
+            "yy_names": yy_names,
+        }
+    }
+
+    return splines
+
+
 def create_splines(areas_without, vaccination_states_removed, stop, length):
     """Generate dictionary with information for spline that is passed to
     :func: `model_vaccination_create_sbml`. Spline is associated to a vaccine
@@ -86,6 +131,40 @@ def create_splines(areas_without, vaccination_states_removed, stop, length):
                 area=index_areas, vaccine=index_vaccines, stop=stop, length=length
             )
             splines = {**splines, **new_spline}
+
+    return splines
+
+
+def create_splines_R(areas, stop, length):
+    """Generate dictionary with information for spline that is passed to
+    :func: `model_vaccination_create_sbml`. Spline is associated to a vaccine
+    and an area.
+
+    Parameters
+    ----------
+    areas_without : list
+        Names of areas for which splines are created.
+
+    vaccination_states_removed : list
+        Names of vaccines for which splines are created.
+
+    stop : int
+        Last period for the uniform grid on whoch the spline is computed.
+
+    length : int
+        Number of intervalss on which the spline is computed.
+
+    Returns
+    -------
+    splines : dict
+        Dicitionary containing the information of that is passed to
+        :func: `model_vaccination_create_sbml`.
+    """
+
+    splines = {}
+    for index_areas in areas:
+        new_spline = create_spline_R_value(area=index_areas, stop=stop, length=length)
+        splines = {**splines, **new_spline}
 
     return splines
 
@@ -429,10 +508,16 @@ def get_string_formula_one_minus(other_areas, vaccine, decision_period):
 
     string_formula = "1 "
     for index_areas in other_areas:
-        string_formula = (
-            string_formula
-            + f"- proportion_par_{index_areas}_{vaccine}_{decision_period},"
-        )
+        if index_areas == other_areas[-1]:
+            string_formula = (
+                string_formula
+                + f"- proportion_par_{index_areas}_{vaccine}_{decision_period},"
+            )
+        else:
+            string_formula = (
+                string_formula
+                + f"- proportion_par_{index_areas}_{vaccine}_{decision_period}"
+            )
 
     return string_formula
 

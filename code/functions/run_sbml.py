@@ -202,6 +202,7 @@ def get_model_and_solver_from_sbml(
     model_name,
     model_directory,
     observables=None,
+    fixed_parameters=None,
     only_import=False,
 ):
     """Get model and solver objects from a SBML file.
@@ -228,7 +229,12 @@ def get_model_and_solver_from_sbml(
     filename = path_sbml + ".xml"
     if only_import is False:
         sbml_importer = amici.SbmlImporter(filename)
-        sbml_importer.sbml2amici(model_name, model_directory, observables=observables)
+        sbml_importer.sbml2amici(
+            model_name,
+            model_directory,
+            observables=observables,
+            constant_parameters=fixed_parameters,
+        )
 
     model_module = amici.import_model_module(model_name, model_directory)
     model = model_module.getModel()

@@ -60,13 +60,13 @@ def get_input_dicts(names, results_type, deterministic):
     return dict_optimal
 
 
-function = "piecewise"
+function = "splines"
 # model_type = "current"
 
 plot_path = (
     "/home/manuel/Documents/VaccinationDistribution/paper/images/"
     + function
-    + "_stochastic"
+    + "_stochastic_toy"
 )
 
 time = np.linspace(0, 140, 6000) / 7
@@ -77,7 +77,7 @@ results = {}
 
 for index in types:
     path = (
-        f"/home/manuel/Documents/VaccinationDistribution/code/objects/output_stochastic_{function}_{index}_rawSim"
+        f"/home/manuel/Documents/VaccinationDistribution/code/objects/output_stochastic_{function}_{index}_rawSim_toy"
         + ".pkl"
     )
     with open(

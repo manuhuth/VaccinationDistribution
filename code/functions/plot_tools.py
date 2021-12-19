@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 from scipy.interpolate import CubicHermiteSpline as cbs
 from matplotlib.gridspec import GridSpec
+from numpy import trapz
 import matplotlib as mpl
 
 mpl.rcParams["axes.spines.top"] = False
@@ -507,6 +508,12 @@ def plot_best_strategy(
     linewidth=1,
     s_scatter=4,
     label_scatter="",
+    plot=None,
+    n_vacc=1,
+    x_total=16,
+    y_total=0.2,
+    scale_total=1,
+    add_additional=None,
 ):
 
     pareto = dict_output[case]["population_based"]
@@ -515,7 +522,14 @@ def plot_best_strategy(
     country_names = [
         x for x in appended_df.columns if "country" in x and not ("_" in x)
     ]
-
+    if not(add_additional is None):
+        for index in add_additional["integers"]:
+            for index2 in ["country A"]:
+                for index3 in ["vac1", "vac2"]:
+                    name = f"yy_{index2}_{index3}_{index}"
+                    appended_df[name] = add_additional["number"]
+        
+        
     pars = [x for x in appended_df.columns if "yy_" in x]
     pars1 = [x for x in pars if "vac1" in x]
     pars2 = [x for x in pars if "vac2" in x]
@@ -591,26 +605,54 @@ def plot_best_strategy(
         scatter_vac_unconstr = optimal_vacc_strategy2
     if ax is None:
         fig, ax = plt.subplots()
+    
+    if plot == "pareto" or plot is None:
 
-    ax.plot(
-        np.linspace(0, total_length, grid_points) / 7,
-        vac_pareto,
-        color=col_pareto,
-        linewidth=linewidth,
-        label=label_pareto,
-    )
-    ax.plot(
-        np.linspace(0, total_length, grid_points) / 7,
-        vac_unconstrained,
-        color=col_unconstrained,
-        linewidth=linewidth,
-        label=label_unconstrained,
-    )
+        ax.plot(
+            np.linspace(0, total_length, grid_points) / 7,
+            vac_pareto*n_vacc,
+            color=col_pareto,
+            linewidth=linewidth,
+            label=label_pareto,
+        )
+        
+        ax.fill_between(np.linspace(0, total_length, grid_points) / 7, vac_pareto*n_vacc, 
+                        np.repeat(0, len(vac_pareto))*n_vacc, color=col_pareto, alpha = 0.3)
+        ax.plot(np.linspace(0, total_length, grid_points) / 7,
+                np.repeat(0.5, len(vac_pareto))*n_vacc,
+                color="black", linestyle="dashed", label="Population \nallocation")
+        time = np.linspace(0, total_length, grid_points) / 7
+        area = trapz(vac_pareto*n_vacc, dx=(time[1] - time[0]))
+        ax.text(x_total, y_total, f"Total doses: \n{np.round(area, 2)}",
+                horizontalalignment="center",
+                verticalalignment="center",
+                bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=1'))
+        
+    if plot == "optimal" or plot is None:
+        ax.plot(
+            np.linspace(0, total_length, grid_points) / 7,
+            vac_unconstrained*n_vacc,
+            color=col_unconstrained,
+            linewidth=linewidth,
+            label=label_unconstrained,
+        )
+        ax.plot(np.linspace(0, total_length, grid_points) / 7,
+                np.repeat(0.5, len(vac_unconstrained))*n_vacc,
+                color="black", linestyle="dashed", label="Population \nallocation")
+        time = np.linspace(0, total_length, grid_points-1) / 7 
+        area = trapz(vac_unconstrained*n_vacc, dx=(time[1] - time[0]))
+        ax.fill_between(np.linspace(0, total_length, grid_points) / 7, vac_unconstrained*n_vacc, 
+                        np.repeat(0, len(vac_unconstrained))*n_vacc, color=col_unconstrained,
+                        alpha = 0.3)
+        ax.text(x_total, y_total, f"Total doses: \n{np.round(area, 2)}",
+                horizontalalignment="center",
+                verticalalignment="center",
+                bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=1'))
 
-    ax.scatter(x_scatter, scatter_vac_pareto, s=s_scatter, label=label_scatter,
-               color=col_pareto)
-    ax.scatter(x_scatter, scatter_vac_unconstr, s=s_scatter, label=label_scatter,
-               color=col_pareto)
+    #ax.scatter(x_scatter, scatter_vac_pareto, s=s_scatter, label=label_scatter,
+    #           color=col_pareto)
+    #ax.scatter(x_scatter, scatter_vac_unconstr, s=s_scatter, label=label_scatter,
+    #           color=col_pareto)
 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
@@ -1536,3 +1578,175 @@ def plot_bars_vac(ax, vaccine1, vaccine2, title, barWidth=0.25):
     #ax.set_title("Vaccine infection and \ndeath reduction")
     ax.legend(loc="center")
 
+#---------------------------------------------------------------------------------------------------------------
+def plot_horizontal_bars(results, category_names, ax):
+        """
+        Parameters
+        ----------
+        results : dict
+            A mapping from question labels to a list of answers per category.
+            It is assumed all lists contain the same number of entries and that
+            it matches the length of *category_names*.
+        category_names : list of str
+            The category labels.
+        """
+        labels = list(results.keys())
+        data = np.array(list(results.values()))
+        data_cum = data.cumsum(axis=1)
+        category_colors = ["C0", "C1"]
+    
+        ax.invert_yaxis()
+        ax.xaxis.set_visible(False)
+        ax.set_xlim(0, np.sum(data, axis=1).max())
+    
+        for i, (colname, color) in enumerate(zip(category_names, category_colors)):
+            widths = data[:, i]
+            starts = data_cum[:, i] - widths
+            rects = ax.barh(labels, widths, left=starts, height=0.5,
+                            label=colname, color=color, alpha=0.9)
+    
+            #r, g, b, _ = color
+            text_color = 'black' # 'darkgrey'
+            ax.bar_label(rects, label_type='center', color=text_color)
+        ax.legend(ncol=len(category_names), bbox_to_anchor=(0.6, 0),
+                  fontsize='small')
+    
+        return ax
+
+
+def plot_horizontal_bars_annotated(ax,
+                                   dict_use,
+                                   scale = 10**5,
+                                   color_vline = "black",
+                                   linestyle_vline = "dashed", title=""):
+    all_results = dict_use["all_strategies"]
+    argmin_global = np.argmin(all_results["fval"])
+    global_optimum = all_results.iloc[argmin_global]
+    
+    pareto_results = dict_use["pareto_improvements"]
+    argmin_Pareto = np.argmin(pareto_results["fval"])
+    pareto_optimum = all_results.iloc[argmin_Pareto]
+    
+    optimal = np.round([global_optimum["countryA"]/scale, global_optimum["countryB"]/scale],2)
+    population = np.round(np.array(dict_use["population_based"])/scale,2)
+    pareto = np.round([pareto_optimum["countryA"]/scale, pareto_optimum["countryB"]/scale],2)
+    
+    category_names = ["Country A", "Country B"]
+    results = {
+        'Optimal \nStrategy': optimal,
+        'Population \nStrategy':  population,
+        'Pareto Optimal \nStrategy': pareto,
+    }
+    
+    
+
+    plot_horizontal_bars(results, category_names, ax)
+    ax.axvline(x=np.sum(population), color = color_vline, linestyle =linestyle_vline)
+    y_ticks = ax.get_yticks()
+    #ax.annotate(f"{np.round((np.sum(optimal) / np.sum(population) - 1)*100, 2)}",
+    #            xy=(np.sum(optimal), y_ticks[0]), xycoords='data',
+    #            xytext=(np.sum(population), y_ticks[0]), #textcoords='offset points',
+    #            ha="center", fontsize = 4, va = "center",
+    #            arrowprops=dict(arrowstyle="->"),)
+    par_opt_list = [optimal, pareto]
+    for index in range(len(par_opt_list)):
+        if index == 1:
+            tick = 2
+        else:
+            tick = index
+        ax.arrow(np.sum(population), y_ticks[tick], np.sum(par_opt_list[index]) - np.sum(population), 0,
+                 length_includes_head=True, head_width=0.1, head_length=0.05)     
+        ax.text(np.sum(population), y_ticks[tick], f"{np.round((np.sum(par_opt_list[index])/np.sum(population) - 1)*100,2)}%",
+                va = "center")    
+        ax.set_title(title)
+    
+def compute_incidences(trajectories,
+                       viruses = ["virus1", "virus2"],
+                       countries = ["countryA", "countryB"],
+                       time = np.linspace(0, 140, 6000),
+                       lambda1 = 0.1,
+                       habitant_scale = 0.1,):
+    
+    infected = {}
+    for index in range(len(viruses)):
+        df_help = pd.DataFrame(np.nan, index=range(trajectories.shape[0]), columns=countries)
+        for index_country in range(len(countries)):
+            cols = [x for x in trajectories.columns if "infectious" in x and viruses[index] in x and countries[index_country] in x]
+            df_help[countries[index_country]] = trajectories[cols].sum(axis=1)
+        infected[viruses[index]] = df_help
+    
+    incidences = {}
+    for index in range(len(viruses)):
+        df_incidence = pd.DataFrame(np.nan, index=range(trajectories.shape[0]), columns=countries)
+        for index_country in range(len(countries)):
+            time_course = infected[viruses[index]][countries[index_country]]
+            for index_time in range(1, len(time_course)-1):
+                delta_t = time[index_time+1] - time[index_time]
+                newly_infected = time_course[index_time + 1] - (1 - lambda1*delta_t) * time_course[index_time] 
+                df_incidence.loc[index_time, countries[index_country]] = newly_infected
+        incidences[viruses[index]] = df_incidence
+        
+    seven_day_incidences = {}
+    for index in range(len(viruses)):
+        df_7_day_incidence = pd.DataFrame(np.nan, index=range(trajectories.shape[0]), columns=countries)
+        for index_country in range(len(countries)):
+            time_course_incidence = incidences[viruses[index]]
+            for index_time in range(300, len(time_course)-1):
+                df_7_day_incidence.loc[index_time, countries[index_country]] = time_course_incidence.loc[(index_time - 300):index_time, countries[index_country]].sum()
+        seven_day_incidences[viruses[index]] = df_7_day_incidence * habitant_scale
+    
+    return seven_day_incidences
+
+def plot_incidences(incidence, time,
+                    countries = ["countryA", "countryB"],
+                    ax =None,
+                    label_countries = ["Country A", "Country B"],
+                    colors = ["C0", "C1"],
+                    alpha = 0.3):
+
+    viruses = list(incidence.keys())
+    for index_country in range(len(countries)):
+    
+        sum_infections = 0
+        for index in range(len(viruses)):
+            sum_infections += incidence[viruses[index]][countries[index_country]] 
+        ax.plot(time/7, sum_infections, label = label_countries[index_country],
+                color=colors[index_country])
+        ax.fill_between(time/7, np.repeat(0, len(sum_infections)), sum_infections,
+                                          color=colors[index_country], alpha = alpha)
+
+def plot_incidences_country(ax, trajectories, time,  incidences, viruses = ["virus1", "virus2"],
+                            index_country = "countryA",
+                            label_type = ["Optimal", "Pareto optimal", "Population\nbased"],
+                            colors = ["C0", "C1", "black"], alpha=0.3):
+    
+    for key in range(len(incidences.keys())):
+        incidence = incidences[trajectories[key]]
+        sum_infections = 0
+        for index in range(len(viruses)):
+            sum_infections += incidence[viruses[index]][index_country]
+        
+        if "pop" in trajectories[key]:
+            ax.plot(time/7, sum_infections, label = label_type[key],
+                        color=colors[key], linestyle = "dashed")
+        else:
+            ax.plot(time/7, sum_infections, label = label_type[key],
+                        color=colors[key])
+            ax.fill_between(time/7, np.repeat(0, len(sum_infections)), sum_infections,
+                                                      color=colors[key], alpha = alpha)
+
+def compute_incidences_countries(dicts, time,  trajectories, name = "initalUnequal_vacUnequal_nvacc_60000",
+                                 viruses=["virus1", "virus2"],
+                                 countries = ["countryA", "countryB"],
+                                 lambda1 = 0.1, 
+                                 habitant_scale = 0.01):
+
+    incidences = {}
+    for index in range(len(trajectories)):
+        incidences[trajectories[index]] = compute_incidences(trajectories = dicts[name][trajectories[index]],
+                                                             viruses = viruses,
+                                                             countries = countries,
+                                                             time =time,
+                                                             lambda1 =lambda1,
+                                                             habitant_scale = habitant_scale,)
+    return incidences

@@ -3,11 +3,13 @@ import numpy as np
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 
 from functions.plot_tools import get_spline
 from functions.plot_tools import plot_best_strategy
 from functions.plot_tools import stacked_bar
 from functions.plot_tools import plot_bars_vac
+
 
 font = {"family": "normal", "weight": "normal", "size": 30}
 
@@ -47,7 +49,7 @@ Titles = [
 y_position = 1.08
 y_size = 45
 
-
+count_plot = 97
 # start plot
 fig, axs = plt.subplots(6, 4, figsize=(65, 55), gridspec_kw={'height_ratios': [0.2,0.3, 0.8, 0.8, 0.5, 0.5]})
 category_names = ["Virus wild type", "Virus mutant"]
@@ -84,8 +86,19 @@ for i in range(len(dicts)):
             rotation="vertical",
         )
     ax.text(
+        -0.05,
+        y_position,
+        chr(count_plot),
+        horizontalalignment="center",
+        verticalalignment="center",
+        transform=ax.transAxes,
+        weight="bold",
+        size=y_size,
+    )
+    count_plot += 1
+    ax.text(
             0.5,
-            1.5,
+            1.4,
             Titles[i],
             horizontalalignment="center",
             verticalalignment="center",
@@ -93,6 +106,11 @@ for i in range(len(dicts)):
             weight="bold",
             size=35,
         )
+    #ax.annotate("", xy=(0.5, 1.3), xycoords='axes fraction', xytext=(0.5, 2.4), 
+    #        arrowprops=dict(arrowstyle="simple", color='grey',   mutation_scale=200,
+    #                        alpha = 0.7),
+    #        ha='center', )
+    
 
 for i in range(len(dicts)):
     ax = axs[1][i]
@@ -141,7 +159,20 @@ for i in range(len(dicts)):
             rotation="vertical",
         )
 
-count_plot = 97
+        
+    ax.text(
+        -0.05,
+        y_position,
+        chr(count_plot),
+        horizontalalignment="center",
+        verticalalignment="center",
+        transform=ax.transAxes,
+        weight="bold",
+        size=y_size,
+    )
+    count_plot += 1
+
+
 for i in range(len(dicts)):
     if i == 0:
         ylab = "Difference in %"
@@ -233,6 +264,8 @@ for i in range(len(dicts)):
             weight="bold",
             size=35,
             rotation="vertical")
+        ax.annotate('Pareto front', xy=(1.5*10**5, 0.8*10**5), xytext=(1.6*10**5, 1.1*10**5),
+                            arrowprops=dict(facecolor='black', shrink=0.1))
            
         red_patch = mpatches.Patch(color="C0", label="Minimum", linestyle="dashed")
         green_patch = mpatches.Patch(color="C1", label="Pareto minimum")
@@ -271,14 +304,15 @@ for i in range(len(dicts)):
     )
     ax.text(
         -0.05,
-        1.03,
+        y_position,
         chr(count_plot),
         horizontalalignment="center",
         verticalalignment="center",
         transform=ax.transAxes,
         weight="bold",
-        size=35,
+        size=y_size,
     )
+
 
     if i == 0:
         ax.text(
@@ -335,14 +369,15 @@ for i in range(2,len(dicts)):
     )
     ax.text(
         -0.05,
-        1.03,
+        y_position,
         chr(count_plot),
         horizontalalignment="center",
         verticalalignment="center",
         transform=ax.transAxes,
         weight="bold",
-        size=35,
+        size=y_size,
     )
+
     if i == 2:
         ax.text(
             -0.25,

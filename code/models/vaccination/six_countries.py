@@ -143,7 +143,7 @@ omega = {
 
 
 # https://www.cdc.gov/coronavirus/2019-ncov/variants/delta-variant.html
-eta = {"eta_virus2": 2}
+eta = {"eta_virus2": 2.3}
 
 
 # R-values country
@@ -180,7 +180,22 @@ spline_xx_R = get_spline_xx(
     number_yy=number_xx_R,
     key_str="xx_R0_",
 )
-par_R = create_R_rule_points(areas, number_xx_R, spline_xx_R)
+
+maxi = 0.75
+df_stringency = pd.read_csv("/home/manuel/Documents/VaccinationDistribution/stringency.csv")
+df_stringency["Time"] = np.linspace(0, df_stringency.shape[0]-1, df_stringency.shape[0])
+par_R = {}
+for i in range(len(areas)):
+    for j in range(number_xx_R):
+        key = f"yR0_{areas[i]}_{j}"
+        time_key = f"xx_R0_{j}"
+        time_value = spline_xx_R[time_key]
+        closest_val = df_stringency.loc[
+                np.argmin(np.abs(df_stringency["Time"] - time_value)), countries[i].capitalize()
+        ]
+        par_R[key] = (1 - closest_val / 100 * maxi)  
+        
+#par_R = create_R_rule_points(areas, number_xx_R, spline_xx_R)
 
 parameters = {
     **spline_xx,
@@ -201,7 +216,7 @@ interventionA = {
     "t": 46,  # first detected at day 53
     "parameter": {
         "infectious_countryD_vac0_virus2_t0": 20,
-        "infectious_countryB_vac0_virus2_t0": 20,
+        "infectious_countryB_vac0_virus2_t0": 1,
         "infectious_countryC_vac0_virus2_t0": 20,
     },
 }
@@ -264,7 +279,7 @@ vaccine_available = plot_four_country_overview(
     scale=10 ** 6,
     text_x=end_data / 7 / 3 - 2,
     text_y=0.07,
-    ylim=[0, 0.69],
+    ylim=[0, 0.8],
     text_str="Vaccination \nperiod",
     text_lockdown_x=((length - end_data) / 2 + end_data) / 7 - 7,
     text_lockdown_y=0.03,
@@ -345,8 +360,7 @@ constraints = create_constraints(
 
 lb = 10 ** -9
 ub = 1 - lb
-bounds = Bounds(np.repeat(lb, len(par_optimize)), np.repeat(ub, len(par_optimize)))
-constraints = LinearConstraint(constraints["lin_constraints"], lb, ub)
+
 
 
 theta_p = get_start_splines_pop_based(model, areas, number_yy)
@@ -378,8 +392,8 @@ def draw_random_start(i_sim):
 
     theta_par = B.sum()
     it_res = np.sum(get_optim_function_pareto(theta_par))
-    if it_res < 8 * 10 ** 5:
-        save_sim = np.concatenate([theta_par, [it_res]])
+    #if it_res < 8 * 10 ** 5:
+    save_sim = np.concatenate([theta_par, [it_res]])
 
     return save_sim
 
@@ -422,14 +436,15 @@ with open(
 
 
 start_use = start.loc[0:49, :]
-
+bounds = Bounds(np.repeat(lb, len(par_optimize)), np.repeat(ub, len(par_optimize)))
+constraint = LinearConstraint(constraints["lin_constraints"], lb, ub)
 
 def run_scipy_min_parallel(index):
     return minimize(
         fun=get_optim_function_scipy,
         x0=start_use[par_optimize].loc[index, :],
         method="trust-constr",
-        constraints=constraints,
+        constraints=constraint,
         bounds=bounds,
         options={"verbose": 2, "maxiter": 200},
     )
@@ -501,6 +516,9 @@ for index in range(len(r)):
         ind += 1
 df_results = df_results.dropna()
 
+
+
+#pareto constraints
 pareto = np.array(get_optim_function_pareto(z_trans))
 
 
@@ -512,7 +530,7 @@ def get_optim_function_scipy_constrained(theta):
     else:
         bool_vec = it > pareto
         diff = it - pareto
-        return np.sum(it) + 10 * diff @ bool_vec
+        return np.sum(it) + 1000 * diff @ bool_vec
 
 
 def draw_random_start_constr(i_sim):
@@ -525,18 +543,18 @@ def draw_random_start_constr(i_sim):
             if B.loc[i][j] == 1:
                 for c in range(len(areas)):
                     if areas[c] in j:
-                        maxi = 1.2 * relative_population[areas[c]]
+                        maxi = 1.3 * relative_population[areas[c]]
                 B.loc[i, j] = np.random.uniform(lb, np.min([maxi, 1 - col_sum]))
 
     theta_par = B.sum()
     it_res = get_optim_function_scipy_constrained(theta_par)
-    if it_res < 2 * 10 ** 6:
-        save_sim = np.concatenate([theta_par, [it_res]])
+    
+    save_sim = np.concatenate([theta_par, [it_res]])
 
     return save_sim
 
 
-n_sim = 65000
+n_sim = 650000
 with mp.Pool() as p:
     starts_constr = list(
         tqdm.tqdm(
@@ -572,16 +590,16 @@ with open(
     out = start_constr
     pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
 
-start_constr_use = start.loc[0:49, :]
+start_constr_use = start_constr.loc[0:49, :]
 
-
+constraint = LinearConstraint(constraints["lin_constraints"], lb, ub)
 def run_scipy_min_parallel_constrained(index):
     return minimize(
         fun=get_optim_function_scipy_constrained,
         x0=start_constr_use[par_optimize].loc[index, :],
         method="trust-constr",
-        constraints=constraints,
-        options={"verbose": 2, "maxiter": 200},
+        constraints=constraint,
+        options={"verbose": 2, "maxiter": 100},
     )
 
 
@@ -780,6 +798,19 @@ with open(
 ) as output:
     out = dict_out
     pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
+
+
+
+with open(
+    path,
+    "rb",
+) as input:
+    dict_ = pickle.load(input)
+
+
+
+
+
 
 
 # test-bang-bang:

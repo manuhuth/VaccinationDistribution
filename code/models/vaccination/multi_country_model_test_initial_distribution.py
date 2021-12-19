@@ -33,7 +33,8 @@ solver = created_model["solver"]
 vac = "Unequal" #only 
 initial_states = "Unequal"  
 
-def run_n_vacc(n_vacc):
+def run_n_vacc(initial):
+    n_vacc = 60000
     # type (used for name while saving pickle object)
     model = created_model["model"]
     solver = created_model["solver"]
@@ -42,7 +43,7 @@ def run_n_vacc(n_vacc):
     initial_states = "Unequal"  
     specification = f"inital{initial_states}_vac{vac}"
     path = (
-        f"/home/manuel/Documents/VaccinationDistribution/code/objects/{specification}_nvacc_{n_vacc}.pkl"
+        f"/home/manuel/Documents/VaccinationDistribution/code/objects/{specification}_initial_{initial}.pkl"
     )
     
     
@@ -99,10 +100,10 @@ def run_n_vacc(n_vacc):
         }
     elif initial_states == "Unequal":
         infectious_t0 = {
-            "infectious_countryA_vac0_virus1_t0": 10,
-            "infectious_countryA_vac0_virus2_t0": 0,
-            "infectious_countryB_vac0_virus1_t0": 0,
-            "infectious_countryB_vac0_virus2_t0": 10,
+            "infectious_countryA_vac0_virus1_t0": 10 - initial,
+            "infectious_countryA_vac0_virus2_t0": 0 + initial,
+            "infectious_countryB_vac0_virus1_t0": 0 + initial,
+            "infectious_countryB_vac0_virus2_t0": 10 - initial,
         }
     
     
@@ -194,14 +195,14 @@ with mp.Pool() as p:
     results = list(
         tqdm.tqdm(
             p.imap_unordered(
-                run_n_vacc, np.array([10, 15, 20, 25, 35, 45, 55, 65, 75, 85, 95, 105, 110])*10**3
+                run_n_vacc, [0,1,2,3,4,5,6,7,8,9,10]
             ),
-            total=13,
+            total=11,
         )
     )
 
 path = (
-        f"/home/manuel/Documents/VaccinationDistribution/code/objects/{specification}_nvacc_30000.pkl"
+        f"/home/manuel/Documents/VaccinationDistribution/code/objects/{specification}_initial_3.pkl"
         )
 
 with open(

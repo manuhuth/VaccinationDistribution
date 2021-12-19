@@ -33,7 +33,7 @@ solver = created_model["solver"]
 # type (used for name while saving pickle object)
 appears_week = 4
 
-for wor in [12]:
+for wor in [2,6,8]:
 
     # wor = 12
     specification = f"reaction_{wor}"
@@ -147,10 +147,10 @@ for wor in [12]:
         week_of_reaction=wor,
         T=200,
         n_grid=1000,
-        number_yy=11,
+        number_yy=15,
         lb=10 ** -8,
         starts_bobyqa=50,
-        pop_size=50,
+        pop_size=500,
         number_generations=50,
         p_seed=123,
         pareto_seed=1234,

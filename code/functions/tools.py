@@ -1162,7 +1162,7 @@ def get_fraction_vaccinated_pybobyqa(
         model=model, trajectories=states, include_recovered=include_recovered
     )
 
-    return fraction_vaccinated
+    return fraction_vaccinated, states
 
 
 def get_model_output(
@@ -1303,7 +1303,7 @@ def get_model_output(
     for i in range(1, len(areas)):
         pareto_optimal = appended_df[appended_df[areas[i]] <= pareto[i]]
 
-    vaccinated_best_strategy = get_fraction_vaccinated_pybobyqa(
+    vaccinated_best_strategy, states_best = get_fraction_vaccinated_pybobyqa(
         appended_df,
         model,
         solver,
@@ -1311,13 +1311,15 @@ def get_model_output(
         areas,
     )
 
-    vaccinated_pareto_strategy = get_fraction_vaccinated_pybobyqa(
+    vaccinated_pareto_strategy, states_pareto = get_fraction_vaccinated_pybobyqa(
         pareto_optimal,
         model,
         solver,
         par_to_optimize,
         areas,
     )
+    
+    
 
     out = {
         "optimal_strategies": re_pybobyqa,
@@ -1327,6 +1329,9 @@ def get_model_output(
         "population_based": pareto,
         "pareto_improvements": pareto_optimal,
         "all_strategies": appended_df,
+        "trajectories_best" : states_best,
+        "trajectories_pareto" : states_pareto,
+        "trajectories_pop" : trajectories,
     }
 
     return out

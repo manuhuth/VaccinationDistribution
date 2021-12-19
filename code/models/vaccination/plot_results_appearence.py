@@ -47,7 +47,7 @@ Titles = [
 # start plot
 fig, axs = plt.subplots(5, 4, figsize=(65, 57), gridspec_kw={'height_ratios': [0.2, 0.8, 0.8, 0.5, 0.5]})
 
-
+count_plot = 97
 starts = [0,4,6,10]
 length = 200
 
@@ -82,10 +82,20 @@ for i in range(len(dicts)):
             weight="bold",
             size=35,
         )
+    ax.text(
+        -0.05,
+        1.03,
+        chr(count_plot),
+        horizontalalignment="center",
+        verticalalignment="center",
+        transform=ax.transAxes,
+        weight="bold",
+        size=35,
+    )
+    count_plot += 1
 
 
 
-count_plot = 97
 for i in range(len(dicts)):
     if i == 0:
         ylab = "Difference in %"
@@ -176,6 +186,10 @@ for i in range(len(dicts)):
             size=35,
             rotation="vertical",
         )
+        ax.annotate('Pareto front', xy=(0.75*10**5, 0.3*10**5), xytext=(0.8*10**5, 0.6*10**5),
+                    arrowprops=dict(facecolor='black', shrink=0.1))
+        
+        
         red_patch = mpatches.Patch(color="C0", label="Minimum", linestyle="dashed")
         green_patch = mpatches.Patch(color="C1", label="Pareto minimum")
         blue_patch = mpatches.Patch(color="grey", label="Set of Pareto \nimprovements")

@@ -1750,3 +1750,66 @@ def compute_incidences_countries(dicts, time,  trajectories, name = "initalUnequ
                                                              lambda1 =lambda1,
                                                              habitant_scale = habitant_scale,)
     return incidences
+
+
+
+def compute_deceased(results, country):
+    pareto_deceased = []
+    optimal_deceased = []
+    pop_deceased = []
+    for index in range(len(results)):
+        result = results[index]
+        pareto_result = result["trajectories_pareto"]
+        optimal_result = result["trajectories_best"]
+        population_result = result["trajectories_pop"]
+        cols = [x for x in pareto_result.columns if "dead" in x and country in x]
+        
+        deceased_pareto = list(pareto_result[cols].sum(axis=1))
+        deceased_optimal = list(optimal_result[cols].sum(axis=1))
+        deceased_pop = list(population_result[cols].sum(axis=1))
+        
+        pareto_deceased.append(deceased_pareto[-1])
+        optimal_deceased.append(deceased_optimal[-1])
+        pop_deceased.append(deceased_pop[-1])
+        
+    out = {"pareto" : pareto_deceased,
+           "optimal": optimal_deceased,
+           "pop" : pop_deceased,}
+    return out
+def compute_splines_from_results(type_opti = "pareto_improvements",
+                                 vac = "vac2",
+                                 periods = 10,
+                                 length = 14,
+                                 total_length = 140,
+                                 grid_points = 6000,
+                                 add_additional = {"integers" : [9,10],
+                                                     "number" : 0.5},n_vaccs=None,results=None, ):
+    fractions = []
+    for index in range(len(n_vaccs)):
+        result = results[index]
+        n_vacc = n_vaccs[index]
+        df_optimal = result[type_opti]
+        if not(add_additional is None):
+            for index in add_additional["integers"]:
+                for index2 in ["countryA"]:
+                    for index3 in ["vac1", "vac2"]:
+                        name = f"yy_{index2}_{index3}_{index}"
+                        df_optimal[name] = add_additional["number"]
+        
+        cols = [x for x in df_optimal.columns if vac in x]
+        argmin = np.argmin(df_optimal["fval"])
+        
+        yy_points = pd.Series(list(df_optimal.iloc[argmin][cols]))
+        time = np.linspace(0, total_length, grid_points) / 7
+        spline = get_spline(yy_points,
+                            periods=periods,
+                            length=length,
+                            total_length=total_length,
+                            grid_points=grid_points,
+                        )
+        area = trapz(spline*n_vacc/2, dx=(time[1] - time[0]))
+        total_area = n_vacc*10
+        fraction_country_A = area/total_area
+        fractions.append(fraction_country_A)
+        
+    return fractions

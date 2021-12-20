@@ -49,7 +49,8 @@ def get_R_spline_values(
             if times_xx[j] <= np.max(times):
                 time_odf = time_mapping[f"{times_xx[j]}"]
                 value = (
-                    float(1 + df_raw[countries[k]][(df_raw["Time"] == time_odf)])
+                    float(1 + df_raw[countries[k]]
+                          [(df_raw["Time"] == time_odf)])
                     * scale
                 )
             else:
@@ -74,7 +75,8 @@ def get_all_species_alive(species_list):
         List of all species excluding dead species.
     """
 
-    total_population_alive = [x for x in species_list.keys() if ("dead" not in x)]
+    total_population_alive = [
+        x for x in species_list.keys() if ("dead" not in x)]
     numb_total_population_alive = "+".join(total_population_alive)
     return numb_total_population_alive
 
@@ -308,7 +310,8 @@ def get_sum_of_states(model, states, state_type=["dead"], final_amount=True):
     """
 
     df_trajectories_states = states
-    substates = get_substates(model=model, substrings=state_type, include_all=True)
+    substates = get_substates(
+        model=model, substrings=state_type, include_all=True)
     df_substates = df_trajectories_states[substates]
 
     if final_amount is True:
@@ -348,10 +351,12 @@ def get_substates(model, substrings, include_all=True):
 
     if include_all is False:
         substates = list(
-            set(get_states_by_substrings_any(states=states, substrings=substrings))
+            set(get_states_by_substrings_any(
+                states=states, substrings=substrings))
         )
     else:
-        substates = get_states_by_substrings_all(states=states, substrings=substrings)
+        substates = get_states_by_substrings_all(
+            states=states, substrings=substrings)
 
     return substates
 
@@ -466,7 +471,8 @@ def optimize_pyPesto(
         rdata = amici.runAmiciSimulation(model, solver)
         states = pd.DataFrame(rdata["x"], columns=model.getStateIds())
 
-        dead = get_sum_of_states(model, states, state_type=["dead"], final_amount=True)
+        dead = get_sum_of_states(model, states, state_type=[
+                                 "dead"], final_amount=True)
 
         if pareto_values is not None:
             observed_pareto = []
@@ -546,7 +552,8 @@ def optimize_estimagic(
         rdata = amici.runAmiciSimulation(model, solver)
         states = pd.DataFrame(rdata["x"], columns=model.getStateIds())
 
-        dead = get_sum_of_states(model, states, state_type=["dead"], final_amount=True)
+        dead = get_sum_of_states(model, states, state_type=[
+                                 "dead"], final_amount=True)
 
         return {"value": dead}
 
@@ -598,7 +605,6 @@ def optimize_fides(
     n_starts,
     lower_bound,
 ):
-
     """Run optimization over specified parameters with pyPesto's fides
     optimizer.
 
@@ -628,7 +634,8 @@ def optimize_fides(
 
     solver.setSensitivityMethod(amici.SensitivityMethod_forward)
     solver.setSensitivityOrder(amici.SensitivityOrder_second)
-    edata = amici.ExpData(1, 1, 1, [model.getTimepoints()[-1]], [0], [1], [0], [1])
+    edata = amici.ExpData(
+        1, 1, 1, [model.getTimepoints()[-1]], [0], [1], [0], [1])
 
     def ob(theta_unif):
 
@@ -652,7 +659,8 @@ def optimize_fides(
         ub=np.repeat(upper_bound, len(parameter_to_optimize)),
     )
     optimizer = pypesto.optimize.FidesOptimizer()
-    result = optimize.minimize(problem=problem, optimizer=optimizer, n_starts=50)
+    result = optimize.minimize(
+        problem=problem, optimizer=optimizer, n_starts=50)
     return result
 
 
@@ -837,7 +845,8 @@ def get_pareto_front(
     algorithm = NSGA2(
         pop_size=pop_size,
         sampling=get_sampling("real_random"),
-        crossover=get_crossover("real_sbx", prob=crossover_prob, eta=crossover_eta),
+        crossover=get_crossover(
+            "real_sbx", prob=crossover_prob, eta=crossover_eta),
         mutation=get_mutation("real_pm", eta=mutation_eta),
         eliminate_duplicates=True,
     )
@@ -1056,7 +1065,8 @@ def get_start_splines_pop_based(model, areas, number_yy):
     transformed_fractions = np.log(fractions / (1 - fractions))
 
     dict_start = dict(
-        zip(model.getParameterNames(), np.repeat(transformed_fractions, 2 * number_yy))
+        zip(model.getParameterNames(), np.repeat(
+            transformed_fractions, 2 * number_yy))
     )
     for keys in dict_start.keys():
         model.setParameterByName(keys, dict_start[keys])
@@ -1142,7 +1152,8 @@ def get_fraction_vaccinated_pybobyqa(
     optimal_strategy_unif = re_pybobyqa[list(par_to_optimize)].iloc[
         np.argmin(re_pybobyqa["fval"])
     ]
-    optimal_strategy = np.log(optimal_strategy_unif / (1 - optimal_strategy_unif))
+    optimal_strategy = np.log(
+        optimal_strategy_unif / (1 - optimal_strategy_unif))
     for keys in optimal_strategy.index:
         model.setParameterByName(keys, optimal_strategy[keys])
     rdata = amici.runAmiciSimulation(model, solver)
@@ -1181,7 +1192,6 @@ def get_model_output(
     mutation_eta=20,
     seed_pb=12345,
 ):
-
     """Get model simulations and output.
 
     Parameters
@@ -1274,12 +1284,14 @@ def get_model_output(
         trace_record=True,
         pareto_values=None,
     )
-    re_pybobyqa = transform_pybobyqa_results(model, solver, results_pybobyqa, areas)
+    re_pybobyqa = transform_pybobyqa_results(
+        model, solver, results_pybobyqa, areas)
 
     add_row = dict(
         zip(
             list(par_to_optimize) + areas + ["fval"],
-            list(np.repeat(0.5, len(par_to_optimize))) + pareto + [np.sum(pareto)],
+            list(np.repeat(0.5, len(par_to_optimize))) +
+            pareto + [np.sum(pareto)],
         )
     )
 
@@ -1301,7 +1313,7 @@ def get_model_output(
 
     pareto_optimal = appended_df[appended_df["countryA"] <= pareto[0]]
     for i in range(1, len(areas)):
-        pareto_optimal = appended_df[appended_df[areas[i]] <= pareto[i]]
+        pareto_optimal = pareto_optimal[appended_df[areas[i]] <= pareto[i]]
 
     vaccinated_best_strategy, states_best = get_fraction_vaccinated_pybobyqa(
         appended_df,
@@ -1318,8 +1330,6 @@ def get_model_output(
         par_to_optimize,
         areas,
     )
-    
-    
 
     out = {
         "optimal_strategies": re_pybobyqa,
@@ -1329,9 +1339,9 @@ def get_model_output(
         "population_based": pareto,
         "pareto_improvements": pareto_optimal,
         "all_strategies": appended_df,
-        "trajectories_best" : states_best,
-        "trajectories_pareto" : states_pareto,
-        "trajectories_pop" : trajectories,
+        "trajectories_best": states_best,
+        "trajectories_pareto": states_pareto,
+        "trajectories_pop": trajectories,
     }
 
     return out
@@ -1404,7 +1414,8 @@ def simulate_intervention(
     trajectories2 = pd.DataFrame(rdata2["x"], columns=model.getStateNames())
 
     deaths = [
-        get_sum_of_states(model, trajectories2, state_type=["dead"], final_amount=True)
+        get_sum_of_states(model, trajectories2, state_type=[
+                          "dead"], final_amount=True)
     ]
 
     for i in areas:
@@ -1442,7 +1453,8 @@ def optimize_intervention_pybobyqa(
         for x in par_to_optimize
         if float(x.rsplit("_", 1)[-1]) <= week_of_reaction / 2
     ]
-    transformed_frac_pareto = get_start_splines_pop_based(model, areas, number_yy)
+    transformed_frac_pareto = get_start_splines_pop_based(
+        model, areas, number_yy)
 
     dict_par_rest = {}
     for i in par_rest:
@@ -1464,7 +1476,8 @@ def optimize_intervention_pybobyqa(
 
     save_df = pd.DataFrame(
         np.NaN,
-        columns=list(dict_par_rest.keys()) + list(par_optimize) + ["fval", "feval"],
+        columns=list(dict_par_rest.keys()) +
+        list(par_optimize) + ["fval", "feval"],
         index=range(n_starts),
     )
     for i in range(n_starts):
@@ -1514,7 +1527,7 @@ def trannsform_pybobyqa_intervention(df, areas, model, solver, parameters, T, n_
             model, solver, parameters, T, n_grid, areas, par_optim_dict=dict_theta
         )
         deaths = out["deaths"]
-        df.loc[i, areas] = deaths[1 : len(deaths)]
+        df.loc[i, areas] = deaths[1: len(deaths)]
 
     return df
 
@@ -1589,7 +1602,8 @@ def get_pareto_front_intervention(
         for x in par_to_optimize
         if float(x.rsplit("_", 1)[-1]) <= week_of_reaction / 2
     ]
-    transformed_frac_pareto = get_start_splines_pop_based(model, areas, number_yy)
+    transformed_frac_pareto = get_start_splines_pop_based(
+        model, areas, number_yy)
     number_par = len(par_optimize)
     number_areas = len(areas)
 
@@ -1604,7 +1618,7 @@ def get_pareto_front_intervention(
             model, solver, parameters, T, n_grid, areas, par_optim_dict=par_optim_dict
         )
         d = deaths["deaths"]
-        return d[1 : len(d)]
+        return d[1: len(d)]
 
     ub = 1 - lb
     # pareto_values = np.array(run_model(np.repeat(0.5, 22)))
@@ -1631,7 +1645,8 @@ def get_pareto_front_intervention(
     algorithm = NSGA2(
         pop_size=pop_size,
         sampling=get_sampling("real_random"),
-        crossover=get_crossover("real_sbx", prob=crossover_prob, eta=crossover_eta),
+        crossover=get_crossover(
+            "real_sbx", prob=crossover_prob, eta=crossover_eta),
         mutation=get_mutation("real_pm", eta=mutation_eta),
         eliminate_duplicates=True,
     )
@@ -1727,11 +1742,12 @@ def run_intervention(
         model, solver, parameters, T, n_grid, areas, par_optim_dict=par_dict
     )
 
-    pareto = dict_pop["deaths"][1 : len(dict_pop["deaths"])]
+    pareto = dict_pop["deaths"][1: len(dict_pop["deaths"])]
     add_row = dict(
         zip(
             list(par_to_optimize) + areas + ["fval"],
-            list(np.repeat(0.5, len(par_to_optimize))) + pareto + [np.sum(pareto)],
+            list(np.repeat(0.5, len(par_to_optimize))) +
+            pareto + [np.sum(pareto)],
         )
     )
 
@@ -1745,14 +1761,16 @@ def run_intervention(
     ]
 
     if not (results_pareto_front.F is None):
-        pareto_strategies = pd.DataFrame(results_pareto_front.X, columns=par_optimize)
+        pareto_strategies = pd.DataFrame(
+            results_pareto_front.X, columns=par_optimize)
         pareto_strategies[par_rest] = np.repeat(
             0.5, len(par_rest) * pareto_strategies.shape[0]
         ).reshape(pareto_strategies.shape[0], len(par_rest))
         for i in range(len(areas)):
             pareto_strategies[areas[i]] = results_pareto_front.F[:, i]
             pareto_strategies["fval"] = results_pareto_front.F.sum(axis=1)
-        pareto_strategies = pareto_strategies.append(add_row, ignore_index=True)
+        pareto_strategies = pareto_strategies.append(
+            add_row, ignore_index=True)
     else:
         pareto_strategies = pd.DataFrame(
             np.matrix(list(add_row.values())), columns=add_row.keys(), index=[0]
@@ -1766,8 +1784,10 @@ def run_intervention(
 
     pareto_optimal = pareto_optimal.reset_index()
 
-    optimal_vac = complete_df.iloc[np.argmin(complete_df["fval"])][par_to_optimize]
-    pareto_vac = pareto_optimal.iloc[np.argmin(pareto_optimal["fval"])][par_to_optimize]
+    optimal_vac = complete_df.iloc[np.argmin(
+        complete_df["fval"])][par_to_optimize]
+    pareto_vac = pareto_optimal.iloc[np.argmin(
+        pareto_optimal["fval"])][par_to_optimize]
 
     optimal_out = simulate_intervention(
         model,
@@ -1835,7 +1855,8 @@ def run_interventions_model(
         int(total_grid * interventions[0]["t"] / length),
     )
     if theta is None:
-        get_start_splines_pop_based(model=model, areas=areas, number_yy=number_yy)
+        get_start_splines_pop_based(
+            model=model, areas=areas, number_yy=number_yy)
     for i in range(len(interventions)):
 
         rdata = amici.runAmiciSimulation(model, solver)
@@ -4402,7 +4423,8 @@ def get_infected_true():
     ]
 
     df_infected_true = pd.DataFrame(
-        np.array([belgium_infected, france_infected, germany_infected, uk_infected]).T,
+        np.array([belgium_infected, france_infected,
+                 germany_infected, uk_infected]).T,
         columns=["belgium", "france", "germany", "uk"],
     )
     df_inf_true = df_infected_true.loc[
@@ -4415,7 +4437,8 @@ def get_infected_true():
 # --------------------------------------------------------------------------------------------
 def create_R_rule_points(areas, number_xx_R, spline_xx_R):
     measures_sd = pd.DataFrame(np.nan, index=range(604 - 332), columns=areas)
-    measures_masks = pd.DataFrame(np.nan, index=range(604 - 332), columns=areas)
+    measures_masks = pd.DataFrame(
+        np.nan, index=range(604 - 332), columns=areas)
     ids = {"countryA": 76, "countryB": 80, "countryC": 81, "countryD": 95}
 
     for i in ids.keys():
@@ -4510,7 +4533,8 @@ def run_pareto_front(
 
     set_parameter_by_name(model, parameters, fixed=True)
 
-    transformed_frac_pareto = get_start_splines_pop_based(model, areas, number_yy)
+    transformed_frac_pareto = get_start_splines_pop_based(
+        model, areas, number_yy)
     number_par = len(par_optimize)
     number_areas = len(areas)
 
@@ -4530,7 +4554,7 @@ def run_pareto_front(
             theta,
         )
         d = deaths["deaths"]
-        return d[1 : len(d)]
+        return d[1: len(d)]
 
     ub = 1 - lb
     # pareto_values = np.array(run_model(np.repeat(0.5, 22)))
@@ -4552,7 +4576,8 @@ def run_pareto_front(
         for j in par_rest:
             for l in relative.keys():
                 if l in j:
-                    help_dict[j] = relative[l] / np.sum(list(relative.values()))
+                    help_dict[j] = relative[l] / \
+                        np.sum(list(relative.values()))
 
         theta_par = np.array(list(help_dict.values()))
         pareto_values.append(get_optim_function_pareto(theta_par)[i])
@@ -4583,7 +4608,8 @@ def run_pareto_front(
                 s = 0
                 for j in dict_para.keys():
                     if (i in j) and (
-                        float(i.rsplit("_", 1)[-1]) == float(j.rsplit("_", 1)[-1])
+                        float(i.rsplit("_", 1)[-1]
+                              ) == float(j.rsplit("_", 1)[-1])
                     ):
                         s += dict_para[j]
                 sums.append(s)
@@ -4593,7 +4619,8 @@ def run_pareto_front(
     problem = multi_objective_problem()
     ref_dirs = get_reference_directions("energy", 4, 100, seed=1234)
 
-    algorithm = CTAEA(ref_dirs=ref_dirs)  # , sampling=np.array(di["x"].loc[23:24,:]))
+    # , sampling=np.array(di["x"].loc[23:24,:]))
+    algorithm = CTAEA(ref_dirs=ref_dirs)
     termination = get_termination("n_gen", number_generations)
 
     res = pymoo.optimize.minimize(
@@ -4617,7 +4644,7 @@ def create_constraints(
     index_one = []
     index_two = []
     count = 0
-    for j in vaccines[1 : (len(vaccines))]:
+    for j in vaccines[1: (len(vaccines))]:
         for i in range(
             int((len(par_optimize) / (len(vaccines) - 1) / (len(areas) - 1)))
         ):

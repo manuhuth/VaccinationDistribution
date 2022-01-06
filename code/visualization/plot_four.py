@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
+import seaborn as sns
 
 from functions.plot_tools import get_spline
 from functions.plot_tools import plot_best_strategy
@@ -47,7 +48,7 @@ for i in range(len(dict_R_cases.keys())):
         loaded_object = pickle.load(input)
         dicts[i] = loaded_object
 
-df_R_pop = pd.DataFrame(np.nan, columns = np.round(np.linspace(0.3,1, 8),2), index = np.round(np.linspace(0.3,1, 8),2))
+df_R_pop = pd.DataFrame(np.nan, columns = np.round(1-np.linspace(0.3,1, 8),2), index =np.round(1-np.linspace(0.3,1, 8),2))
 
 for index in range(len(dict_R_cases.keys())):
     key = f"case{index}"
@@ -55,11 +56,12 @@ for index in range(len(dict_R_cases.keys())):
     
     
     deaths_pop = dicts[index]["population_based"]
-    death_pop_A = deaths_pop[0]
-    death_pop_B = deaths_pop[1]
+    #death_pop_A = deaths_pop[0]
+    #death_pop_B = deaths_pop[1]
     
-    
+    df_R_pop.loc[np.round(1-R_vals[0],2), np.round(1-R_vals[1],2)] = np.sum(deaths_pop)
 
-    
-    
+
+
+sns.heatmap(df_R_pop/1000)
 

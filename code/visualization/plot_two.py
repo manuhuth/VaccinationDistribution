@@ -16,7 +16,9 @@ from functions.plot_tools import compute_splines_from_results_initials
 
 from numpy import trapz
 
+font = {"family": "normal", "weight": "normal", "size": 18}
 
+matplotlib.rc("font", **font)
 
 initials = [0,1,2,3,4,5]#125, 150, 175, 200, 225, 250
 vac = "Unequal" #only 
@@ -43,21 +45,27 @@ length = 14
 total_length = 140
 grid_points = 6000
 y_position = 1.08
-y_size = 16
+y_size = 29
 count_plot = 65
-
+lwidth = 2.5
 
 add_additional = {"integers" : [9,10],
                  "number" : 0.5}
 
 
-fig = plt.figure(constrained_layout=True, figsize = (31, 23))
-gs = GridSpec(3, 3, figure=fig, height_ratios=[1.1,2,2])
+fig = plt.figure(constrained_layout=True, figsize = (30, 18))
+gs = GridSpec(3, 3, figure=fig, height_ratios=[1.5,2,2])
 
-data = [[10,9,8,7,6,5,4,3,2,1,0],
-        [0,1,2,3,4,5,6,7,8,9,10],
-        [0,1,2,3,4,5,6,7,8,9,10],
-        [10,9,8,7,6,5,4,3,2,1,0],
+#data = [[10,9,8,7,6,5,4,3,2,1,0],
+#        [0,1,2,3,4,5,6,7,8,9,10],
+#        [0,1,2,3,4,5,6,7,8,9,10],
+#        [10,9,8,7,6,5,4,3,2,1,0],
+#        ]
+
+data = [[10,9,8,7,6,5],
+        [0,1,2,3,4,5],
+        [0,1,2,3,4,5],
+        [10,9,8,7,6,5],
         ]
 
 ax = fig.add_subplot(gs[0, 0:2]) 
@@ -78,7 +86,7 @@ row_labels=["Country A\nwild-type", "Country A\nMutant",
 col_labels = [f"Case {i}" for i in range(11)]
 x_table = ax.table(cellText=data, rowLabels=row_labels, colLabels= col_labels, loc="center", bbox=[0, 0.13, 1, 0.8],
                    cellLoc = "center", cellColours=np.array(color_array),)
-ax.set_title("Virus distributions")
+ax.set_title("Initial virus distributions")
 ax.axis("off")
 ax.text(
         -0.05,
@@ -109,26 +117,27 @@ for index in range(len(dec_B.keys())):
         if keys[index] == "pop":
             marker = "o"
         else:
-            marker = "v"
-        ax.scatter(initials, (np.array(dec_A[keys[index]]) + np.array(dec_B[keys[index]]))/100000,
+            marker = "X"
+        ax.scatter(initials, (np.array(dec_A[keys[index]]) + np.array(dec_B[keys[index]]))/1000,
                 label = labels[index], color=colors[index],
-                linestyle=linestyles[index], s=70, marker=marker)
+                linestyle=linestyles[index], s=190, marker=marker)
 
-pop = (np.array(dec_A["pop"]) + np.array(dec_B["pop"]))/100000
-optimal = (np.array(dec_A["optimal"]) + np.array(dec_B["optimal"]))/100000 
-pareto = (np.array(dec_A["pareto"]) + np.array(dec_B["pareto"]))/100000 
+pop = (np.array(dec_A["pop"]) + np.array(dec_B["pop"]))/1000
+optimal = (np.array(dec_A["optimal"]) + np.array(dec_B["optimal"]))/1000
+pareto = (np.array(dec_A["pareto"]) + np.array(dec_B["pareto"]))/1000
 for index in range(len(initials)):
-    ax.plot(np.repeat(initials[index],2), [pop[index], optimal[index]], color = "C0" )
+    ax.plot(np.repeat(initials[index],2), [pop[index], optimal[index]], color = "C0",
+            linewidth = lwidth, linestyle = "solid" )
     diff = np.round(- pop[index] + optimal[index],2)
     ax.annotate(f"{diff}", (initials[index]+0.1, optimal[index] -diff/2 ) )
     
     
-ax.set_title("Improvement through optimal strategy")
+ax.set_title("Optimal and population-size based strategy")
 
-ax.set_ylabel("Total deaths in 100,000")
+ax.set_ylabel("Deaths in 1,000")
 ylim = ax.get_ylim()
 ax.set_xlim(-0.5, 5.5)
-col_label_sym = [f"Case {i}\nCase {6+i}" for i in range(5)] + ["Case 5"]
+col_label_sym = [f"Case {i}" for i in range(5)] + ["Case 5"]
 ax.set_xticklabels([""] + col_label_sym)
 ax.legend()
 
@@ -154,12 +163,12 @@ for index in range(len(dec_B.keys())):
         if keys[index] == "pop":
             marker = "o"
         else:
-            marker = "v"
-        ax.scatter(initials, (np.array(dec_A[keys[index]]) + np.array(dec_B[keys[index]]))/100000,
+            marker = "X"
+        ax.scatter(initials, (np.array(dec_A[keys[index]]) + np.array(dec_B[keys[index]]))/1000,
                 label = labels[index], color="C1",
-                linestyle=linestyles[index], s=70, marker=marker)
+                linestyle=linestyles[index], s=190, marker=marker)
 for index in range(len(initials)):
-    ax.plot(np.repeat(initials[index],2), [pop[index], pareto[index]], color = "C1" )
+    ax.plot(np.repeat(initials[index],2), [pop[index], pareto[index]], color = "C1", linewidth = lwidth )
     diff = np.round(- pop[index] + pareto[index],2)
     ax.annotate(f"{diff}", (initials[index]+0.1, pareto[index] -diff/2 ) )
     
@@ -167,7 +176,7 @@ for index in range(len(initials)):
 ax.set_title("Improvement through Pareto optimal strategy")
 ax.set_ylabel("")
 ax.set_xlim(-0.5, 5.5)
-ax.set_ylabel("Total deaths in 100,000")
+ax.set_ylabel("Total deaths in 1,000")
 ax.set_xticklabels([""] + col_label_sym )
 ax.set_ylim(ylim)
 
@@ -188,12 +197,12 @@ fractions = compute_splines_from_results_initials(initials=initials, type_opti =
 
 ax.scatter(initials, fractions,
            label = "Optimal", color="seagreen",
-           s=70, marker="v")
+           s=190, marker="X")
 ax.scatter(initials, np.repeat(0.5, len(initials)),
            label = "Population\nbased", color="seagreen",
-           s=70, marker="o")
+           s=190, marker="o")
 for index in range(len(initials)):
-    ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen" )
+    ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen", linewidth = lwidth )
     diff = np.round(-0.5 + fractions[index],2)
     ax.annotate(f"{diff}", (initials[index]+0.1, 0.5  + diff/2 ) )
 ax.set_title("Optimal - Difference in\nvaccine one allocation")
@@ -221,12 +230,12 @@ fractions = compute_splines_from_results_initials(initials=initials, type_opti =
 
 ax.scatter(initials, fractions,
            label = "Pareto optimal", color="seagreen",
-           s=70, marker="v")
+           s=190, marker="X")
 ax.scatter(initials, np.repeat(0.5, len(initials)),
            label = "Population\nbased", color="seagreen",
-           s=70, marker="o")
+           s=190, marker="o")
 for index in range(len(initials)):
-    ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen" )
+    ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen", linewidth = lwidth )
     diff = np.round(-0.5 + fractions[index],2)
     ax.annotate(f"{diff}", (initials[index]+0.1, 0.5  + diff/2 ) )
 ax.set_title("Pareto optimal - Difference in\nvaccine one allocation")
@@ -250,12 +259,12 @@ fractions = compute_splines_from_results_initials(initials=initials, type_opti =
 
 ax.scatter(initials, fractions,
            label = "Optimal", color="seagreen",
-           s=70, marker="v")
+           s=190, marker="X")
 ax.scatter(initials, np.repeat(0.5, len(initials)),
            label = "Population\nbased", color="seagreen",
-           s=70, marker="o")
+           s=190, marker="o")
 for index in range(len(initials)):
-    ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen" )
+    ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen", linewidth = lwidth )
     diff = np.round(-0.5 + fractions[index],2)
     ax.annotate(f"{diff}", (initials[index]+0.1, 0.5  + diff/2 ) )
 ax.set_title("Optimal - Difference in\nvaccine two allocation")
@@ -271,12 +280,12 @@ fractions = compute_splines_from_results_initials(initials=initials, type_opti =
 
 ax.scatter(initials, fractions,
            label = "Pareto optimal", color="seagreen",
-           s=70, marker="v")
+           s=190, marker="X")
 ax.scatter(initials, np.repeat(0.5, len(initials)),
            label = "Population\nbased", color="seagreen",
-           s=70, marker="o")
+           s=190, marker="o")
 for index in range(len(initials)):
-    ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen" )
+    ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen", linewidth = lwidth )
     diff = np.round(-0.5 + fractions[index],2)
     ax.annotate(f"{diff}", (initials[index]+0.1, 0.5  + diff/2 ) )
 ax.set_title("Pareto optimal - Difference in\nvaccine two allocation")
@@ -284,6 +293,8 @@ ax.set_ylim([0.27, 0.93])
 ax.legend()
 ax.set_xticklabels([""] + cols_labels_small )
 
+fig.subplots_adjust(wspace=1.3)
+fig.tight_layout(pad=2)
 
 
 fig.savefig(

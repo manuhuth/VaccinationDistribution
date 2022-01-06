@@ -1603,11 +1603,11 @@ def plot_horizontal_bars(results, category_names, ax):
             widths = data[:, i]
             starts = data_cum[:, i] - widths
             rects = ax.barh(labels, widths, left=starts, height=0.5,
-                            label=colname, color=color, alpha=0.9)
+                            label=colname, color=color, alpha=0.7)
     
             #r, g, b, _ = color
             text_color = 'black' # 'darkgrey'
-            ax.bar_label(rects, label_type='center', color=text_color)
+            ax.bar_label(rects, label_type='center', color=text_color, alpha=1)
         ax.legend(ncol=len(category_names), bbox_to_anchor=(0.6, 0),
                   fontsize='small')
     
@@ -1788,6 +1788,44 @@ def compute_splines_from_results(type_opti = "pareto_improvements",
     for index in range(len(n_vaccs)):
         result = results[index]
         n_vacc = n_vaccs[index]
+        df_optimal = result[type_opti]
+        if not(add_additional is None):
+            for index in add_additional["integers"]:
+                for index2 in ["countryA"]:
+                    for index3 in ["vac1", "vac2"]:
+                        name = f"yy_{index2}_{index3}_{index}"
+                        df_optimal[name] = add_additional["number"]
+        
+        cols = [x for x in df_optimal.columns if vac in x]
+        argmin = np.argmin(df_optimal["fval"])
+        
+        yy_points = pd.Series(list(df_optimal.iloc[argmin][cols]))
+        time = np.linspace(0, total_length, grid_points) / 7
+        spline = get_spline(yy_points,
+                            periods=periods,
+                            length=length,
+                            total_length=total_length,
+                            grid_points=grid_points,
+                        )
+        area = trapz(spline*n_vacc/2, dx=(time[1] - time[0]))
+        total_area = n_vacc*10
+        fraction_country_A = area/total_area
+        fractions.append(fraction_country_A)
+        
+    return fractions
+
+def compute_splines_from_results_initials(initials, results, type_opti = "pareto_improvements",
+                                 vac = "vac2",
+                                 periods = 10,
+                                 length = 14,
+                                 total_length = 140,
+                                 grid_points = 6000,
+                                 add_additional = {"integers" : [9,10],
+                                                     "number" : 0.5},):
+    fractions = []
+    for index in range(len(initials)):
+        result = results[index]
+        n_vacc = 60000
         df_optimal = result[type_opti]
         if not(add_additional is None):
             for index in add_additional["integers"]:

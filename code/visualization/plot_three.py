@@ -48,12 +48,16 @@ for index in appearence:
     ) as input:
           loaded_object = pickle.load(input)
     results.append(loaded_object)
-    
+
+appearence = [0] + appearence
     
 deaths_countryA = pd.DataFrame(data=None, index=range(len(appearence)), columns=["optimal", "pareto", "population"])
 deaths_countryB = deaths_countryA.copy()
-for index in range(len(appearence)):
-    r = results[index]
+
+deaths_countryA.iloc[0,:] = np.array([0.24, 0.94, 0.98]) * 10**5
+deaths_countryB.iloc[0,:] = np.array([1.68, 1.14, 1.19]) * 10**5
+for index in range(1, len(appearence)):
+    r = results[index-1]
     index_optimal = np.argmin(r["all_strategies"]["fval"])
     index_pareto = np.argmin(r["pareto_improvements"]["fval"])
     
@@ -75,7 +79,7 @@ y_size = 30
 count_plot = 65
 
 
-fig = plt.figure(constrained_layout=True, figsize = (65,17))
+fig = plt.figure(constrained_layout=True, figsize = (75,17))
 gs = GridSpec(3, 3, figure=fig)
 
 
@@ -84,17 +88,17 @@ xlabel = "Week of mutant appearence"
 #------------------------------------------------------------------------------
 ax = fig.add_subplot(gs[0, 2])
 x = np.array(appearence)  # the label locations
-width = 0.33  # the width of the bars
-rects1 = ax.bar(x, total_deaths["population"]/10**4, width, label = "Population based", color = "C2", alpha = 0.7)
+width = 0.37  # the width of the bars
+rects1 = ax.bar(x, total_deaths["population"]/10**3, width, label = "Population based", color = "C2", alpha = 0.7)
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
-ax.set_ylabel('Deaths in 10.000')
+ax.set_ylabel('Deaths in 1,000')
 ax.set_title('Deaths by population-size based vaccine allocation')
 ax.set_xticks(x)
 ax.set_xticklabels(appearence)
 ax.legend()
 ax.set_xlabel(xlabel)
-autolabel(rects1, rounding=2)
+autolabel(rects1, rounding=1)
 
 ax.text(
         -0.05,
@@ -110,19 +114,19 @@ count_plot += 1
 #-------------------------------------------------------------------------------
 ax = fig.add_subplot(gs[1, 2])
 
-rects1 = ax.bar(x - width/2,(total_deaths["population"]- total_deaths["optimal"])/10**4, width, label='Optimal', color = "steelblue", alpha = 0.7)
-rects2 = ax.bar(x + width/2, (total_deaths["population"]-total_deaths["pareto"])/10**4, width, label='Pareto optimal', color = "darkorange", alpha=0.7)
+rects1 = ax.bar(x - width/2,(total_deaths["population"]- total_deaths["optimal"])/10**3, width, label='Optimal', color = "steelblue", alpha = 0.7)
+rects2 = ax.bar(x + width/2, (total_deaths["population"]-total_deaths["pareto"])/10**3, width, label='Pareto optimal', color = "darkorange", alpha=0.7)
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
-ax.set_ylabel('Saved lifes in 10.000')
-ax.set_title('Absolute saved lifes comapred to population-size based vaccine allocation')
+ax.set_ylabel('Saved lifes in 1,000')
+ax.set_title('Number of saved lifes compared to population-size based vaccine allocation')
 ax.set_xticks(x)
 ax.set_xlabel(xlabel)
 
 ax.set_xticklabels(appearence)
 ax.legend()
-autolabel(rects1, rounding=2)
-autolabel(rects2, rounding=2)
+autolabel(rects1, rounding=1)
+autolabel(rects2, rounding=1)
 ax.text(
         -0.05,
         y_position,
@@ -151,7 +155,7 @@ ax.set_title('Saved lifes relative to population-size based vaccine allocation')
 ax.set_xticks(x)
 ax.set_xticklabels(appearence)
 ax.legend()
-ax.set_ylim(0, 75)
+ax.set_ylim(0, 100)
 ax.set_xlabel(xlabel)
 
 autolabel(rects1)
@@ -170,7 +174,7 @@ count_plot += 1
 
 
 
-plt.tight_layout()
+fig.tight_layout(pad=3.5)
 
 fig.savefig(
     "/home/manuel/Documents/VaccinationDistribution/paper/images/plot_three",

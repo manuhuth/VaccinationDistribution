@@ -1829,6 +1829,8 @@ def run_intervention(
         "population_based": pareto,
         "pareto_improvements": pareto_optimal,
         "all_strategies": complete_df,
+        "optimal_out" : optimal_out,
+        "pareto_out" : pareto_out
     }
 
     return out

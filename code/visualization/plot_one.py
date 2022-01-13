@@ -61,6 +61,7 @@ plot_horizontal_bars_annotated(ax, dict_use = dicts["initalUnequal_vacUnequal_nv
                                color_vline = "black",
                                linestyle_vline = "dashed",
                                title = "Number of deaths per 100,000 inhabitants")
+ax.axis.grid(linestyle="dashed", alpha=0.5)
 ax.text(
         -0.05,
         y_position,

@@ -123,8 +123,8 @@ for index in range(len(dict_R_cases.keys())):
     df_vac2_optimal.loc[np.round(1-R_vals[0],2), np.round(1-R_vals[1],2)] = vac_optimal_vac2[index]
     df_vac2_pareto.loc[np.round(1-R_vals[0],2), np.round(1-R_vals[1],2)] = vac_pareto_vac2[index]
 
-d_optimal = - df_R_optimal + df_R_pop 
-d_pareto = - df_R_pareto + df_R_pop 
+d_optimal = (- df_R_optimal + df_R_pop) / df_R_pop *100
+d_pareto = (- df_R_pareto + df_R_pop) / df_R_pop *100
 
 df_vac_pareto = (df_vac1_pareto + df_vac2_pareto)/2
 df_vac_optimal = (df_vac1_optimal + df_vac2_optimal)/2
@@ -135,14 +135,22 @@ scale=1000
 fig = plt.figure(figsize = (39, 28))
 gs = GridSpec(3, 3, figure=fig)
 
+NPIs = np.linspace(0, 0.7, 8)
+wild = 0.24
+mutant = wild*2
 
-
+R0_wild = (1-NPIs) * wild / 0.1
+R0_mutant = (1-NPIs)*mutant / 0.1
 ax =  fig.add_subplot(gs[0, 0]) 
-sns.heatmap(np.round(d_optimal.iloc[:,::-1] / scale ,0), cmap= "Blues", annot=True, fmt='g',
-            ax=ax, vmin=minimum/scale, vmax=maximum/scale, cbar = False)
-ax.set_xlabel("Degree of NPIs in country B")
-ax.set_ylabel("Degree of NPIs in country A")
-ax.set_title("Optimal strategy - Saved lives in 1,0000")
+ax.yaxis.grid(alpha=0.6)
+ax.plot(NPIs, R0_wild, color = "C0", label = "wild-type")
+ax.plot(NPIs, R0_mutant, color = "C1", label = "mutant")
+ax.scatter(NPIs, R0_wild, color = "C0",  s= 140)
+ax.scatter(NPIs, R0_mutant, color = "C1",  s=140)
+ax.legend()
+ax.set_title("Effective reproduction rate of unvaccinated individuals")
+ax.set_xlabel("Degree of NPIs")
+ax.set_ylabel("Effective reproduction rate")
 ax.text(
         -0.05,
         y_position,
@@ -155,12 +163,12 @@ ax.text(
 )
 count_plot += 1
 
-
 ax =  fig.add_subplot(gs[0, 1]) 
-sns.heatmap(np.round(d_pareto.iloc[:,::-1]/scale,0), cmap= "Blues", annot=True, fmt='g', ax=ax, vmin=minimum/scale, vmax=maximum/scale, cbar=True)
+sns.heatmap(np.round(df_R_pop .iloc[:,::-1] / scale ,0), cmap= "Greens", annot=True, fmt='g',
+            ax=ax)#, vmin=minimum/scale, vmax=maximum/scale, cbar = False)
 ax.set_xlabel("Degree of NPIs in country B")
 ax.set_ylabel("Degree of NPIs in country A")
-ax.set_title("Pareto optimal  strategy - Saved lives in 1,0000")
+ax.set_title("Population-size based strategy - Deaths in 1,0000")
 ax.text(
         -0.05,
         y_position,
@@ -175,11 +183,11 @@ count_plot += 1
 
 
 ax =  fig.add_subplot(gs[1, 0]) 
-sns.heatmap(np.round(df_vac_optimal.iloc[:,::-1]*100 ,0), cmap= "Greens", annot=True, fmt='g',
-            ax=ax, vmin=20, vmax=100, cbar=False)
+sns.heatmap(np.round(d_optimal.iloc[:,::-1] ,0), cmap= "Blues", annot=True, fmt='g',
+            ax=ax, vmin=minimum, vmax=maximum, cbar = False)
 ax.set_xlabel("Degree of NPIs in country B")
 ax.set_ylabel("Degree of NPIs in country A")
-ax.set_title("Optimal strategy - % of vaccine assigend to country A")
+ax.set_title("Optimal strategy - Saved lives in %")
 ax.text(
         -0.05,
         y_position,
@@ -194,10 +202,10 @@ count_plot += 1
 
 
 ax =  fig.add_subplot(gs[1, 1]) 
-sns.heatmap(np.round(df_vac_pareto.iloc[:,::-1]*100 ,0), cmap= "Greens", annot=True, fmt='g', ax=ax, vmin=20, vmax=100, cbar=True)
+sns.heatmap(np.round(d_pareto.iloc[:,::-1],0), cmap= "Blues", annot=True, fmt='g', ax=ax, vmin=minimum, vmax=maximum, cbar=True)
 ax.set_xlabel("Degree of NPIs in country B")
 ax.set_ylabel("Degree of NPIs in country A")
-ax.set_title("Pareto strategy - % of vaccine assigend to country A")
+ax.set_title("Pareto optimal  strategy - Saved lives in %")
 ax.text(
         -0.05,
         y_position,
@@ -209,6 +217,43 @@ ax.text(
         size=y_size,
 )
 count_plot += 1
+
+
+#ax =  fig.add_subplot(gs[1, 0]) 
+#sns.heatmap(np.round(df_vac_optimal.iloc[:,::-1]*100 ,0), cmap= "Greens", annot=True, fmt='g',
+#            ax=ax, vmin=20, vmax=100, cbar=False)
+#ax.set_xlabel("Degree of NPIs in country B")
+#ax.set_ylabel("Degree of NPIs in country A")
+#ax.set_title("Optimal strategy - % of vaccine assigend to country A")
+#ax.text(
+#        -0.05,
+#        y_position,
+#        chr(count_plot),
+#        horizontalalignment="center",
+#        verticalalignment="center",
+#        transform=ax.transAxes,
+#        weight="bold",
+#        size=y_size,
+#)
+#count_plot += 1
+
+
+#ax =  fig.add_subplot(gs[1, 1]) 
+#sns.heatmap(np.round(df_vac_pareto.iloc[:,::-1]*100 ,0), cmap= "Greens", annot=True, fmt='g', ax=ax, vmin=20, vmax=100, cbar=True)
+#ax.set_xlabel("Degree of NPIs in country B")
+#ax.set_ylabel("Degree of NPIs in country A")
+#ax.set_title("Pareto strategy - % of vaccine assigend to country A")
+#ax.text(
+#        -0.05,
+#        y_position,
+#        chr(count_plot),
+#        horizontalalignment="center",
+#        verticalalignment="center",
+#        transform=ax.transAxes,
+#        weight="bold",
+#        size=y_size,
+#)
+#count_plot += 1
 
 
 fig.tight_layout(pad=3)

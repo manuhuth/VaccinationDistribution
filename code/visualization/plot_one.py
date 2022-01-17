@@ -46,8 +46,8 @@ for i in names:
 
 
 y_position = 1.08
-y_size = 12
-count_plot = 97
+y_size = 20
+count_plot = 65
 color_vaccines = "seagreen"
 
 fig = plt.figure(constrained_layout=True, figsize = (16,10))
@@ -61,7 +61,7 @@ plot_horizontal_bars_annotated(ax, dict_use = dicts["initalUnequal_vacUnequal_nv
                                color_vline = "black",
                                linestyle_vline = "dashed",
                                title = "Number of deaths per 100,000 inhabitants")
-ax.axis.grid(linestyle="dashed", alpha=0.5)
+
 ax.text(
         -0.05,
         y_position,
@@ -148,6 +148,7 @@ plot_best_strategy(
         scale_total=10*3,
         add_additional=add_additional,
 )
+ax.yaxis.grid(alpha=0.6)
 ax.set_ylim([0,30.5])
 ax.legend()
 ax.text(
@@ -193,7 +194,7 @@ plot_best_strategy(
 )
 ax.set_ylim([0,30.5])
 count_plot += 1
-
+ax.yaxis.grid(alpha=0.6)
 
 #plot six
 ax = fig.add_subplot(gs[2, 0])
@@ -227,7 +228,7 @@ plot_best_strategy(
 )
 ax.set_ylim([0,30.5])
 #ax.legend()
-
+ax.yaxis.grid(alpha=0.6)
 
 #plot seven
 ax = fig.add_subplot(gs[2, 1])
@@ -260,7 +261,7 @@ plot_best_strategy(
         add_additional=add_additional,
 )
 ax.set_ylim([0,30.5])
-
+ax.yaxis.grid(alpha=0.6)
 
 
 
@@ -291,7 +292,7 @@ ax.set_title("Country B")
 ax.set_ylabel("7-day incidence per\n100,000 habtiants")
 ax.set_xlabel("Weeks")
 ax.legend()
-
+ax.yaxis.grid(alpha=0.6)
 
 ylim = ax.get_ylim()
 
@@ -302,7 +303,7 @@ plot_incidences_country(ax=ax,trajectories=trajectories, time=time,
                             index_country = "countryA",
                             label_type = ["Optimal", "Pareto optimal", "Population\nbased"],
                             colors = ["C0", "C1", "black"])
-
+ax.yaxis.grid(alpha=0.6)
 ax.set_title("Country A")
 ax.set_ylabel("7-day incidence per\n100,000 habtiants")
 ax.set_xlabel("Weeks")

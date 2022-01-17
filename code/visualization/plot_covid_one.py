@@ -152,7 +152,7 @@ for index in range(len(countries)):
     ax.xaxis.set_tick_params(rotation=45)
     #ax.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%Y'))
     #ax.xaxis.set_major_locator(mdates.DayLocator())
-    ax.xaxis.grid(linestyle="dashed", alpha=0.5)
+    ax.yaxis.grid(alpha=0.6)
     
 #---------------------Vaccines------------------------------------
 ax=fig.add_subplot(gs[2, 0])
@@ -188,7 +188,7 @@ for index in range(len(vacs)):
 ax.set_ylabel("Vaccinated doses in millions")
 ax.set_title("Europe")
 ax.xaxis.set_tick_params(rotation=45)
-ax.xaxis.grid(linestyle="dashed", alpha=0.5)
+ax.yaxis.grid(alpha=0.6)
 ax.legend()
 
 ax=fig.add_subplot(gs[2, 1])
@@ -201,9 +201,9 @@ for index in range(len(vacs)):
         bottom = np.repeat(0, len(weeks))
     ax.fill_between(weeks, bottom, uk_vaccine[vacs[index]]/scale, alpha = alpha_vacc, color=colors[index])
 #ax.set_ylabel("Vaccinated doses in millions")
-ax.set_title("Europe")
+ax.set_title("United Kingdom")
 ax.xaxis.set_tick_params(rotation=45)
-ax.xaxis.grid(linestyle="dashed", alpha=0.5)
+ax.yaxis.grid(alpha=0.6)
 ax.legend()
 
 #-----------------------time course-------------------------------------
@@ -303,7 +303,7 @@ for index in np.linspace(0,1,6):
     ax.plot([0, length/7], [index, index], color="lightgrey", linewidth=0.7, alpha=0.8)
 ax.set_xticklabels(["2021-01", "2021-03", "2021-05", "2021-07", "2021-09", "2021-11", "2022-01"])
 ax.xaxis.set_tick_params(rotation=45)
-fig.tight_layout(pad=3)
+fig.tight_layout(pad=1.5)
 
 fig.savefig(
     "/home/manuel/Documents/VaccinationDistribution/paper/images/covid_plot_one",

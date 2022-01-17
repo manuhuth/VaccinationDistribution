@@ -99,7 +99,7 @@ ax.set_xticklabels(appearence)
 ax.legend()
 ax.set_xlabel(xlabel)
 autolabel(rects1, rounding=1)
-
+ax.yaxis.grid(alpha=0.6)
 ax.text(
         -0.05,
         y_position,
@@ -125,6 +125,7 @@ ax.set_xlabel(xlabel)
 
 ax.set_xticklabels(appearence)
 ax.legend()
+ax.yaxis.grid(alpha=0.6)
 autolabel(rects1, rounding=1)
 autolabel(rects2, rounding=1)
 ax.text(
@@ -157,7 +158,7 @@ ax.set_xticklabels(appearence)
 ax.legend()
 ax.set_ylim(0, 100)
 ax.set_xlabel(xlabel)
-
+ax.yaxis.grid(alpha=0.6)
 autolabel(rects1)
 autolabel(rects2)
 ax.text(

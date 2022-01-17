@@ -1618,7 +1618,8 @@ def plot_horizontal_bars_annotated(ax,
                                    dict_use,
                                    scale = 10**5,
                                    color_vline = "black",
-                                   linestyle_vline = "dashed", title=""):
+                                   linestyle_vline = "dashed", title="",
+                                   category_names=["Country A", "Country B"]):
     all_results = dict_use["all_strategies"]
     argmin_global = np.argmin(all_results["fval"])
     global_optimum = all_results.iloc[argmin_global]
@@ -1631,7 +1632,7 @@ def plot_horizontal_bars_annotated(ax,
     population = np.round(np.array(dict_use["population_based"])/scale,2)
     pareto = np.round([pareto_optimum["countryA"]/scale, pareto_optimum["countryB"]/scale],2)
     
-    category_names = ["Country A", "Country B"]
+
     results = {
         'Optimal \nStrategy': optimal,
         'Population \nStrategy':  population,

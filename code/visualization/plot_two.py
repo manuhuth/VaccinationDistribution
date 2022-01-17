@@ -131,7 +131,7 @@ for index in range(len(initials)):
     diff = np.round(- pop[index] + optimal[index],2)
     ax.annotate(f"{diff}", (initials[index]+0.1, optimal[index] -diff/2 ) )
     
-    
+ax.yaxis.grid(alpha=0.6)    
 ax.set_title("Optimal and population-size based strategy")
 
 ax.set_ylabel("Deaths in 1,000")
@@ -172,7 +172,7 @@ for index in range(len(initials)):
     diff = np.round(- pop[index] + pareto[index],2)
     ax.annotate(f"{diff}", (initials[index]+0.1, pareto[index] -diff/2 ) )
     
-    
+ax.yaxis.grid(alpha=0.6)    
 ax.set_title("Improvement through Pareto optimal strategy")
 ax.set_ylabel("")
 ax.set_xlim(-0.5, 5.5)
@@ -211,6 +211,7 @@ ax.set_ylabel("Fraction allocated to country A")
 ax.legend()
 cols_labels_small = [f"Case {i}" for i in range(len(initials))]
 ax.set_xticklabels([""] + cols_labels_small )
+ax.yaxis.grid(alpha=0.6)
 ax.text(
         -0.05,
         y_position,
@@ -234,6 +235,7 @@ ax.scatter(initials, fractions,
 ax.scatter(initials, np.repeat(0.5, len(initials)),
            label = "Population\nbased", color="seagreen",
            s=190, marker="o")
+ax.yaxis.grid(alpha=0.6)
 for index in range(len(initials)):
     ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen", linewidth = lwidth )
     diff = np.round(-0.5 + fractions[index],2)
@@ -263,6 +265,7 @@ ax.scatter(initials, fractions,
 ax.scatter(initials, np.repeat(0.5, len(initials)),
            label = "Population\nbased", color="seagreen",
            s=190, marker="o")
+ax.yaxis.grid(alpha=0.6)
 for index in range(len(initials)):
     ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen", linewidth = lwidth )
     diff = np.round(-0.5 + fractions[index],2)
@@ -284,6 +287,7 @@ ax.scatter(initials, fractions,
 ax.scatter(initials, np.repeat(0.5, len(initials)),
            label = "Population\nbased", color="seagreen",
            s=190, marker="o")
+ax.yaxis.grid(alpha=0.6)
 for index in range(len(initials)):
     ax.plot(np.repeat(initials[index],2), [0.5, fractions[index]], color = "seagreen", linewidth = lwidth )
     diff = np.round(-0.5 + fractions[index],2)

@@ -72,7 +72,7 @@ def create_inflow_from_data(
     length_df = df_non_zero.shape[0]
 
     if length_df >= number_decision_periods * weeks_decision_period:
-        df_periods = df_non_zero.iloc[range((number_decision_periods * 2))]
+        df_periods = df_non_zero.iloc[range((number_decision_periods * weeks_decision_period))]
     else:
         diff = int(number_decision_periods * weeks_decision_period - length_df)
         df_periods = df_non_zero.append(df_non_zero.iloc[[-1] * diff]).reset_index(

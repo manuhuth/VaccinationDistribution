@@ -1030,7 +1030,7 @@ def get_sum_vaccinated(model, trajectories, area=None, include_recovered=True):
     return df_unvaccinated.sum(axis=1)
 
 
-def get_start_splines_pop_based(model, areas, number_yy):
+def get_start_splines_pop_based(model, areas, number_yy, theta_no_intervention=None):
     """Modify model such that spline parameters match population size based
     weights.
 
@@ -1050,26 +1050,33 @@ def get_start_splines_pop_based(model, areas, number_yy):
     transformed_fractions : np.array
         Start parameters.
     """
-    fixed_parameters = dict(
-        zip(model.getFixedParameterNames(), model.getFixedParameters())
-    )
-    pop_t0 = []
-    for area in areas:
-        s = 0
-        for keys in fixed_parameters.keys():
-            if "t0" in keys and area in keys:
-                s += fixed_parameters[keys]
-
-        pop_t0.append(s)
-    fractions = pop_t0 / np.sum(pop_t0)
-    transformed_fractions = np.log(fractions / (1 - fractions))
-
-    dict_start = dict(
-        zip(model.getParameterNames(), np.repeat(
-            transformed_fractions, 2 * number_yy))
-    )
+    if theta_no_intervention is None:
+        fixed_parameters = dict(
+            zip(model.getFixedParameterNames(), model.getFixedParameters())
+        )
+        pop_t0 = []
+        for area in areas:
+            s = 0
+            for keys in fixed_parameters.keys():
+                if "t0" in keys and area in keys:
+                    s += fixed_parameters[keys]
+    
+            pop_t0.append(s)
+        fractions = pop_t0 / np.sum(pop_t0)
+        transformed_fractions = np.log(fractions / (1 - fractions))
+    
+        dict_start = dict(
+            zip(model.getParameterNames(), np.repeat(
+                transformed_fractions, 2 * number_yy))
+        )
+        
+    else:
+        dict_start = dict(
+            zip(model.getParameterNames(), theta_no_intervention))
+        
+    
     for keys in dict_start.keys():
-        model.setParameterByName(keys, dict_start[keys])
+            model.setParameterByName(keys, dict_start[keys])
 
     return dict_start
 
@@ -1441,6 +1448,7 @@ def optimize_intervention_pybobyqa(
     number_yy,
     lower_bound=10 ** -15,
     n_starts=10,
+    theta_no_intervention=None,
 ):
 
     set_parameter_by_name(model, parameters, fixed=True)
@@ -1454,7 +1462,7 @@ def optimize_intervention_pybobyqa(
         if float(x.rsplit("_", 1)[-1]) <= week_of_reaction / 2
     ]
     transformed_frac_pareto = get_start_splines_pop_based(
-        model, areas, number_yy)
+        model, areas, number_yy, theta_no_intervention)
 
     dict_par_rest = {}
     for i in par_rest:
@@ -1549,6 +1557,7 @@ def get_pareto_front_intervention(
     crossover_eta=15,
     crossover_prob=0.9,
     mutation_eta=20,
+    theta_no_intervention=None,
 ):
     """Compute the pareto front with respect to the areas using the NSGA-II
     algorithm.
@@ -1603,7 +1612,7 @@ def get_pareto_front_intervention(
         if float(x.rsplit("_", 1)[-1]) <= week_of_reaction / 2
     ]
     transformed_frac_pareto = get_start_splines_pop_based(
-        model, areas, number_yy)
+        model, areas, number_yy, theta_no_intervention)
     number_par = len(par_optimize)
     number_areas = len(areas)
 
@@ -1697,6 +1706,7 @@ def run_intervention(
     crossover_eta=15,
     crossover_prob=0.9,
     mutation_eta=20,
+    theta_no_intervention = None,
 ):
 
     np.random.seed(p_seed)
@@ -1712,6 +1722,7 @@ def run_intervention(
         number_yy,
         lower_bound=lb,
         n_starts=starts_bobyqa,
+        theta_no_intervention=theta_no_intervention,
     )
 
     optimal_results = trannsform_pybobyqa_intervention(
@@ -1735,6 +1746,7 @@ def run_intervention(
         crossover_eta=crossover_eta,
         crossover_prob=crossover_prob,
         mutation_eta=mutation_eta,
+        theta_no_intervention=theta_no_intervention,
     )
 
     par_dict = dict(zip(par_to_optimize, np.repeat(0, len(par_to_optimize))))
@@ -4641,14 +4653,15 @@ def create_constraints(
     vaccines,
     par_optimize,
     areas,
+    start_index=0
 ):
     number_par = len(par_optimize)
     index_one = []
     index_two = []
     count = 0
     for j in vaccines[1: (len(vaccines))]:
-        for i in range(
-            int((len(par_optimize) / (len(vaccines) - 1) / (len(areas) - 1)))
+        for i in range(int(start_index), 
+            int(start_index + (len(par_optimize) / (len(vaccines) - 1) / (len(areas) - 1)))
         ):
             name = f"{j}_par{i}"
             list_name = [name]

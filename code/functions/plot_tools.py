@@ -276,15 +276,15 @@ def plot_pareto_front(
     minA = np.min(pareto_x)
     minB = np.min(pareto_y)
     ax.fill_between(
-        x=[minA, pareto[0]],
+        x=[0, pareto[0]],
         y1=[pareto[1], pareto[1]],
-        y2=[minB, minB],
+        y2=[0, 0],
         alpha=alpha,
         color=color_pareto,
     )
     ax.hlines(
         appended_df["countryB"][amin],
-        xmin=minA,
+        xmin=0,
         xmax=appended_df["countryA"][amin],
         linewidth=linewidth_pareto,
         linestyle="dashed",
@@ -292,7 +292,7 @@ def plot_pareto_front(
     )
     ax.vlines(
         appended_df["countryA"][amin],
-        ymin=minB,
+        ymin=0,
         ymax=appended_df["countryB"][amin],
         linewidth=linewidth_pareto,
         linestyle="dashed",
@@ -301,7 +301,7 @@ def plot_pareto_front(
 
     ax.hlines(
         pareto_optimal_df["countryB"][pareto_amin],
-        xmin=minA,
+        xmin=0,
         xmax=pareto_optimal_df["countryA"][pareto_amin],
         linewidth=linewidth_pareto,
         linestyle="dashed",
@@ -309,14 +309,16 @@ def plot_pareto_front(
     )
     ax.vlines(
         pareto_optimal_df["countryA"][pareto_amin],
-        ymin=minB,
+        ymin=0,
         ymax=pareto_optimal_df["countryB"][pareto_amin],
         linewidth=linewidth_pareto,
         linestyle="dashed",
         color=color_pareto_improvement,
     )
-    cbar = fig.colorbar(im, ax=ax)
+    cbar = fig.colorbar(im, ax=ax, orientation="horizontal", pad=-1.35, shrink = 0.8)
     cbar.formatter.set_powerlimits((0, 0))
+    cbar.set_label("Total number of deceased individuals", labelpad=-59)
+
     ax.scatter(
         appended_df["countryA"][amin],
         appended_df["countryB"][amin],
@@ -331,9 +333,12 @@ def plot_pareto_front(
     )
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    ax.ticklabel_format(axis="both", style="sci", scilimits=(0, 0))
+    #ax.ticklabel_format(axis="both", style="sci", scilimits=(0, 0))
     ax.set_title(title)
-
+    ax.set_xlim([0, 200000])
+    ax.set_ylim([0, 200000])
+    ax.set_yticks([50000, 100000, 150000])
+    ax.set_xticks([50000, 100000, 150000])
     return ax
 
 
@@ -482,6 +487,10 @@ def get_spline(array, periods, length, total_length, grid_points=6000, transform
 
     spline_vals = spline(grid)
     if transform == True:
+        
+        spline_vals[spline_vals > 40] = 40
+        spline_vals[spline_vals < -40] = -40
+        
         logistic = 1 / (1 + np.exp(-spline_vals))
 
     return logistic
@@ -514,6 +523,7 @@ def plot_best_strategy(
     y_total=0.2,
     scale_total=1,
     add_additional=None,
+    font_size=None,
 ):
 
     pareto = dict_output[case]["population_based"]
@@ -620,13 +630,13 @@ def plot_best_strategy(
                         np.repeat(0, len(vac_pareto))*n_vacc, color=col_pareto, alpha = 0.3)
         ax.plot(np.linspace(0, total_length, grid_points) / 7,
                 np.repeat(0.5, len(vac_pareto))*n_vacc,
-                color="black", linestyle="dashed", label="Population \nallocation")
+                color="black", linestyle="dashed", label="Pop.-\nbased")
         time = np.linspace(0, total_length, grid_points) / 7
         area = trapz(vac_pareto*n_vacc, dx=(time[1] - time[0]))
-        ax.text(x_total, y_total, f"Total doses: \n{np.round(area, 2)}",
+        ax.text(x_total, y_total, f"{np.round(area/600000 * 100, 2)}% to \nCountry 1",
                 horizontalalignment="center",
-                verticalalignment="center",
-                bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=1'))
+                verticalalignment="center", size = font_size,
+                bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=0.1'))
         
     if plot == "optimal" or plot is None:
         ax.plot(
@@ -638,16 +648,16 @@ def plot_best_strategy(
         )
         ax.plot(np.linspace(0, total_length, grid_points) / 7,
                 np.repeat(0.5, len(vac_unconstrained))*n_vacc,
-                color="black", linestyle="dashed", label="Population \nallocation")
+                color="black", linestyle="dashed", label="Pop.-based")
         time = np.linspace(0, total_length, grid_points-1) / 7 
         area = trapz(vac_unconstrained*n_vacc, dx=(time[1] - time[0]))
         ax.fill_between(np.linspace(0, total_length, grid_points) / 7, vac_unconstrained*n_vacc, 
                         np.repeat(0, len(vac_unconstrained))*n_vacc, color=col_unconstrained,
                         alpha = 0.3)
-        ax.text(x_total, y_total, f"Total doses: \n{np.round(area, 2)}",
+        ax.text(x_total, y_total, f"{np.round(area/600000 * 100, 2)}% to \nCountry 1",
                 horizontalalignment="center",
-                verticalalignment="center",
-                bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=1'))
+                verticalalignment="center", size = font_size,
+                bbox=dict(facecolor='none', edgecolor='black', boxstyle='round,pad=0.1'))
 
     #ax.scatter(x_scatter, scatter_vac_pareto, s=s_scatter, label=label_scatter,
     #           color=col_pareto)
@@ -657,7 +667,7 @@ def plot_best_strategy(
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
     ax.set_title(title)
-    ax.set_ylim([-0.05, 1.05])
+    #ax.set_ylim([-0.05, 1.05])
 
     return ax
 
@@ -1251,257 +1261,257 @@ def plot_four_country_overview(
             2,
         )
 
-    labels = list(results.keys())
-    data = np.array(list(results.values()))
-    data_cum = data.cumsum(axis=1)
-    category_colors = plt.get_cmap("RdYlGn")(np.linspace(0.15, 0.85, data.shape[1]))
-    ax.invert_yaxis()
-    ax.xaxis.set_visible(False)
-    ax.set_xlim(0, np.sum(data, axis=1).max())
-    ax.set_title("Relative initial populations")
-
-    for i, (colname, color) in enumerate(zip(category_names, category_colors)):
-        widths = data[:, i]
-        starts = data_cum[:, i] - widths
-        rects = ax.barh(
-            labels, widths, left=starts, height=0.5, label=colname, color=color
-        )
-
-        r, g, b, _ = color
-        text_color = "black" if r * g * b < 0.5 else "darkgrey"
-        if colname != "Belgium":
-            ax.bar_label(
-                rects,
-                label_type="center",
-                fmt="%.2f%%",
-                color=text_color,
-                fontsize="small",
-                padding=0,
-            )
+#    labels = list(results.keys())
+   # data = np.array(list(results.values()))
+  #  data_cum = data.cumsum(axis=1)
+ #   category_colors = plt.get_cmap("RdYlGn")(np.linspace(0.15, 0.85, data.shape[1]))
+#    ax.invert_yaxis()
+   # ax.xaxis.set_visible(False)
+  #  ax.set_xlim(0, np.sum(data, axis=1).max())
+ #   ax.set_title("Relative initial populations")
+#
+#    for i, (colname, color) in enumerate(zip(category_names, category_colors)):
+     #   widths = data[:, i]
+    #    starts = data_cum[:, i] - widths
+   #     rects = ax.barh(
+  #          labels, widths, left=starts, height=0.5, label=colname, color=color
+ #       )
+#
+#        r, g, b, _ = color
+        #text_color = "black" if r * g * b < 0.5 else "darkgrey"
+        #if colname != "Belgium":
+       #     ax.bar_label(
+      #          rects,
+     #           label_type="center",
+    #            fmt="%.2f%%",
+   #             color=text_color,
+  #              fontsize="small",
+ #               padding=0,
+            #)
         # ax.legend(ncol=2, fontsize="small")
-        ax.legend(ncol=len(category_names), bbox_to_anchor=(0, -0.2), loc="lower left")
+#        ax.legend(ncol=len(category_names), bbox_to_anchor=(0, -0.2), loc="lower left")
 
-    ax.text(
-        -0.05,
-        letter_y,
-        chr(count_plot),
-        horizontalalignment="center",
-        verticalalignment="center",
-        transform=ax.transAxes,
-        weight="bold",
-        size=letter_size,
-    )
+#    ax.text(
+#        -0.05,
+#        letter_y,
+#        chr(count_plot),
+#        horizontalalignment="center",
+#        verticalalignment="center",
+  #      transform=ax.transAxes,
+  #      weight="bold",
+  #      size=letter_size,
+   # )
 
-    count_plot += 1
-    ax = fig.add_subplot(gs[0, 2])
-    ax.plot(
-        vaccine_available["t"] / 7,
-        vaccine_available["vac1"] / scale,
-        color=color_vac1,
-        label=label_vac1,
-    )
-    ax.set_ylabel("Doses per day \nin millions")
-    ax.fill_between(
-        vaccine_available["t"] / 7,
-        vaccine_available["vac1"] / scale,
-        color=color_vac1,
-        step="pre",
-        alpha=0.25,
-    )
-    ax.plot(
-        vaccine_available["t"] / 7,
-        vaccine_available["vac2"] / scale,
-        color=color_vac2,
-        label=label_vac2,
-    )
-    ax.fill_between(
-        vaccine_available["t"] / 7,
-        vaccine_available["vac2"] / scale,
-        color=color_vac2,
-        step="pre",
-        alpha=0.25,
-    )
-    ax.set_xlabel("Weeks")
-    ax.set_title(title_vac)
-    ax.legend()
-    ax.text(
-        -0.05,
-        letter_y,
-        chr(count_plot),
-        horizontalalignment="center",
-        verticalalignment="center",
-        transform=ax.transAxes,
-        weight="bold",
-        size=letter_size,
-    )
+  #  count_plot += 1
+  #  ax = fig.add_subplot(gs[0, 2])
+  #  ax.plot(
+  #      vaccine_available["t"] / 7,
+  #      vaccine_available["vac1"] / scale,
+  #      color=color_vac1,
+  #      label=label_vac1,
+  #  )
+  #  ax.set_ylabel("Doses per day \nin millions")
+  #  ax.fill_between(
+  #      vaccine_available["t"] / 7,
+  #      vaccine_available["vac1"] / scale,
+  #      color=color_vac1,
+  #      step="pre",
+  #      alpha=0.25,
+  #  )
+  #  ax.plot(
+  #      vaccine_available["t"] / 7,
+  #      vaccine_available["vac2"] / scale,
+  #      color=color_vac2,
+  #      label=label_vac2,
+  #  )
+  #  ax.fill_between(
+ #       vaccine_available["t"] / 7,
+  #      vaccine_available["vac2"] / scale,
+  #      color=color_vac2,
+  #      step="pre",
+   #     alpha=0.25,
+   # )
+  #  ax.set_xlabel("Weeks")
+  #  ax.set_title(title_vac)
+  #  ax.legend()
+   # ax.text(
+   #     -0.05,
+   #     letter_y,
+   #     chr(count_plot),
+   #     horizontalalignment="center",
+   #     verticalalignment="center",
+   #     transform=ax.transAxes,
+    #    weight="bold",
+     #   size=letter_size,
+    #)#
 
-    count_plot += 1
-    ax = fig.add_subplot(gs[0, 3])
-    barWidth = 0.25
+#    count_plot += 1
+#    ax = fig.add_subplot(gs[0, 3])
+#    barWidth = 0.25
 
     # set heights of bars
-    vaccine1 = [
+  #  vaccine1 = [
         delta["delta_vac1_virus1"],
-        delta["delta_vac1_virus2"],
-        omega["omega_vac1_virus1"],
-        omega["omega_vac1_virus2"],
-    ]
-    vaccine2 = [
-        delta["delta_vac2_virus1"],
-        delta["delta_vac2_virus2"],
-        omega["omega_vac2_virus1"],
-        omega["omega_vac2_virus2"],
-    ]
+  #      delta["delta_vac1_virus2"],
+  #      omega["omega_vac1_virus1"],
+  #      omega["omega_vac1_virus2"],
+  #  ]
+  #  vaccine2 = [
+  ##      delta["delta_vac2_virus1"],
+  #      delta["delta_vac2_virus2"],
+  ##      omega["omega_vac2_virus1"],
+    #    omega["omega_vac2_virus2"],
+   # ]
 
     # Set position of bar on X axis
-    r1 = np.array([0, 0.75, 3, 3.75])
-    r2 = np.array([x + barWidth for x in r1])
+  #  r1 = np.array([0, 0.75, 3, 3.75])
+  #  r2 = np.array([x + barWidth for x in r1])
 
     # Make the plot
-    ax.bar(
-        r1, vaccine1, color="#727272", width=barWidth, edgecolor="white", label="mRNA"
-    )
-    ax.bar(
-        r2, vaccine2, color="#cd7058", width=barWidth, edgecolor="white", label="vector"
-    )
+  #  ax.bar(
+  #      r1, vaccine1, color="#727272", width=barWidth, edgecolor="white", label="mRNA"
+  #  )
+  #  ax.bar(
+  #      r2, vaccine2, color="#cd7058", width=barWidth, edgecolor="white", label="vector"
+  #  )
 
-    midpoints = (r1 + r2) / 2
+  #  midpoints = (r1 + r2) / 2
     # Add xticks on the middle of the group bars
     # ax.set_xlabel('group', fontweight='bold')
-    ax.set_xticks(midpoints)
-    ax.set_xticklabels(["Alpha", "Delta", "Alpha", "Delta"])
-    point1 = (midpoints[1] - midpoints[0]) / 2 + midpoints[0]
-    point2 = (midpoints[3] - midpoints[2]) / 2 + midpoints[2]
-    ax.text(point1, 1.1, "Infection \nprotection", ha="center", va="center")
-    ax.text(point2, 1.1, "Death \nprotection", ha="center", va="center")
-    ax.set_ylim([0, 1.2])
-    ax.set_yticks(np.linspace(0, 1, 6))
-    ax.set_ylabel("Reduction in %")
-    ax.set_title("Vaccine infection and \ndeath reduction")
-    ax.legend(loc="center")
-    ax.text(
-        -0.05,
-        letter_y,
-        chr(count_plot),
-        horizontalalignment="center",
-        verticalalignment="center",
-        transform=ax.transAxes,
-        weight="bold",
-        size=letter_size,
-    )
+#    ax.set_xticks(midpoints)
+#    ax.set_xticklabels(["Alpha", "Delta", "Alpha", "Delta"])
+#    point1 = (midpoints[1] - midpoints[0]) / 2 + midpoints[0]
+ #   point2 = (midpoints[3] - midpoints[2]) / 2 + midpoints[2]
+#    ax.text(point1, 1.1, "Infection \nprotection", ha="center", va="center")
+ #   ax.text(point2, 1.1, "Death \nprotection", ha="center", va="center")
+ #   ax.set_ylim([0, 1.2])
+   # ax.set_yticks(np.linspace(0, 1, 6))
+   # ax.set_ylabel("Reduction in %")
+  ##  ax.set_title("Vaccine infection and \ndeath reduction")
+  #  ax.legend(loc="center")
+   # ax.text(
+    #    -0.05,
+    #    letter_y,
+    #    chr(count_plot),
+    #    horizontalalignment="center",
+    #    verticalalignment="center",
+    #    transform=ax.transAxes,
+    #    weight="bold",
+    #    size=letter_size,
+    #)
 
-    for j in range(len(countries)):
-        ax = fig.add_subplot(gs[1, j])
-        count_plot += 1
-        ax.text(
-            -0.05,
-            letter_y,
-            chr(count_plot),
-            horizontalalignment="center",
-            verticalalignment="center",
-            transform=ax.transAxes,
-            weight="bold",
-            size=letter_size,
-        )
-        if j == 0:
-            ax.set_ylabel("Degree of NPIs")
-        country = areas[j]
-        array = np.array([par_R[x] for x in par_R.keys() if country in x])
-        spline_R = get_spline(
-            array,
-            periods=number_xx_R - 1,
-            length=length / number_xx_R,
-            total_length=length,
-            grid_points=total_grid,
-            transform=True,
-        )
+    #for j in range(len(countries)):
+       # ax = fig.add_subplot(gs[1, j])
+       # count_plot += 1
+       # ax.text(
+       #     -0.05,
+       #     letter_y,
+       #     chr(count_plot),
+       #     horizontalalignment="center",
+       #     verticalalignment="center",
+       #     transform=ax.transAxes,
+       #     weight="bold",
+       #     size=letter_size,
+       # )
+       # if j == 0:
+       #     ax.set_ylabel("Degree of NPIs")
+       # country = areas[j]
+       # array = np.array([par_R[x] for x in par_R.keys() if country in x])
+       # spline_R = get_spline(
+       #     array,
+       #     periods=number_xx_R - 1,
+         #   length=length / number_xx_R,
+         #   total_length=length,
+         #   grid_points=total_grid,
+         #   transform=True,
+        #)#
 
-        ax.set_xlabel("Weeks")
-        ax.plot(grid_data / 7, 1 - spline_R[0 : (len(grid_data))], color="C2")
-        ax.plot(
-            grid_sim / 7,
-            1 - spline_R[(len(grid_data) + 1) : (total_grid)],
-            color="C2",
-            linestyle="dotted",
-        )
-        ax.text(text_x, text_y, text_str)
-        ax.text(text_lockdown_x, text_lockdown_y, text_lockdown_str)
-        ax.set_ylim(ylim)
-        ax.set_title(countries[j].capitalize())
-        ax.fill_between(
-            grid_data / 7,
-            1 - spline_R[0 : (len(grid_data))],
-            step="pre",
-            alpha=0.4,
-            color="C2",
-        )
-        ax.fill_between(
-            grid_sim / 7,
-            1 - spline_R[(len(grid_data) + 1) : (total_grid)],
-            step="pre",
-            alpha=0.25,
-            color="C2",
-        )
-        ax.axvline(
-            list(df_inf_true.index)[-1] / 7,
-            0,
-            1,
-            color="firebrick",
-            linestyle="dashed",
-            label="Last optimized \nspline point",
-            linewidth="0.7",
-        )
-        if j == 0:
-            ax.legend(loc="upper right")
+  #      ax.set_xlabel("Weeks")
+  #      ax.plot(grid_data / 7, 1 - spline_R[0 : (len(grid_data))], color="C2")
+  #      ax.plot(
+     #       grid_sim / 7,
+     #       1 - spline_R[(len(grid_data) + 1) : (total_grid)],
+     #       color="C2",
+     #       linestyle="dotted",
+      #  )
+      #  ax.text(text_x, text_y, text_str)
+      #  ax.text(text_lockdown_x, text_lockdown_y, text_lockdown_str)
+      #  ax.set_ylim(ylim)
+      #  ax.set_title(countries[j].capitalize())
+      #  ax.fill_between(
+      #      grid_data / 7,
+      #      1 - spline_R[0 : (len(grid_data))],
+      #      step="pre",
+      #      alpha=0.4,
+      #      color="C2",
+      #  )
+      #  ax.fill_between(
+      #      grid_sim / 7,
+      #      1 - spline_R[(len(grid_data) + 1) : (total_grid)],
+      #      step="pre",
+      #      alpha=0.25,
+      #      color="C2",
+      #  )
+      #  ax.axvline(
+      #      list(df_inf_true.index)[-1] / 7,
+      #      0,
+      #      1,
+      #      color="firebrick",
+      #      linestyle="dashed",
+      #      label="Last optimized \nspline point",
+      #      linewidth="0.7",
+      #  )
+      #  if j == 0:
+      #      ax.legend(loc="upper right")
 
-    for j in range(len(countries)):
-        ax = fig.add_subplot(gs[2, j])
-        count_plot += 1
-        ax.text(
-            -0.05,
-            letter_y,
-            chr(count_plot),
-            horizontalalignment="center",
-            verticalalignment="center",
-            transform=ax.transAxes,
-            weight="bold",
-            size=letter_size,
-        )
-        if j == 0:
-            ax.set_ylabel("Active cases \nin millions")
+    #for j in range(len(countries)):
+        #ax = fig.add_subplot(gs[2, j])
+        #count_plot += 1
+        #ax.text(
+        #    -0.05,
+        #    letter_y,
+        #    chr(count_plot),
+        #    horizontalalignment="center",
+        #    verticalalignment="center",
+        #    transform=ax.transAxes,
+        #    weight="bold",
+        #    size=letter_size,
+        #)
+        #if j == 0:
+        #    ax.set_ylabel("Active cases \nin millions")
 
-        ax.plot(
-            grid_data / 7,
-            df_infected.loc[0 : (len(grid_data) - 1), areas[j]] / scale,
-            label="Simulated",
-            color="C0",
-        )
-        ax.plot(
-            grid_sim / 7,
-            df_infected.loc[len(grid_data) : (total_grid), areas[j]] / scale,
-            color="C0",
-            linestyle="dotted",
-        )
+        #ax.plot(
+        #    grid_data / 7,
+        #    df_infected.loc[0 : (len(grid_data) - 1), areas[j]] / scale,
+        #    label="Simulated",
+        #    color="C0",
+        #)
+        #ax.plot(
+        #    grid_sim / 7,
+         #   df_infected.loc[len(grid_data) : (total_grid), areas[j]] / scale,
+         #   color="C0",
+         #   linestyle="dotted",
+        #)#
 
-        ax.plot(
-            np.array(df_inf_true.index) / 7,
-            df_inf_true[countries[j]] / scale,
-            label="Data",
-            color="C1",
-        )
-        ax.set_title(countries[j].capitalize())
-        ax.set_xlabel("Weeks")
-        ax.axvline(
-            list(df_inf_true.index)[-1] / 7,
-            0,
-            1,
-            color="firebrick",
-            linestyle="dashed",
-            label="Last optimized \nspline point",
-            linewidth="0.7",
-        )
-        if j == 0:
-            ax.legend()
+        #ax.plot(
+        #    np.array(df_inf_true.index) / 7,
+        #    df_inf_true[countries[j]] / scale,
+        #    label="Data",
+        #    color="C1",
+        #)
+        #ax.set_title(countries[j].capitalize())
+        #ax.set_xlabel("Weeks")
+        #ax.axvline(
+        #    list(df_inf_true.index)[-1] / 7,
+        #    0,
+        #    1,
+        #    color="firebrick",
+        #    linestyle="dashed",
+        #    label="Last optimized \nspline point",
+        #    linewidth="0.7",
+        #)
+        #if j == 0:
+        #    ax.legend()
 
     fig.savefig(
         "/home/manuel/Documents/VaccinationDistribution/paper/images/infected_compare",
@@ -1579,7 +1589,7 @@ def plot_bars_vac(ax, vaccine1, vaccine2, title, barWidth=0.25):
     ax.legend(loc="center")
 
 #---------------------------------------------------------------------------------------------------------------
-def plot_horizontal_bars(results, category_names, ax):
+def plot_horizontal_bars(results, category_names, ax, font_size):
         """
         Parameters
         ----------
@@ -1593,7 +1603,7 @@ def plot_horizontal_bars(results, category_names, ax):
         labels = list(results.keys())
         data = np.array(list(results.values()))
         data_cum = data.cumsum(axis=1)
-        category_colors = ["C0", "C1"]
+        category_colors = ["seagreen", "steelblue"]
     
         ax.invert_yaxis()
         ax.xaxis.set_visible(False)
@@ -1603,12 +1613,13 @@ def plot_horizontal_bars(results, category_names, ax):
             widths = data[:, i]
             starts = data_cum[:, i] - widths
             rects = ax.barh(labels, widths, left=starts, height=0.5,
-                            label=colname, color=color, alpha=0.7)
+                            label=colname, color=color, alpha=0.9)
     
             #r, g, b, _ = color
             text_color = 'black' # 'darkgrey'
-            ax.bar_label(rects, label_type='center', color=text_color, alpha=1)
-        ax.legend(ncol=len(category_names), bbox_to_anchor=(0.6, 0),
+            ax.bar_label(rects, label_type='center', color=text_color, alpha=1,
+                         size = font_size, labels=[f'{x:,.0f}' for x in rects.datavalues])
+        ax.legend(ncol=len(category_names), bbox_to_anchor=(0.72, 0),
                   fontsize='small')
     
         return ax
@@ -1619,7 +1630,7 @@ def plot_horizontal_bars_annotated(ax,
                                    scale = 10**5,
                                    color_vline = "black",
                                    linestyle_vline = "dashed", title="",
-                                   category_names=["Country A", "Country B"]):
+                                   category_names=["Country 1", "Country 2"], font_size = None):
     all_results = dict_use["all_strategies"]
     argmin_global = np.argmin(all_results["fval"])
     global_optimum = all_results.iloc[argmin_global]
@@ -1628,20 +1639,20 @@ def plot_horizontal_bars_annotated(ax,
     argmin_Pareto = np.argmin(pareto_results["fval"])
     pareto_optimum = all_results.iloc[argmin_Pareto]
     
-    optimal = np.round([global_optimum["countryA"]/scale, global_optimum["countryB"]/scale],2)
-    population = np.round(np.array(dict_use["population_based"])/scale,2)
-    pareto = np.round([pareto_optimum["countryA"]/scale, pareto_optimum["countryB"]/scale],2)
+    optimal = np.round([global_optimum["countryA"]/scale, global_optimum["countryB"]/scale],0)
+    population = np.round(np.array(dict_use["population_based"])/scale,0)
+    pareto = np.round([pareto_optimum["countryA"]/scale, pareto_optimum["countryB"]/scale],0)
     
 
     results = {
-        'Optimal \nStrategy': optimal,
-        'Population \nStrategy':  population,
-        'Pareto Optimal \nStrategy': pareto,
+        'Optimal\nStrategy': optimal,
+        'Pop.-based\nStrategy':  population,
+        'Pareto\nStrategy': pareto,
     }
     
     
 
-    plot_horizontal_bars(results, category_names, ax)
+    plot_horizontal_bars(results, category_names, ax, font_size = font_size)
     ax.axvline(x=np.sum(population), color = color_vline, linestyle =linestyle_vline)
     y_ticks = ax.get_yticks()
     #ax.annotate(f"{np.round((np.sum(optimal) / np.sum(population) - 1)*100, 2)}",
@@ -1657,8 +1668,12 @@ def plot_horizontal_bars_annotated(ax,
             tick = index
         ax.arrow(np.sum(population), y_ticks[tick], np.sum(par_opt_list[index]) - np.sum(population), 0,
                  length_includes_head=True, head_width=0.1, head_length=0.05)     
-        ax.text(np.sum(population), y_ticks[tick], f"{np.round((np.sum(par_opt_list[index])/np.sum(population) - 1)*100,2)}%",
-                va = "center")    
+        if not(font_size is None):
+            ax.text(np.sum(population), y_ticks[tick], f"{np.round((np.sum(par_opt_list[index])/np.sum(population) - 1)*100,0)}%",
+                    va = "center")  
+        else:
+            ax.text(np.sum(population), y_ticks[tick], f"{np.round((np.sum(par_opt_list[index])/np.sum(population) - 1)*100,0)}%",
+                    va = "center") 
         ax.set_title(title)
     
 def compute_incidences(trajectories,
@@ -1784,7 +1799,8 @@ def compute_splines_from_results(type_opti = "pareto_improvements",
                                  total_length = 140,
                                  grid_points = 6000,
                                  add_additional = {"integers" : [9,10],
-                                                     "number" : 0.5},n_vaccs=None,results=None, ):
+                                                     "number" : 0.5},n_vaccs=None,results=None, 
+                                 spline = None,):
     fractions = []
     for index in range(len(n_vaccs)):
         result = results[index]
@@ -1812,7 +1828,10 @@ def compute_splines_from_results(type_opti = "pareto_improvements",
         total_area = n_vacc*10
         fraction_country_A = area/total_area
         fractions.append(fraction_country_A)
-        
+    
+    if spline is True:
+        return spline
+    
     return fractions
 
 def compute_splines_from_results_initials(initials, results, type_opti = "pareto_improvements",
@@ -1821,12 +1840,13 @@ def compute_splines_from_results_initials(initials, results, type_opti = "pareto
                                  length = 14,
                                  total_length = 140,
                                  grid_points = 6000,
+                                 n_vacc = 60000,
                                  add_additional = {"integers" : [9,10],
                                                      "number" : 0.5},):
     fractions = []
     for index in range(len(initials)):
         result = results[index]
-        n_vacc = 60000
+        
         df_optimal = result[type_opti]
         if not(add_additional is None):
             for index in add_additional["integers"]:
@@ -1840,14 +1860,15 @@ def compute_splines_from_results_initials(initials, results, type_opti = "pareto
         
         yy_points = pd.Series(list(df_optimal.iloc[argmin][cols]))
         time = np.linspace(0, total_length, grid_points) / 7
-        spline = get_spline(yy_points,
+        spline = get_spline(array=yy_points,
                             periods=periods,
                             length=length,
                             total_length=total_length,
                             grid_points=grid_points,
                         )
-        area = trapz(spline*n_vacc/2, dx=(time[1] - time[0]))
-        total_area = n_vacc*10
+        area = trapz(spline*n_vacc * 7 / length  , dx=(time[1] - time[0]))
+
+        total_area = n_vacc*(periods)
         fraction_country_A = area/total_area
         fractions.append(fraction_country_A)
         
@@ -1891,3 +1912,30 @@ def compute_splines_from_Rval_results(results, type_opti = "pareto_improvements"
         fractions.append(fraction_country_A)
         
     return fractions
+
+
+
+def plot_best_splines(ax, data, vac, periods, length, grid_points, n, doses,
+                      alpha, color, ylabel, xlabel, add_periods=None, title=None):
+
+    total_length = periods*length
+    time = np.linspace(0, total_length, grid_points) / 7
+    par_names = [x for x in data.columns if vac in x]
+    indices = (data["fval"].nsmallest(n)).index
+    
+    run = 0
+    labels = ["1st best", "2nd best", "3rd best"] + [f"{x}th best" for x in range(4, n+1)]
+    for index in indices:
+        if not(add_periods is None):
+            yy_points = np.array(list(pd.Series(list(data.loc[index][par_names]))) + add_periods)
+        spline = get_spline(yy_points,
+                            periods=periods,
+                            length=length,
+                            total_length=total_length,
+                            grid_points=grid_points,
+                            )
+        ax.plot(time, doses*spline, color = color, alpha = alpha)
+        run += 1
+    ax.set_ylabel(ylabel)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)

@@ -26,7 +26,7 @@ model_name = "vaccination_multi_six_recovered"
 path_sbml = f"stored_models/{model_name}/" + model_name
 model_directory = "stored_models/" + model_name + "/vaccination_dir"
 
-max_T = 70  # 112 works
+max_T = 112 #works
 number_yy = int(max_T / 14 + 1)
 number_xx_R = int(112 / 14 + 1)
 created_model = create_model_splines(
@@ -215,15 +215,15 @@ parameters = {
 interventionA = {
     "t": 46,  # first detected at day 53
     "parameter": {
-        "infectious_countryD_vac0_virus2_t0": 20,
-        "infectious_countryB_vac0_virus2_t0": 1,
-        "infectious_countryC_vac0_virus2_t0": 20,
+        "infectious_countryD_vac0_virus2_t0": 0,#20,
+        "infectious_countryB_vac0_virus2_t0": 0,#1,
+        "infectious_countryC_vac0_virus2_t0": 0,#20,
     },
 }
 interventionB = {
     "t": 76,  # first detected at day 53
     "parameter": {
-        "infectious_countryA_vac0_virus2_t0": 20,
+        "infectious_countryA_vac0_virus2_t0": 0,#20,
     },
 }
 interventions = [interventionA, interventionB]
@@ -240,8 +240,8 @@ rim = run_interventions_model(
     number_yy,
     theta=None,
 )
-rim["trajectories"]["t"] = time_grid[0 : (len(time_grid) - 1)] / 7
-df_infected = pd.DataFrame(time_grid[0 : (len(time_grid) - 1)], columns=["Time"])
+rim["trajectories"]["t"] = time_grid[0 : (len(time_grid) - 2)] / 7
+df_infected = pd.DataFrame(time_grid[0 : (len(time_grid) - 2)], columns=["Time"])
 for i in areas:
     df_infected[i] = (
         rim["trajectories"][
@@ -268,7 +268,7 @@ vaccine_available = plot_four_country_overview(
     countries,
     areas,
     par_R,
-    number_xx_R,
+   number_xx_R,
     total_grid,
     df_inf_true,
     df_infected,
@@ -276,7 +276,7 @@ vaccine_available = plot_four_country_overview(
     grid_sim=np.linspace(
         end_data, length, total_grid - int(total_grid * end_data / length) - 1
     ),
-    scale=10 ** 6,
+   scale=10 ** 6,
     text_x=end_data / 7 / 3 - 2,
     text_y=0.07,
     ylim=[0, 0.8],
@@ -294,11 +294,14 @@ vaccine_available = plot_four_country_overview(
     position_start_vac=[0, 0.5],
     height_start_vac=0.3,
     letter_size=30,
-    letter_y=1.06,
+   letter_y=1.06,
     size=(40, 20),
 )
 
-par_optimize = [x for x in model.getParameterNames() if int(x.rsplit("_", 1)[-1]) <= 3]
+
+
+#-------------------------------------------------------------------------------------------
+par_optimize = [x for x in model.getParameterNames() if int(x.rsplit("_", 1)[-1]) <= 8]
 
 
 def get_optim_function_pareto(theta):
@@ -364,7 +367,7 @@ ub = 1 - lb
 
 
 theta_p = get_start_splines_pop_based(model, areas, number_yy)
-keys = [x for x in theta_p.keys() if int(x.rsplit("_", 1)[-1]) <= 3]
+keys = [x for x in theta_p.keys() if int(x.rsplit("_", 1)[-1]) <= 9]
 dic = {}
 for index in keys:
     dic[index] = theta_p[index]
@@ -419,7 +422,7 @@ for index in range(len(starts)):
 
 start = start.sort_values("f").reset_index(drop=True)
 
-path = "/home/manuel/Documents/VaccinationDistribution/code/objects/starts.pkl"
+path = "/home/manuel/Documents/VaccinationDistribution/code/objects/starts_no_mutant.pkl"
 
 with open(
     path,
@@ -435,7 +438,7 @@ with open(
     pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
 
 
-start_use = start.loc[0:49, :]
+start_use = start.loc[0:20, :]
 bounds = Bounds(np.repeat(lb, len(par_optimize)), np.repeat(ub, len(par_optimize)))
 constraint = LinearConstraint(constraints["lin_constraints"], lb, ub)
 
@@ -446,7 +449,7 @@ def run_scipy_min_parallel(index):
         method="trust-constr",
         constraints=constraint,
         bounds=bounds,
-        options={"verbose": 2, "maxiter": 200},
+        options={"verbose": 2, "maxiter": 50},
     )
 
 
@@ -488,7 +491,7 @@ for index in range(len(r)):
             pars = par_areas[vac][area]
             para = [par_d[x] for x in pars if 2 > 1]
             if any(np.array(para) <= 0) or any(np.array(para) >= 1):
-                spline = np.repeat(1000, 5000)
+                spline = np.repeat(1000, 8000)
             else:
                 xx = np.array(list(spline_xx.values()))
                 rel_pop_trans = relative_population[areas[area]]
@@ -517,7 +520,7 @@ for index in range(len(r)):
 df_results = df_results.dropna()
 
 
-
+#---------------------------------------------------------------------------------------------------
 #pareto constraints
 pareto = np.array(get_optim_function_pareto(z_trans))
 
@@ -554,7 +557,7 @@ def draw_random_start_constr(i_sim):
     return save_sim
 
 
-n_sim = 650000
+n_sim = 200000
 with mp.Pool() as p:
     starts_constr = list(
         tqdm.tqdm(
@@ -575,7 +578,7 @@ for index in range(len(starts_constr)):
 
 start_constr = start_constr.sort_values("f").reset_index(drop=True)
 
-path = "/home/manuel/Documents/VaccinationDistribution/code/objects/starts_constr.pkl"
+path = "/home/manuel/Documents/VaccinationDistribution/code/objects/starts_constr_no_mutant.pkl"
 
 with open(
     path,
@@ -590,7 +593,7 @@ with open(
     out = start_constr
     pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
 
-start_constr_use = start_constr.loc[0:49, :]
+start_constr_use = start_constr.loc[0:50, :]
 
 constraint = LinearConstraint(constraints["lin_constraints"], lb, ub)
 def run_scipy_min_parallel_constrained(index):
@@ -599,7 +602,7 @@ def run_scipy_min_parallel_constrained(index):
         x0=start_constr_use[par_optimize].loc[index, :],
         method="trust-constr",
         constraints=constraint,
-        options={"verbose": 2, "maxiter": 100},
+        options={"verbose": 2, "maxiter": 50},
     )
 
 
@@ -628,7 +631,7 @@ for index in range(len(r)):
             pars = par_areas[vac][area]
             para = [par_d[x] for x in pars if 2 > 1]
             if any(np.array(para) <= 0) or any(np.array(para) >= 1):
-                spline = np.repeat(1000, 5000)
+                spline = np.repeat(1000, 8000)
             else:
                 xx = np.array(list(spline_xx.values()))
                 rel_pop_trans = relative_population[areas[area]]
@@ -791,7 +794,7 @@ dict_out = {
     **dict_trajectories,
 }
 
-path = "/home/manuel/Documents/VaccinationDistribution/code/objects/results_trust_constr_4countries.pkl"
+path = "/home/manuel/Documents/VaccinationDistribution/code/objects/results_trust_constr_4countries_no_mutant.pkl"
 with open(
     path,
     "wb",
@@ -801,11 +804,601 @@ with open(
 
 
 
+
+
+
+
+
+
+
+
+
+#----------------------set-up optimization with learning about variant---
+path = "/home/manuel/Documents/VaccinationDistribution/code/objects/results_trust_constr_4countries_no_mutant.pkl"
 with open(
     path,
     "rb",
 ) as input:
     dict_ = pickle.load(input)
+
+pars_all = list(model.getParameterNames())
+
+argmin_optimal = np.argmin(dict_["unconstr_best"]["f"])
+argmin_pareto = np.argmin(dict_["constrained"]["f"]) 
+
+strategy_optimal = dict_["unconstr_best"].loc[argmin_optimal, pars_all]
+strategy_pareto = dict_["constrained"].loc[argmin_pareto, pars_all]
+
+interventionA = {
+    "t": 46,  # first detected at day 53
+    "parameter": {
+        "infectious_countryD_vac0_virus2_t0": 20,
+        "infectious_countryB_vac0_virus2_t0": 1,
+        "infectious_countryC_vac0_virus2_t0": 20,
+        "infectious_countryA_vac0_virus2_t0": 20,
+    },
+}
+#interventionB = {
+#    "t": 76,  # first detected at day 53
+#    "parameter": {
+#        "infectious_countryA_vac0_virus2_t0": 20,
+#    },
+#}
+interventions = [interventionA]
+
+
+
+#---optimization of 
+
+par_optimize = [x for x in model.getParameterNames() if int(x.rsplit("_", 1)[-1]) >= 2]
+def get_optim_function_pareto(theta):
+    theta_str = np.array(strategy_optimal.values,dtype="float")
+    dict_before_variant = dict(zip(pars_all, np.log(theta_str / (1 - theta_str))  ))
+    set_parameter_by_name(model, dict_before_variant, fixed=False)
+    
+    dict_theta = dict(zip(par_optimize, np.log(theta / (1 - theta))))
+    set_parameter_by_name(model, dict_theta, fixed=False)
+    deaths = run_interventions_model(
+        model,
+        solver,
+        interventions,
+        parameters,
+        total_grid,
+        length,
+        areas,
+        number_yy,
+        theta,
+    )
+    d = deaths["deaths"]
+    return d[1 : len(d)]
+
+
+
+constraints = create_constraints(
+    vaccines=created_model["information"]["vaccine_states"],
+    par_optimize=par_optimize,
+    areas=areas, start_index = 2
+)
+
+lb = 10 ** -9
+ub = 1 - lb
+
+
+
+theta_p = get_start_splines_pop_based(model, areas, number_yy)
+keys = [x for x in theta_p.keys() if int(x.rsplit("_", 1)[-1]) >= 2 ]
+dic = {}
+for index in keys:
+    dic[index] = theta_p[index]
+
+z = np.array(list(dic.values()))
+z_trans = 1 / (1 + np.exp(-z))
+
+
+def get_optim_function_scipy(theta):
+    return np.sum(get_optim_function_pareto(theta))
+
+
+def draw_random_start(i_sim):
+    save_sim = None
+    np.random.seed(i_sim)
+    B = constraints["lin_constraints"].copy()
+    for i in B.index:
+        for j in B.columns:
+            col_sum = B.copy().replace(1, 0).sum(axis=1)[i]
+            if B.loc[i][j] == 1:
+                for c in range(len(areas)):
+                    if areas[c] in j:
+                        maxi = 1.2 * relative_population[areas[c]]
+                B.loc[i, j] = np.random.uniform(lb, np.min([maxi, 1 - col_sum]))
+
+    theta_par = B.sum()
+    it_res = np.sum(get_optim_function_pareto(theta_par))
+    #if it_res < 8 * 10 ** 5:
+    save_sim = np.concatenate([theta_par, [it_res]])
+
+    return save_sim
+
+
+n_sim = 65000
+with mp.Pool() as p:
+    starts = list(
+        tqdm.tqdm(p.imap_unordered(draw_random_start, range(0, n_sim)), total=n_sim)
+    )
+
+starts.append(np.concatenate([z_trans, [np.sum(get_optim_function_pareto(z_trans))]]))
+
+start = pd.DataFrame(
+    columns=par_optimize + ["f"],
+)
+start.loc[0] = np.array(list(z_trans) + [np.sum(get_optim_function_pareto(z_trans))]) 
+count = 1
+for index in range(len(starts)):
+    if all(np.repeat(starts[index] == starts[index], 2)):
+        start.loc[count] = np.array(starts[index])
+        count += 1
+start = start.sort_values("f").reset_index(drop=True)
+
+path = "/home/manuel/Documents/VaccinationDistribution/code/objects/starts_with_variant_appearance.pkl"
+
+with open(
+    path,
+    "rb",
+) as input:
+    start = pickle.load(input)
+
+with open(
+    path,
+    "wb",
+) as output:
+    out = start
+    pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
+
+
+start_use = start.loc[0:20, :]
+bounds = Bounds(np.repeat(lb, len(par_optimize)), np.repeat(ub, len(par_optimize)))
+constraint = LinearConstraint(constraints["lin_constraints"], lb, ub)
+
+def run_scipy_min_parallel(index):
+    return minimize(
+        fun=get_optim_function_scipy,
+        x0=start_use[par_optimize].loc[index, :],
+        method="trust-constr",
+        constraints=constraint,
+        bounds=bounds,
+        options={"verbose": 2, "maxiter": 50},
+    )
+
+
+with mp.Pool() as p:
+    results_unconstrained = list(
+        tqdm.tqdm(
+            p.imap_unordered(run_scipy_min_parallel, range(0, start_use.shape[0])),
+            total=start_use.shape[0],
+        )
+    )
+
+par_areas_vac1 = []
+for i in range(len(areas)):
+    par_areas_vac1.append(
+        [x for x in par_optimize if (areas[i] in x) and ("vac1" in x)]
+    )
+
+par_areas_vac2 = []
+for i in range(len(areas)):
+    par_areas_vac2.append(
+        [x for x in par_optimize if (areas[i] in x) and ("vac2" in x)]
+    )
+
+par_areas = {"vac1": par_areas_vac1, "vac2": par_areas_vac2}
+
+
+r = results_unconstrained
+par = par_optimize
+df_results = pd.DataFrame(index=range(len(r)), columns=par + areas + ["f"])
+ind = 0
+for index in range(len(r)):
+    paramet = r[index]["x"]
+    par_d = dict(zip(par, paramet))
+    for vac in ["vac1", "vac2"]:
+        vac_ind = 0
+        val = {}
+        greater_zero = []
+        for area in range(len(areas) - 1):
+            pars = par_areas[vac][area]
+            para = [par_d[x] for x in pars if 2 > 1]
+            if any(np.array(para) <= 0) or any(np.array(para) >= 1):
+                spline = np.repeat(1000, 8000)
+            else:
+                xx = np.array(list(spline_xx.values()))
+                rel_pop_trans = relative_population[areas[area]]
+                spline = get_spline(
+                    array=np.concatenate(
+                        [para, np.repeat(rel_pop_trans, len(xx) - len(pars))]
+                    ),
+                    periods=None,
+                    length=None,
+                    total_length=length,
+                    grid_points=None,
+                    transform=True,
+                    x=xx,
+                    grid=vaccine_available["t"],
+                )
+            val[areas[area]] = spline
+        sum_df = 1 - pd.DataFrame(val).sum(axis=1)
+        greater_zero.append(all(sum_df > 0))
+
+    if all(greater_zero) is True:
+        areas_results = get_optim_function_pareto(paramet)
+        func_value = np.sum(areas_results)
+        row = np.concatenate([paramet, areas_results, [func_value]])
+        df_results.iloc[ind] = row
+        ind += 1
+df_results = df_results.dropna()
+
+
+#----------Pareto constraints---------------------------------------------------------------
+def get_optim_function_pareto_pop(theta):   
+    #dict_theta = dict(zip(par_optimize, np.log(theta / (1 - theta))))
+    #set_parameter_by_name(model, dict_theta, fixed=False)
+    deaths = run_interventions_model(
+        model,
+        solver,
+        interventions,
+        parameters,
+        total_grid,
+        length,
+        areas,
+        number_yy,
+        theta=None,
+    )
+    d = deaths["deaths"]
+    return d[1 : len(d)]
+
+
+def get_optim_function_pareto(theta):
+    theta_str = np.array(strategy_pareto.values,dtype="float")
+    dict_before_variant = dict(zip(pars_all, np.log(theta_str / (1 - theta_str))  ))
+    set_parameter_by_name(model, dict_before_variant, fixed=False)
+    
+    dict_theta = dict(zip(par_optimize, np.log(theta / (1 - theta))))
+    set_parameter_by_name(model, dict_theta, fixed=False)
+    deaths = run_interventions_model(
+        model,
+        solver,
+        interventions,
+        parameters,
+        total_grid,
+        length,
+        areas,
+        number_yy,
+        theta,
+    )
+    d = deaths["deaths"]
+    return d[1 : len(d)]
+
+
+
+
+def get_optim_function_scipy_constrained(theta):
+    it = get_optim_function_pareto(theta)
+
+    if all(it < pareto):
+        return np.sum(get_optim_function_pareto(theta))
+    else:
+        bool_vec = it > pareto
+        diff = it - pareto
+        return np.sum(it) + 1000 * diff @ bool_vec
+
+
+def draw_random_start_constr(i_sim):
+    save_sim = None
+    np.random.seed(i_sim)
+    B = constraints["lin_constraints"].copy()
+    for i in B.index:
+        for j in B.columns:
+            col_sum = B.copy().replace(1, 0).sum(axis=1)[i]
+            if B.loc[i][j] == 1:
+                for c in range(len(areas)):
+                    if areas[c] in j:
+                        maxi = 1.3 * relative_population[areas[c]]
+                B.loc[i, j] = np.random.uniform(lb, np.min([maxi, 1 - col_sum]))
+
+    theta_par = B.sum()
+    it_res = get_optim_function_scipy_constrained(theta_par)
+    
+    save_sim = np.concatenate([theta_par, [it_res]])
+    print(save_sim)
+    return save_sim
+
+
+n_sim = 700000
+with mp.Pool() as p:
+    starts_constr = list(
+        tqdm.tqdm(
+            p.imap_unordered(draw_random_start_constr, range(200000, n_sim)), total=n_sim
+        )
+    )
+
+start_constr = pd.DataFrame(
+    [np.concatenate([z_trans, [get_optim_function_scipy_constrained(z_trans)]])],
+    columns=par_optimize + ["f"],
+)
+for index in range(len(starts_constr)):
+    if not (starts_constr[index] is None):
+        start_constr = start_constr.append(
+            pd.DataFrame([starts_constr[index]], columns=par_optimize + ["f"]),
+            ignore_index=True,
+        )
+
+start_constr = start_constr.sort_values("f").reset_index(drop=True)
+
+path = "/home/manuel/Documents/VaccinationDistribution/code/objects/starts_constr_with_variant_appearance.pkl"
+
+with open(
+    path,
+    "rb",
+) as input:
+    start_constr = pickle.load(input)
+
+with open(
+    path,
+    "wb",
+) as output:
+    out = start_constr
+    pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
+
+start_constr_use = start_constr.loc[0:50, :]
+
+constraint = LinearConstraint(constraints["lin_constraints"], lb, ub)
+def run_scipy_min_parallel_constrained(index):
+    return minimize(
+        fun=get_optim_function_scipy_constrained,
+        x0=start_constr_use[par_optimize].loc[index, :],
+        method="trust-constr",
+        constraints=constraint,
+        options={"verbose": 2, "maxiter": 50},
+    )
+
+
+with mp.Pool() as p:
+    results_constrained = list(
+        tqdm.tqdm(
+            p.imap_unordered(
+                run_scipy_min_parallel_constrained, range(0, start_constr_use.shape[0])
+            ),
+            total=start_constr_use.shape[0],
+        )
+    )
+
+r = results_constrained
+par = par_optimize
+df_results_constr = pd.DataFrame(index=range(len(r)), columns=par + areas + ["f"])
+ind = 0
+for index in range(len(r)):
+    paramet = r[index]["x"]
+    par_d = dict(zip(par, paramet))
+    for vac in ["vac1", "vac2"]:
+        vac_ind = 0
+        val = {}
+        greater_zero = []
+        for area in range(len(areas) - 1):
+            pars = par_areas[vac][area]
+            para = [par_d[x] for x in pars if 2 > 1]
+            if any(np.array(para) <= 0) or any(np.array(para) >= 1):
+                spline = np.repeat(1000, 8000)
+            else:
+                xx = np.array(list(spline_xx.values()))
+                rel_pop_trans = relative_population[areas[area]]
+                spline = get_spline(
+                    array=np.concatenate(
+                        [para, np.repeat(rel_pop_trans, len(xx) - len(pars))]
+                    ),
+                    periods=None,
+                    length=None,
+                    total_length=length,
+                    grid_points=None,
+                    transform=True,
+                    x=xx,
+                    grid=vaccine_available["t"],
+                )
+            val[areas[area]] = spline
+        sum_df = 1 - pd.DataFrame(val).sum(axis=1)
+        greater_zero.append(all(sum_df > 0))
+
+    if all(greater_zero) is True:
+        areas_results = get_optim_function_pareto(paramet)
+        func_value = np.sum(areas_results)
+        row = np.concatenate([paramet, areas_results, [func_value]])
+        df_results_constr.iloc[ind] = row
+        ind += 1
+df_results_constr = df_results_constr.dropna()
+
+df_results_constr_pareto = df_results_constr[
+    (df_results_constr[areas[0]] <= pareto[0])
+    & (df_results_constr[areas[1]] <= pareto[1])
+    & (df_results_constr[areas[2]] <= pareto[2])
+    & (df_results_constr[areas[3]] <= pareto[3])
+].reset_index(drop=True)
+
+df_pareto = pd.DataFrame(
+    [list(df_results_constr_pareto.loc[np.argmin(df_results_constr_pareto["f"]), :])],
+    columns=par_optimize + areas + ["f"],
+)
+df_pop = pd.DataFrame(
+    [list(np.concatenate([z_trans, pareto, [np.sum(pareto)]]))],
+    columns=par_optimize + areas + ["f"],
+)
+df_best = pd.DataFrame(
+    [list(df_results.loc[np.argmin(df_results["f"]), :])],
+    columns=par_optimize + areas + ["f"],
+)
+
+dfs = {"pop": df_pop, "constrained": df_pareto, "unconstrained": df_best}
+
+vaccine_allocated = pd.DataFrame(vaccine_available["t"], columns=["t"])
+for vac in ["vac1", "vac2"]:
+    for type_allocation in ["pop", "constrained", "unconstrained"]:
+        for area in range(len(areas[0 : (len(areas) - 1)])):
+            pars = par_areas[vac][area]
+            rel_pop_trans = relative_population[areas[area]]
+            df = dfs[type_allocation]
+            xx = np.array(list(spline_xx.values()))
+
+            spline = get_spline(
+                array=np.concatenate(
+                    [df[pars].loc[0, :], np.repeat(rel_pop_trans, len(xx) - len(pars))]
+                ),
+                periods=None,
+                length=None,
+                total_length=length,
+                grid_points=None,
+                transform=True,
+                x=xx,
+                grid=vaccine_available["t"],
+            )
+            col_name = f"{type_allocation}_{areas[area]}_{vac}"
+            vaccine_allocated[col_name] = spline
+
+for vac in ["vac1", "vac2"]:
+    for type_allocation in ["pop", "constrained", "unconstrained"]:
+        cols = [x for x in vaccine_allocated if (vac in x) and (type_allocation in x)]
+        if type_allocation == "constrained":
+            cols = [x for x in cols if not ("unconstrained" in x)]
+        c_D = 1 - vaccine_allocated[cols].sum(axis=1)
+        col_name = f"{type_allocation}_countryD_{vac}"
+        vaccine_allocated[col_name] = c_D
+
+# trajectories
+dfs = [df_pop, df_pareto, df_best]
+names = ["pop_trajectories", "pareto_trajectories", "best_trajectories"]
+dict_trajectories = {}
+for i in range(len(dfs)):
+    df = dfs[i]
+    theta = df[par_optimize].loc[0, :]
+    dict_theta = dict(zip(par_optimize, np.log(theta / (1 - theta))))
+    set_parameter_by_name(model, dict_theta, fixed=False)
+    trajectories = run_interventions_model(
+        model,
+        solver,
+        interventions,
+        parameters,
+        total_grid,
+        length,
+        areas,
+        number_yy,
+        theta,
+    )
+    dict_trajectories[names[i]] = trajectories
+
+# vaccine trajectories
+sort_df_results = df_results.sort_values("f").reset_index(drop=True)
+vaccine_all_results = pd.DataFrame(vaccine_available["t"], columns=["t"])
+for vac in ["vac1", "vac2"]:
+    for position_best in sort_df_results.index:
+        for area in range(len(areas[0 : (len(areas) - 1)])):
+            pars = par_areas[vac][area]
+            rel_pop_trans = relative_population[areas[area]]
+            df = sort_df_results
+            xx = np.array(list(spline_xx.values()))
+
+            spline = get_spline(
+                array=np.array(
+                    list(
+                        np.concatenate(
+                            [
+                                df[pars].loc[position_best, :],
+                                np.repeat(rel_pop_trans, len(xx) - len(pars)),
+                            ]
+                        )
+                    )
+                ),
+                periods=None,
+                length=None,
+                total_length=length,
+                grid_points=None,
+                transform=True,
+                x=xx,
+                grid=vaccine_available["t"],
+            )
+            col_name = f"a{position_best}_{areas[area]}_{vac}"
+            vaccine_all_results[col_name] = spline
+
+for vac in ["vac1", "vac2"]:
+    for position_best in sort_df_results.index:
+        cols = [
+            x
+            for x in vaccine_all_results.columns
+            if (vac in x) and (f"a{position_best}_" in x)
+        ]
+        c_D = 1 - vaccine_all_results[cols].sum(axis=1)
+        col_name = f"a{position_best}_countryD_{vac}"
+        vaccine_all_results[col_name] = c_D
+
+dict_out = {
+    "unconstr_best": df_results,
+    "constr_best": df_pareto,
+    "par_optimize": par_optimize,
+    "pop_best": df_pop,
+    "vaccine": vaccine_available,
+    "allocated_best": vaccine_allocated,
+    "constrained": df_results_constr_pareto,
+    "results_pareto_optim_not_pareto_included": df_results_constr,
+    "pareto_outcome": pareto,
+    "vaccine_all_paths_best": vaccine_all_results,
+    **dict_trajectories,
+}
+
+path = "/home/manuel/Documents/VaccinationDistribution/code/objects/results_trust_constr_4countries_with_variant_appearance.pkl"
+with open(
+    path,
+    "wb",
+) as output:
+    out = dict_out
+    pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# do not forget to run pareto case before running pareto strategy
+rim = run_interventions_model(
+    model,
+    solver,
+    interventions,
+    parameters,
+    total_grid,
+    length,
+    areas,
+    number_yy,
+    theta=None,
+)
+rim["trajectories"]["t"] = time_grid[0 : (len(time_grid) - 2)] / 7
+df_infected = pd.DataFrame(time_grid[0 : (len(time_grid) - 2)], columns=["Time"])
+for i in areas:
+    df_infected[i] = (
+        rim["trajectories"][
+            [x for x in rim["trajectories"].columns if ("infectious" in x) & (i in x)]
+        ]
+        .sum(axis=1)
+        .reset_index(drop=True)
+    )
+
 
 
 

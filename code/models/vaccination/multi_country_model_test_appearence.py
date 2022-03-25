@@ -38,9 +38,9 @@ appears_week = 12
 def run_week_appearence(appears_week):
     for wor in [0]:
     
-        #wor = 0
+        wor = appears_week / 2
         specification = f"appears_week_{appears_week}"
-        path = f"/home/manuel/Documents/VaccinationDistribution/code/objects/{specification}.pkl"
+        path = f"/home/manuel/Documents/VaccinationDistribution/code/objects/knowledge_optimal_{specification}.pkl"
     
         # par_to_optimize = [x for x in model.getParameterNames() if "vac1" in x]
         par_to_optimize = list(model.getParameterNames())
@@ -59,7 +59,7 @@ def run_week_appearence(appears_week):
             )
         )
     
-        # par_to_optimize = [x for x in par_to_optimize if float(x.rsplit('_', 1)[-1]) <= 8]
+        #par_to_optimize = [x for x in par_to_optimize if float(x.rsplit('_', 1)[-1]) <= 8]
     
         # areas
         areas = created_model["information"]["areas"]
@@ -121,7 +121,7 @@ def run_week_appearence(appears_week):
     
         mutant_appears = {
             "virus2_countryB_appears_time": appears_week * 7,
-            "virus2_countryB_appears_quantity": 20,
+            "virus2_countryB_appears_quantity": 10, #0,
         }
     
         distances = {
@@ -184,13 +184,29 @@ def run_week_appearence(appears_week):
             pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
         
     return dict_out
-
-#----------------------------------------------------------------------------
+#-----------------------------------------------------------------------------
+#equal distribution was found out to be the best one
+#results_no_mutant = run_week_appearence(0.05)
+#vacc_path_no_mutant_pareto = 
+#vacc_path_no_mutant_optimal =  
+#with open(
+#            "/home/manuel/Documents/VaccinationDistribution/code/objects/vac_path_no_mutant_pareto_appearence.pkl",
+#            "wb",
+#        ) as output:
+#            out =vacc_path_no_mutant_pareto
+#            pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
+#with open(
+#            "/home/manuel/Documents/VaccinationDistribution/code/objects/vac_path_no_mutant_optimal_appearence.pkl",
+#            "wb",
+#        ) as output:
+#            out =vacc_path_no_mutant_optimal
+#            pickle.dump(out, output, pickle.HIGHEST_PROTOCOL)
+#-----------------------------------------------------------------------------
 with mp.Pool() as p:
     results = list(
         tqdm.tqdm(
             p.imap_unordered(
-                run_week_appearence, [0.05, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5]
+                run_week_appearence, [0.05] + list(range(1, 13))
             ),
             total=13,
         )
@@ -201,10 +217,12 @@ with mp.Pool() as p:
 o = simulate_intervention(
     model, solver, parameters, max_T, 1001, ["countryA", "countryB"], par_optim_dict=None
 )
-o["trajectories"]["t"] = np.linspace(0, max_T, 1000)
+o["trajectories"]["t"] = np.linspace(0, max_T, 1001)
 import matplotlib.pyplot as plt
 
 cols = [x for x in o["trajectories"].columns if "infectious" in x]# and "virus2" in x]
 y = o["trajectories"][cols].sum(axis=1).reset_index(drop=True)
 plt.plot(o["trajectories"]["t"] / 7, y)
 plt.scatter(np.linspace(0, max_T, 11) / 7, y.iloc[np.linspace(0, max_T, 11) / max_T * 999])
+
+dict(zip(model.getFixedParameterNames(), model.getFixedParameters()))

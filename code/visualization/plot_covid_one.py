@@ -1,19 +1,12 @@
-import pickle
 import numpy as np
 import pandas as pd
-import matplotlib
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
-import matplotlib.pyplot as plt
+
 from matplotlib.gridspec import GridSpec
-from matplotlib.pyplot import cm
-import seaborn as sns
-from scipy.ndimage.filters import uniform_filter1d
-from mpl_toolkits.axes_grid1 import make_axes_locatable
+import matplotlib
 import geopandas as gpd
 from descartes import PolygonPatch
 import datetime as dt
-import matplotlib.dates as mdates
 from functions.create_vaccine_doses_inflow import create_inflow_from_data_sum
 
 
@@ -77,23 +70,37 @@ interventionB = {
     },
 }
 interventions = [interventionA, interventionB]
-spline_xx = {"xx0": 0, "xx1" : 40/3*7, "xx2" : 2*40/3*7, "xx3" : 3*40/3*7, "xx4" : length}
-
+spline_xx = {}
+for index in range(8):
+    
+    spline_xx[f"xx{index}"] = index * (47 + 2/3)
+spline_xx["xx8"] = length
 #---------------------TRue vaccine doses--------------------------------------
 vaccine_inflow = create_inflow_from_data_sum()
 europe_vaccine = (vaccine_inflow["europe"].iloc[1:(-1)]).reset_index(drop=True)
 uk_vaccine = vaccine_inflow["uk"]
 
 #-------------------Start plot------------------------------------------------
-y_position = 1.08
-y_size = 18
+y_position = 1.35
+y_size = 28
 count_plot = 65
+x_position = -0.35
+
+size = 19
+font = {"family": "normal", "weight": "normal", "size": size}
+matplotlib.rc("font", **font)
+matplotlib.rcParams['xtick.labelsize'] = size - 2
+matplotlib.rcParams['ytick.labelsize'] = size - 2
 
 
 
 color =["Steelblue", "C1", "Seagreen", "Firebrick"]
-fig = plt.figure(figsize = (14, 14))
+fig = plt.figure(figsize = (20, 20))
 gs = GridSpec(4, 4, figure=fig)
+gs.update(wspace=0.4, hspace=0.9)
+
+
+
 time = [dt.datetime.strptime(d,'%Y-%m-%d').date() for d in stringencies["Time"]] 
 #map
 ax = fig.add_subplot(gs[0:2, 0:2]) 
@@ -103,12 +110,12 @@ bfgu.plot(ax=ax, edgecolor=u'gray', color='whitesmoke', legend=True)
 for index in range(len(countries)):
     c = color[index]
     plotCountryPatch(ax, countries[index], c, alpha = alpha_countries_map )
-ax.legend()
+ax.legend(loc="lower right")
 ax.get_xaxis().set_visible(False)
 ax.get_yaxis().set_visible(False)
 ax.set_title("Spatial allocation of countries")
 ax.text(
-        -0.05,
+        x_position+0.14,
         1.04,
         chr(count_plot),
         horizontalalignment="center",
@@ -129,8 +136,8 @@ for index in range(len(countries)):
     ax=fig.add_subplot(gs[y_plot, 2+x_plot]) 
     if index == 0:
         ax.text(
-                -0.05,
-                y_position,
+                x_position,
+                y_position*0.86,
                 chr(count_plot),
                 horizontalalignment="center",
                 verticalalignment="center",
@@ -153,11 +160,13 @@ for index in range(len(countries)):
     #ax.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%Y'))
     #ax.xaxis.set_major_locator(mdates.DayLocator())
     ax.yaxis.grid(alpha=0.6)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
     
 #---------------------Vaccines------------------------------------
 ax=fig.add_subplot(gs[2, 0])
 ax.text(
-        -0.05,
+        x_position,
         y_position,
         chr(count_plot),
         horizontalalignment="center",
@@ -185,11 +194,13 @@ for index in range(len(vacs)):
     else:
         bottom = np.repeat(0, len(weeks))
     ax.fill_between(weeks, bottom, europe_vaccine[vacs[index]]/scale, alpha = alpha_vacc, color=colors[index])
-ax.set_ylabel("Vaccinated doses in millions")
+ax.set_ylabel("Vaccinated doses\nin millions")
 ax.set_title("Europe")
 ax.xaxis.set_tick_params(rotation=45)
 ax.yaxis.grid(alpha=0.6)
-ax.legend()
+#ax.legend()
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
 
 ax=fig.add_subplot(gs[2, 1])
 
@@ -205,13 +216,15 @@ ax.set_title("United Kingdom")
 ax.xaxis.set_tick_params(rotation=45)
 ax.yaxis.grid(alpha=0.6)
 ax.legend()
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
 
 #-----------------------time course-------------------------------------
 ax=fig.add_subplot(gs[2, 2:4])
 
 ax.set_xlim([0, 60])
 ax.text(
-        -0.05,
+        x_position+0.2,
         y_position,
         chr(count_plot),
         horizontalalignment="center",
@@ -231,7 +244,7 @@ color_tl = "seagreen"
 ax.fill_between(
         [0, length / 7], [1, 1], [0.8, 0.8], step="pre", alpha=0.95, color=color_tl
 )
-ax.text(length / 7 / 2, 0.9, "Alpha variant", ha="center", va="center")
+ax.text(length / 7 / 2, 0.9, "Alpha variant", ha="center", va="center", size = size-5)
 
 ax.fill_between(
         [interventionA["t"] / 7, length / 7],
@@ -247,10 +260,10 @@ ax.text(
         0.7,
         "Delta variant",
         ha="center",
-        va="center",
+        va="center", size = size - 5,
 )
 
-for i in range(3):
+for i in range(8):
     key1 = f"xx{i}"
     key2 = f"xx{i+1}"
     ax.fill_between(
@@ -267,35 +280,35 @@ for i in range(3):
             0.5,
             f"Spline {i+1}",
             ha="center",
-            va="center",
+            va="center", size = size-5
     )
 
 ax.fill_between(
-        [0, end_data / 7], [0.4, 0.4], [0.2, 0.2], step="pre", alpha=0.35, color=color_tl
+        [0, length / 7], [0.4, 0.4], [0.2, 0.2], step="pre", alpha=0.35, color=color_tl
 )
-ax.text(end_data / 7 / 2, 0.3, "Optimize vaccinations", ha="center", va="center")
+ax.text(length / 7 / 2, 0.3, "Optimize vaccinations", ha="center", va="center", size = size -5)
 
-ax.fill_between(
-        [end_data / 7, length / 7],
-        [0.4, 0.4],
-        [0.2, 0.2],
-        step="pre",
-        alpha=0.35,
-        color=color_tl,
-)
-ax.plot([end_data / 7, end_data / 7], [0.4, 0.2], color="lightgrey", linewidth=0.7, alpha=0.8)
-ax.text(
-        ((length - end_data) / 2 + end_data) / 7,
-        0.3,
-        "Pop. based \nallocation",
-        ha="center",
-        va="center",
-)
+#ax.fill_between(
+#        [end_data / 7, length / 7],
+#        [0.4, 0.4],
+#        [0.2, 0.2],
+#        step="pre",
+#        alpha=0.35,
+#        color=color_tl,
+#)
+#ax.plot([end_data / 7, end_data / 7], [0.4, 0.2], color="lightgrey", linewidth=0.7, alpha=0.8)
+#ax.text(
+#        ((length - end_data) / 2 + end_data) / 7,
+#        0.3,
+#        "Pop. based \nallocation",
+#        ha="center",
+#        va="center", size = size - 4,
+#)
 
 ax.fill_between(
         [0, length / 7], [0.2, 0.2], [0.0, 0.0], step="pre", alpha=0.15, color=color_tl
 )
-ax.text(length / 7 / 2, 0.1, "NPIs active", ha="center", va="center")
+ax.text(length / 7 / 2, 0.1, "NPIs active", ha="center", va="center", size = size - 4)
 ax.set_xticklabels("Weeks")
 ax.set_title("Time course") 
 
@@ -303,7 +316,7 @@ for index in np.linspace(0,1,6):
     ax.plot([0, length/7], [index, index], color="lightgrey", linewidth=0.7, alpha=0.8)
 ax.set_xticklabels(["2021-01", "2021-03", "2021-05", "2021-07", "2021-09", "2021-11", "2022-01"])
 ax.xaxis.set_tick_params(rotation=45)
-fig.tight_layout(pad=1.5)
+
 
 fig.savefig(
     "/home/manuel/Documents/VaccinationDistribution/paper/images/covid_plot_one",

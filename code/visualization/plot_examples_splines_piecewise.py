@@ -66,6 +66,20 @@ path_wf = (
 fig.savefig(path_wf, bbox_inches="tight")
 
 
+import numpy as np
+from scipy.interpolate import CubicHermiteSpline
+
+import matplotlib.pyplot as plt
+import matplotlib
+
+
+size = 19
+font = {"family": "normal", "weight": "normal", "size": size}
+matplotlib.rc("font", **font)
+matplotlib.rcParams['xtick.labelsize'] = size - 2 
+matplotlib.rcParams['ytick.labelsize'] = size - 2 
+
+
 fig, ax_g = plt.subplots(1, figsize = (8,3))
 ax1 = ax_g
 axes = [ax1, ax1, ax1]
@@ -74,7 +88,7 @@ for index in [2]:
     ax.plot(x_grid[0:3000], y_plot[index][0:3000], color=color[index])
     
     ax.scatter(x[0:11], y_odds[0:11] , color=color[index])
-    ax.set_ylabel("Fraction of allocated vaccine")
+    ax.set_ylabel("Share of vaccine")
     ax.set_xlabel("Time")
     ax.spines["top"].set_alpha(0)
     #ax.spines["bottom"].set_alpha(0)

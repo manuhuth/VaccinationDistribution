@@ -7,6 +7,8 @@ import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import seaborn as sns
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from matplotlib.cbook import get_sample_data
 
 from functions.plot_tools import get_spline
 from functions.plot_tools import plot_best_strategy
@@ -28,9 +30,52 @@ from functions.plot_tools import plot_pareto_front
 from functions.plot_tools import plot_bars_deaths
 
 
-y_position = 1.08
-y_size = 29
+def imscatter(x, y, image, ax=None, zoom=1):
+    if ax is None:
+        ax = plt.gca()
+    try:
+        image = plt.imread(image)
+    except TypeError:
+        # Likely already an array...
+        pass
+    im = OffsetImage(image, zoom=zoom)
+    x, y = np.atleast_1d(x, y)
+    artists = []
+    for x0, y0 in zip(x, y):
+        ab = AnnotationBbox(im, (x0, y0), xycoords='data', frameon=False)
+        artists.append(ax.add_artist(ab))
+    ax.update_datalim(np.column_stack([x, y]))
+    ax.autoscale()
+    return artists
+
+def autolabel(rects, rounding = 0):
+    """Attach a text label above each bar in *rects*, displaying its height."""
+    for rect in rects:
+        height = rect.get_height()
+        if rounding == 0:
+            number = '{}'.format(int(np.round(height)))
+        else:
+            number = '{}'.format(np.round(height,rounding))
+            if np.round(height,rounding) == int(np.round(height,rounding)):
+                number = '{}'.format(int(np.round(height,rounding)))
+        ax.annotate(number,
+                    xy=(rect.get_x() + rect.get_width() / 2, height),
+                    xytext=(0, 3),  # 3 points vertical offset
+                    textcoords="offset points",
+                    ha='center', va='bottom')
+
 count_plot = 65
+lwidth = 2.5
+y_position = 1.2
+y_size = 42
+x_position = -0.15
+font_size_annot = 21
+
+size = 32
+font = {"family": "normal", "weight": "normal", "size": size}
+matplotlib.rc("font", **font)
+matplotlib.rcParams['xtick.labelsize'] = size - 4
+matplotlib.rcParams['ytick.labelsize'] = size - 4
 
 dict_R_cases = {}
 case = 0
@@ -131,9 +176,13 @@ df_vac_optimal = (df_vac1_optimal + df_vac2_optimal)/2
 
 maximum = np.max(d_optimal.to_numpy().flatten())
 minimum = np.min(d_pareto.to_numpy().flatten())
-scale=1000
-fig = plt.figure(figsize = (39, 28))
-gs = GridSpec(3, 3, figure=fig)
+scale=1
+
+
+#----------------------------------------------------------------------------------
+fig = plt.figure(figsize = (39, 36))
+gs = GridSpec(3, 3, figure=fig, width_ratios=[1, 1.2, 1])
+gs.update(wspace=0.05, hspace=0.5)
 
 NPIs = np.linspace(0, 0.7, 8)
 wild = 0.24
@@ -143,16 +192,27 @@ R0_wild = (1-NPIs) * wild / 0.1
 R0_mutant = (1-NPIs)*mutant / 0.1
 ax =  fig.add_subplot(gs[0, 0]) 
 ax.yaxis.grid(alpha=0.6)
-ax.plot(NPIs, R0_wild, color = "C0", label = "wild-type")
-ax.plot(NPIs, R0_mutant, color = "C1", label = "mutant")
-ax.scatter(NPIs, R0_wild, color = "C0",  s= 140)
-ax.scatter(NPIs, R0_mutant, color = "C1",  s=140)
+ax.plot(NPIs, R0_wild, color = "seagreen", label = "Wild-type")
+ax.plot(NPIs, R0_mutant, color = "steelblue", label = "Variant")
+for index in range(len(NPIs)):
+    imscatter([NPIs[index]], [R0_mutant[index]],
+              "/home/manuel/Documents/VaccinationDistribution/paper/images/virus_blue.png",
+              ax=ax, zoom = R0_mutant[index]/1.8*0.08)
+for index in range(len(NPIs)):
+    imscatter([NPIs[index]], [R0_wild[index]],
+              "/home/manuel/Documents/VaccinationDistribution/paper/images/virus_green.png",
+              ax=ax, zoom = R0_wild[index]/1.8*0.08)
+
+#ax.scatter(NPIs, R0_wild, color = "C0",  s= 140)
+#ax.scatter(NPIs, R0_mutant, color = "C1",  s=140)
 ax.legend()
-ax.set_title("Effective reproduction rate of unvaccinated individuals")
-ax.set_xlabel("Degree of NPIs")
+ax.set_title("Effective reproduction rate\nof unvaccinated individuals")
+ax.set_xlabel("Stringency Index")
 ax.set_ylabel("Effective reproduction rate")
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
 ax.text(
-        -0.05,
+        x_position,
         y_position,
         chr(count_plot),
         horizontalalignment="center",
@@ -164,13 +224,14 @@ ax.text(
 count_plot += 1
 
 ax =  fig.add_subplot(gs[0, 1]) 
-sns.heatmap(np.round(df_R_pop .iloc[:,::-1] / scale ,0), cmap= "Greens", annot=True, fmt='g',
-            ax=ax)#, vmin=minimum/scale, vmax=maximum/scale, cbar = False)
-ax.set_xlabel("Degree of NPIs in country B")
-ax.set_ylabel("Degree of NPIs in country A")
-ax.set_title("Population-size based strategy - Deaths in 1,0000")
+sns.heatmap(np.round(df_vac_optimal.iloc[:,::-1]*100 ,0), cmap= "Greens", annot=True, fmt='g',
+            ax=ax, vmin=20, vmax=100, cbar=False, square=True, annot_kws={"fontsize":font_size_annot})
+for t in ax.texts: t.set_text(t.get_text() + "%")
+ax.set_xlabel("Stringency Index in Country 2")
+ax.set_ylabel("Stringency Index in Country 1")
+ax.set_title("Vaccine assigend to Country 1\n- Optimal strategy")
 ax.text(
-        -0.05,
+        x_position,
         y_position,
         chr(count_plot),
         horizontalalignment="center",
@@ -179,17 +240,30 @@ ax.text(
         weight="bold",
         size=y_size,
 )
+
+
+ax =  fig.add_subplot(gs[0, 2]) 
+sns.heatmap(np.round(df_vac_pareto.iloc[:,::-1]*100 ,0), cmap= "Greens", annot=True,
+            fmt='g', ax=ax, vmin=20, vmax=100, cbar=True, square=True, annot_kws={"fontsize":font_size_annot})
+for t in ax.texts: t.set_text(t.get_text() + "%")
+ax.set_xlabel("Stringency Index in Country 2")
+ax.set_ylabel("")
+ax.set_title("Vaccine assigend to Country 2\n- Pareto strategy")
+
+
+
 count_plot += 1
 
 
 ax =  fig.add_subplot(gs[1, 0]) 
-sns.heatmap(np.round(d_optimal.iloc[:,::-1] ,0), cmap= "Blues", annot=True, fmt='g',
-            ax=ax, vmin=minimum, vmax=maximum, cbar = False)
-ax.set_xlabel("Degree of NPIs in country B")
-ax.set_ylabel("Degree of NPIs in country A")
-ax.set_title("Optimal strategy - Saved lives in %")
+sns.heatmap(np.round(df_R_pop .iloc[:,::-1] / scale ,0), cmap= "Blues", annot=False, fmt='f',
+            ax=ax, square=True)#, vmin=minimum/scale, vmax=maximum/scale, cbar = False)
+
+ax.set_xlabel("Stringency Index in Country 2")
+ax.set_ylabel("Stringency Index in Country 1")
+ax.set_title("Deceasd individuals\n- Pop.-based strategy")
 ax.text(
-        -0.05,
+        x_position-0.07,
         y_position,
         chr(count_plot),
         horizontalalignment="center",
@@ -202,12 +276,14 @@ count_plot += 1
 
 
 ax =  fig.add_subplot(gs[1, 1]) 
-sns.heatmap(np.round(d_pareto.iloc[:,::-1],0), cmap= "Blues", annot=True, fmt='g', ax=ax, vmin=minimum, vmax=maximum, cbar=True)
-ax.set_xlabel("Degree of NPIs in country B")
-ax.set_ylabel("Degree of NPIs in country A")
-ax.set_title("Pareto optimal  strategy - Saved lives in %")
+sns.heatmap(np.round(d_optimal.iloc[:,::-1] ,0), cmap= "Blues", annot=True, fmt='g',
+            ax=ax, vmin=minimum, vmax=maximum, cbar = False, square=True, annot_kws={"fontsize":font_size_annot})
+for t in ax.texts: t.set_text(t.get_text() + "%")
+ax.set_xlabel("Stringency Index in Country 2")
+ax.set_ylabel("Stringency Index in Country 1")
+ax.set_title("Reduction in deceased individuals\n- Optimal strategy")
 ax.text(
-        -0.05,
+        x_position,
         y_position,
         chr(count_plot),
         horizontalalignment="center",
@@ -219,44 +295,14 @@ ax.text(
 count_plot += 1
 
 
-#ax =  fig.add_subplot(gs[1, 0]) 
-#sns.heatmap(np.round(df_vac_optimal.iloc[:,::-1]*100 ,0), cmap= "Greens", annot=True, fmt='g',
-#            ax=ax, vmin=20, vmax=100, cbar=False)
-#ax.set_xlabel("Degree of NPIs in country B")
-#ax.set_ylabel("Degree of NPIs in country A")
-#ax.set_title("Optimal strategy - % of vaccine assigend to country A")
-#ax.text(
-#        -0.05,
-#        y_position,
-#        chr(count_plot),
-#        horizontalalignment="center",
-#        verticalalignment="center",
-#        transform=ax.transAxes,
-#        weight="bold",
-#        size=y_size,
-#)
-#count_plot += 1
+ax =  fig.add_subplot(gs[1, 2]) 
+sns.heatmap(np.round(d_pareto.iloc[:,::-1],0), cmap= "Blues", annot=True,
+            fmt='g', ax=ax, vmin=minimum, vmax=maximum, cbar=True, square=True, annot_kws={"fontsize":font_size_annot})
+for t in ax.texts: t.set_text(t.get_text() + "%")
+ax.set_xlabel("Stringency Index in Country 2")
+ax.set_ylabel("")
+ax.set_title("Reduction in deceased individuals\n- Pareto strategy")
 
-
-#ax =  fig.add_subplot(gs[1, 1]) 
-#sns.heatmap(np.round(df_vac_pareto.iloc[:,::-1]*100 ,0), cmap= "Greens", annot=True, fmt='g', ax=ax, vmin=20, vmax=100, cbar=True)
-#ax.set_xlabel("Degree of NPIs in country B")
-#ax.set_ylabel("Degree of NPIs in country A")
-#ax.set_title("Pareto strategy - % of vaccine assigend to country A")
-#ax.text(
-#        -0.05,
-#        y_position,
-#        chr(count_plot),
-#        horizontalalignment="center",
-#        verticalalignment="center",
-#        transform=ax.transAxes,
-#        weight="bold",
-#        size=y_size,
-#)
-#count_plot += 1
-
-
-fig.tight_layout(pad=3)
 
 fig.savefig(
     "/home/manuel/Documents/VaccinationDistribution/paper/images/plot_four",
